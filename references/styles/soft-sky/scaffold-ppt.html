@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TECHNICAL EDITORIAL — Light Blue / Soft Sky PPT Scaffold (16:9)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   Technical Editorial — Light Blue / Soft Sky PPT Scaffold (16:9)
+   与 Industrial Dark PPT scaffold 共享五类页型结构，视觉语言切换为浅蓝柔和。
+   画布 1280×720，安全边距 6%。
+   ============================================================ */
+:root{
+  --bg:#EAF6FC;
+  --bg-deep:#D8EEF8;
+  --surface-1:rgba(255,255,255,.88);
+  --surface-2:rgba(255,255,255,.55);
+
+  --text-primary:#2A3F54;
+  --text-secondary:#5D7A8C;
+  --text-muted:#90A8B8;
+
+  --border:rgba(93,179,232,.28);
+  --border-strong:rgba(93,179,232,.48);
+
+  --signal-blue:#4A9FD4;
+  --signal-blue-soft:#7FC2EA;
+  --signal-coral:#E8927C;
+  --accent-pink:#F4AFCF;
+  --accent-mint:#9EE6C8;
+
+  --grid-minor:rgba(93,179,232,.08);
+  --grid-major:rgba(93,179,232,.14);
+
+  --radius:14px;
+  --radius-sm:8px;
+
+  --font-display:"Nunito","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+  --font-mono:"IBM Plex Mono","JetBrains Mono","SFMono-Regular",monospace;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  background:#F0F6FA;
+  font-family:var(--font-display);
+  display:flex;flex-direction:column;align-items:center;
+  gap:32px;padding:40px 0;
+}
+
+/* ---- 单页 16:9 ---- */
+.slide{
+  position:relative;
+  width:min(92vw,1160px);aspect-ratio:16/9;
+  background:linear-gradient(160deg,var(--bg) 0%,#F5FBFE 55%,var(--bg-deep) 100%);
+  background-attachment:local;
+  background-image:
+    radial-gradient(circle at 14% 20%,rgba(127,194,234,.16) 0%,transparent 32%),
+    radial-gradient(circle at 86% 78%,rgba(244,175,207,.12) 0%,transparent 28%),
+    linear-gradient(var(--grid-minor) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid-minor) 1px,transparent 1px),
+    linear-gradient(var(--grid-major) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid-major) 1px,transparent 1px);
+  background-size:auto auto,auto auto,24px 24px,24px 24px,96px 96px,96px 96px;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:0 12px 40px rgba(42,63,84,.06);
+  overflow:hidden;
+  padding:6%;
+  display:flex;flex-direction:column;
+}
+
+.slide .meta-foot{
+  position:absolute;left:6%;bottom:4.5%;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--text-muted);
+}
+.slide .slide-no{
+  position:absolute;right:6%;bottom:4.5%;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;
+  color:var(--text-muted);
+}
+
+/* ---- Eyebrow ---- */
+.eyebrow{
+  display:flex;align-items:center;gap:12px;
+  font-family:var(--font-mono);font-size:12px;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--signal-blue);
+  margin-bottom:22px;
+}
+.eyebrow .diamond{width:7px;height:7px;background:var(--signal-blue);border-radius:2px;transform:rotate(45deg);flex:none;}
+.eyebrow .line{flex:1;height:1px;background:var(--border);}
+
+/* ---- Typography ---- */
+h1.s{font-size:clamp(34px,5vw,58px);font-weight:800;line-height:1.02;letter-spacing:-.02em;color:var(--text-primary);max-width:18ch;}
+h2.s{font-size:clamp(28px,3.6vw,42px);font-weight:800;line-height:1.08;color:var(--text-primary);}
+.lead-s{font-size:clamp(17px,2vw,22px);font-weight:500;line-height:1.55;color:var(--text-secondary);margin-top:18px;max-width:40ch;}
+.body-s{font-size:15px;line-height:1.55;color:var(--text-secondary);}
+.mono{font-family:var(--font-mono);}
+
+/* ============================================================
+   SLIDE A — Statement
+   ============================================================ */
+.sl-statement .hero{margin-top:auto;}
+.sl-statement .lead-s{margin-bottom:auto;}
+
+/* ============================================================
+   SLIDE B — 3-Column
+   ============================================================ */
+.col-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:auto;margin-bottom:auto;}
+.col-3 .c{
+  background:var(--surface-1);
+  border:1px solid var(--border);border-radius:var(--radius);
+  padding:18px;
+  box-shadow:0 4px 18px rgba(74,159,212,.06);
+}
+.col-3 .c .n{font-family:var(--font-mono);font-size:32px;font-weight:700;color:var(--signal-blue);}
+.col-3 .c .tag{
+  display:inline-flex;align-items:center;height:24px;padding:0 10px;
+  border:1px solid var(--border);border-radius:20px;
+  font-family:var(--font-mono);font-size:10px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin:10px 0 8px;
+}
+.col-3 .c h3{font-size:21px;font-weight:800;color:var(--text-primary);margin:8px 0 8px;}
+.col-3 .c p{font-size:14px;line-height:1.5;color:var(--text-secondary);}
+/* 选中态 */
+.col-3 .c.selected{border-color:var(--signal-coral);background:rgba(232,146,124,.06);}
+.col-3 .c.selected .n{color:var(--signal-coral);}
+.col-3 .c.selected .tag{border-color:var(--signal-coral);color:var(--signal-coral);}
+
+/* ============================================================
+   SLIDE C — Product + Annotation
+   ============================================================ */
+.sl-product{display:grid;grid-template-columns:1.3fr 1fr;gap:5%;align-items:center;}
+.product-frame{
+  aspect-ratio:4/3;
+  background:linear-gradient(135deg,var(--bg-deep),var(--bg));
+  border:1px solid var(--border);border-radius:var(--radius);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-mono);font-size:12px;color:var(--text-muted);
+  box-shadow:0 8px 28px rgba(74,159,212,.08);
+}
+.anno{border-left:1px solid var(--border);padding-left:20px;display:flex;flex-direction:column;gap:18px;}
+.anno .a{border-top:1px solid var(--border);padding-top:12px;}
+.anno .a .k{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;color:var(--signal-blue);text-transform:uppercase;}
+.anno .a p{font-size:15px;line-height:1.5;color:var(--text-secondary);margin-top:6px;}
+
+/* ============================================================
+   SLIDE D — Comparison
+   ============================================================ */
+.cmp{margin-top:auto;margin-bottom:auto;background:var(--surface-1);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+.cmp .row{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;border-bottom:1px solid var(--border);}
+.cmp .row:last-child{border-bottom:none;}
+.cmp .row .cell{padding:14px 16px;border-right:1px solid var(--border);font-size:15px;color:var(--text-secondary);display:flex;align-items:center;}
+.cmp .row .cell:last-child{border-right:none;}
+.cmp .row.head .cell{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-primary);background:rgba(255,255,255,.5);}
+.cmp .row.head .cell.coral{color:var(--signal-coral);box-shadow:inset 2px 0 0 var(--signal-coral);}
+.cmp .row .cell.coral{box-shadow:inset 2px 0 0 var(--signal-coral);}
+.cmp .row .cell:first-child{color:var(--text-primary);font-weight:700;}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--signal-blue);display:inline-block;}
+.dash{color:var(--text-muted);font-family:var(--font-mono);}
+
+/* ============================================================
+   SLIDE E — Process
+   ============================================================ */
+.proc{display:flex;align-items:stretch;gap:0;margin-top:auto;margin-bottom:auto;}
+.proc .step{flex:1;background:var(--surface-1);border:1px solid var(--border);padding:20px;position:relative;}
+.proc .step:not(:last-child){border-right:none;}
+.proc .step:first-child{border-radius:var(--radius) 0 0 var(--radius);}
+.proc .step:last-child{border-radius:0 var(--radius) var(--radius) 0;}
+.proc .step .idx{font-family:var(--font-mono);font-size:38px;font-weight:700;color:var(--text-primary);}
+.proc .step .idx em{font-style:normal;color:var(--signal-blue);}
+.proc .step h3{font-size:18px;font-weight:800;color:var(--text-primary);margin:12px 0 8px;}
+.proc .step p{font-size:14px;line-height:1.5;color:var(--text-secondary);}
+</style>
+</head>
+<body>
+
+<!-- ============ A · STATEMENT ============ -->
+<section class="slide sl-statement">
+  <div class="eyebrow"><span class="diamond"></span><span>01 / CONTEXT</span><span class="line"></span></div>
+  <h1 class="s hero">好的包装不是容器，<br>是记忆的保存方式。</h1>
+  <p class="lead-s">把季节、照片与手写文字收进一个温柔角落，打开时就像重逢一段旧日。</p>
+  <div class="meta-foot">SEASON GREETING // 2025</div>
+  <div class="slide-no">01 / 05</div>
+</section>
+
+<!-- ============ B · 3-COLUMN ============ -->
+<section class="slide">
+  <div class="eyebrow"><span class="diamond"></span><span>02 / ARCHITECTURE</span><span class="line"></span></div>
+  <h2 class="s">三种方式，留住这一天。</h2>
+  <div class="col-3">
+    <div class="c"><div class="n">01</div><div class="tag">RECORD</div><h3>写下今天</h3><p>日记页给今天留一段字，一句话也算。</p></div>
+    <div class="c selected"><div class="n">02</div><div class="tag">PLAY</div><h3>自由拼贴</h3><p>贴纸与照片组合出只属于你的那一页。</p></div>
+    <div class="c"><div class="n">03</div><div class="tag">KEEP</div><h3>铁盒收藏</h3><p>所有碎片归位，放在桌上也是装饰。</p></div>
+  </div>
+  <div class="meta-foot">PACKAGE 02 / SOFT SKY</div>
+  <div class="slide-no">02 / 05</div>
+</section>
+
+<!-- ============ C · PRODUCT + ANNOTATION ============ -->
+<section class="slide sl-product">
+  <div>
+    <div class="eyebrow"><span class="diamond"></span><span>03 / ITEMS</span><span class="line"></span></div>
+    <h2 class="s">一盒四季。</h2>
+    <div class="product-frame">PRODUCT RENDER · 4:3</div>
+  </div>
+  <div class="anno">
+    <div class="a"><div class="k">// TIN CASE</div><p>哑光浅蓝铁盒，边缘圆润，开合有轻微吸附感。</p></div>
+    <div class="a"><div class="k">// CALENDAR</div><p>十二个月连成卷轴，撕下一页不破坏整体。</p></div>
+    <div class="a"><div class="k">// STICKERS</div><p>可移胶贴纸，反复调整不伤纸面。</p></div>
+  </div>
+  <div class="meta-foot">HEARTS // PRODUCT NOTE</div>
+  <div class="slide-no">03 / 05</div>
+</section>
+
+<!-- ============ D · COMPARISON ============ -->
+<section class="slide">
+  <div class="eyebrow"><span class="diamond"></span><span>04 / COMPARE</span><span class="line"></span></div>
+  <h2 class="s">三套规格，内容不同。</h2>
+  <div class="cmp">
+    <div class="row head"><div class="cell">内含</div><div class="cell">A · 基础</div><div class="cell">B · 标准</div><div class="cell coral">C · 完整</div></div>
+    <div class="row"><div class="cell">铁盒</div><div class="cell"><span class="dot"></span></div><div class="cell"><span class="dot"></span></div><div class="cell coral"><span class="dot"></span></div></div>
+    <div class="row"><div class="cell">卷轴日历</div><div class="cell"><span class="dash">—</span></div><div class="cell"><span class="dot"></span></div><div class="cell coral"><span class="dot"></span></div></div>
+    <div class="row"><div class="cell">拍立得框</div><div class="cell"><span class="dash">—</span></div><div class="cell"><span class="dash">—</span></div><div class="cell coral"><span class="dot"></span></div></div>
+  </div>
+  <div class="meta-foot">SEASON GREETING // 2025</div>
+  <div class="slide-no">04 / 05</div>
+</section>
+
+<!-- ============ E · PROCESS ============ -->
+<section class="slide">
+  <div class="eyebrow"><span class="diamond"></span><span>05 / START</span><span class="line"></span></div>
+  <h2 class="s">三步，开始收藏。</h2>
+  <div class="proc">
+    <div class="step"><div class="idx">01<em>.</em></div><h3>打开铁盒</h3><p>取出日历、日记与贴纸包。</p></div>
+    <div class="step"><div class="idx">02<em>.</em></div><h3>选择今天</h3><p>找到日期或直接写日记页。</p></div>
+    <div class="step"><div class="idx">03<em>.</em></div><h3>自由拼贴</h3><p>贴纸与照片没有固定版式。</p></div>
+  </div>
+  <div class="meta-foot">PACKAGE 02 / SOFT SKY</div>
+  <div class="slide-no">05 / 05</div>
+</section>
+
+</body>
+</html>

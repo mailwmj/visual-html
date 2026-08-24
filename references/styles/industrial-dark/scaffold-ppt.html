@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TECHNICAL EDITORIAL DARK — PPT Scaffold (16:9)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;850&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   Technical Editorial Dark — PPT Scaffold (16:9)
+   画布 1280×720 @96dpi，安全边距 5–7%。复制任意 .slide 块即可。
+   与 HTML scaffold 共享同一套 Design DNA（token / 网格 / 信号色）。
+   ============================================================ */
+:root{
+  --bg:#090C0B; --bg-deep:#060808;
+  --surface-1:#0D1110; --surface-2:#111615;
+  --text-primary:#F2F3EF; --text-secondary:#A8ADA8; --text-muted:#6F7672;
+  --border:#2A302E; --border-strong:#404743;
+  --signal-green:#67E38B; --signal-green-soft:#A0F0B7; --signal-violet:#8C7CFF; --warning:#E7E65D;
+  --grid-minor:rgba(130,150,140,.045); --grid-major:rgba(130,150,140,.07);
+  --radius:2px;
+  --font-display:"Inter","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+  --font-mono:"IBM Plex Mono","JetBrains Mono","SFMono-Regular","Roboto Mono",monospace;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  background:#000; /* 画布外的舞台用纯黑，凸显幻灯片 */
+  font-family:var(--font-display);
+  display:flex;flex-direction:column;align-items:center;
+  gap:32px;padding:40px 0;
+}
+
+/* ---- 单页 16:9 ---- */
+.slide{
+  position:relative;
+  width:min(92vw,1160px);aspect-ratio:16/9;
+  background-color:var(--bg);
+  background-image:
+    linear-gradient(var(--grid-minor) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid-minor) 1px,transparent 1px),
+    linear-gradient(var(--grid-major) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid-major) 1px,transparent 1px);
+  background-size:24px 24px,24px 24px,96px 96px,96px 96px;
+  border:1px solid var(--border);
+  overflow:hidden;
+  padding:6%; /* 安全边距 */
+  display:flex;flex-direction:column;
+}
+
+/* 页脚元数据：建立档案感，每页只保留 1–2 处 */
+.slide .meta-foot{
+  position:absolute;left:6%;bottom:4.5%;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--text-muted);
+}
+.slide .slide-no{
+  position:absolute;right:6%;bottom:4.5%;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;
+  color:var(--text-muted);
+}
+
+/* ---- Eyebrow ---- */
+.eyebrow{
+  display:flex;align-items:center;gap:14px;
+  font-family:var(--font-mono);font-size:13px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--signal-green);
+  margin-bottom:24px;
+}
+.eyebrow .diamond{width:8px;height:8px;background:var(--signal-green);transform:rotate(45deg);flex:none;}
+.eyebrow .line{flex:1;height:1px;background:var(--border);}
+
+/* ---- Typography (px ≈ pt @1280×720) ---- */
+h1.s{font-size:clamp(34px,5vw,56px);font-weight:800;line-height:1.0;letter-spacing:-.02em;color:var(--text-primary);max-width:18ch;}
+h2.s{font-size:clamp(28px,3.6vw,40px);font-weight:800;line-height:1.05;color:var(--text-primary);}
+.lead-s{font-size:clamp(18px,2vw,24px);font-weight:400;line-height:1.55;color:var(--text-secondary);margin-top:20px;max-width:40ch;}
+.body-s{font-size:16px;line-height:1.5;color:var(--text-secondary);}
+.mono{font-family:var(--font-mono);}
+
+/* ============================================================
+   SLIDE A — Statement（一个强观点）
+   ============================================================ */
+.sl-statement .hero{margin-top:auto;}
+.sl-statement .lead-s{margin-bottom:auto;}
+
+/* ============================================================
+   SLIDE B — 3-Column
+   ============================================================ */
+.col-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:auto;margin-bottom:auto;}
+.col-3 .c{border:1px solid var(--border);padding:16px;border-radius:var(--radius);}
+.col-3 .c .n{font-family:var(--font-mono);font-size:34px;font-weight:700;color:var(--signal-green);}
+.col-3 .c .tag{
+  display:inline-flex;align-items:center;height:26px;padding:0 10px;
+  border:1px solid var(--border);font-family:var(--font-mono);font-size:10px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin:12px 0 8px;
+}
+.col-3 .c h3{font-size:22px;font-weight:700;color:var(--text-primary);margin:8px 0 8px;}
+.col-3 .c p{font-size:15px;line-height:1.5;color:var(--text-secondary);}
+/* 选中态：紫色全框 + 紫编号 + 紫标签 */
+.col-3 .c.selected{border-color:var(--signal-violet);background:rgba(140,124,255,.04);}
+.col-3 .c.selected .n{color:var(--signal-violet);}
+.col-3 .c.selected .tag{border-color:var(--signal-violet);color:var(--signal-violet);}
+
+/* ============================================================
+   SLIDE C — Product + Annotation
+   ============================================================ */
+.sl-product{display:grid;grid-template-columns:1.3fr 1fr;gap:5%;align-items:center;}
+.product-frame{aspect-ratio:4/3;background:var(--bg-deep);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:12px;color:var(--text-muted);}
+.anno{border-left:1px solid var(--border);padding-left:20px;display:flex;flex-direction:column;gap:18px;}
+.anno .a{border-top:1px solid var(--border);padding-top:12px;}
+.anno .a .k{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;color:var(--signal-green);text-transform:uppercase;}
+.anno .a p{font-size:15px;line-height:1.5;color:var(--text-secondary);margin-top:6px;}
+
+/* ============================================================
+   SLIDE D — Comparison（硬边框模块，非 Excel 表）
+   ============================================================ */
+.cmp{margin-top:auto;margin-bottom:auto;border:1px solid var(--border);}
+.cmp .row{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;border-bottom:1px solid var(--border);}
+.cmp .row:last-child{border-bottom:none;}
+.cmp .row .cell{padding:14px 16px;border-right:1px solid var(--border);font-size:15px;color:var(--text-secondary);display:flex;align-items:center;}
+.cmp .row .cell:last-child{border-right:none;}
+.cmp .row.head .cell{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-primary);background:var(--surface-1);}
+/* 第二状态通道：紫色标记"推荐/选中"列（用量 ≤ 绿色的 40%） */
+.cmp .row.head .cell.violet{color:var(--signal-violet);box-shadow:inset 2px 0 0 var(--signal-violet);}
+.cmp .row .cell.violet{box-shadow:inset 2px 0 0 var(--signal-violet);}
+.cmp .row .cell:first-child{color:var(--text-primary);font-weight:600;}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--signal-green);display:inline-block;}
+.dash{color:var(--text-muted);font-family:var(--font-mono);}
+
+/* ============================================================
+   SLIDE E — Process（01 → 02 → 03，编号比箭头重要）
+   ============================================================ */
+.proc{display:flex;align-items:stretch;gap:0;margin-top:auto;margin-bottom:auto;}
+.proc .step{flex:1;border:1px solid var(--border);padding:20px;position:relative;}
+.proc .step:not(:last-child){border-right:none;}
+.proc .step .idx{font-family:var(--font-mono);font-size:40px;font-weight:700;color:var(--text-primary);}
+.proc .step .idx em{font-style:normal;color:var(--signal-green);}
+.proc .step h3{font-size:19px;font-weight:700;color:var(--text-primary);margin:14px 0 8px;}
+.proc .step p{font-size:14px;line-height:1.5;color:var(--text-secondary);}
+</style>
+</head>
+<body>
+
+<!-- ============ A · STATEMENT ============ -->
+<section class="slide sl-statement">
+  <div class="eyebrow"><span class="diamond"></span><span>01 / CONTEXT</span><span class="line"></span></div>
+  <h1 class="s hero">AI 产品不缺能力，<br>缺的是任务结构。</h1>
+  <p class="lead-s">把能力塞进对话框只是起点。真正决定体验的，是任务如何被拆开、排序、交付。</p>
+  <div class="meta-foot">PRODUCT SYSTEM // 2026</div>
+  <div class="slide-no">01 / 05</div>
+</section>
+
+<!-- ============ B · 3-COLUMN ============ -->
+<section class="slide">
+  <div class="eyebrow"><span class="diamond"></span><span>02 / ARCHITECTURE</span><span class="line"></span></div>
+  <h2 class="s">三种 Agent，一种底座。</h2>
+  <div class="col-3">
+    <div class="c"><div class="n">01</div><div class="tag">IDENTITY</div><h3>Universal Agent</h3><p>通用任务编排，跨领域调度工具与子代理。</p></div>
+    <div class="c selected"><div class="n">02</div><div class="tag">PLAY</div><h3>Vertical Agent</h3><p>垂直场景专精，沉淀行业知识与流程。</p></div>
+    <div class="c"><div class="n">03</div><div class="tag">CREATE</div><h3>FDE</h3><p>前端执行层，负责把结果落地为可操作产物。</p></div>
+  </div>
+  <div class="meta-foot">BUILD 02 / PROTOTYPE</div>
+  <div class="slide-no">02 / 05</div>
+</section>
+
+<!-- ============ C · PRODUCT + ANNOTATION ============ -->
+<section class="slide sl-product">
+  <div>
+    <div class="eyebrow"><span class="diamond"></span><span>03 / HARDWARE</span><span class="line"></span></div>
+    <h2 class="s">模块化计算核心。</h2>
+    <div class="product-frame">PRODUCT RENDER · 4:3</div>
+  </div>
+  <div class="anno">
+    <div class="a"><div class="k">// INTERFACE</div><p>USB-C 直连，免驱识别，即插即用。</p></div>
+    <div class="a"><div class="k">// POWER</div><p>500mAh 本地电池，断连不丢状态。</p></div>
+    <div class="a"><div class="k">// MODE</div><p>顶部灯带表达当前模式，不打断心流。</p></div>
+  </div>
+  <div class="meta-foot">FRAMEFLOW // TECHNICAL NOTE</div>
+  <div class="slide-no">03 / 05</div>
+</section>
+
+<!-- ============ D · COMPARISON ============ -->
+<section class="slide">
+  <div class="eyebrow"><span class="diamond"></span><span>04 / COMPARE</span><span class="line"></span></div>
+  <h2 class="s">三套方案，能力分布不同。</h2>
+  <div class="cmp">
+    <div class="row head"><div class="cell">能力</div><div class="cell">A · 渐进</div><div class="cell">B · 重塑</div><div class="cell violet">C · 理想</div></div>
+    <div class="row"><div class="cell">跨域调度</div><div class="cell"><span class="dot"></span></div><div class="cell"><span class="dot"></span></div><div class="cell violet"><span class="dot"></span></div></div>
+    <div class="row"><div class="cell">行业知识</div><div class="cell"><span class="dash">—</span></div><div class="cell"><span class="dot"></span></div><div class="cell violet"><span class="dot"></span></div></div>
+    <div class="row"><div class="cell">前端执行</div><div class="cell"><span class="dash">—</span></div><div class="cell"><span class="dash">—</span></div><div class="cell violet"><span class="dot"></span></div></div>
+  </div>
+  <div class="meta-foot">PRODUCT SYSTEM // 2026</div>
+  <div class="slide-no">04 / 05</div>
+</section>
+
+<!-- ============ E · PROCESS ============ -->
+<section class="slide">
+  <div class="eyebrow"><span class="diamond"></span><span>05 / SETUP</span><span class="line"></span></div>
+  <h2 class="s">三步开始使用。</h2>
+  <div class="proc">
+    <div class="step"><div class="idx">01<em>.</em></div><h3>连接设备</h3><p>USB-C 连电脑，系统自动识别型号。</p></div>
+    <div class="step"><div class="idx">02<em>.</em></div><h3>选择玩法</h3><p>在玩法库选择目标模式并预览。</p></div>
+    <div class="step"><div class="idx">03<em>.</em></div><h3>开始安装</h3><p>授权写入，约 12 秒完成。</p></div>
+  </div>
+  <div class="meta-foot">BUILD 02 / PROTOTYPE</div>
+  <div class="slide-no">05 / 05</div>
+</section>
+
+</body>
+</html>

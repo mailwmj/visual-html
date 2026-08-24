@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TECHNICAL EDITORIAL — Light Blue / Soft Sky Scaffold</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   Technical Editorial — Light Blue / Soft Sky Scaffold
+   与 Industrial Dark 共享组件结构，仅视觉语言切换为浅蓝柔和气质。
+   适用：包装展示、少女向产品、生活方式硬件、甜美但不幼稚的技术页。
+   ============================================================ */
+:root{
+  --bg:#EAF6FC;
+  --bg-deep:#D8EEF8;
+  --surface-1:rgba(255,255,255,.86);
+  --surface-2:rgba(255,255,255,.55);
+
+  --text-primary:#2A3F54;
+  --text-secondary:#5D7A8C;
+  --text-muted:#90A8B8;
+
+  --border:rgba(93,179,232,.28);
+  --border-strong:rgba(93,179,232,.48);
+
+  --signal-blue:#4A9FD4;
+  --signal-blue-soft:#7FC2EA;
+  --signal-coral:#E8927C;
+  --accent-pink:#F4AFCF;
+  --accent-mint:#9EE6C8;
+
+  --grid-minor:rgba(93,179,232,.08);
+  --grid-major:rgba(93,179,232,.14);
+
+  --radius:14px;
+  --radius-sm:8px;
+
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px;
+  --space-5:24px; --space-6:32px; --space-7:48px; --space-8:64px;
+  --space-9:96px; --space-10:128px;
+
+  --container:1180px;
+
+  --font-display:"Nunito","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+  --font-mono:"IBM Plex Mono","JetBrains Mono","SFMono-Regular",monospace;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+
+body{
+  background:linear-gradient(180deg,var(--bg) 0%,#F5FBFE 60%,var(--bg-deep) 100%);
+  background-attachment:fixed;
+  color:var(--text-secondary);
+  font-family:var(--font-display);
+  font-size:17px;
+  line-height:1.75;
+}
+
+.wrap{max-width:var(--container);margin:0 auto;padding:0 56px;}
+
+/* ---- Eyebrow ---- */
+.eyebrow{
+  display:flex;align-items:center;gap:14px;
+  font-family:var(--font-mono);
+  font-size:12px;font-weight:600;letter-spacing:.12em;
+  color:var(--signal-blue);text-transform:uppercase;
+  margin-bottom:26px;
+}
+.eyebrow .diamond{
+  width:7px;height:7px;background:var(--signal-blue);
+  border-radius:2px;transform:rotate(45deg);flex:none;
+}
+.eyebrow .line{flex:1;height:1px;background:var(--border);}
+
+/* ---- Typography ---- */
+h1.hero{
+  font-size:clamp(38px,6vw,78px);
+  font-weight:800;line-height:1.02;letter-spacing:-.02em;
+  color:var(--text-primary);max-width:16ch;
+}
+h2.section-title{
+  font-size:clamp(32px,4.2vw,52px);
+  font-weight:800;line-height:1.08;letter-spacing:-.01em;
+  color:var(--text-primary);
+}
+.lead{
+  font-size:clamp(18px,2vw,24px);
+  font-weight:500;line-height:1.65;color:var(--text-secondary);
+  max-width:50ch;margin-top:28px;
+}
+.body{font-size:17px;line-height:1.75;color:var(--text-secondary);}
+.mono{font-family:var(--font-mono);}
+
+/* ---- Section spacing ---- */
+section{padding:110px 0;position:relative;}
+.section-head{margin-bottom:56px;}
+
+/* ---- Soft decorative blobs（极少量，只建立氛围） ---- */
+section::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(circle at 12% 18%,rgba(127,194,234,.18) 0%,transparent 34%),
+    radial-gradient(circle at 88% 80%,rgba(244,175,207,.14) 0%,transparent 30%),
+    radial-gradient(circle at 70% 12%,rgba(158,230,200,.12) 0%,transparent 26%);
+  opacity:.6;
+}
+
+/* ---- Spec Row ---- */
+.spec-row{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--signal-blue);
+  margin-top:58px;
+}
+.spec{padding:26px 26px 26px 0;border-right:1px solid var(--border);}
+.spec:last-child{border-right:none;}
+.spec .val{font-size:clamp(26px,3.2vw,38px);font-weight:800;color:var(--text-primary);line-height:1;}
+.spec .val em{font-style:normal;font-family:var(--font-mono);font-size:13px;color:var(--text-muted);margin-left:6px;}
+.spec .unit{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:var(--text-muted);text-transform:uppercase;margin-top:12px;}
+
+/* ---- Number Cards ---- */
+.cards-3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.num-card{
+  position:relative;
+  background:var(--surface-1);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:34px 30px;
+  min-height:360px;
+  box-shadow:0 4px 20px rgba(74,159,212,.06);
+  transition:border-color .18s ease-out,transform .18s ease-out,box-shadow .18s ease-out;
+}
+.num-card:hover{border-color:var(--border-strong);transform:translateY(-3px);box-shadow:0 10px 30px rgba(74,159,212,.10);}
+.num-card .num{font-family:var(--font-mono);font-size:52px;font-weight:700;color:var(--signal-blue);line-height:1;}
+.num-card h3{font-size:23px;font-weight:800;color:var(--text-primary);margin:18px 0 12px;letter-spacing:-.01em;}
+.num-card p{font-size:16px;line-height:1.7;color:var(--text-secondary);}
+.num-card .tag{
+  display:inline-flex;align-items:center;height:28px;padding:0 12px;
+  border:1px solid var(--border);border-radius:20px;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--text-muted);margin-top:16px;
+}
+/* 选中态：柔和紫全框 + 紫编号 + 紫标签 */
+.num-card.selected{border-color:var(--signal-coral);background:rgba(232,146,124,.05);}
+.num-card.selected .num{color:var(--signal-coral);}
+.num-card.selected .tag{border-color:var(--signal-coral);color:var(--signal-coral);}
+
+/* ---- Feature Card w/ soft ghost layer ---- */
+.feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
+.feat-card{
+  position:relative;
+  background:var(--surface-1);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:30px;
+  box-shadow:0 4px 20px rgba(74,159,212,.06);
+  overflow:hidden;
+}
+.feat-card::after{
+  content:"";position:absolute;inset:10px -10px -10px 10px;
+  background:rgba(74,159,212,.05);
+  border:1px solid rgba(74,159,212,.16);
+  border-radius:var(--radius);
+  z-index:-1;
+}
+.feat-card .tag{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);}
+.feat-card h3{font-size:25px;font-weight:800;color:var(--text-primary);margin:14px 0 10px;}
+.feat-card p{font-size:16px;line-height:1.7;color:var(--text-secondary);}
+.feat-card .frame{
+  margin-top:22px;aspect-ratio:16/9;
+  background:linear-gradient(135deg,var(--bg-deep),var(--bg));
+  border:1px solid var(--border);border-radius:var(--radius-sm);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-mono);font-size:12px;color:var(--text-muted);
+}
+
+/* ---- Status Label ---- */
+.status{
+  display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 14px;
+  border:1px solid var(--signal-blue);border-radius:20px;
+  font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--signal-blue);
+  background:rgba(74,159,212,.06);
+}
+.status.coral{border-color:var(--signal-coral);color:var(--signal-coral);background:rgba(232,146,124,.06);}
+
+/* ---- Process Steps ---- */
+.steps{display:flex;flex-direction:column;gap:16px;}
+.step{
+  display:grid;grid-template-columns:110px 1fr;gap:28px;align-items:start;
+  background:var(--surface-1);
+  border:1px solid var(--border);border-radius:var(--radius);
+  padding:30px;
+  box-shadow:0 4px 18px rgba(74,159,212,.05);
+}
+.step .idx{font-family:var(--font-mono);font-size:44px;font-weight:700;color:var(--text-primary);line-height:1;}
+.step h3{font-size:21px;font-weight:800;color:var(--text-primary);margin-bottom:8px;}
+.step p{font-size:16px;line-height:1.7;color:var(--text-secondary);}
+
+/* ---- FAQ ---- */
+.faq{display:flex;flex-direction:column;gap:14px;}
+.faq-item{
+  background:var(--surface-1);
+  border:1px solid var(--border);border-radius:var(--radius);
+  padding:26px 30px;
+  box-shadow:0 3px 14px rgba(74,159,212,.04);
+}
+.faq-item .q{font-size:19px;font-weight:800;color:var(--text-primary);margin-bottom:8px;}
+.faq-item .a{font-size:16px;line-height:1.7;color:var(--text-secondary);}
+
+/* ---- Metadata Footer ---- */
+footer{padding:60px 0 76px;border-top:1px solid var(--border);}
+.meta-foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);}
+
+/* ---- Hero ---- */
+.hero-section{padding:130px 0 90px;}
+.hero-specs{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--signal-blue);margin-top:64px;}
+.hero-specs .spec:nth-child(2){border-right:1px solid var(--border);}
+
+/* ---- Responsive ---- */
+@media (max-width:860px){
+  .wrap{padding:0 22px;}
+  section{padding:80px 0;}
+  .spec-row{grid-template-columns:repeat(2,1fr);}
+  .spec{border-bottom:1px solid var(--border);padding:22px 18px 22px 0;}
+  .cards-3,.feat-grid{grid-template-columns:1fr;}
+  .hero-specs{grid-template-columns:1fr;}
+  .step{grid-template-columns:1fr;gap:14px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<section class="hero-section">
+  <div class="wrap">
+    <div class="eyebrow"><span class="diamond"></span><span>01 / PRODUCT</span><span class="line"></span></div>
+    <h1 class="hero">一盒装下四季的<br>问候与记忆。</h1>
+    <p class="lead">铁盒、日历、日记与贴纸，把零散日常收进一个温柔角落。打开它，就像打开一段被保存得很好的时光。</p>
+
+    <div class="hero-specs">
+      <div class="spec"><div class="val">120×95<em>mm</em></div><div class="unit">TIN CASE / 铁盒</div></div>
+      <div class="spec"><div class="val">13<em>items</em></div><div class="unit">INCLUDES / 内含</div></div>
+      <div class="spec"><div class="val">2025</div><div class="unit">SEASON / 季节</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THREE-WAY OVERVIEW ============ -->
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="diamond"></span><span>02 / INSIDE</span><span class="line"></span></div>
+      <h2 class="section-title">三种方式，留住这一天。</h2>
+      <p class="lead">不是更多的功能，而是更温柔的陪伴。</p>
+    </div>
+
+    <div class="cards-3">
+      <div class="num-card">
+        <div class="num">01</div>
+        <div class="tag">READY</div>
+        <h3>记录</h3>
+        <p>日记页给今天留一段字。不用很长，一句话也算。</p>
+      </div>
+      <div class="num-card selected">
+        <div class="num">02</div>
+        <div class="tag">SELECTED</div>
+        <h3>拼贴</h3>
+        <p>贴纸与拍立得框组合出只属于你的那一页，贴错也可以。</p>
+      </div>
+      <div class="num-card">
+        <div class="num">03</div>
+        <div class="tag">KEEP</div>
+        <h3>收藏</h3>
+        <p>铁盒收纳所有碎片。放在桌上，是装饰，也是时间胶囊。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURE (SOFT GHOST LAYER) ============ -->
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="diamond"></span><span>03 / DETAILS</span><span class="line"></span></div>
+      <h2 class="section-title">每一件，都是细节。</h2>
+    </div>
+
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="tag">// TIN CASE</div>
+        <h3>哑光铁盒</h3>
+        <p>浅蓝哑光表面，边缘圆润不刮手。开合有轻微吸附感，像扣上一个小秘密。</p>
+        <div class="frame">PRODUCT RENDER · 4:3</div>
+      </div>
+      <div class="feat-card">
+        <div class="tag">// CALENDAR</div>
+        <h3>卷轴日历</h3>
+        <p>十二个月连成一条，撕下一页不会破坏整体。背面可作便签。</p>
+        <div class="frame">PRODUCT RENDER · 4:3</div>
+      </div>
+    </div>
+
+    <div style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;">
+      <span class="status">01 / READY</span>
+      <span class="status coral">SELECTED · DETAIL</span>
+      <span class="status">MORE ITEMS →</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="diamond"></span><span>04 / START</span><span class="line"></span></div>
+      <h2 class="section-title">三步，开始收藏。</h2>
+    </div>
+
+    <div class="steps">
+      <div class="step"><div class="idx">01</div><div><h3>打开铁盒</h3><p>取出卷轴日历、日记与贴纸包，确认内含物完整。</p></div></div>
+      <div class="step"><div class="idx">02</div><div><h3>选择今天</h3><p>在日历上找到日期，或直接在日记页写下当天。</p></div></div>
+      <div class="step"><div class="idx">03</div><div><h3>自由拼贴</h3><p>用贴纸和照片装饰页面，没有固定版式，自己喜欢最重要。</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="diamond"></span><span>05 / FAQ</span><span class="line"></span></div>
+      <h2 class="section-title">常见问题。</h2>
+    </div>
+
+    <div class="faq">
+      <div class="faq-item"><div class="q">买来可以直接用吗？</div><div class="a">可以。内含日历、日记、贴纸与拍立得框，开箱即可开始记录。</div></div>
+      <div class="faq-item"><div class="q">贴纸会留胶吗？</div><div class="a">使用可移胶材质，贴在日记页上可反复调整，不伤纸面。</div></div>
+      <div class="faq-item"><div class="q">适合送人吗？</div><div class="a">适合。铁盒本身即为包装，无需额外礼盒。</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="meta-foot">
+      <span>SEASON GREETING // 2025</span>
+      <span>PACKAGE 02 / SOFT SKY</span>
+      <span>HEARTS // PRODUCT NOTE</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
