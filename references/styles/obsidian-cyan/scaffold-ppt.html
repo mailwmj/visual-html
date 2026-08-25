@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>黑曜霓蓝 — 16:9 演示文稿脚手架 (Obsidian Cyan PPT)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   黑曜霓蓝 (Obsidian Cyan) — 16:9 演示文稿设计系统 (PPT Scaffold)
+   画布比例 16:9（1280×720 @96dpi），预留 5–7% 安全边距。
+   核心使命：将长篇纯文本按单页唯一焦点提炼为极具冲击力的幻灯片。
+   ============================================================ */
+:root {
+  --bg: #0B0E14;
+  --bg-deep: #07090E;
+  --surface-1: #131924;
+  --surface-2: #1B2433;
+  --surface-glass: rgba(19, 25, 36, 0.85);
+
+  --text-primary: #FFFFFF;
+  --text-secondary: #94A3B8;
+  --text-muted: #526071;
+
+  --border: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(56, 189, 248, 0.16);
+  --border-strong: rgba(56, 189, 248, 0.45);
+
+  --signal-cyan: #38BDF8;
+  --signal-cyan-soft: rgba(56, 189, 248, 0.12);
+  --signal-blue: #0EA5E9;
+  --signal-glow: rgba(56, 189, 248, 0.35);
+
+  --radius-sm: 8px;
+  --radius: 16px;
+  --radius-device: 28px;
+  --radius-pill: 999px;
+
+  --font-display: "Inter", "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", sans-serif;
+  --font-mono: "JetBrains Mono", "IBM Plex Mono", monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #000;
+  font-family: var(--font-display);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+  padding: 48px 0;
+}
+
+/* ---- 16:9 幻灯片单页 ---- */
+.slide {
+  position: relative;
+  width: min(92vw, 1160px);
+  aspect-ratio: 16 / 9;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(56, 189, 248, 0.16) 0%, transparent 60%),
+    radial-gradient(circle 500px at 95% 45%, rgba(14, 165, 233, 0.08) 0%, transparent 60%),
+    linear-gradient(180deg, #0B0E14 0%, #07090E 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.8), 0 0 30px rgba(56, 189, 248, 0.08);
+  overflow: hidden;
+  padding: 4.8% 5.5%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 顶部元数据 */
+.slide .top-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+.slide .top-meta .highlight { color: var(--signal-cyan); }
+
+/* 页脚元数据 */
+.slide .meta-foot {
+  position: absolute;
+  left: 5.5%;
+  bottom: 4%;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.slide .slide-no {
+  position: absolute;
+  right: 5.5%;
+  bottom: 4%;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--signal-cyan);
+}
+
+/* 胶囊标签 */
+.eyebrow-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  background: var(--signal-cyan-soft);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--signal-cyan);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  align-self: flex-start;
+}
+
+/* 幻灯片排版体系 */
+h1.s { font-size: clamp(28px, 3.8vw, 44px); font-weight: 800; line-height: 1.1; color: var(--text-primary); }
+h2.s { font-size: clamp(22px, 2.8vw, 32px); font-weight: 800; line-height: 1.15; color: var(--text-primary); }
+.lead-s { font-size: clamp(14px, 1.5vw, 17px); font-weight: 400; line-height: 1.55; color: var(--text-secondary); margin-top: 10px; max-width: 48ch; }
+.mono { font-family: var(--font-mono); }
+
+/* 聚焦卡片 */
+.s-card {
+  background: var(--surface-glass);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  position: relative;
+}
+.s-card .bar {
+  position: absolute; left: 0; top: 12px; bottom: 12px; width: 3px;
+  background: var(--signal-cyan); border-radius: 0 3px 3px 0;
+  box-shadow: 0 0 8px var(--signal-cyan);
+}
+.s-card h4 { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.s-card p { font-size: 12px; color: var(--text-secondary); line-height: 1.45; }
+
+/* 圆形步骤徽章 */
+.step-circle {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--signal-cyan); color: #000; font-weight: 800; font-size: 13px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 12px var(--signal-cyan);
+  flex: none;
+}
+
+/* ============================================================
+   SLIDE 1: 核心论点与执行摘要
+   ============================================================ */
+.sl-hero-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 36px;
+  align-items: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+/* ============================================================
+   SLIDE 2: 三大核心架构支柱
+   ============================================================ */
+.sl-col-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.sl-num-card {
+  background: var(--surface-glass);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+}
+.sl-num-card.selected {
+  border-color: var(--signal-cyan);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.22);
+}
+.sl-num-card .num {
+  font-family: var(--font-mono);
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--signal-cyan);
+}
+
+/* ============================================================
+   SLIDE 3: 系统解构与特性标注
+   ============================================================ */
+.sl-callout-grid {
+  display: grid;
+  grid-template-columns: 1fr 240px 1fr;
+  gap: 20px;
+  align-items: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+/* ============================================================
+   SLIDE 4: 四阶段演进路线
+   ============================================================ */
+.sl-flow-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.sl-flow-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.sl-flow-screen {
+  background: #0A0E17;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  aspect-ratio: 9/14;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ============================================================
+   SLIDE 5: 量化成效与指标矩阵
+   ============================================================ */
+.sl-spec-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid rgba(56, 189, 248, 0.4);
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.06) 0%, transparent 100%);
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.sl-spec {
+  padding: 18px 18px 18px 0;
+  border-right: 1px solid var(--border);
+}
+.sl-spec:last-child { border-right: none; }
+.sl-spec .val { font-size: 32px; font-weight: 800; color: #fff; }
+.sl-spec .val em { font-style: normal; font-size: 13px; color: var(--signal-cyan); margin-left: 4px; }
+.sl-spec .lbl { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); text-transform: uppercase; margin-top: 8px; }
+
+/* ---- PPT PDF Export Support (Print Media) ---- */
+@media print {
+  @page { size: 16in 9in; margin: 0; }
+  body { background: none; display: block; padding: 0; gap: 0; margin: 0; }
+  .slide { 
+    width: 100vw; 
+    height: 100vh; 
+    aspect-ratio: auto; 
+    margin: 0; 
+    border: none; 
+    box-shadow: none; 
+    border-radius: 0; 
+    page-break-after: always;
+    page-break-inside: avoid;
+    transform: none !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     SLIDE 1 — 核心论点与执行摘要 (Statement & Hero)
+     ============================================================ -->
+<div class="slide">
+  <div class="top-meta">
+    <span>战略方案报告 // 2026</span>
+    <span class="highlight">执行摘要</span>
+  </div>
+
+  <div class="sl-hero-grid">
+    <div>
+      <div class="eyebrow-tag">01 / 战略主张</div>
+      <h1 class="s">以用户心流为中心的<br><span style="color:var(--signal-cyan);">全链路体验重构</span></h1>
+      <p class="lead-s">解构繁杂的业务触点，构建端到端低延迟、高黏性的数字交互闭环，实现用户留存与商业价值的双重跃迁。</p>
+    </div>
+
+    <!-- 右侧关键指标卡片 -->
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div class="s-card">
+        <div class="bar"></div>
+        <h4>01. 极致低延时感知</h4>
+        <p>首屏响应压降至 0.28 秒，交互心流零阻断</p>
+      </div>
+      <div class="s-card">
+        <div class="bar"></div>
+        <h4>02. 私域价值倍增</h4>
+        <p>高黏性圈层资产沉淀，30日活跃留存提升 3.4 倍</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="meta-foot">数字化战略方案 // 2026</div>
+  <div class="slide-no">01 / 05</div>
+</div>
+
+<!-- ============================================================
+     SLIDE 2 — 三大核心支柱 (3-Column Architecture)
+     ============================================================ -->
+<div class="slide">
+  <div class="top-meta">
+    <span>战略方案报告 // 2026</span>
+    <span class="highlight">核心能力</span>
+  </div>
+
+  <div class="eyebrow-tag" style="margin-bottom:4px;">02 / 核心支柱</div>
+  <h2 class="s">重塑产品体验的三大核心引擎</h2>
+
+  <div class="sl-col-3">
+    <div class="sl-num-card">
+      <div class="num">01</div>
+      <h3 style="font-size:17px;font-weight:800;color:#fff;margin:10px 0 6px;">实时交互与动态感知</h3>
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.5;">基于边缘双向长连接，升级为毫秒级响应的实时动态流。</p>
+    </div>
+
+    <div class="sl-num-card selected">
+      <div class="num">02</div>
+      <h3 style="font-size:17px;font-weight:800;color:#fff;margin:10px 0 6px;">私域归属与价值闭环</h3>
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.5;">多层级权益激励体系，将离散注意力沉淀为核心生态资产。</p>
+    </div>
+
+    <div class="sl-num-card">
+      <div class="num">03</div>
+      <h3 style="font-size:17px;font-weight:800;color:#fff;margin:10px 0 6px;">全渠道组件化赋能</h3>
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.5;">原子化设计系统与接口，支持跨终端一键复用与热插拔。</p>
+    </div>
+  </div>
+
+  <div class="meta-foot">数字化战略方案 // 2026</div>
+  <div class="slide-no">02 / 05</div>
+</div>
+
+<!-- ============================================================
+     SLIDE 3 — 系统解构与特性标注 (Breakdown & Callout)
+     ============================================================ -->
+<div class="slide">
+  <div class="top-meta">
+    <span>战略方案报告 // 2026</span>
+    <span class="highlight">架构解构</span>
+  </div>
+
+  <div class="eyebrow-tag" style="margin-bottom:4px;">03 / 全景解构</div>
+  <h2 class="s">界面交互与功能节点解构</h2>
+
+  <div class="sl-callout-grid">
+    <!-- 左侧标注 -->
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div class="s-card">
+        <div class="bar"></div>
+        <h4>01. 动态分类聚合流</h4>
+        <p>千人千面的个性化精准聚类</p>
+      </div>
+      <div class="s-card">
+        <div class="bar"></div>
+        <h4>02. 实时热点聚光灯</h4>
+        <p>热度衰减算法捕捉全局焦点</p>
+      </div>
+    </div>
+
+    <!-- 中间视觉框架 -->
+    <div style="background:#0A0E17;border:2px solid #1E2638;border-radius:18px;height:290px;padding:12px;display:flex;flex-direction:column;gap:8px;">
+      <div style="font-size:11px;font-weight:800;color:var(--signal-cyan);">◆ 核心调度中枢</div>
+      <div style="background:rgba(56,189,248,0.12);padding:8px;border-radius:8px;font-size:10px;color:#fff;">实时高亮数据流</div>
+      <div style="background:#131924;padding:8px;border-radius:8px;font-size:10px;color:var(--text-secondary);">协同总线就绪</div>
+      <div style="margin-top:auto;background:rgba(15,23,42,0.9);padding:6px 10px;border-radius:20px;display:flex;justify-content:space-between;font-size:8px;">
+        <span style="color:#38BDF8;">● 首页</span>
+        <span>▦ 协作</span>
+        <span>⚙ 配置</span>
+      </div>
+    </div>
+
+    <!-- 右侧标注 -->
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div class="s-card">
+        <div class="bar"></div>
+        <h4>03. 双向高频互动通道</h4>
+        <p>超大规模并发下的稳定消息投递</p>
+      </div>
+      <div class="s-card">
+        <div class="bar"></div>
+        <h4>04. 悬浮胶囊导航系统</h4>
+        <p>符合单手热区的 1-Tap 触达</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="meta-foot">数字化战略方案 // 2026</div>
+  <div class="slide-no">03 / 05</div>
+</div>
+
+<!-- ============================================================
+     SLIDE 4 — 四阶段演进路线 (4-Step Flow)
+     ============================================================ -->
+<div class="slide">
+  <div class="top-meta">
+    <span>战略方案报告 // 2026</span>
+    <span class="highlight">实施路线</span>
+  </div>
+
+  <div class="eyebrow-tag" style="margin-bottom:4px;">04 / 推进计划</div>
+  <h2 class="s">从概念到落地的四阶段推进路线</h2>
+
+  <div class="sl-flow-grid">
+    <!-- Step 1 -->
+    <div class="sl-flow-item">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="step-circle">1</div>
+        <div style="font-size:12px;font-weight:700;color:#fff;">意图与边界</div>
+      </div>
+      <div class="sl-flow-screen">
+        <div style="font-size:9px;color:var(--signal-cyan);font-weight:700;">PHASE 01</div>
+        <div style="color:#fff;font-size:11px;font-weight:700;">场景定位</div>
+        <p style="font-size:10px;color:var(--text-secondary);line-height:1.4;">用户画像与需求优先级确认</p>
+      </div>
+      <p style="font-size:11px;color:var(--text-secondary);">明确核心转化漏斗</p>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="sl-flow-item">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="step-circle">2</div>
+        <div style="font-size:12px;font-weight:700;color:#fff;">架构与契约</div>
+      </div>
+      <div class="sl-flow-screen">
+        <div style="font-size:9px;color:var(--signal-cyan);font-weight:700;">PHASE 02</div>
+        <div style="color:#fff;font-size:11px;font-weight:700;">协议解耦</div>
+        <p style="font-size:10px;color:var(--text-secondary);line-height:1.4;">高性能微服务接口与表设计</p>
+      </div>
+      <p style="font-size:11px;color:var(--text-secondary);">构建稳定骨干服务</p>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="sl-flow-item">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="step-circle">3</div>
+        <div style="font-size:12px;font-weight:700;color:#fff;">交付与质检</div>
+      </div>
+      <div class="sl-flow-screen">
+        <div style="font-size:9px;color:var(--signal-cyan);font-weight:700;">PHASE 03</div>
+        <div style="color:#fff;font-size:11px;font-weight:700;">高保真交互</div>
+        <p style="font-size:10px;color:var(--text-secondary);line-height:1.4;">黑曜冷光系统与极端压测</p>
+      </div>
+      <p style="font-size:11px;color:var(--text-secondary);">确保零视觉断层</p>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="sl-flow-item">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="step-circle">4</div>
+        <div style="font-size:12px;font-weight:700;color:#fff;">增长与复盘</div>
+      </div>
+      <div class="sl-flow-screen">
+        <div style="font-size:9px;color:var(--signal-cyan);font-weight:700;">PHASE 04</div>
+        <div style="color:#fff;font-size:11px;font-weight:700;">全量上线</div>
+        <p style="font-size:10px;color:var(--text-secondary);line-height:1.4;">A/B 测试与数据指标追踪</p>
+      </div>
+      <p style="font-size:11px;color:var(--text-secondary);">建立长期监控看板</p>
+    </div>
+  </div>
+
+  <div class="meta-foot">数字化战略方案 // 2026</div>
+  <div class="slide-no">04 / 05</div>
+</div>
+
+<!-- ============================================================
+     SLIDE 5 — 量化成效与指标矩阵 (Metrics & Summary)
+     ============================================================ -->
+<div class="slide">
+  <div class="top-meta">
+    <span>战略方案报告 // 2026</span>
+    <span class="highlight">量化成效</span>
+  </div>
+
+  <div class="eyebrow-tag" style="margin-bottom:4px;">05 / 成果验收</div>
+  <h2 class="s">关键运行指标与预期成效</h2>
+
+  <div class="sl-spec-grid">
+    <div class="sl-spec">
+      <div class="val">99.8<em>%</em></div>
+      <div class="lbl">用户体验满意度</div>
+    </div>
+    <div class="sl-spec">
+      <div class="val">3.4<em>x</em></div>
+      <div class="lbl">核心留存增长倍率</div>
+    </div>
+    <div class="sl-spec">
+      <div class="val">0.28<em>s</em></div>
+      <div class="lbl">首屏平均交互耗时</div>
+    </div>
+    <div class="sl-spec">
+      <div class="val">100<em>%</em></div>
+      <div class="lbl">暗色冷光覆盖率</div>
+    </div>
+  </div>
+
+  <div class="meta-foot">数字化战略方案 // 2026</div>
+  <div class="slide-no">05 / 05</div>
+</div>
+
+</body>
+</html>

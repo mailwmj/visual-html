@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>黑曜霓蓝 — 长文本转可视化网页脚手架 (Obsidian Cyan)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=block" rel="stylesheet" />
+<style>
+/* ============================================================
+   黑曜霓蓝 (Obsidian Cyan) — 设计系统与排版变量
+   核心使命：将长篇纯文本转化为结构清晰、高冲击力、极具科技质感的单 HTML
+   ============================================================ */
+:root {
+  /* 背景层 */
+  --bg: #0B0E14;
+  --bg-deep: #07090E;
+  --surface-1: #131924;
+  --surface-2: #1B2433;
+  --surface-glass: rgba(19, 25, 36, 0.78);
+  --surface-card: #151D2A;
+
+  /* 文字层 */
+  --text-primary: #FFFFFF;
+  --text-secondary: #A0B1C8;
+  --text-muted: #64748B;
+
+  /* 边框与光晕 */
+  --border: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(56, 189, 248, 0.16);
+  --border-strong: rgba(56, 189, 248, 0.45);
+  --border-glow: 0 0 16px rgba(56, 189, 248, 0.25);
+
+  /* 信号色通道（电光霓蓝） */
+  --signal-cyan: #38BDF8;
+  --signal-cyan-soft: rgba(56, 189, 248, 0.12);
+  --signal-blue: #0EA5E9;
+  --signal-blue-deep: #2563EB;
+  --signal-glow: rgba(56, 189, 248, 0.35);
+  --accent-gradient: linear-gradient(135deg, #38BDF8 0%, #0284C7 100%);
+  --accent-gradient-subtle: linear-gradient(180deg, rgba(56, 189, 248, 0.15) 0%, rgba(14, 165, 233, 0.03) 100%);
+
+  /* 阴影与景深 */
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --shadow-card-hover: 0 14px 40px rgba(0, 0, 0, 0.55), 0 0 20px rgba(56, 189, 248, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  --shadow-card-selected: 0 16px 44px rgba(0, 0, 0, 0.6), 0 0 28px rgba(56, 189, 248, 0.26), inset 0 1px 0 rgba(56, 189, 248, 0.3);
+  --shadow-mockup: 0 24px 64px rgba(0, 0, 0, 0.75), 0 0 36px rgba(56, 189, 248, 0.14);
+
+  /* 尺寸与圆角 */
+  --radius-sm: 8px;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --radius-device: 36px;
+  --radius-pill: 999px;
+  --container: 1220px;
+
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 24px; --space-6: 32px; --space-7: 48px; --space-8: 64px;
+  --space-9: 96px; --space-10: 128px;
+
+  /* 字体栈 */
+  --font-display: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", "微软雅黑", sans-serif;
+  --font-mono: "IBM Plex Mono", Consolas, "Cascadia Code", "PingFang SC", "Microsoft YaHei", "微软雅黑", monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; scroll-behavior: smooth; }
+
+body {
+  background-color: var(--bg);
+  color: var(--text-secondary);
+  font-family: var(--font-display);
+  font-size: 16px;
+  line-height: 1.75;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ---- 全局环境冷蓝极光画布 ---- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse 90% 50% at 50% -10%, rgba(56, 189, 248, 0.16) 0%, transparent 60%),
+    radial-gradient(circle 700px at 95% 45%, rgba(14, 165, 233, 0.08) 0%, transparent 60%),
+    radial-gradient(circle 800px at -10% 75%, rgba(37, 99, 235, 0.09) 0%, transparent 65%),
+    linear-gradient(180deg, #0B0E14 0%, #080A0F 100%);
+}
+
+.wrap { max-width: var(--container); margin: 0 auto; padding: 0 48px; position: relative; }
+
+/* ---- 双端元数据顶栏 ---- */
+.top-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 0 20px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+}
+.top-meta .project-title { color: var(--text-primary); font-weight: 600; }
+.top-meta .category { color: var(--signal-cyan); }
+
+/* ---- 章节索引标头 (Eyebrow) ---- */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--signal-cyan);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.eyebrow-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 14px;
+  background: var(--signal-cyan-soft);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--signal-cyan);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.eyebrow .diamond {
+  width: 7px; height: 7px;
+  background: var(--signal-cyan);
+  transform: rotate(45deg);
+  flex: none;
+  box-shadow: 0 0 8px var(--signal-cyan);
+}
+.eyebrow .line { flex: 1; height: 1px; background: var(--border); min-width: 40px; }
+
+/* ---- 标题与排版体系 ---- */
+h1.hero {
+  font-size: clamp(38px, 5.5vw, 68px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  max-width: 100%;
+}
+h2.section-title {
+  font-size: clamp(28px, 3.8vw, 44px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+.lead {
+  font-size: clamp(16px, 1.8vw, 20px);
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-width: 76ch;
+  margin-top: 20px;
+}
+.text-cyan { color: var(--signal-cyan); }
+.mono { font-family: var(--font-mono); }
+
+/* ---- 章节间距与头部 ---- */
+section { padding: 56px 0; position: relative; }
+.section-head { margin-bottom: 32px; text-align: center; }
+.section-head.left { text-align: left; }
+.section-head .lead { margin-left: auto; margin-right: auto; }
+.section-head.left .lead { margin-left: 0; }
+
+/* ---- 量化指标栏 (Spec Row) ---- */
+.spec-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid rgba(56, 189, 248, 0.4);
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.05) 0%, transparent 100%);
+  margin-top: 48px;
+  padding-top: 8px;
+}
+.spec { padding: 24px 24px 24px 0; border-right: 1px solid var(--border); }
+.spec:last-child { border-right: none; }
+.spec .val { font-size: clamp(24px, 3vw, 36px); font-weight: 700; color: var(--text-primary); line-height: 1; }
+.spec .val em { font-style: normal; font-family: var(--font-mono); font-size: 13px; color: var(--signal-cyan); margin-left: 6px; }
+.spec .unit { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; color: var(--text-muted); text-transform: uppercase; margin-top: 12px; }
+
+/* ============================================================
+   长文本结构化组件 (Cards / Spotlight / Breakdown)
+   ============================================================ */
+
+/* 三栏编号卡片 */
+.cards-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.num-card {
+  position: relative;
+  background: var(--surface-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 34px 28px;
+  min-height: 320px;
+  box-shadow: var(--shadow-card);
+  transition: all 0.22s ease-out;
+  display: flex;
+  flex-direction: column;
+}
+.num-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+.num-card .num {
+  font-family: var(--font-mono);
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--signal-cyan);
+  line-height: 1;
+}
+.num-card h3 { font-size: 22px; font-weight: 700; color: #fff; margin: 18px 0 10px; }
+.num-card p { font-size: 15px; line-height: 1.65; color: var(--text-secondary); }
+.num-card .tag {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: auto;
+  align-self: flex-start;
+}
+/* 选中态高亮 */
+.num-card.selected {
+  border-color: var(--signal-cyan);
+  background: linear-gradient(180deg, rgba(21, 29, 42, 0.9) 0%, rgba(14, 20, 32, 0.95) 100%);
+  box-shadow: var(--shadow-card-selected);
+  transform: translateY(-4px);
+}
+.num-card.selected .tag {
+  background: var(--signal-cyan);
+  border-color: var(--signal-cyan);
+  color: #000;
+  font-weight: 700;
+  box-shadow: 0 0 14px var(--signal-cyan);
+}
+
+/* 核心观点聚焦卡片 (Spotlight Card) */
+.spotlight-card {
+  background: var(--surface-glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 26px;
+  position: relative;
+  box-shadow: var(--shadow-card);
+  transition: all 0.22s ease-out;
+}
+.spotlight-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card-hover);
+}
+.spotlight-card .accent-bar {
+  position: absolute;
+  left: 0;
+  top: 20px;
+  bottom: 20px;
+  width: 3px;
+  background: var(--signal-cyan);
+  border-radius: 0 4px 4px 0;
+  box-shadow: 0 0 10px var(--signal-cyan);
+}
+.spotlight-card .badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  background: var(--signal-cyan-soft);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--signal-cyan);
+  margin-bottom: 10px;
+}
+.spotlight-card h3 { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+.spotlight-card p { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+
+/* 图文解构展示框 (Breakdown Showcase) */
+.callout-showcase {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 340px 1fr;
+  gap: 32px;
+  align-items: center;
+  margin-top: 40px;
+}
+.callout-col { display: flex; flex-direction: column; gap: 24px; }
+
+/* 设备模型框 */
+.device-frame {
+  position: relative;
+  background: #000000;
+  border: 4px solid #1E2638;
+  border-radius: var(--radius-device);
+  box-shadow: var(--shadow-mockup);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.device-frame .island {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 76px;
+  height: 18px;
+  background: #000;
+  border-radius: var(--radius-pill);
+  z-index: 10;
+}
+.device-screen {
+  background: #0E131F;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  color: var(--text-primary);
+  overflow: hidden;
+  position: relative;
+}
+
+/* 悬浮胶囊导航栏 */
+.nav-dock {
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  padding: 6px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(56, 189, 248, 0.15);
+  margin: 12px 16px 20px;
+}
+.dock-item {
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: var(--radius-pill);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.dock-item.active {
+  color: #fff;
+  background: var(--signal-cyan);
+  box-shadow: 0 0 14px var(--signal-cyan);
+}
+
+/* ============================================================
+   四步多阶段流程推进 (4-Step Flow)
+   ============================================================ */
+.step-flow-header {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 24px;
+}
+.step-badge-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.step-badge {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--surface-1);
+  border: 2px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+.step-badge.active {
+  background: var(--signal-cyan);
+  border-color: var(--signal-cyan);
+  color: #000;
+  box-shadow: 0 0 16px var(--signal-cyan);
+}
+.step-badge-title { font-size: 13px; font-weight: 600; color: var(--text-muted); text-align: center; }
+.step-badge.active + .step-badge-title { color: var(--text-primary); }
+
+.step-screens-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.step-screen-card {
+  background: var(--surface-glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: var(--shadow-card);
+  transition: all 0.2s ease;
+}
+.step-screen-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-4px);
+}
+.step-screen-preview {
+  background: #0A0E17;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  aspect-ratio: 9/14;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: hidden;
+  position: relative;
+}
+.step-screen-card h4 { font-size: 16px; font-weight: 700; color: #fff; }
+.step-screen-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+/* ============================================================
+   方案对比矩阵 (Comparison Matrix)
+   ============================================================ */
+.cmp-matrix {
+  overflow-x: auto;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface-glass);
+  margin-top: 32px;
+}
+.cmp-row {
+  min-width: 680px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+}
+.cmp-row:last-child { border-bottom: none; }
+.cmp-row.header {
+  background: rgba(255, 255, 255, 0.03);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+.cmp-cell { padding: 18px 20px; font-size: 14px; color: var(--text-secondary); }
+.cmp-cell.highlight-col {
+  background: rgba(56, 189, 248, 0.06);
+  color: var(--text-primary);
+  border-left: 1px solid var(--border-subtle);
+  border-right: 1px solid var(--border-subtle);
+}
+.cmp-row.header .cmp-cell.highlight-col { color: var(--signal-cyan); font-weight: 700; }
+.dot-check {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--signal-cyan-soft); color: var(--signal-cyan);
+  font-weight: 700; font-size: 11px;
+}
+
+/* ============================================================
+   常见问题与深度解答 (FAQ)
+   ============================================================ */
+.faq { display: flex; flex-direction: column; gap: 16px; }
+.faq-item {
+  background: var(--surface-glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 26px 30px;
+  box-shadow: var(--shadow-card);
+}
+.faq-item .q { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+.faq-item .a { font-size: 15px; line-height: 1.7; color: var(--text-secondary); }
+
+/* ---- 页脚元数据 ---- */
+footer { padding: 60px 0 80px; border-top: 1px solid var(--border); margin-top: 60px; }
+.meta-foot {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ---- 响应式断点 ---- */
+@media (max-width: 960px) {
+  .wrap { padding: 0 24px; }
+  section { padding: 56px 0;}
+  .callout-showcase { grid-template-columns: 1fr; }
+  .step-flow-header { grid-template-columns: repeat(2, 1fr); }
+  .step-screens-grid { grid-template-columns: repeat(2, 1fr); }
+  .cards-3 { grid-template-columns: 1fr; }
+  .spec-row { grid-template-columns: repeat(2, 1fr); }
+  
+  
+}
+
+/* ---- Admonitions ---- */
+.admonition{background:var(--surface-card);border:1px solid var(--border);border-left:4px solid var(--signal-cyan);padding:24px;border-radius:var(--radius);margin-top:24px;box-shadow:var(--shadow-card);backdrop-filter:blur(16px);}
+.admonition.warning{border-left-color:#FCD34D;}
+.admonition.info{border-left-color:var(--signal-blue-deep);}
+.admonition-title{font-size:16px;font-weight:700;color:var(--text-primary);margin-bottom:8px;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.05em;}
+/* ---- Timeline ---- */
+.timeline{margin-top:32px;display:flex;flex-direction:column;}
+.timeline-item{display:grid;grid-template-columns:120px 1fr;position:relative;}
+.timeline-item::before{content:"";position:absolute;left:120px;top:0;bottom:0;width:2px;background:var(--border-subtle);}
+.timeline-marker{font-family:var(--font-mono);font-size:16px;font-weight:700;color:var(--signal-cyan);text-align:right;padding:24px 24px 0 0;line-height:24px;}
+.timeline-content{padding:24px 0 32px 32px;position:relative;}
+.timeline-content::before{content:"";position:absolute;left:-8px;top:28px;width:16px;height:16px;background:var(--bg);border:2px solid var(--signal-cyan);border-radius:50%;box-shadow:0 0 10px var(--signal-cyan-soft);}
+.timeline-content h3{font-size:20px;font-weight:700;color:var(--text-primary);line-height:24px;margin-bottom:8px;}
+/* ---- Pros & Cons ---- */
+.pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px;}
+.pro-card, .con-card{background:var(--surface-card);border:1px solid var(--border);padding:32px;border-radius:var(--radius);box-shadow:var(--shadow-card);backdrop-filter:blur(16px);}
+.pro-card{border-top:3px solid var(--signal-cyan);}
+.con-card{border-top:3px solid var(--text-muted);}
+.pro-card .tag, .con-card .tag{font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;color:var(--signal-cyan);margin-bottom:20px;font-weight:700;}
+.con-card .tag{color:var(--text-muted);}
+.pros-cons ul{padding-left:20px;color:var(--text-secondary);font-size:16px;line-height:1.7;}
+.pros-cons li{margin-bottom:8px;}
+/* ---- Stats Grid ---- */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:40px;}
+.stat-card{background:var(--surface-card);border:1px solid var(--border);padding:32px 24px;text-align:center;border-radius:var(--radius);box-shadow:var(--shadow-card);backdrop-filter:blur(16px);transition:border-color .16s ease-out,transform .16s ease-out;}
+.stat-card:hover{border-color:var(--signal-cyan);transform:translateY(-2px);}
+.stat-val{font-size:clamp(38px,4.5vw,52px);font-weight:800;color:var(--text-primary);line-height:1;margin-bottom:14px;letter-spacing:-.02em;text-shadow:0 0 20px var(--signal-cyan-soft);}
+.stat-val span{font-size:clamp(20px,2.2vw,28px);color:var(--signal-cyan);margin-left:4px;font-family:var(--font-mono);font-weight:700;}
+.stat-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:var(--text-muted);text-transform:uppercase;font-weight:700;}
+/* ---- Flowchart ---- */
+.flowchart{background:var(--surface-card);border:1px solid var(--border);padding:32px 24px;margin-top:32px;display:flex;justify-content:center;overflow-x:auto;border-radius:var(--radius-lg);box-shadow:var(--shadow-card);}
+.flowchart svg{width:100%;max-width:800px;min-width:600px;height:auto;display:block;}
+/* ---- References ---- */
+.references{margin-top:64px;border-top:1px solid var(--border);padding-top:40px;font-size:14px;line-height:1.6;}
+.references h3{font-family:var(--font-mono);font-size:13px;letter-spacing:.12em;color:var(--text-secondary);margin-bottom:20px;font-weight:700;}
+.references ol{padding-left:20px;color:var(--text-muted);}
+.references li{margin-bottom:8px;}
+.references a{color:var(--signal-cyan);text-decoration:none;}
+
+/* ---- Rich Text (Article Body - Optimized for Chinese) ---- */
+.rich-text { font-size: 17px; line-height: 1.8; color: rgba(255, 255, 255, 0.82); max-width: 100%; margin: 0; }
+.rich-text p { margin-top: 0; margin-bottom: 22px; }
+.rich-text h4 { font-size: 19px; font-weight: 700; color: var(--text-primary); margin-top: 32px; margin-bottom: 12px; line-height: 1.5; }
+.rich-text ul, .rich-text ol { margin-top: 0; margin-bottom: 22px; padding-left: 24px; }
+.rich-text li { margin-bottom: 0.6em; }
+.rich-text strong { color: #fff; font-weight: 700; }
+.rich-text em { font-style: normal; color: var(--text-muted); }
+.rich-text blockquote { border-left: 4px solid var(--signal-cyan); padding: 6px 0 6px 20px; margin-top: 32px; margin-bottom: 32px; color: var(--text-secondary); background: linear-gradient(90deg, rgba(56, 189, 248, 0.05) 0%, transparent 100%); font-size: 16px; }
+.rich-text code { font-family: var(--font-mono); font-size: 0.85em; background: rgba(0,0,0,0.4); border: 1px solid var(--border-subtle); padding: 3px 6px; border-radius: 6px; color: var(--signal-cyan); }
+
+/* ---- Comparison Table ---- */
+.cmp{display:flex;flex-direction:column;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:32px;}
+.cmp .row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;border-bottom:1px solid var(--border);align-items:center;}
+.cmp .row:last-child{border-bottom:none;}
+.cmp .head{background:var(--surface-1);font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;color:var(--text-muted);text-transform:uppercase;}
+.cmp .cell{padding:18px 16px;text-align:center;color:var(--text-secondary);font-size:15px;}
+.cmp .cell:first-child{text-align:left;color:var(--text-primary);font-weight:700;}
+.cmp .selected-col{background:rgba(255, 255, 255, 0.03);position:relative;}
+.cmp .head .selected-col{color:var(--signal-cyan);font-weight:700;}
+.cmp .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--signal-cyan);}
+.cmp .dash{display:inline-block;color:var(--text-muted);}
+
+
+/* ---- Feature Grid ---- */
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.feat-card{position:relative;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:var(--radius);padding:32px;overflow:hidden;backdrop-filter:blur(8px);}
+.feat-card .tag{font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--signal-cyan);font-weight:700;}
+.feat-card h3{font-size:24px;font-weight:700;color:var(--text-primary);margin:16px 0 12px;}
+.feat-card p{font-size:16px;line-height:1.7;color:var(--text-secondary);}
+.feat-card .frame{margin-top:24px;aspect-ratio:16/9;background:var(--surface-1);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:12px;color:var(--text-muted);border-radius:4px;}
+
+</style>
+</head>
+<body>
+
+<!-- 1. HERO (Includes Typography Scale and Stats Grid Cards) -->
+<section class="hero-section">
+  <div class="wrap">
+    <div class="eyebrow"><span class="diamond"></span><span>01 / EXECUTIVE SUMMARY</span><span class="line"></span></div>
+    <h1 class="hero">统一长文本转视觉架构。<br>全组件预览集。</h1>
+    <p class="lead">导读段落：解释主标题，提供背景信息，控制合理的行宽保障阅读体验。</p>
+
+    <!-- Stats Grid Cards -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-val">300<span>%</span></div>
+        <div class="stat-label">ANNUAL GROWTH</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">1.2<span>M</span></div>
+        <div class="stat-label">ACTIVE USERS</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">0.5<span>ms</span></div>
+        <div class="stat-label">LATENCY</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. NUMBER CARDS -->
+<section>
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>02 / NUMBER CARDS</span><span class="line"></span></div>
+      <h2 class="section-title">核心逻辑拆解</h2>
+    </div>
+    <div class="cards-3">
+      <div class="num-card">
+        <div class="num">01</div>
+        <h3>模块标题</h3>
+        <p>详细描述说明，字号适中，行高宽松。</p>
+      </div>
+      <div class="num-card selected">
+        <div class="num">02</div>
+        <h3>推荐核心功能</h3>
+        <p>第二状态通道高亮显示，建立视觉层级焦点。</p>
+      </div>
+      <div class="num-card">
+        <div class="num">03</div>
+        <h3>辅助功能</h3>
+        <p>次要说明内容，补充信息描述。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. FEATURE CARDS -->
+<section>
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>03 / FEATURE CARDS</span><span class="line"></span></div>
+      <h2 class="section-title">图文并茂的特性展示</h2>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="tag">// CORE ARCH</div>
+        <h3>特性一标题</h3>
+        <p>特性的详细能力和用户体验描述，用于产品落地页功能点解析。</p>
+        <div class="frame">PRODUCT RENDER · 4:3</div>
+      </div>
+      <div class="feat-card">
+        <div class="tag">// FOCUS MODE</div>
+        <h3>特性二标题</h3>
+        <p>特性的详细能力和用户体验描述，用于产品落地页功能点解析。</p>
+        <div class="frame">PRODUCT RENDER · 4:3</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. PROCESS STEPS -->
+<section>
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>04 / PROCESS STEPS</span><span class="line"></span></div>
+      <h2 class="section-title">分步执行流</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="idx">01</div>
+        <div>
+          <h3>步骤一标题</h3>
+          <p>详细的步骤说明内容，字号较大，排版清晰。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="idx">02</div>
+        <div>
+          <h3>步骤二标题</h3>
+          <p>详细的步骤说明内容，字号较大，排版清晰。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. COMPARISON TABLE -->
+<section>
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>05 / COMPARISON</span><span class="line"></span></div>
+      <h2 class="section-title">非网格对比矩阵</h2>
+    </div>
+    <div class="cmp">
+      <div class="row head">
+        <div class="cell">对比维度</div>
+        <div class="cell">方案 A</div>
+        <div class="cell">方案 B</div>
+        <div class="cell selected-col">方案 C (推荐)</div>
+      </div>
+      <div class="row">
+        <div class="cell">调度能力</div>
+        <div class="cell"><span class="dot"></span></div>
+        <div class="cell"><span class="dot"></span></div>
+        <div class="cell selected-col"><span class="dot"></span></div>
+      </div>
+      <div class="row">
+        <div class="cell">全流程闭环</div>
+        <div class="cell"><span class="dash">—</span></div>
+        <div class="cell"><span class="dot"></span></div>
+        <div class="cell selected-col"><span class="dot"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. ADMONITIONS & STATS -->
+<section>
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>06 / ADMONITIONS & STATS</span><span class="line"></span></div>
+      <h2 class="section-title">智能语义提示与数据</h2>
+    </div>
+    
+    <div class="admonition info">
+      <div class="admonition-title">核心结论</div>
+      <p>这是 AI 总结的一段重要文字说明，用于学术报告或科技长文中的结论高亮。</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-val">300<span>%</span></div>
+        <div class="stat-label">ANNUAL GROWTH / 年度增长</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">1.2<span>M</span></div>
+        <div class="stat-label">ACTIVE USERS / 活跃用户</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. TIMELINE & PROS/CONS -->
+<section>
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>07 / TIMELINE & PROS/CONS</span><span class="line"></span></div>
+      <h2 class="section-title">时间轴与优劣势</h2>
+    </div>
+    
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-marker">2023</div>
+        <div class="timeline-content">
+          <h3>立项阶段</h3>
+          <p>第一阶段的发展与核心目标设定。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-marker">2024</div>
+        <div class="timeline-content">
+          <h3>核心架构演进</h3>
+          <p>进入第二阶段的发展，架构全面重构。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pros-cons">
+      <div class="pro-card">
+        <div class="tag">PROS / 优势</div>
+        <ul>
+          <li>架构极其稳定，支持超大规模并发</li>
+          <li>多模板无缝切换，数据协议标准统一</li>
+        </ul>
+      </div>
+      <div class="con-card">
+        <div class="tag">CONS / 劣势</div>
+        <ul>
+          <li>学习曲线较陡峭，需掌握底层原理</li>
+          <li>初期配置时间略长</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. FLOWCHART -->
+<section>
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>08 / FLOWCHART</span><span class="line"></span></div>
+      <h2 class="section-title">流程与系统架构</h2>
+    </div>
+    <div class="flowchart">
+      <svg viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="oc-arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#64748B" />
+          </marker>
+          <marker id="oc-arrow-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38BDF8" />
+          </marker>
+        </defs>
+        <!-- Node 1 -->
+        <g>
+          <rect x="20" y="25" width="150" height="70" rx="8" fill="#121824" stroke="rgba(56,189,248,.2)" stroke-width="1.5" />
+          <text x="36" y="52" fill="#64748B" font-family="'IBM Plex Mono', monospace" font-size="10" letter-spacing="0.1em">01 / CAPTURE</text>
+          <text x="36" y="74" fill="#F8FAFC" font-family="'Inter', sans-serif" font-size="14" font-weight="700">需求场景捕获</text>
+        </g>
+        <path d="M 170 60 L 220 60" stroke="rgba(56,189,248,.3)" stroke-width="1.5" marker-end="url(#oc-arrow)" />
+        <!-- Node 2 -->
+        <g>
+          <rect x="225" y="25" width="150" height="70" rx="8" fill="#121824" stroke="rgba(56,189,248,.2)" stroke-width="1.5" />
+          <text x="241" y="52" fill="#64748B" font-family="'IBM Plex Mono', monospace" font-size="10" letter-spacing="0.1em">02 / DECONSTRUCT</text>
+          <text x="241" y="74" fill="#F8FAFC" font-family="'Inter', sans-serif" font-size="14" font-weight="700">模型视觉解构</text>
+        </g>
+        <path d="M 375 60 L 425 60" stroke="#38BDF8" stroke-width="1.5" marker-end="url(#oc-arrow-cyan)" />
+        <!-- Node 3 (Active) -->
+        <g>
+          <rect x="430" y="25" width="150" height="70" rx="8" fill="#121824" stroke="#38BDF8" stroke-width="1.5" />
+          <text x="446" y="52" fill="#38BDF8" font-family="'IBM Plex Mono', monospace" font-size="10" letter-spacing="0.1em">03 / SYNTHESIS</text>
+          <text x="446" y="74" fill="#F8FAFC" font-family="'Inter', sans-serif" font-size="14" font-weight="700">黑曜霓蓝渲染</text>
+        </g>
+        <path d="M 580 60 L 630 60" stroke="rgba(56,189,248,.3)" stroke-width="1.5" marker-end="url(#oc-arrow)" />
+        <!-- Node 4 -->
+        <g>
+          <rect x="635" y="25" width="145" height="70" rx="8" fill="#121824" stroke="rgba(56,189,248,.2)" stroke-width="1.5" />
+          <text x="651" y="52" fill="#64748B" font-family="'IBM Plex Mono', monospace" font-size="10" letter-spacing="0.1em">04 / DEPLOY</text>
+          <text x="651" y="74" fill="#F8FAFC" font-family="'Inter', sans-serif" font-size="14" font-weight="700">高保真成果输出</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- 9. FAQ -->
+<section>
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>09 / FAQ</span><span class="line"></span></div>
+      <h2 class="section-title">常见问题列表</h2>
+    </div>
+    <div class="faq">
+      <div class="faq-item">
+        <div class="q">买来可以直接用吗？</div>
+        <div class="a">可以。内含日历、日记、贴纸与拍立得框，开箱即可开始记录。</div>
+      </div>
+      <div class="faq-item">
+        <div class="q">贴纸会留胶吗？</div>
+        <div class="a">使用可移胶材质，贴在日记页上可反复调整，不伤纸面。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. RICH TEXT & REFERENCES -->
+<section>
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>10 / RICH TEXT</span><span class="line"></span></div>
+      <h2 class="section-title">长文本正文容器</h2>
+    </div>
+    
+    <div class="rich-text">
+      <p>这是标准的正文段落。在现代排版系统中，为了确保长时间阅读的舒适度，我们对面宽（Measure）、行高（Leading）和字距（Tracking）都进行了严格的打磨。支持 <strong>加粗强调</strong>、<em>斜体修饰</em> 以及 <code>内联代码 (Inline Code)</code> 等基础排版元素。</p>
+      
+      <p>当我们面对成千上万字的技术文档或是研究报告时，缺乏层次的长篇大论往往会让人产生阅读疲劳。因此，AI 大脑在提取内容时，不仅仅是把文字按原样输出，而是会像一个经验丰富的编辑一样，自动为关键段落提取核心结论，或者将时间序列转化为可视化的时间轴。</p>
+      
+      <blockquote>
+        “排版设计的本质不是装饰，而是为了信息的清晰传达而做出的视觉契约。每一处留白，都在引导用户的视线流动。”
+      </blockquote>
+      
+      <h3>排版的四个核心原则</h3>
+      <p>为了达到最佳的跨端阅读体验，我们在这套系统中确立了以下几项不可妥协的设计底线：</p>
+      <ul>
+        <li><strong>可读性至上</strong>：深色模式的文本绝不使用纯白（#FFFFFF），避免产生刺眼的光晕效应；浅色模式同样不使用纯黑。</li>
+        <li><strong>统一的组件契约</strong>：无论视觉风格如何切换，底层的语义化组件（如时间轴、对比框）必须保证 100% 的渲染成功率。</li>
+        <li><strong>中西文混排规范</strong>：优雅的字体栈回退机制，确保在 Windows / macOS 系统下都能获得最佳的中英文混排效果，坚决弃用丑陋的宋体。</li>
+        <li><strong>网格系统的弹性</strong>：基于 CSS Grid 与 Flexbox 打造的弹性系统，确保卡片与数据的展示在手机与桌面端都能自适应排布。</li>
+      </ul>
+      
+      <p>这不仅仅是一套前端 CSS 模板，而是将枯燥的长文本结构化、视觉化重构的“中枢神经”。</p>
+    </div>
+
+    <div class="references">
+      <h3>REFERENCES / 参考文献</h3>
+      <ol>
+        <li id="ref-1">Tufte, E. R. (2001). <em>The Visual Display of Quantitative Information</em>. Graphics Press. <a>↩</a></li>
+        <li id="ref-2">Bringhurst, R. (2012). <em>The Elements of Typographic Style</em>. Hartley & Marks. <a>↩</a></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 11. METADATA FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="meta-foot">
+      <span>PRODUCT SYSTEM // 2026</span>
+      <span>BUILD 02 / PROTOTYPE</span>
+      <span>FRAMEFLOW // TECHNICAL NOTE</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

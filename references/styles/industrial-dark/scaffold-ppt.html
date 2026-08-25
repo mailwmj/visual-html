@@ -19,7 +19,7 @@
   --text-primary:#F2F3EF; --text-secondary:#A8ADA8; --text-muted:#6F7672;
   --border:#2A302E; --border-strong:#404743;
   --signal-green:#67E38B; --signal-green-soft:#A0F0B7; --signal-violet:#8C7CFF; --warning:#E7E65D;
-  --grid-minor:rgba(130,150,140,.045); --grid-major:rgba(130,150,140,.07);
+  --grid-minor:rgba(130,150,140,.025); --grid-major:rgba(130,150,140,.045);
   --radius:2px;
   --font-display:"Inter","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
   --font-mono:"IBM Plex Mono","JetBrains Mono","SFMono-Regular","Roboto Mono",monospace;
@@ -43,7 +43,7 @@ body{
     linear-gradient(90deg,var(--grid-minor) 1px,transparent 1px),
     linear-gradient(var(--grid-major) 1px,transparent 1px),
     linear-gradient(90deg,var(--grid-major) 1px,transparent 1px);
-  background-size:24px 24px,24px 24px,96px 96px,96px 96px;
+  background-size:32px 32px,32px 32px,128px 128px,128px 128px;
   border:1px solid var(--border);
   overflow:hidden;
   padding:6%; /* 安全边距 */
@@ -89,7 +89,7 @@ h2.s{font-size:clamp(28px,3.6vw,40px);font-weight:800;line-height:1.05;color:var
    SLIDE B — 3-Column
    ============================================================ */
 .col-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:auto;margin-bottom:auto;}
-.col-3 .c{border:1px solid var(--border);padding:16px;border-radius:var(--radius);}
+.col-3 .c{background:var(--surface-1);border:1px solid var(--border);padding:16px;border-radius:var(--radius);}
 .col-3 .c .n{font-family:var(--font-mono);font-size:34px;font-weight:700;color:var(--signal-green);}
 .col-3 .c .tag{
   display:inline-flex;align-items:center;height:26px;padding:0 10px;
@@ -107,7 +107,7 @@ h2.s{font-size:clamp(28px,3.6vw,40px);font-weight:800;line-height:1.05;color:var
    SLIDE C — Product + Annotation
    ============================================================ */
 .sl-product{display:grid;grid-template-columns:1.3fr 1fr;gap:5%;align-items:center;}
-.product-frame{aspect-ratio:4/3;background:var(--bg-deep);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:12px;color:var(--text-muted);}
+.product-frame{margin-top:20px;aspect-ratio:4/3;background:var(--bg-deep);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:12px;color:var(--text-muted);}
 .anno{border-left:1px solid var(--border);padding-left:20px;display:flex;flex-direction:column;gap:18px;}
 .anno .a{border-top:1px solid var(--border);padding-top:12px;}
 .anno .a .k{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;color:var(--signal-green);text-transform:uppercase;}
@@ -121,10 +121,10 @@ h2.s{font-size:clamp(28px,3.6vw,40px);font-weight:800;line-height:1.05;color:var
 .cmp .row:last-child{border-bottom:none;}
 .cmp .row .cell{padding:14px 16px;border-right:1px solid var(--border);font-size:15px;color:var(--text-secondary);display:flex;align-items:center;}
 .cmp .row .cell:last-child{border-right:none;}
-.cmp .row.head .cell{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-primary);background:var(--surface-1);}
-/* 第二状态通道：紫色标记"推荐/选中"列（用量 ≤ 绿色的 40%） */
-.cmp .row.head .cell.violet{color:var(--signal-violet);box-shadow:inset 2px 0 0 var(--signal-violet);}
-.cmp .row .cell.violet{box-shadow:inset 2px 0 0 var(--signal-violet);}
+/* 第二状态通道：紫色标记"推荐/选中"列（全列同化统一紫色通道，杜绝绿点混搭） */
+.cmp .row.head .cell.violet{color:var(--signal-violet);box-shadow:inset 2px 0 0 var(--signal-violet);background:rgba(140,124,255,.06);}
+.cmp .row .cell.violet{box-shadow:inset 2px 0 0 var(--signal-violet);background:rgba(140,124,255,.025);}
+.cmp .row .cell.violet .dot{background:var(--signal-violet);}
 .cmp .row .cell:first-child{color:var(--text-primary);font-weight:600;}
 .dot{width:9px;height:9px;border-radius:50%;background:var(--signal-green);display:inline-block;}
 .dash{color:var(--text-muted);font-family:var(--font-mono);}
@@ -133,12 +133,30 @@ h2.s{font-size:clamp(28px,3.6vw,40px);font-weight:800;line-height:1.05;color:var
    SLIDE E — Process（01 → 02 → 03，编号比箭头重要）
    ============================================================ */
 .proc{display:flex;align-items:stretch;gap:0;margin-top:auto;margin-bottom:auto;}
-.proc .step{flex:1;border:1px solid var(--border);padding:20px;position:relative;}
+.proc .step{flex:1;background:var(--surface-1);border:1px solid var(--border);padding:20px;position:relative;}
 .proc .step:not(:last-child){border-right:none;}
 .proc .step .idx{font-family:var(--font-mono);font-size:40px;font-weight:700;color:var(--text-primary);}
 .proc .step .idx em{font-style:normal;color:var(--signal-green);}
 .proc .step h3{font-size:19px;font-weight:700;color:var(--text-primary);margin:14px 0 8px;}
 .proc .step p{font-size:14px;line-height:1.5;color:var(--text-secondary);}
+
+/* ---- PPT PDF Export Support (Print Media) ---- */
+@media print {
+  @page { size: 16in 9in; margin: 0; }
+  body { background: none; display: block; padding: 0; gap: 0; margin: 0; }
+  .slide { 
+    width: 100vw; 
+    height: 100vh; 
+    aspect-ratio: auto; 
+    margin: 0; 
+    border: none; 
+    box-shadow: none; 
+    border-radius: 0; 
+    page-break-after: always;
+    page-break-inside: avoid;
+    transform: none !important;
+  }
+}
 </style>
 </head>
 <body>
