@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Base Scaffold - Pure HTML Skeleton</title>
+<!-- 
+  CLEAN ROOM BASE SCAFFOLD (干净沙盒物理基座)
+  此文件不包含任何视觉层面的 CSS，仅提供最标准、全覆盖的 HTML 语义结构。
+  扩展新风格时，请直接读取此骨架，完全从零开始编写专属风格的 CSS 样式。
+-->
+
+<style>
+/* Reset & Base */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg-primary: #4578A6;
+  --bg-surface: #F2EAE0;
+  --bg-surface-hover: #FFFFFF;
+  --text-hero: #F2EAE0;
+  --text-primary: #F2EAE0;
+  --text-secondary: rgba(242, 234, 224, 0.7);
+  --text-inverse: #2A455C;
+  --text-inverse-muted: #537593;
+  --signal-yellow: #FFC300;
+  --border-color: rgba(242, 234, 224, 0.3);
+  --border-radius: 4px;
+  --font-sans: "Helvetica Neue", Helvetica, Arial, "微软雅黑", "Microsoft YaHei", sans-serif;
+  --font-mono: "Fira Code", "JetBrains Mono", Consolas, monospace;
+}
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+.wrap { max-width: 1000px; margin: 0 auto; padding: 80px 40px; }
+
+/* REMOVED: section border-bottom */
+section { position: relative; }
+
+/* 1. Eyebrow */
+.eyebrow { display: flex; align-items: center; font-family: var(--font-mono); font-size: 12px; color: var(--text-secondary); letter-spacing: 2px; margin-bottom: 30px; text-transform: uppercase; }
+.eyebrow .diamond { width: 8px; height: 8px; background-color: var(--signal-yellow); margin-right: 12px; }
+.eyebrow .line { flex-grow: 1; height: 1px; background-color: var(--border-color); margin-left: 20px; }
+
+/* 2. Typography */
+.hero { font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 800; line-height: 1.05; color: var(--text-hero); margin-bottom: 24px; letter-spacing: -0.02em; text-transform: uppercase; }
+.lead { font-size: 1.25rem; color: var(--text-secondary); max-width: 700px; margin-bottom: 40px; }
+.section-title { font-size: 2rem; font-weight: 700; color: var(--text-hero); margin-bottom: 40px; padding-left: 16px; border-left: 4px solid var(--signal-yellow); }
+.rich-text p { margin-bottom: 1.5em; }
+.rich-text strong { color: var(--text-hero); }
+.rich-text blockquote { padding: 20px 24px; background: var(--bg-surface); border-left: 4px solid var(--signal-yellow); margin: 30px 0; font-size: 1.1rem; color: var(--text-inverse); }
+
+/* 3. Tech Specs */
+.spec-row { display: flex; flex-wrap: wrap; gap: 40px; padding: 30px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); margin: 40px 0; }
+.spec .val { font-size: 2.5rem; font-weight: 700; color: var(--signal-yellow); line-height: 1; margin-bottom: 8px; }
+.spec .val em { font-size: 1rem; font-style: normal; color: var(--text-secondary); margin-left: 4px; }
+.spec .unit { font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-secondary); letter-spacing: 1px; }
+
+/* 4. Number Cards */
+.cards-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 40px; }
+.num-card { background: var(--bg-surface); padding: 32px; border: 1px solid transparent; border-radius: var(--border-radius); transition: all 0.3s ease; position: relative; }
+.num-card:hover { background: var(--bg-surface-hover); transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
+.num-card.selected { box-shadow: 0 0 0 2px var(--signal-yellow); }
+.num-card .num { font-family: var(--font-mono); font-size: 2rem; color: var(--signal-yellow); font-weight: 700; margin-bottom: 16px; }
+.num-card h3 { font-size: 1.25rem; color: var(--text-inverse); margin-bottom: 12px; }
+.num-card p { color: var(--text-inverse-muted); font-size: 0.95rem; }
+.num-card .tag { position: absolute; top: 24px; right: 24px; font-family: var(--font-mono); font-size: 0.75rem; padding: 4px 8px; border: 1px solid var(--text-inverse-muted); border-radius: var(--border-radius); color: var(--text-inverse-muted); }
+.num-card.selected .tag { color: var(--signal-yellow); border-color: var(--signal-yellow); background: var(--bg-primary); }
+
+/* 5. Features */
+.feat-grid { display: grid; gap: 40px; margin-top: 40px; }
+.feat-card { background: var(--bg-surface); padding: 40px; border-radius: var(--border-radius); }
+.feat-card .tag { font-family: var(--font-mono); color: var(--signal-yellow); margin-bottom: 16px; font-weight: bold; }
+.feat-card h3 { font-size: 1.5rem; color: var(--text-inverse); margin-bottom: 16px; }
+.feat-card p { color: var(--text-inverse-muted); margin-bottom: 30px; }
+.feat-card .frame { aspect-ratio: 16/9; background: var(--bg-primary); border-radius: var(--border-radius); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); font-family: var(--font-mono); }
+
+/* 6. Process Steps */
+.steps { display: flex; flex-direction: column; gap: 0; margin: 40px 0; position: relative; }
+.steps::before { content: ''; position: absolute; left: 24px; top: 0; bottom: 0; width: 2px; background: var(--border-color); }
+.step { display: flex; gap: 30px; padding: 30px 0; position: relative; }
+.step .idx { width: 48px; height: 48px; border-radius: 50%; background: var(--bg-primary); border: 2px solid var(--signal-yellow); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 700; color: var(--signal-yellow); z-index: 1; }
+.step h3 { font-size: 1.25rem; color: var(--text-hero); margin: 8px 0; }
+.step p { color: var(--text-secondary); }
+
+/* 7. Comparison Matrix */
+.cmp-matrix-wrapper { overflow-x: auto; margin: 40px 0; }
+.cmp-matrix { min-width: 600px; border-collapse: collapse; background: var(--bg-surface); border-radius: var(--border-radius); overflow: hidden; }
+.cmp-row { display: grid; grid-template-columns: 2fr 1fr 1fr; border-bottom: 1px solid rgba(42,69,92,0.1); }
+.cmp-row.header { background: var(--bg-primary); border-bottom: none; font-family: var(--font-mono); font-weight: 700; color: var(--text-secondary); }
+.cmp-row.header .cmp-cell { border-bottom: 2px solid var(--signal-yellow); }
+.cmp-cell { padding: 20px; display: flex; align-items: center; color: var(--text-inverse); }
+.cmp-row.header .cmp-cell { color: var(--text-primary); }
+.cmp-cell:not(:first-child) { justify-content: center; }
+.cmp-cell.highlight-col { background: rgba(255, 195, 0, 0.1); }
+.cmp-row.header .highlight-col { color: var(--signal-yellow); background: rgba(255,195,0,0.15); }
+.cmp-cell .dot { width: 12px; height: 12px; background-color: var(--signal-yellow); border-radius: 50%; }
+.cmp-cell .dash { width: 16px; height: 2px; background-color: var(--text-inverse-muted); }
+
+/* 8. Footer */
+footer { border-top: 1px solid var(--border-color); padding: 40px 0; font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-secondary); }
+.meta-foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+
+/* 9. Admonitions */
+.admonition { padding: 24px; background: var(--bg-surface); border-left: 4px solid var(--signal-yellow); margin: 30px 0; border-radius: 0 var(--border-radius) var(--border-radius) 0; }
+.admonition.info { border-left-color: var(--signal-yellow); }
+.admonition.warning { border-left-color: #ff9800; }
+.admonition.error { border-left-color: #f44336; }
+.admonition-title { font-weight: 700; margin-bottom: 12px; color: var(--text-inverse); }
+.admonition p { color: var(--text-inverse-muted); margin-bottom: 0; }
+
+/* 10. Timeline */
+.timeline { margin: 40px 0; position: relative; }
+.timeline::before { content: ''; position: absolute; left: 140px; top: 0; bottom: 0; width: 1px; background: var(--border-color); }
+.timeline-item { display: flex; gap: 80px; padding: 30px 0; position: relative; }
+.timeline-marker { width: 100px; font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700; color: var(--signal-yellow); text-align: right; flex-shrink: 0; }
+.timeline-item::after { content: ''; position: absolute; left: 136px; top: 40px; width: 9px; height: 9px; background: var(--bg-primary); border: 2px solid var(--signal-yellow); border-radius: 50%; }
+.timeline-content h3 { font-size: 1.25rem; color: var(--text-hero); margin-bottom: 12px; }
+.timeline-content p { color: var(--text-secondary); }
+
+/* 11. Pros & Cons */
+.pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 40px 0; }
+.pro-card, .con-card { padding: 32px; border-radius: var(--border-radius); background: var(--bg-surface); }
+.pro-card .tag { color: var(--signal-yellow); font-family: var(--font-mono); margin-bottom: 20px; font-weight: 700; }
+.con-card .tag { color: var(--text-inverse-muted); font-family: var(--font-mono); margin-bottom: 20px; font-weight: 700; }
+.pros-cons ul { list-style: none; }
+.pros-cons li { margin-bottom: 12px; padding-left: 20px; position: relative; color: var(--text-inverse); }
+.pro-card li::before { content: '+'; position: absolute; left: 0; color: var(--signal-yellow); font-family: var(--font-mono); font-weight: bold; }
+.con-card li::before { content: '-'; position: absolute; left: 0; color: var(--text-inverse-muted); font-family: var(--font-mono); font-weight: bold; }
+
+/* 12. Stats Grid */
+.stats-grid { display: flex; flex-wrap: wrap; gap: 60px; margin: 40px 0; }
+.stat-card { display: flex; flex-direction: column; }
+.stat-val { font-size: 4rem; font-weight: 800; line-height: 1; color: var(--text-hero); }
+.stat-val span { font-size: 2rem; color: var(--signal-yellow); margin-left: 4px; }
+.stat-label { font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-secondary); margin-top: 12px; letter-spacing: 1px; }
+
+/* 13. Flowchart (SVG Container) */
+.flowchart { margin: 40px 0; padding: 40px; background: var(--bg-surface); border-radius: var(--border-radius); }
+.flowchart svg { width: 100%; height: auto; color: var(--text-inverse); }
+.flowchart .node rect { fill: #FFFFFF; stroke: var(--text-inverse-muted); }
+.flowchart .node text { fill: var(--text-inverse); }
+.flowchart .node.active rect { stroke: var(--signal-yellow); stroke-width: 3px; }
+.flowchart .node.active text { fill: #000; font-weight: bold; }
+
+/* 14. References */
+.references { margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--border-color); }
+.references h3 { font-family: var(--font-mono); font-size: 1rem; color: var(--text-secondary); margin-bottom: 20px; }
+.references ol { padding-left: 20px; color: var(--text-secondary); font-size: 0.9rem; }
+.references li { margin-bottom: 8px; }
+.references a { color: var(--text-secondary); text-decoration: underline; text-decoration-color: var(--border-color); transition: all 0.3s; }
+.references a:hover { color: var(--signal-yellow); text-decoration-color: var(--signal-yellow); }
+
+/* 16. FAQ / Q&A */
+.faq { margin: 40px 0; background: var(--bg-surface); border-radius: var(--border-radius); padding: 0 30px; }
+.faq-item { border-bottom: 1px solid rgba(42, 69, 92, 0.1); padding: 30px 0; }
+.faq-item:last-child { border-bottom: none; }
+.faq-item .q { font-size: 1.2rem; font-weight: 700; color: var(--text-inverse); margin-bottom: 16px; position: relative; padding-left: 24px; }
+.faq-item .q::before { content: 'Q.'; position: absolute; left: 0; color: var(--signal-yellow); font-family: var(--font-mono); }
+.faq-item .a { color: var(--text-inverse-muted); padding-left: 24px; margin-bottom: 0; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero { font-size: 3rem; }
+  .stats-grid { gap: 30px; }
+  .stat-val { font-size: 3rem; }
+  .spec-row { flex-direction: column; gap: 20px; }
+  .pros-cons { grid-template-columns: 1fr; }
+  .timeline::before { left: 80px; }
+  .timeline-item { gap: 40px; }
+  .timeline-marker { width: 60px; font-size: 1.2rem; }
+  .timeline-item::after { left: 76px; }
+}
+</style>
+</head>
+<body>
+
+<section class="hero-section">
+  <div class="wrap">
+    <div class="eyebrow"><span class="diamond"></span><span>01 / EXECUTIVE SUMMARY</span><span class="line"></span></div>
+    <h1 class="hero">主标题 (Hero Title) 确保短小有力</h1>
+    <p class="lead">导读段落 (Lead Paragraph)：简明扼要地概括核心主旨。</p>
+    
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-val">300<span>%</span></div><div class="stat-label">ANNUAL GROWTH</div></div>
+      <div class="stat-card"><div class="stat-val">1.2<span>M</span></div><div class="stat-label">ACTIVE USERS</div></div>
+      <div class="stat-card"><div class="stat-val">0.5<span>ms</span></div><div class="stat-label">LATENCY</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="body-section">
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>02 / ARTICLE BODY</span><span class="line"></span></div>
+      <h2 class="section-title">正文区块标题</h2>
+    </div>
+    
+    <div class="rich-text">
+      <p>这是标准的正文段落。支持 <strong>加粗</strong>、<em>斜体</em> 和 <code>内联代码</code> 排版。</p>
+      <blockquote>这是引用名人名言或核心观点的块级引用（Blockquote），需要单独的视觉包裹。</blockquote>
+      
+      <div class="spec-row">
+        <div class="spec"><div class="val">60×95<em>mm</em></div><div class="unit">SIZE</div></div>
+        <div class="spec"><div class="val">500<em>mah</em></div><div class="unit">BATTERY</div></div>
+        <div class="spec"><div class="val">USB-C</div><div class="unit">INTERFACE</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cards-section">
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>03 / ADMONITIONS & CARDS</span><span class="line"></span></div>
+      <h2 class="section-title">模块化卡片与提示框</h2>
+    </div>
+    
+    <div class="admonition info">
+      <div class="admonition-title">核心结论 (INFO)</div>
+      <p>这是 AI 提取的关键结论高亮框，用于引起读者注意。</p>
+    </div>
+
+    <div class="cards-3">
+      <div class="num-card">
+        <div class="num">01</div>
+        <h3>模块一核心功能</h3>
+        <p>详细描述说明。</p>
+        <div class="tag">BASE</div>
+      </div>
+      <div class="num-card selected">
+        <div class="num">02</div>
+        <h3>推荐核心功能</h3>
+        <p>这是推荐项，需要第二状态通道的高亮显示（如发光或特殊边框）。</p>
+        <div class="tag">RECOMMENDED</div>
+      </div>
+      <div class="num-card">
+        <div class="num">03</div>
+        <h3>辅助功能扩展</h3>
+        <p>次要说明内容。</p>
+        <div class="tag">OPTIONAL</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="timeline-section">
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>04 / COMPARISON & TIMELINE</span><span class="line"></span></div>
+      <h2 class="section-title">对比矩阵与时间轴</h2>
+    </div>
+
+    <!-- 注意：外层需配置 overflow-x: auto; 保证移动端体验 -->
+    <div class="cmp-matrix-wrapper">
+      <div class="cmp-matrix">
+        <div class="cmp-row header">
+          <div class="cmp-cell">对比维度</div>
+          <div class="cmp-cell">方案 A</div>
+          <div class="cmp-cell highlight-col">方案 B (推荐)</div>
+        </div>
+        <div class="cmp-row">
+          <div class="cmp-cell">核心能力与闭环</div>
+          <div class="cmp-cell">基础支持</div>
+          <div class="cmp-cell highlight-col">完整闭环</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-marker">2024</div>
+        <div class="timeline-content">
+          <h3>立项与核心架构</h3>
+          <p>核心目标设定，完成基础架构开发。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-marker">2026</div>
+        <div class="timeline-content">
+          <h3>全面演进</h3>
+          <p>进入全新阶段，实现智能化重构。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pros-cons-section">
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>05 / PROS & CONS</span><span class="line"></span></div>
+      <h2 class="section-title">优劣对比卡片</h2>
+    </div>
+
+    <div class="pros-cons">
+      <div class="pro-card">
+        <div class="tag">PROS / 优势</div>
+        <ul><li>架构极其稳定，扩展性强</li></ul>
+      </div>
+      <div class="con-card">
+        <div class="tag">CONS / 劣势</div>
+        <ul><li>初期学习曲线较陡峭</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="steps-section">
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>06 / PROCESS STEPS</span><span class="line"></span></div>
+      <h2 class="section-title">流程步骤拆解</h2>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="idx">01</div>
+        <div>
+          <h3>意图识别与解析</h3>
+          <p>分析用户输入的长篇文本与目标场景，提取关键信息与数据骨架。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="idx">02</div>
+        <div>
+          <h3>风格契约与装配</h3>
+          <p>加载目标风格的 Design Tokens 与专属视觉脚手架进行代码装配。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="idx">03</div>
+        <div>
+          <h3>双层质检与交付</h3>
+          <p>通过通用质检与专属风格清单校验，输出生产就绪的单文件 HTML。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="flowchart-section">
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>07 / FLOWCHART</span><span class="line"></span></div>
+      <h2 class="section-title">系统架构与流程图</h2>
+    </div>
+
+    <div class="flowchart">
+      <svg viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="base-arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="currentColor" />
+          </marker>
+        </defs>
+        <g class="node">
+          <rect x="20" y="25" width="150" height="70" rx="4" fill="none" stroke="currentColor" stroke-width="1.5" />
+          <text x="35" y="52" fill="currentColor" font-size="10" opacity="0.6">01 / INPUT</text>
+          <text x="35" y="74" fill="currentColor" font-size="14" font-weight="700">原始输入</text>
+        </g>
+        <line x1="170" y1="60" x2="220" y2="60" stroke="currentColor" stroke-width="1.5" marker-end="url(#base-arrow)" opacity="0.4" />
+        <g class="node">
+          <rect x="225" y="25" width="150" height="70" rx="4" fill="none" stroke="currentColor" stroke-width="1.5" />
+          <text x="240" y="52" fill="currentColor" font-size="10" opacity="0.6">02 / EXTRACT</text>
+          <text x="240" y="74" fill="currentColor" font-size="14" font-weight="700">结构提炼</text>
+        </g>
+        <line x1="375" y1="60" x2="425" y2="60" stroke="currentColor" stroke-width="1.5" marker-end="url(#base-arrow)" opacity="0.4" />
+        <g class="node active">
+          <rect x="430" y="25" width="150" height="70" rx="4" fill="none" stroke="currentColor" stroke-width="2" />
+          <text x="445" y="52" fill="currentColor" font-size="10">03 / RENDER</text>
+          <text x="445" y="74" fill="currentColor" font-size="14" font-weight="700">组件渲染</text>
+        </g>
+        <line x1="580" y1="60" x2="630" y2="60" stroke="currentColor" stroke-width="1.5" marker-end="url(#base-arrow)" opacity="0.4" />
+        <g class="node">
+          <rect x="635" y="25" width="145" height="70" rx="4" fill="none" stroke="currentColor" stroke-width="1.5" />
+          <text x="650" y="52" fill="currentColor" font-size="10" opacity="0.6">04 / OUTPUT</text>
+          <text x="650" y="74" fill="currentColor" font-size="14" font-weight="700">成果交付</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="faq-section">
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>08 / FAQ</span><span class="line"></span></div>
+      <h2 class="section-title">常见问题</h2>
+    </div>
+
+    <div class="faq">
+      <div class="faq-item">
+        <div class="q">如何切换不同的视觉风格包？</div>
+        <div class="a">在生成前指定 Style ID（如 industrial-dark, soft-sky 等），系统将自动加载对应风格的 Design Tokens 与样式规范。</div>
+      </div>
+      <div class="faq-item">
+        <div class="q">是否支持单文件离线使用？</div>
+        <div class="a">支持。生成的 HTML 文件包含完整的内联样式与矢量图表，无需部署即可本地直接双击打开查看。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="references-section">
+  <div class="wrap">
+    <div class="references">
+      <h3>REFERENCES / 参考文献</h3>
+      <ol>
+        <li id="ref-1">Tufte, E. R. (2001). <em>The Visual Display of Quantitative Information</em>. Graphics Press. <a href="#fnref-1">↩</a></li>
+        <li id="ref-2">Bringhurst, R. (2012). <em>The Elements of Typographic Style</em>. Hartley & Marks. <a href="#fnref-2">↩</a></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="meta-foot">
+      <span>VISUAL HTML // SYSTEM CORE</span>
+      <span>BUILD // CLEAN ROOM BASE SCAFFOLD</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

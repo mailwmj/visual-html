@@ -3,35 +3,35 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>黑曜霓蓝 — 16:9 演示文稿脚手架 (Obsidian Cyan PPT)</title>
+<title>霓虹创意3D风 — 16:9 演示文稿脚手架 (Neon 3D Creative PPT)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
 /* ============================================================
-   黑曜霓蓝 (Obsidian Cyan) — 16:9 演示文稿设计系统 (PPT Scaffold)
+   霓虹创意3D风 (Neon 3D Creative) — 16:9 演示文稿设计系统 (PPT Scaffold)
    画布比例 16:9（1280×720 @96dpi），预留 5–7% 安全边距。
    核心使命：将长篇纯文本按单页唯一焦点提炼为极具冲击力的幻灯片。
    ============================================================ */
 :root {
   --bg: #000000;
-  --bg-deep: #050505;
+  --bg-deep: #000000;
   --surface-1: #0A0A0A;
-  --surface-2: #111111;
-  --surface-glass: rgba(17, 17, 17, 0.85);
+  --surface-2: #121212;
+  --surface-glass: rgba(16, 16, 16, 0.85);
 
   --text-primary: #FFFFFF;
-  --text-secondary: #A3A3A3;
-  --text-muted: #737373;
+  --text-secondary: #A1A1AA;
+  --text-muted: #71717A;
 
-  --border: rgba(255, 255, 255, 0.12);
-  --border-subtle: rgba(168, 85, 247, 0.2);
-  --border-strong: rgba(168, 85, 247, 0.6);
+  --border: rgba(255, 255, 255, 0.10);
+  --border-subtle: rgba(168, 85, 247, 0.22);
+  --border-strong: rgba(168, 85, 247, 0.60);
 
   --signal-cyan: #A855F7;
-  --signal-cyan-soft: rgba(168, 85, 247, 0.15);
+  --signal-cyan-soft: rgba(168, 85, 247, 0.16);
   --signal-blue: #EC4899;
-  --signal-glow: rgba(168, 85, 247, 0.5);
+  --signal-glow: rgba(168, 85, 247, 0.50);
 
   --radius-sm: 12px;
   --radius: 24px;
@@ -53,23 +53,40 @@ body {
   padding: 48px 0;
 }
 
-/* ---- 16:9 幻灯片单页 ---- */
+/* ---- 16:9 幻灯片单页：默认纯黑底色 ---- */
 .slide {
   position: relative;
   width: min(92vw, 1160px);
   aspect-ratio: 16 / 9;
-  background-color: var(--bg);
-  background-image:
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(168, 85, 247, 0.16) 0%, transparent 60%),
-    radial-gradient(circle 500px at 95% 45%, rgba(236, 72, 153, 0.08) 0%, transparent 60%),
-    linear-gradient(180deg, #000000 0%, #050505 100%);
+  background-color: #000000;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.8), 0 0 30px rgba(168, 85, 247, 0.08);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 0, 0, 0.8);
   overflow: hidden;
   padding: 4.8% 5.5%;
   display: flex;
   flex-direction: column;
+}
+
+/* 局部流光变体：顶部右上光斑 */
+.slide.glow-top {
+  background-image: radial-gradient(ellipse 55% 40% at 75% 5%, rgba(168, 85, 247, 0.40) 0%, rgba(147, 51, 234, 0.15) 38%, transparent 70%);
+}
+
+/* 局部流光变体：底部左下波浪光带 */
+.slide.glow-bottom {
+  background-image: radial-gradient(ellipse 60% 45% at 10% 95%, rgba(168, 85, 247, 0.42) 0%, rgba(192, 132, 252, 0.18) 28%, transparent 70%);
+}
+
+/* 幻灯片胶片颗粒噪点层 */
+.slide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.045;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
 /* 顶部元数据 */
@@ -189,13 +206,15 @@ h2.s { font-size: clamp(22px, 2.8vw, 32px); font-weight: 800; line-height: 1.15;
 }
 .sl-num-card.selected {
   border-color: var(--signal-cyan);
-  box-shadow: 0 0 20px rgba(168, 85, 247, 0.22);
+  background: linear-gradient(180deg, rgba(38, 16, 60, 0.85) 0%, rgba(18, 8, 30, 0.95) 100%);
+  box-shadow: 0 0 24px rgba(168, 85, 247, 0.35);
 }
 .sl-num-card .num {
   font-family: var(--font-mono);
   font-size: 36px;
   font-weight: 800;
   color: var(--signal-cyan);
+  text-shadow: 0 0 16px rgba(168, 85, 247, 0.4);
 }
 
 /* ============================================================
@@ -280,7 +299,7 @@ h2.s { font-size: clamp(22px, 2.8vw, 32px); font-weight: 800; line-height: 1.15;
 <!-- ============================================================
      SLIDE 1 — 核心论点与执行摘要 (Statement & Hero)
      ============================================================ -->
-<div class="slide">
+<div class="slide glow-top">
   <div class="top-meta">
     <span>战略方案报告 // 2026</span>
     <span class="highlight">执行摘要</span>
@@ -409,7 +428,7 @@ h2.s { font-size: clamp(22px, 2.8vw, 32px); font-weight: 800; line-height: 1.15;
 <!-- ============================================================
      SLIDE 4 — 四阶段演进路线 (4-Step Flow)
      ============================================================ -->
-<div class="slide">
+<div class="slide glow-bottom">
   <div class="top-meta">
     <span>战略方案报告 // 2026</span>
     <span class="highlight">实施路线</span>

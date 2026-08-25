@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" width="400" height="240">
+  <defs>
+    <!-- Liquid Blobs Gradients -->
+    <radialGradient id="blob-blue" cx="30%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#BAE6FD"/>
+      <stop offset="50%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </radialGradient>
+    <radialGradient id="blob-peach" cx="30%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FED7AA"/>
+      <stop offset="60%" stop-color="#FB923C"/>
+      <stop offset="100%" stop-color="#EA580C"/>
+    </radialGradient>
+    <radialGradient id="blob-lavender" cx="30%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#DDD6FE"/>
+      <stop offset="70%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#6D28D9"/>
+    </radialGradient>
+    <linearGradient id="glass-surf" x1="0" y1="0" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.88"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.55"/>
+    </linearGradient>
+    <filter id="future-shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#8292A1" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <style>
+    .mono { font-family: "IBM Plex Mono", "SF Mono", Consolas, monospace; }
+    .sans { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+  </style>
+
+  <!-- Cool Light Grey Canvas -->
+  <rect width="400" height="240" fill="#EAEFF4" rx="8"/>
+  <rect width="398" height="238" x="1" y="1" fill="none" stroke="rgba(255, 255, 255, 0.8)" stroke-width="1" rx="7"/>
+
+  <!-- Tier 1: Eyebrow (y: 12..30) -->
+  <g transform="translate(18, 12)">
+    <rect width="6" height="6" rx="3" fill="#0071E3" y="5"/>
+    <text class="mono" font-size="9" font-weight="700" fill="#0071E3" x="14" y="11" letter-spacing="1">SOFT FUTURE // 10</text>
+    <line x1="150" y1="8" x2="364" y2="8" stroke="rgba(0, 113, 227, 0.15)" stroke-width="1"/>
+  </g>
+
+  <!-- Tier 2: Title (y: 44..60, baseline: 58) -->
+  <g transform="translate(18, 58)">
+    <text class="sans" font-size="16" font-weight="800" fill="#111418" x="0" y="0">温润社论未来风</text>
+    <text class="mono" font-size="9" font-weight="600" fill="#8292A1" x="130" y="-1">EDITORIAL FUTURE</text>
+  </g>
+
+  <!-- Tier 3: Main Card (y: 72..192, height: 120) -->
+  <g transform="translate(18, 72)">
+    <!-- 3D Soft Blooming Color Orbs behind Glass -->
+    <circle cx="50" cy="50" r="32" fill="url(#blob-blue)" opacity="0.85"/>
+    <circle cx="310" cy="65" r="28" fill="url(#blob-peach)" opacity="0.8"/>
+    <circle cx="180" cy="85" r="22" fill="url(#blob-lavender)" opacity="0.75"/>
+
+    <!-- Frosted Glass Showcase -->
+    <rect width="364" height="120" rx="16" fill="url(#glass-surf)" stroke="rgba(255, 255, 255, 0.95)" stroke-width="1.5" filter="url(#future-shadow)"/>
+    
+    <g transform="translate(18, 14)">
+      <!-- Row 1: Tag Badge -->
+      <rect width="88" height="18" rx="9" fill="rgba(0, 113, 227, 0.08)" stroke="rgba(0, 113, 227, 0.25)" stroke-width="0.75"/>
+      <text class="mono" font-size="8" font-weight="700" fill="#0071E3" x="8" y="12">✦ SHOWROOM</text>
+
+      <!-- Row 2: Headline -->
+      <text class="sans" font-size="13" font-weight="800" fill="#111418" x="0" y="40">高级展厅视效 · 柔光彩球内部晕染</text>
+      
+      <!-- Row 3: Subtitle -->
+      <text class="sans" font-size="9" font-weight="500" fill="#4A5568" x="0" y="58">极高透光玻璃拟态 · 人文社论秩序与未来科技感</text>
+
+      <!-- Row 4: Action Button -->
+      <g transform="translate(0, 74)">
+        <rect width="76" height="18" rx="9" fill="#0071E3"/>
+        <text class="sans" font-size="8" font-weight="700" fill="#FFFFFF" x="12" y="12">EXPLORE</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Tier 4: Footer Meta (y: 220) -->
+  <g transform="translate(18, 220)">
+    <text class="mono" font-size="9" font-weight="600" fill="#8292A1" x="0" y="0">style_id: <tspan fill="#111418">soft-editorial-future</tspan></text>
+    <g transform="translate(260, -8)">
+      <circle cx="7" cy="7" r="7" fill="#EAEFF4" stroke="rgba(0,0,0,0.1)"/>
+      <circle cx="23" cy="7" r="7" fill="#FFFFFF" stroke="rgba(0,0,0,0.1)"/>
+      <circle cx="39" cy="7" r="7" fill="#0071E3"/>
+      <circle cx="55" cy="7" r="7" fill="#38BDF8"/>
+      <circle cx="71" cy="7" r="7" fill="#FB923C"/>
+    </g>
+  </g>
+</svg>

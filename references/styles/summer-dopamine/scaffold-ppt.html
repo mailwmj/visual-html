@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TECHNICAL EDITORIAL — Light Blue / Soft Sky PPT Scaffold (16:9)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   Summer Dopamine PPT Scaffold (16:9)
+   ============================================================ */
+:root {
+  --bg-gradient-1: #FF66B2;
+  --bg-gradient-2: #0077FF;
+  --bg-gradient-3: #00E676;
+  --bg-gradient-4: #FFEA00;
+  
+  --surface-1: rgba(255, 255, 255, 0.25);
+  --surface-2: rgba(255, 255, 255, 0.45);
+  --glass-blur: blur(24px) saturate(120%);
+
+  --text-primary: #1F2937;
+  --text-secondary: #4B5563;
+  --text-muted: #6B7280;
+  --text-inverse: #FFFFFF;
+
+  --border: rgba(255, 255, 255, 0.5);
+  --border-strong: rgba(255, 255, 255, 0.8);
+
+  --signal-pink: #FF66B2;
+  --signal-blue: #0077FF;
+  --signal-green: #00E676;
+  --signal-yellow: #FFEA00;
+
+  --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+
+  --radius: 24px;
+  --radius-sm: 16px;
+  --radius-pill: 100px;
+
+  --font-display: "Arial Rounded MT Bold", "Varela Round", "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", sans-serif;
+  --font-mono: "Fira Code", "JetBrains Mono", "SFMono-Regular", monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #2a2a2a;
+  font-family: var(--font-display);
+  display: flex; flex-direction: column; align-items: center;
+  gap: 32px; padding: 40px 0;
+}
+
+/* ---- 单页 16:9 ---- */
+.slide {
+  position: relative;
+  width: min(92vw, 1160px); aspect-ratio: 16/9;
+  background-color: var(--bg-gradient-2); /* 使用主题蓝作为底色，消除边缘白边 */
+  background-image: 
+    radial-gradient(circle at 10% 20%, var(--bg-gradient-1) 0%, transparent 70%),
+    radial-gradient(circle at 80% 10%, var(--bg-gradient-2) 0%, transparent 70%),
+    radial-gradient(circle at 20% 80%, var(--bg-gradient-3) 0%, transparent 70%),
+    radial-gradient(circle at 80% 90%, var(--bg-gradient-4) 0%, transparent 70%);
+  background-size: cover;
+  border-radius: var(--radius);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.2);
+  overflow: hidden;
+  padding: 6%;
+  display: flex; flex-direction: column;
+  z-index: 1;
+}
+
+.slide::before {
+  content: ""; position: absolute; 
+  inset: -40px; /* 向外延伸，隐藏 backdrop-filter 的边缘泛白发光伪影 */
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(20px);
+  z-index: -1;
+}
+
+.slide .meta-foot {
+  position: absolute; left: 6%; bottom: 4.5%;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-muted);
+}
+.slide .slide-no {
+  position: absolute; right: 6%; bottom: 4.5%;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+/* ---- Eyebrow ---- */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: var(--surface-1);
+  backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border); border-radius: var(--radius-pill);
+  padding: 6px 16px; width: fit-content;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-primary);
+  margin-bottom: 24px;
+}
+.eyebrow .diamond { width: 8px; height: 8px; background: var(--signal-pink); border-radius: 2px; transform: rotate(45deg); flex: none; }
+.eyebrow .line { display: none; }
+
+/* ---- Typography ---- */
+h1.s { font-size: clamp(34px, 5vw, 64px); font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; color: #FFFFFF; text-shadow: 0 4px 12px rgba(0,0,0,0.15); max-width: 16ch; }
+h2.s { font-size: clamp(28px, 3.6vw, 48px); font-weight: 800; line-height: 1.1; color: var(--text-primary); }
+.lead-s { font-size: clamp(17px, 2vw, 24px); font-weight: 500; line-height: 1.5; color: var(--text-secondary); margin-top: 18px; max-width: 36ch; }
+.body-s { font-size: 16px; line-height: 1.5; color: var(--text-secondary); }
+.mono { font-family: var(--font-mono); }
+
+/* ============================================================
+   SLIDE A — Statement
+   ============================================================ */
+.sl-statement .hero { margin-top: auto; }
+.sl-statement .lead-s { margin-bottom: auto; }
+
+/* ============================================================
+   SLIDE B — 3-Column
+   ============================================================ */
+.col-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: auto; margin-bottom: auto; }
+.col-3 .c {
+  background: var(--surface-1); backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 24px; box-shadow: var(--shadow-glass);
+}
+.col-3 .c .n { font-family: var(--font-mono); font-size: 48px; font-weight: 900; color: rgba(0,0,0,0.1); line-height: 1; }
+.col-3 .c .tag {
+  display: inline-flex; align-items: center; padding: 4px 12px;
+  background: rgba(0,0,0,0.05); border-radius: var(--radius-pill);
+  font-family: var(--font-mono); font-size: 10px; font-weight: 700;
+  color: var(--text-primary); margin: 12px 0 8px;
+}
+.col-3 .c h3 { font-size: 22px; font-weight: 800; color: var(--text-primary); margin: 8px 0; }
+.col-3 .c p { font-size: 14px; line-height: 1.5; color: var(--text-secondary); }
+
+.col-3 .c.selected {
+  background: var(--surface-2); border: 2px solid var(--border-strong);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.15), inset 0 0 20px rgba(255,255,255,0.5);
+  transform: translateY(-4px);
+}
+.col-3 .c.selected .tag { background: var(--signal-blue); color: #fff; }
+
+/* ============================================================
+   SLIDE C — Product + Annotation
+   ============================================================ */
+.sl-product { display: grid; grid-template-columns: 1.3fr 1fr; gap: 5%; align-items: center; }
+.product-frame {
+  margin-top: 20px; aspect-ratio: 4/3;
+  background: var(--surface-1); backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 14px; font-weight: 700; color: var(--text-primary);
+  box-shadow: var(--shadow-glass);
+}
+.anno { display: flex; flex-direction: column; gap: 16px; }
+.anno .a { 
+  background: var(--surface-1); backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 16px; box-shadow: var(--shadow-glass);
+}
+.anno .a .k { font-family: var(--font-mono); font-size: 12px; font-weight: 800; color: var(--signal-blue); }
+.anno .a p { font-size: 15px; color: var(--text-secondary); margin-top: 6px; }
+
+/* ============================================================
+   SLIDE D — Comparison
+   ============================================================ */
+.cmp { 
+  margin-top: auto; margin-bottom: auto; display: flex; flex-direction: column;
+  background: var(--surface-1); backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow-glass); overflow: hidden;
+}
+.cmp .row {
+  display: flex;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.cmp .row:last-child { border-bottom: none; }
+.cmp .row.head { background: rgba(255,255,255,0.2); font-weight: 800; border-bottom: 1px solid var(--border-strong); }
+.cmp .cell { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 15px; color: var(--text-secondary); }
+.cmp .row.head .cell { font-family: var(--font-mono); font-size: 12px; color: var(--text-primary); }
+.cmp .row.head .cell.selected { background: rgba(255,255,255,0.15); border-radius: var(--radius-sm); font-weight: 900; box-shadow: inset 0 0 10px rgba(255,255,255,0.2); margin: -4px 0; padding: 4px 12px; }
+.cmp .cell.selected { background: rgba(255,255,255,0.15); border-radius: var(--radius-sm); box-shadow: inset 0 0 10px rgba(255,255,255,0.2); margin: -4px 0; padding: 4px 12px; }
+.cmp .cell:first-child { justify-content: flex-start; text-align: left; flex: 1.5; color: var(--text-primary); font-weight: 700; padding-left: 16px; }
+.dot { width: 12px; height: 12px; border-radius: 50%; background: var(--signal-pink); display: inline-block; box-shadow: 0 0 10px rgba(255,102,178,0.8); }
+.dash { color: var(--text-muted); font-family: var(--font-mono); }
+
+/* ============================================================
+   SLIDE E — Process
+   ============================================================ */
+.proc { display: flex; align-items: stretch; gap: 16px; margin-top: auto; margin-bottom: auto; }
+.proc .step {
+  flex: 1; background: var(--surface-1); backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 24px; box-shadow: var(--shadow-glass); display: flex; flex-direction: column;
+}
+.proc .step .idx {
+  width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 24px; font-weight: 900; color: var(--text-primary); margin-bottom: 16px;
+  box-shadow: inset 0 0 10px rgba(255,255,255,0.5);
+}
+.proc .step h3 { font-size: 20px; font-weight: 800; color: var(--text-primary); margin-bottom: 8px; }
+.proc .step p { font-size: 14px; line-height: 1.5; color: var(--text-secondary); }
+
+/* ---- PPT PDF Export Support (Print Media) ---- */
+@media print {
+  @page { size: 16in 9in; margin: 0; }
+  body { background: none; display: block; padding: 0; gap: 0; margin: 0; }
+  .slide { 
+    width: 100vw; height: 100vh; aspect-ratio: auto; margin: 0; 
+    border: none; box-shadow: none; border-radius: 0; 
+    page-break-after: always; page-break-inside: avoid;
+    transform: none !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ A · STATEMENT ============ -->
+<section class="slide sl-statement">
+  <div class="eyebrow"><span class="diamond"></span><span>01 / CONTEXT</span><span class="line"></span></div>
+  <h1 class="s hero">好的包装不是容器，<br>是记忆的保存方式。</h1>
+  <p class="lead-s">把季节、照片与手写文字收进一个温柔角落，打开时就像重逢一段旧日。</p>
+  <div class="meta-foot">SEASON GREETING // 2025</div>
+  <div class="slide-no">01 / 05</div>
+</section>
+
+<!-- ============ B · 3-COLUMN ============ -->
+<section class="slide">
+  <div class="eyebrow"><span class="diamond"></span><span>02 / ARCHITECTURE</span><span class="line"></span></div>
+  <h2 class="s">三种方式，留住这一天。</h2>
+  <div class="col-3">
+    <div class="c"><div class="n">01</div><div class="tag">RECORD</div><h3>写下今天</h3><p>日记页给今天留一段字，一句话也算。</p></div>
+    <div class="c selected"><div class="n">02</div><div class="tag">PLAY</div><h3>自由拼贴</h3><p>贴纸与照片组合出只属于你的那一页。</p></div>
+    <div class="c"><div class="n">03</div><div class="tag">KEEP</div><h3>铁盒收藏</h3><p>所有碎片归位，放在桌上也是装饰。</p></div>
+  </div>
+  <div class="meta-foot">PACKAGE 02 / SOFT SKY</div>
+  <div class="slide-no">02 / 05</div>
+</section>
+
+<!-- ============ C · PRODUCT + ANNOTATION ============ -->
+<section class="slide sl-product">
+  <div>
+    <div class="eyebrow"><span class="diamond"></span><span>03 / ITEMS</span><span class="line"></span></div>
+    <h2 class="s">一盒四季。</h2>
+    <div class="product-frame">PRODUCT RENDER · 4:3</div>
+  </div>
+  <div class="anno">
+    <div class="a"><div class="k">// TIN CASE</div><p>哑光浅蓝铁盒，边缘圆润，开合有轻微吸附感。</p></div>
+    <div class="a"><div class="k">// CALENDAR</div><p>十二个月连成卷轴，撕下一页不破坏整体。</p></div>
+    <div class="a"><div class="k">// STICKERS</div><p>可移胶贴纸，反复调整不伤纸面。</p></div>
+  </div>
+  <div class="meta-foot">HEARTS // PRODUCT NOTE</div>
+  <div class="slide-no">03 / 05</div>
+</section>
+
+<!-- ============ D · COMPARISON ============ -->
+<section class="slide">
+  <div class="eyebrow"><span class="diamond"></span><span>04 / COMPARE</span><span class="line"></span></div>
+  <h2 class="s">三套规格，内容不同。</h2>
+  <div class="cmp">
+    <div class="row head"><div class="cell">内含</div><div class="cell">A · 基础</div><div class="cell">B · 标准</div><div class="cell selected">C · 完整</div></div>
+    <div class="row"><div class="cell">铁盒</div><div class="cell"><span class="dot"></span></div><div class="cell"><span class="dot"></span></div><div class="cell selected"><span class="dot"></span></div></div>
+    <div class="row"><div class="cell">卷轴日历</div><div class="cell"><span class="dash">—</span></div><div class="cell"><span class="dot"></span></div><div class="cell selected"><span class="dot"></span></div></div>
+    <div class="row"><div class="cell">拍立得框</div><div class="cell"><span class="dash">—</span></div><div class="cell"><span class="dash">—</span></div><div class="cell selected"><span class="dot"></span></div></div>
+  </div>
+  <div class="meta-foot">SEASON GREETING // 2025</div>
+  <div class="slide-no">04 / 05</div>
+</section>
+
+<!-- ============ E · PROCESS ============ -->
+<section class="slide">
+  <div class="eyebrow"><span class="diamond"></span><span>05 / START</span><span class="line"></span></div>
+  <h2 class="s">三步，开始收藏。</h2>
+  <div class="proc">
+    <div class="step"><div class="idx">01<em>.</em></div><h3>打开铁盒</h3><p>取出日历、日记与贴纸包。</p></div>
+    <div class="step"><div class="idx">02<em>.</em></div><h3>选择今天</h3><p>找到日期或直接写日记页。</p></div>
+    <div class="step"><div class="idx">03<em>.</em></div><h3>自由拼贴</h3><p>贴纸与照片没有固定版式。</p></div>
+  </div>
+  <div class="meta-foot">PACKAGE 02 / SOFT SKY</div>
+  <div class="slide-no">05 / 05</div>
+</section>
+
+</body>
+</html>

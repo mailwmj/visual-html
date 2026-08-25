@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Warm Craft Editorial — Scaffold (Web)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400..800;1,6..72,400..800&family=Noto+Serif+SC:wght@500;600;700;900&display=swap" rel="stylesheet" />
+<style>
+:root {
+  /* 背景层：暖纸底色与柔和环境色 */
+  --bg: #F7F4EC;
+  --bg-warm: #FAF7F0;
+  --bg-deep: #EDE7DA;
+  
+  /* 表面层 (Surface) */
+  --surface-card: #FFFFFF;
+  --surface-card-subtle: #FAF8F2;
+  --surface-overlay: rgba(255, 255, 255, 0.85);
+
+  /* 文字层 (深墨绿炭黑 / 暖灰 / 沙岩色) */
+  --text-primary: #1E231B;       /* 主标题与高对比度文字 */
+  --text-secondary: #565E50;     /* 正文与次要段落 */
+  --text-muted: #8E9685;         /* 占位符、辅助脚注与 Mono 标签 */
+  --text-inverse: #FFFFFF;       /* 深色按钮与深底文字 */
+
+  /* 核心主行动色 (深橄榄森林绿) */
+  --signal-primary: #323D24;
+  --signal-primary-hover: #242E18;
+  --signal-primary-light: #EBF0E4;
+
+  /* 粉彩贴纸多色通道 (Pastel Sticker Palette) */
+  --pastel-yellow: #FEDB71;
+  --pastel-yellow-text: #5A3E00;
+  --pastel-yellow-border: rgba(236, 197, 85, 0.5);
+
+  --pastel-orange: #FFA963;
+  --pastel-orange-text: #542200;
+  --pastel-orange-border: rgba(232, 142, 68, 0.5);
+
+  --pastel-green: #B7D97A;
+  --pastel-green-text: #243D06;
+  --pastel-green-border: rgba(158, 194, 94, 0.5);
+
+  --pastel-purple: #AAB7F2;
+  --pastel-purple-text: #1B2966;
+  --pastel-purple-border: rgba(141, 157, 224, 0.5);
+
+  --pastel-blue: #7CB6F8;
+  --pastel-blue-text: #0B3363;
+  --pastel-blue-border: rgba(94, 156, 230, 0.5);
+
+  --pastel-coral: #FCA598;
+  --pastel-coral-text: #631C12;
+  --pastel-coral-border: rgba(229, 134, 119, 0.5);
+
+  /* 边框与阴影 (无生硬黑边，温润透亮) */
+  --border: rgba(50, 61, 36, 0.08);
+  --border-strong: rgba(50, 61, 36, 0.16);
+  --shadow-card: 0 6px 24px rgba(45, 40, 25, 0.05), 0 1px 3px rgba(45, 40, 25, 0.03);
+  --shadow-card-hover: 0 16px 36px rgba(45, 40, 25, 0.10), 0 3px 8px rgba(45, 40, 25, 0.04);
+  --shadow-sticker: 0 8px 24px rgba(50, 45, 30, 0.07), 0 2px 6px rgba(50, 45, 30, 0.03);
+
+  /* 尺寸与圆角 */
+  --radius: 20px;
+  --radius-sm: 12px;
+  --radius-pill: 100px;
+  --container: 1180px;
+
+  /* 字体栈：优先原生系统 Songti 宋体 + 优雅 Serif，保证各平台文字显示极佳 */
+  --font-serif: "Newsreader", "Playfair Display", "Songti SC", "STSong", "Source Han Serif SC", "Noto Serif SC", "Noto Serif CJK SC", "SimSun", "STFangsong", "FangSong", "Georgia", serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "HarmonyOS Sans SC", "Microsoft YaHei", "微软雅黑", sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", "SFMono-Regular", Consolas, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  line-height: 1.6;
+  background-color: var(--bg);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 全局固定流体光晕背景层 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -40px;
+  z-index: -1;
+  background: 
+    radial-gradient(circle at 12% 12%, rgba(254, 219, 113, 0.28) 0%, transparent 45%),
+    radial-gradient(circle at 88% 20%, rgba(183, 217, 122, 0.22) 0%, transparent 40%),
+    radial-gradient(circle at 18% 80%, rgba(170, 183, 242, 0.20) 0%, transparent 45%),
+    radial-gradient(circle at 82% 88%, rgba(255, 169, 99, 0.22) 0%, transparent 45%);
+  background-color: var(--bg);
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+.wrap {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+section {
+  padding: 56px 0;
+}
+
+/* ============================================================
+   文字效果拓展 (Typography Enhancements)
+   ============================================================ */
+.marker-highlight {
+  background: linear-gradient(180deg, transparent 60%, rgba(254, 219, 113, 0.65) 60%);
+  padding: 0 4px;
+  border-radius: 2px;
+}
+.marker-highlight-orange {
+  background: linear-gradient(180deg, transparent 60%, rgba(255, 169, 99, 0.65) 60%);
+  padding: 0 4px;
+  border-radius: 2px;
+}
+.marker-highlight-green {
+  background: linear-gradient(180deg, transparent 60%, rgba(183, 217, 122, 0.65) 60%);
+  padding: 0 4px;
+  border-radius: 2px;
+}
+
+/* ============================================================
+   1. Section Eyebrow (区块索引标头)
+   ============================================================ */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--signal-primary);
+  margin-bottom: 24px;
+  width: 100%;
+}
+.eyebrow .diamond {
+  width: 8px;
+  height: 8px;
+  background: var(--pastel-orange);
+  border-radius: 2px;
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+.eyebrow .line {
+  flex: 1;
+  height: 1px;
+  background: var(--border-strong);
+  margin-left: 8px;
+}
+
+/* ============================================================
+   2. Typography Scale (基础文本层级)
+   ============================================================ */
+h1.hero {
+  font-family: var(--font-serif);
+  font-size: clamp(38px, 5.2vw, 64px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: 22px;
+  max-width: 22ch;
+}
+p.lead {
+  font-size: clamp(17px, 1.8vw, 20px);
+  font-weight: 400;
+  line-height: 1.68;
+  color: var(--text-secondary);
+  max-width: 760px;
+  margin-bottom: 40px;
+}
+.section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 700;
+  line-height: 1.22;
+  color: var(--text-primary);
+  margin-bottom: 32px;
+}
+.section-head.left {
+  text-align: left;
+}
+
+/* ============================================================
+   3. Stats Grid (核心数据卡片)
+   ============================================================ */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 36px;
+}
+.stat-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s;
+  position: relative;
+}
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+.stat-val {
+  font-family: var(--font-serif);
+  font-size: clamp(48px, 4.5vw, 64px);
+  font-weight: 800;
+  color: var(--signal-primary);
+  line-height: 1;
+}
+.stat-val span {
+  font-family: var(--font-sans);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--pastel-orange-text);
+  margin-left: 4px;
+}
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-top: 14px;
+}
+
+/* ============================================================
+   4. Rich Text & Spec Row (正文长文本与参数栏)
+   ============================================================ */
+.rich-text {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px 36px;
+  box-shadow: var(--shadow-card);
+}
+.rich-text p {
+  font-size: 16.5px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+.rich-text strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+.rich-text em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--text-primary);
+}
+.rich-text code {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  background: var(--bg-deep);
+  color: var(--signal-primary);
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+.rich-text blockquote {
+  border-left: 4px solid var(--signal-primary);
+  background: var(--surface-card-subtle);
+  padding: 24px 28px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-family: var(--font-serif);
+  font-size: 18.5px;
+  line-height: 1.65;
+  color: var(--text-primary);
+  margin: 32px 0;
+  position: relative;
+}
+.rich-text blockquote::before {
+  content: "“";
+  font-family: var(--font-serif);
+  font-size: 52px;
+  line-height: 1;
+  color: var(--pastel-orange);
+  position: absolute;
+  top: 10px;
+  right: 18px;
+  opacity: 0.35;
+}
+
+.spec-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-top: 32px;
+  padding-top: 28px;
+  border-top: 1.5px dashed var(--border-strong);
+}
+.spec {
+  background: var(--surface-card-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+}
+.spec .val {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--signal-primary);
+}
+.spec .val em {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-left: 4px;
+}
+.spec .unit {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+
+/* ============================================================
+   5. Admonitions (智能语义提示框 - 便签质感)
+   ============================================================ */
+.admonition {
+  border-radius: var(--radius-sm);
+  padding: 24px 28px;
+  margin-bottom: 32px;
+  border: 1px solid transparent;
+  box-shadow: var(--shadow-card);
+  position: relative;
+}
+.admonition.info {
+  background: #FFFCEB;
+  border-left: 6px solid var(--pastel-yellow);
+  border-color: rgba(236, 197, 85, 0.4);
+}
+.admonition.info .admonition-title {
+  color: var(--pastel-yellow-text);
+}
+.admonition.warning {
+  background: #FFF6EE;
+  border-left: 6px solid var(--pastel-orange);
+  border-color: rgba(232, 142, 68, 0.4);
+}
+.admonition.warning .admonition-title {
+  color: var(--pastel-orange-text);
+}
+.admonition.success {
+  background: #F4F9EA;
+  border-left: 6px solid var(--pastel-green);
+  border-color: rgba(158, 194, 94, 0.4);
+}
+.admonition.success .admonition-title {
+  color: var(--pastel-green-text);
+}
+.admonition-title {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.admonition p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ============================================================
+   6. Number Cards (编号卡片列 - 多彩贴纸与弹性回弹动效)
+   ============================================================ */
+.cards-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 28px;
+  margin-top: 24px;
+}
+.num-card {
+  border-radius: var(--radius);
+  padding: 36px 30px;
+  box-shadow: var(--shadow-sticker);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  position: relative;
+  transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.35s ease, border-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  will-change: transform, box-shadow;
+}
+.num-card .num {
+  font-family: var(--font-mono);
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 16px;
+  opacity: 0.85;
+  letter-spacing: -0.02em;
+  transition: transform 0.3s ease;
+}
+.num-card h3 {
+  font-family: var(--font-serif);
+  font-size: 23px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  line-height: 1.25;
+}
+.num-card p {
+  font-size: 15px;
+  line-height: 1.62;
+  margin-bottom: 24px;
+  flex-grow: 1;
+}
+.num-card .tag {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+/* 各卡片个性化粉彩底色与扇形微倾角（左外展 -2deg，中居中 0deg，右外展 +2deg 镜像对称） */
+.num-card:nth-child(1) {
+  background: var(--pastel-yellow);
+  transform: rotate(-2deg) translateY(2px);
+}
+.num-card:nth-child(1) .num,
+.num-card:nth-child(1) h3 { color: var(--pastel-yellow-text); }
+.num-card:nth-child(1) p { color: rgba(90, 62, 0, 0.88); }
+.num-card:nth-child(1) .tag { color: var(--pastel-yellow-text); }
+
+.num-card:nth-child(2) {
+  background: var(--pastel-orange);
+  transform: rotate(0deg);
+}
+.num-card:nth-child(2) .num,
+.num-card:nth-child(2) h3 { color: var(--pastel-orange-text); }
+.num-card:nth-child(2) p { color: rgba(84, 34, 0, 0.88); }
+.num-card:nth-child(2) .tag { color: var(--pastel-orange-text); }
+
+.num-card:nth-child(3) {
+  background: var(--pastel-green);
+  transform: rotate(2deg) translateY(2px);
+}
+.num-card:nth-child(3) .num,
+.num-card:nth-child(3) h3 { color: var(--pastel-green-text); }
+.num-card:nth-child(3) p { color: rgba(36, 61, 6, 0.88); }
+.num-card:nth-child(3) .tag { color: var(--pastel-green-text); }
+
+/* 默认卡片 Hover 动效：回正 + 弹性上浮 + 强阴影 */
+.num-card:hover {
+  transform: rotate(0deg) translateY(-10px) scale(1.03) !important;
+  box-shadow: 0 20px 44px rgba(50, 45, 30, 0.14), 0 4px 12px rgba(50, 45, 30, 0.06);
+  z-index: 10;
+}
+.num-card:hover .num {
+  transform: scale(1.08);
+}
+.num-card:hover .tag {
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-2px);
+}
+
+/* 推荐/选中态：基础轻微上浮与柔和白边 */
+.num-card.selected {
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 14px 36px rgba(255, 169, 99, 0.28), 0 4px 12px rgba(50, 45, 30, 0.05);
+  transform: rotate(0deg) translateY(-6px) scale(1.01);
+  z-index: 3;
+}
+.num-card.selected .tag {
+  background: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* 推荐/选中态 Hover：进一步高升与强光晕扩散 */
+.num-card.selected:hover {
+  transform: rotate(0deg) translateY(-14px) scale(1.05) !important;
+  box-shadow: 0 26px 54px rgba(255, 169, 99, 0.42), 0 6px 16px rgba(50, 45, 30, 0.08);
+  z-index: 12;
+}
+
+/* ============================================================
+   7. Comparison Matrix (对比矩阵)
+   ============================================================ */
+.cmp-matrix-wrapper {
+  overflow-x: auto;
+  margin-bottom: 48px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border);
+}
+.cmp-matrix {
+  width: 100%;
+  min-width: 600px;
+  background: var(--surface-card);
+  border-collapse: collapse;
+  display: table;
+}
+.cmp-row {
+  display: table-row;
+  border-bottom: 1px solid var(--border);
+}
+.cmp-row:last-child {
+  border-bottom: none;
+}
+.cmp-row.header {
+  background: var(--bg-deep);
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-primary);
+}
+.cmp-cell {
+  display: table-cell;
+  padding: 18px 24px;
+  vertical-align: middle;
+  font-size: 15px;
+  color: var(--text-secondary);
+}
+.cmp-row.header .cmp-cell {
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.cmp-cell.highlight-col {
+  background: rgba(255, 169, 99, 0.12);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.cmp-row.header .cmp-cell.highlight-col {
+  color: var(--pastel-orange-text);
+  font-weight: 800;
+  background: rgba(255, 169, 99, 0.22);
+}
+
+/* ============================================================
+   8. Timeline (时间轴 - 药丸徽标与便签)
+   ============================================================ */
+.timeline {
+  position: relative;
+  padding-left: 36px;
+  margin-top: 36px;
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 12px;
+  bottom: 12px;
+  width: 2px;
+  border-left: 2px dashed rgba(50, 61, 36, 0.3);
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 36px;
+}
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+.timeline-marker {
+  position: absolute;
+  left: -36px;
+  top: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 30px;
+  background: var(--pastel-yellow);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--pastel-yellow-text);
+  transform: rotate(-2deg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+.timeline-item:nth-child(even) .timeline-marker {
+  background: var(--pastel-green);
+  color: var(--pastel-green-text);
+  transform: rotate(2deg);
+}
+.timeline-content {
+  margin-left: 56px;
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 22px 26px;
+  box-shadow: var(--shadow-card);
+}
+.timeline-content h3 {
+  font-family: var(--font-serif);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.timeline-content p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ============================================================
+   9. Pros & Cons (优劣势红黑榜)
+   ============================================================ */
+.pros-cons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+.pro-card {
+  background: #F2F7E8;
+  border: 1px solid rgba(183, 217, 122, 0.5);
+  border-radius: var(--radius);
+  padding: 30px 26px;
+  box-shadow: var(--shadow-card);
+}
+.con-card {
+  background: #FCF1EE;
+  border: 1px solid rgba(252, 165, 152, 0.5);
+  border-radius: var(--radius);
+  padding: 30px 26px;
+  box-shadow: var(--shadow-card);
+}
+.pro-card .tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pastel-green-text);
+  background: rgba(183, 217, 122, 0.4);
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 18px;
+}
+.con-card .tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pastel-coral-text);
+  background: rgba(252, 165, 152, 0.4);
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 18px;
+}
+.pros-cons ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.pros-cons li {
+  position: relative;
+  padding-left: 26px;
+  font-size: 15px;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+.pro-card li::before {
+  content: "OK";
+  position: absolute;
+  left: 0;
+  color: var(--pastel-green-text);
+  font-weight: 800;
+  font-size: 16px;
+}
+.con-card li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--pastel-coral-text);
+  font-weight: 800;
+  font-size: 16px;
+}
+
+/* ============================================================
+   10. Process Steps (流程步骤)
+   ============================================================ */
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.step {
+  display: flex;
+  gap: 22px;
+  align-items: flex-start;
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 26px 30px;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.step:hover {
+  transform: translateX(6px);
+  box-shadow: var(--shadow-card-hover);
+}
+.step .idx {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--pastel-yellow);
+  color: var(--pastel-yellow-text);
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 800;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+.step:nth-child(2) .idx {
+  background: var(--pastel-orange);
+  color: var(--pastel-orange-text);
+}
+.step:nth-child(3) .idx {
+  background: var(--pastel-green);
+  color: var(--pastel-green-text);
+}
+.step h3 {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.step p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ============================================================
+   11. Flowchart (流程图与系统架构)
+   ============================================================ */
+.flowchart {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 36px 28px;
+  box-shadow: var(--shadow-card);
+  overflow-x: auto;
+}
+.flowchart svg {
+  width: 100%;
+  min-width: 700px;
+  height: auto;
+  display: block;
+}
+.flowchart svg text {
+  font-family: var(--font-sans);
+}
+.flowchart svg .node rect {
+  fill: #FAF8F2;
+  stroke: var(--signal-primary);
+  stroke-width: 1.5;
+  rx: 12;
+}
+.flowchart svg .node text {
+  fill: var(--text-primary);
+}
+.flowchart svg .node.active rect {
+  fill: #FFF2D6;
+  stroke: #E88E44;
+  stroke-width: 2;
+}
+.flowchart svg .node.active text {
+  fill: #612B00;
+  font-weight: 800;
+}
+.flowchart svg line {
+  stroke: var(--signal-primary);
+  stroke-dasharray: 4 2;
+  opacity: 0.6;
+}
+.flowchart svg marker path {
+  fill: var(--signal-primary);
+}
+
+/* ============================================================
+   12. FAQ (常见问题列表)
+   ============================================================ */
+.faq {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.faq-item {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 24px 28px;
+  box-shadow: var(--shadow-card);
+}
+.faq-item .q {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.faq-item .q::before {
+  content: "Q";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: var(--signal-primary);
+  color: #FFFFFF;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.faq-item .a {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  padding-left: 38px;
+}
+
+/* ============================================================
+   13. References (参考文献)
+   ============================================================ */
+.references {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 28px 32px;
+}
+.references h3 {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+.references ol {
+  padding-left: 20px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+.references a {
+  color: var(--signal-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 600;
+}
+.references a:hover {
+  color: var(--pastel-orange-text);
+}
+
+/* ============================================================
+   14. Footer (技术页脚)
+   ============================================================ */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 36px 0;
+  margin-top: 64px;
+  background: var(--bg-warm);
+}
+.meta-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Feature Card & Media Frame 兜底 */
+.feat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+.feat-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow-card);
+}
+.feat-card .frame {
+  aspect-ratio: 16/9;
+  background: var(--surface-card-subtle);
+  border: 1.5px dashed var(--border-strong);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 20px;
+}
+
+/* ============================================================
+   15. Sticky Quick Nav (纯净无滚动条胶囊导航)
+   ============================================================ */
+.quick-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 8px 24px rgba(45, 40, 25, 0.06);
+  margin: 0 auto 36px auto;
+  position: sticky;
+  top: 14px;
+  z-index: 99;
+  max-width: fit-content;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.quick-nav::-webkit-scrollbar {
+  display: none;
+}
+.quick-nav a {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+.quick-nav a:hover {
+  background: var(--signal-primary);
+  color: #FFFFFF;
+}
+
+/* ============================================================
+   16. Editorial Interview & Rounds (社论访谈录 / 轮次推演卡片)
+   ============================================================ */
+.interview-rounds {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  margin: 32px 0;
+}
+.round-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 36px 32px;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  transition: box-shadow 0.25s ease;
+}
+.round-card:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+.round-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px dashed var(--border-strong);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.round-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--signal-primary);
+  color: #FFFFFF;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.08em;
+}
+.round-status {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+.round-body {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.ai-questions-block {
+  background: var(--surface-card-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 24px 26px;
+}
+.ai-block-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pastel-orange-text);
+  margin-bottom: 18px;
+}
+.ai-block-head .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--pastel-orange);
+}
+.q-deck {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.q-item {
+  position: relative;
+  padding-left: 36px;
+}
+.q-badge {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: rgba(255, 169, 99, 0.25);
+  color: var(--pastel-orange-text);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.q-title {
+  font-family: var(--font-serif);
+  font-size: 16.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.45;
+  margin-bottom: 6px;
+}
+.q-recom-note {
+  background: #FFF8EE;
+  border: 1px solid rgba(232, 142, 68, 0.28);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-top: 6px;
+}
+.q-recom-note strong {
+  color: var(--pastel-orange-text);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  margin-right: 6px;
+}
+.q-subagent-note {
+  background: #F3F1FB;
+  border: 1px solid rgba(141, 157, 224, 0.35);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--pastel-purple-text);
+  font-family: var(--font-mono);
+  margin-top: 6px;
+}
+.q-subagent-note strong {
+  font-weight: 700;
+  color: var(--pastel-purple-text);
+}
+.user-decision-note {
+  background: #F2F7E8;
+  border: 1px solid rgba(183, 217, 122, 0.45);
+  border-radius: var(--radius-sm);
+  padding: 20px 24px;
+  box-shadow: 0 4px 14px rgba(36, 61, 6, 0.04);
+}
+.user-decision-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pastel-green-text);
+  margin-bottom: 8px;
+}
+.user-decision-head .check-badge {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--pastel-green);
+  color: var(--pastel-green-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+}
+.user-decision-text {
+  font-family: var(--font-sans);
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.6;
+  padding-left: 26px;
+}
+
+@media (max-width: 768px) {
+  .wrap { padding: 32px 18px; }
+  section { padding: 40px 0; }
+  h1.hero { font-size: 34px; }
+  .section-title { font-size: 26px; }
+  .cards-3 { grid-template-columns: 1fr; }
+  .num-card { transform: none !important; }
+  .timeline { padding-left: 20px; }
+  .timeline-marker { position: static; transform: none !important; margin-bottom: 12px; }
+  .timeline-content { margin-left: 0; }
+  .timeline::before { display: none; }
+  .meta-foot { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .quick-nav { border-radius: var(--radius-sm); }
+}
+</style>
+</head>
+<body>
+
+<section class="hero-section">
+  <div class="wrap">
+    <div class="eyebrow"><span class="diamond"></span><span>01 / EXECUTIVE SUMMARY</span><span class="line"></span></div>
+    <h1 class="hero">让智能助手处理繁琐工作，<br>用得越多，<span class="marker-highlight">它就越出色</span></h1>
+    <p class="lead">一个在工作中持续学习的智能代理平台，让重复工作更快、输出质量持续提升、成本大幅下降，建立在已有经验之上的复利体系。</p>
+    
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-val">300<span>%</span></div><div class="stat-label">ANNUAL GROWTH</div></div>
+      <div class="stat-card"><div class="stat-val">1.2<span>M</span></div><div class="stat-label">ACTIVE USERS</div></div>
+      <div class="stat-card"><div class="stat-val">0.5<span>ms</span></div><div class="stat-label">LATENCY</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="body-section">
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>02 / ARTICLE BODY</span><span class="line"></span></div>
+      <h2 class="section-title">正文区块标题</h2>
+    </div>
+    
+    <div class="rich-text">
+      <p>大多数 AI 工具每次交互都会完全重置，而 <strong>智能系统</strong> 则会 <span class="marker-highlight-orange">持续积累与沉淀</span>。随着使用频率增加，系统会自动建立针对特定工作流的 <em>领域认知模型</em>，支持直接调用 <code>system.run_service()</code> 自动化流水线。</p>
+      <blockquote>“越早开始构建，进化越快。你今天交付的每项任务，都会让明天的研究与自动化更省、更好。” —— 知识复利法则</blockquote>
+      
+      <div class="spec-row">
+        <div class="spec"><div class="val">60×95<em>mm</em></div><div class="unit">SIZE</div></div>
+        <div class="spec"><div class="val">500<em>mah</em></div><div class="unit">BATTERY</div></div>
+        <div class="spec"><div class="val">USB-C</div><div class="unit">INTERFACE</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cards-section">
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>03 / ADMONITIONS & CARDS</span><span class="line"></span></div>
+      <h2 class="section-title">模块化卡片与提示框</h2>
+    </div>
+    
+    <div class="admonition info">
+      <div class="admonition-title">核心结论 (INFO)</div>
+      <p>这是 AI 提取的关键结论高亮框，用于引起读者注意。</p>
+    </div>
+
+    <div class="cards-3">
+      <div class="num-card">
+        <div class="num">01</div>
+        <h3>自然语言任务委托</h3>
+        <p>用日常语言告诉智能助手要做什么。它会自主规划多步检索、提取网页数据并清洗生成结构化报告。</p>
+        <div class="tag">RUN ANY TASK</div>
+      </div>
+      <div class="num-card selected">
+        <div class="num">02</div>
+        <h3>深度协同内化经验</h3>
+        <p>在协同工作中学习你的指导偏好，包括错误修正、排版偏好与边界案例，内化为长期记忆。</p>
+        <div class="tag">WORKING WITH YOU</div>
+      </div>
+      <div class="num-card">
+        <div class="num">03</div>
+        <h3>资产沉淀一键复用</h3>
+        <p>将验证高效的工作流一键沉淀为可复用的微服务，免去重复编写提示词的繁琐操作。</p>
+        <div class="tag">REUSE AS SERVICE</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="timeline-section">
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>04 / COMPARISON & TIMELINE</span><span class="line"></span></div>
+      <h2 class="section-title">对比矩阵与时间轴</h2>
+    </div>
+
+    <!-- 注意：外层需配置 overflow-x: auto; 保证移动端体验 -->
+    <div class="cmp-matrix-wrapper">
+      <div class="cmp-matrix">
+        <div class="cmp-row header">
+          <div class="cmp-cell">对比维度</div>
+          <div class="cmp-cell">方案 A</div>
+          <div class="cmp-cell highlight-col">方案 B (推荐)</div>
+        </div>
+        <div class="cmp-row">
+          <div class="cmp-cell">核心能力与闭环</div>
+          <div class="cmp-cell">基础支持</div>
+          <div class="cmp-cell highlight-col">完整闭环</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-marker">2024</div>
+        <div class="timeline-content">
+          <h3>立项与核心架构</h3>
+          <p>核心目标设定，完成基础架构开发。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-marker">2026</div>
+        <div class="timeline-content">
+          <h3>全面演进</h3>
+          <p>进入全新阶段，实现智能化重构。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pros-cons-section">
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>05 / PROS & CONS</span><span class="line"></span></div>
+      <h2 class="section-title">优劣对比卡片</h2>
+    </div>
+
+    <div class="pros-cons">
+      <div class="pro-card">
+        <div class="tag">PROS / 优势</div>
+        <ul><li>架构极其稳定，扩展性强</li></ul>
+      </div>
+      <div class="con-card">
+        <div class="tag">CONS / 劣势</div>
+        <ul><li>初期学习曲线较陡峭</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="steps-section">
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>06 / PROCESS STEPS</span><span class="line"></span></div>
+      <h2 class="section-title">流程步骤拆解</h2>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="idx">01</div>
+        <div>
+          <h3>意图识别与解析</h3>
+          <p>分析用户输入的长篇文本与目标场景，提取关键信息与数据骨架。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="idx">02</div>
+        <div>
+          <h3>风格契约与装配</h3>
+          <p>加载目标风格的 Design Tokens 与专属视觉脚手架进行代码装配。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="idx">03</div>
+        <div>
+          <h3>双层质检与交付</h3>
+          <p>通过通用质检与专属风格清单校验，输出生产就绪的单文件 HTML。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="flowchart-section">
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>07 / FLOWCHART</span><span class="line"></span></div>
+      <h2 class="section-title">系统架构与流程图</h2>
+    </div>
+
+    <div class="flowchart">
+      <svg viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="base-arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="currentColor" />
+          </marker>
+        </defs>
+        <g class="node">
+          <rect x="20" y="25" width="150" height="70" rx="4" fill="none" stroke="currentColor" stroke-width="1.5" />
+          <text x="35" y="52" fill="currentColor" font-size="10" opacity="0.6">01 / INPUT</text>
+          <text x="35" y="74" fill="currentColor" font-size="14" font-weight="700">原始输入</text>
+        </g>
+        <line x1="170" y1="60" x2="220" y2="60" stroke="currentColor" stroke-width="1.5" marker-end="url(#base-arrow)" opacity="0.4" />
+        <g class="node">
+          <rect x="225" y="25" width="150" height="70" rx="4" fill="none" stroke="currentColor" stroke-width="1.5" />
+          <text x="240" y="52" fill="currentColor" font-size="10" opacity="0.6">02 / EXTRACT</text>
+          <text x="240" y="74" fill="currentColor" font-size="14" font-weight="700">结构提炼</text>
+        </g>
+        <line x1="375" y1="60" x2="425" y2="60" stroke="currentColor" stroke-width="1.5" marker-end="url(#base-arrow)" opacity="0.4" />
+        <g class="node active">
+          <rect x="430" y="25" width="150" height="70" rx="4" fill="none" stroke="currentColor" stroke-width="2" />
+          <text x="445" y="52" fill="currentColor" font-size="10">03 / RENDER</text>
+          <text x="445" y="74" fill="currentColor" font-size="14" font-weight="700">组件渲染</text>
+        </g>
+        <line x1="580" y1="60" x2="630" y2="60" stroke="currentColor" stroke-width="1.5" marker-end="url(#base-arrow)" opacity="0.4" />
+        <g class="node">
+          <rect x="635" y="25" width="145" height="70" rx="4" fill="none" stroke="currentColor" stroke-width="1.5" />
+          <text x="650" y="52" fill="currentColor" font-size="10" opacity="0.6">04 / OUTPUT</text>
+          <text x="650" y="74" fill="currentColor" font-size="14" font-weight="700">成果交付</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="interview-section">
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>08 / EDITORIAL INTERVIEW</span><span class="line"></span></div>
+      <h2 class="section-title">社论访谈录与轮次推演</h2>
+    </div>
+
+    <div class="interview-rounds">
+      <div class="round-card">
+        <div class="round-header">
+          <span class="round-badge">ROUND 01 / 根决策与前沿启动</span>
+          <span class="round-status">STATUS // 根节点前置已定 · 启动前沿</span>
+        </div>
+        <div class="round-body">
+          <div class="ai-questions-block">
+            <div class="ai-block-head"><span class="dot"></span><span>AI 访谈助手 · 前沿提问</span></div>
+            <div class="q-deck">
+              <div class="q-item">
+                <div class="q-badge">01</div>
+                <div class="q-title">核心业务规则或系统目标？</div>
+                <div class="q-recom-note"><strong>推荐方案</strong>根据系统历史指标与最佳实践推荐的基线配置。</div>
+              </div>
+              <div class="q-item">
+                <div class="q-badge">02</div>
+                <div class="q-title">底层架构与数据库支持情况？</div>
+                <div class="q-subagent-note"><strong>[ASYNC] 异步子代理排查中</strong>后台静默验证中，不阻塞主交互线程...</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="user-decision-note">
+            <div class="user-decision-head"><span class="check-badge">OK</span><span>DECISION // 你的拍板反馈</span></div>
+            <div class="user-decision-text">“同意推荐方案，并对第二项边界做出调整。”</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq-section">
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>09 / FAQ</span><span class="line"></span></div>
+      <h2 class="section-title">常见问题</h2>
+    </div>
+
+    <div class="faq">
+      <div class="faq-item">
+        <div class="q">如何切换不同的视觉风格包？</div>
+        <div class="a">在生成前指定 Style ID（如 industrial-dark, soft-sky 等），系统将自动加载对应风格的 Design Tokens 与样式规范。</div>
+      </div>
+      <div class="faq-item">
+        <div class="q">是否支持单文件离线使用？</div>
+        <div class="a">支持。生成的 HTML 文件包含完整的内联样式与矢量图表，无需部署即可本地直接双击打开查看。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="references-section">
+  <div class="wrap">
+    <div class="references">
+      <h3>REFERENCES / 参考文献</h3>
+      <ol>
+        <li id="ref-1">Tufte, E. R. (2001). <em>The Visual Display of Quantitative Information</em>. Graphics Press. <a href="#fnref-1">↩</a></li>
+        <li id="ref-2">Bringhurst, R. (2012). <em>The Elements of Typographic Style</em>. Hartley & Marks. <a href="#fnref-2">↩</a></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="meta-foot">
+      <span>VISUAL HTML // SYSTEM CORE</span>
+      <span>BUILD // CLEAN ROOM BASE SCAFFOLD</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

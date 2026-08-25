@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Demo 1: Central Paper Column</title>
+<style>
+  body { 
+    background-color: #0b45f3; margin: 0; position: relative; font-family: sans-serif;
+  }
+  .global-sunburst {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2;
+    background: conic-gradient(
+      from 180deg at 50% 50%,
+      rgba(67, 194, 240, 0.9) 0deg 20deg, transparent 20deg 35deg,
+      rgba(247, 106, 159, 0.9) 35deg 50deg, transparent 50deg 65deg,
+      rgba(25, 209, 94, 0.9) 65deg 80deg, transparent 80deg 95deg,
+      rgba(255, 222, 0, 0.9) 95deg 110deg, transparent 110deg 125deg,
+      rgba(67, 194, 240, 0.9) 125deg 140deg, transparent 140deg 155deg,
+      rgba(247, 106, 159, 0.9) 155deg 170deg, transparent 170deg 180deg,
+      transparent 180deg 190deg, rgba(247, 106, 159, 0.9) 190deg 205deg,
+      transparent 205deg 220deg, rgba(67, 194, 240, 0.9) 220deg 235deg,
+      transparent 235deg 250deg, rgba(255, 222, 0, 0.9) 250deg 265deg,
+      transparent 265deg 280deg, rgba(25, 209, 94, 0.9) 280deg 295deg,
+      transparent 295deg 310deg, rgba(247, 106, 159, 0.9) 310deg 325deg,
+      transparent 325deg 340deg, rgba(67, 194, 240, 0.9) 340deg 360deg
+    );
+  }
+  .global-dots {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
+    background-image: radial-gradient(rgba(255,255,255,0.8) 3px, transparent 3.5px);
+    background-size: 30px 30px;
+  }
+  
+  /* The central column that blocks the busy background for reading */
+  .content-column {
+    position: relative;
+    max-width: 800px;
+    margin: 40px auto;
+    background: #fcf9f2; /* Paper color */
+    border: 4px solid #111;
+    box-shadow: 12px 12px 0 rgba(0,0,0,0.8);
+    padding: 60px;
+    z-index: 10;
+    min-height: 150vh; /* Just for scrolling demo */
+  }
+
+  .title { color: #111; font-size: 2.5rem; font-weight: bold; margin-bottom: 20px;}
+  .text-block { background: white; border: 2px solid #111; padding: 20px; margin-bottom: 20px; box-shadow: 4px 4px 0 #19d15e; font-size: 1.1rem; line-height: 1.6;}
+  .desc { font-size: 1.2rem; color: #f76a9f; font-weight: bold; margin-bottom: 30px;}
+</style>
+</head>
+<body>
+  <div class="global-sunburst"></div>
+  <div class="global-dots"></div>
+  
+  <div class="content-column">
+    <div class="title">方案 A: 中心画板隔离<br>(Central Paper Column)</div>
+    <div class="desc">强烈的全屏射线背景保留，但正文被保护在一个巨大的画板内。</div>
+    <div class="text-block">这样一来，视窗的两侧依然能透出极其张扬的日系波普射线和波点，保持了页面的整体基调和氛围感。</div>
+    <div class="text-block">而用户阅读的正文区域，则是一块安静、对比度极高的米白色“画板”。卡片和文字在这里绝对不会被花哨的背景干扰，阅读体验达到最佳。</div>
+    <div class="text-block">（请向下滚动体验）<br><br><br><br><br><br><br><br><br>正文仍然非常清晰。</div>
+  </div>
+</body>
+</html>

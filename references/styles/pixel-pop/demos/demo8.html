@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Demo 2: Clean Vibrant Watermark</title>
+<style>
+  body { 
+    background-color: #0b45f3; margin: 0; position: relative; font-family: sans-serif; color: white;
+  }
+  .global-sunburst {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2;
+    
+    /* Use pure colors but blend them cleanly so they NEVER get muddy/dirty */
+    mix-blend-mode: color-dodge; 
+    opacity: 0.4; /* Heavier weight */
+    
+    background: conic-gradient(
+      from 180deg at 50% 50%,
+      #43c2f0 0deg 20deg, transparent 20deg 35deg,
+      #f76a9f 35deg 50deg, transparent 50deg 65deg,
+      #19d15e 65deg 80deg, transparent 80deg 95deg,
+      #ffde00 95deg 110deg, transparent 110deg 125deg,
+      #43c2f0 125deg 140deg, transparent 140deg 155deg,
+      #f76a9f 155deg 170deg, transparent 170deg 180deg,
+      transparent 180deg 190deg, #f76a9f 190deg 205deg,
+      transparent 205deg 220deg, #43c2f0 220deg 235deg,
+      transparent 235deg 250deg, #ffde00 250deg 265deg,
+      transparent 265deg 280deg, #19d15e 280deg 295deg,
+      transparent 295deg 310deg, #f76a9f 310deg 325deg,
+      transparent 325deg 340deg, #43c2f0 340deg 360deg
+    );
+  }
+  .global-dots {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
+    background-image: radial-gradient(rgba(255,255,255,0.2) 2px, transparent 2.5px);
+    background-size: 30px 30px;
+  }
+  
+  .content {
+    max-width: 800px; margin: 40px auto; padding: 40px; min-height: 150vh;
+  }
+
+  .title { font-size: 2.5rem; font-weight: bold; margin-bottom: 20px; text-shadow: 3px 3px 0 #111;}
+  .text-block { background: #fcf9f2; color: #111; border: 2px solid #111; padding: 20px; margin-bottom: 20px; box-shadow: 4px 4px 0 #f76a9f; font-size: 1.1rem; line-height: 1.6;}
+  .desc { font-size: 1.2rem; color: #ffde00; font-weight: bold; margin-bottom: 30px; text-shadow: 2px 2px 0 #111;}
+</style>
+</head>
+<body>
+  <div class="global-sunburst"></div>
+  <div class="global-dots"></div>
+  
+  <div class="content">
+    <div class="title">方案 B: 纯净荧光彩纹<br>(Clean Vibrant Watermark)</div>
+    <div class="desc">加重了色彩比例，同时彻底消除了“脏/发灰”的问题。</div>
+    <div class="text-block">刚才之所以看起来有些“脏”，是因为在网页渲染中，普通的半透明黄色/绿色叠加在深蓝色背景上，会混合成浑浊的灰褐色。</div>
+    <div class="text-block">为了让它加重且保持干净，我改用了 `mix-blend-mode: color-dodge`（颜色减淡滤色模式）。在这种模式下，射线会像霓虹灯一样在蓝底上发出纯净的荧光！</div>
+    <div class="text-block">现在的透明度提高到了 40%，色彩分量更重，但绝对清澈、干净、剔透。请您向下滚动看看。</div>
+  </div>
+</body>
+</html>

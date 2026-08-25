@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <!-- PPT 模式下固定画布比例，此处以 1280x720 为例 -->
+  <meta name="viewport" content="width=1280, height=720, initial-scale=1.0">
+  <title>Brutalist Acid PPT Scaffold</title>
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --text-main: #000000;
+      --text-muted: #333333;
+      --signal-pink: #FF4591;
+      --signal-cyan: #00E5CC;
+      --font-stack: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", "微软雅黑", sans-serif;
+      --font-mono: "Courier New", Courier, monospace;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0; /* PPT 外层舞台背景 */
+      font-family: var(--font-stack);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      padding: 40px;
+    }
+
+    /* 单张幻灯片容器 - 16:9 比例 */
+    .slide {
+      width: 1280px;
+      height: 720px;
+      background-color: var(--bg);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      flex-shrink: 0;
+      color: var(--text-main);
+    }
+
+    /* 内部安全区 */
+    .slide-inner {
+      position: absolute;
+      top: 50px; left: 60px; right: 60px; bottom: 50px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 幻灯片共有页脚 */
+    .slide-footer {
+      position: absolute;
+      bottom: 20px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: bold;
+      text-transform: uppercase;
+      z-index: 10;
+    }
+
+    /* =========================================
+       PPT 专用模板样式 - 封面页 (Cover)
+       ========================================= */
+    .slide.cover .acid-shape-cover {
+      position: absolute;
+      background-color: var(--signal-pink);
+      top: 0; right: 0;
+      width: 60%; height: 100%;
+      clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+      z-index: 0;
+    }
+    .slide.cover .content {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .slide.cover .hero {
+      font-size: 180px;
+      font-weight: 900;
+      color: var(--signal-cyan);
+      line-height: 0.85;
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: -0.04em;
+    }
+    .slide.cover .subtitle {
+      font-size: 32px;
+      font-weight: 700;
+      margin-top: 30px;
+      border-left: 5px solid var(--text-main);
+      padding-left: 20px;
+      max-width: 600px;
+    }
+
+    /* =========================================
+       PPT 专用模板样式 - 目录页/过渡页 (Transition)
+       ========================================= */
+    .slide.transition {
+      background-color: var(--signal-pink);
+      color: var(--bg);
+    }
+    .slide.transition .huge-num {
+      font-size: 240px;
+      font-weight: 900;
+      color: var(--text-main);
+      line-height: 1;
+      position: absolute;
+      top: -20px;
+      right: 40px;
+      opacity: 0.2;
+    }
+    .slide.transition .section-title {
+      font-size: 100px;
+      font-weight: 900;
+      margin-top: auto;
+      margin-bottom: auto;
+      text-transform: uppercase;
+      color: var(--text-main);
+      line-height: 1;
+    }
+
+    /* =========================================
+       PPT 专用模板样式 - 内容页 (Content: Cards/Grids)
+       ========================================= */
+    .slide-header {
+      margin-bottom: 40px;
+    }
+    .slide-header .eyebrow {
+      font-family: var(--font-mono);
+      font-weight: bold;
+      background: var(--text-main);
+      color: var(--bg);
+      display: inline-block;
+      padding: 5px 15px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+    .slide-header h2 {
+      font-size: 50px;
+      font-weight: 900;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    /* Number Cards */
+    .cards-3 {
+      display: flex;
+      gap: 30px;
+      flex: 1;
+    }
+    .num-card {
+      flex: 1;
+      border: 4px solid var(--text-main);
+      padding: 30px;
+      background: var(--bg);
+      box-shadow: 10px 10px 0 var(--signal-cyan);
+    }
+    .num-card .num {
+      font-size: 80px;
+      font-weight: 900;
+      margin-bottom: 10px;
+      line-height: 1;
+    }
+    .num-card h3 {
+      font-size: 28px;
+      margin: 0 0 15px 0;
+    }
+    .num-card p {
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Slide 1: Cover -->
+  <div class="slide cover">
+    <div class="acid-shape-cover"></div>
+    <div class="slide-inner">
+      <div class="content">
+        <h1 class="hero">OPEN<br>CALL</h1>
+        <div class="subtitle">a b C Art Book Fair Beijing<br>第五届 a b C 艺术书展 北京</div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>© 2020 ARTBOOKINCHINA</span>
+      <span>01 / 05</span>
+    </div>
+  </div>
+
+  <!-- Slide 2: Transition -->
+  <div class="slide transition">
+    <div class="slide-inner">
+      <div class="huge-num">01</div>
+      <h2 class="section-title">EXHIBITION<br>OVERVIEW</h2>
+    </div>
+    <div class="slide-footer" style="color: var(--text-main);">
+      <span>SECTION 1</span>
+      <span>02 / 05</span>
+    </div>
+  </div>
+
+  <!-- Slide 3: Content Cards -->
+  <div class="slide content">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="eyebrow">◆ CORE PILLARS</div>
+        <h2>主要活动板块</h2>
+      </div>
+      
+      <div class="cards-3">
+        <div class="num-card" style="box-shadow: 10px 10px 0 var(--signal-pink);">
+          <div class="num">01</div>
+          <h3>EXHIBITION</h3>
+          <p>来自全球的独立出版机构与个人创作者，带来最具实验性的出版物与艺术书。</p>
+        </div>
+        <div class="num-card">
+          <div class="num">02</div>
+          <h3>WORKSHOP</h3>
+          <p>丝网印刷、Riso 印刷、手工装帧等多种与出版相关的线下工艺体验。</p>
+        </div>
+        <div class="num-card">
+          <div class="num">03</div>
+          <h3>TALK</h3>
+          <p>创作者、编辑、设计师与策展人的跨界对谈现场。</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>CORE PILLARS</span>
+      <span>03 / 05</span>
+    </div>
+  </div>
+
+</body>
+</html>

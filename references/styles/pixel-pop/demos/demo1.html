@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Demo 1: Clean Halftone Transition</title>
+<style>
+  body { background-color: #0055ff; margin: 0; height: 100vh; position: relative; overflow: hidden; }
+  .dots {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.3) 2px, transparent 2px);
+    background-size: 24px 24px;
+    /* Mask the dots so they fade out before the checkers start */
+    mask-image: linear-gradient(to bottom, black 60%, transparent 90%);
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 90%);
+  }
+  .checkers {
+    position: absolute; bottom: 0; left: 0; width: 100%; height: 160px;
+    background-image: 
+      linear-gradient(45deg, #00ffff 25%, transparent 25%, transparent 75%, #00ffff 75%, #00ffff),
+      linear-gradient(45deg, #00ffff 25%, transparent 25%, transparent 75%, #00ffff 75%, #00ffff);
+    background-size: 32px 32px;
+    background-position: 0 0, 16px 16px;
+    /* Mask the checkers to fade up */
+    mask-image: linear-gradient(to top, black 20%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to top, black 20%, transparent 100%);
+  }
+  .bottom-solid {
+    position: absolute; bottom: 0; left: 0; width: 100%; height: 32px;
+    background-color: #00ffff;
+  }
+  .title { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); color: white; font-family: sans-serif; font-size: 3rem; font-weight: bold; text-shadow: 4px 4px 0 #111; }
+</style>
+</head>
+<body>
+  <div class="dots"></div>
+  <div class="checkers"></div>
+  <div class="bottom-solid"></div>
+  <div class="title">Demo 1: Clean Transition<br><span style="font-size:1.2rem;color:#00ffff;text-shadow:2px 2px 0 #111;">完美解决白点与底纹叠加杂乱的问题</span></div>
+</body>
+</html>

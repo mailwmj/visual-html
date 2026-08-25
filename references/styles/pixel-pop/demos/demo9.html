@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Demo 3: Parallax Windows</title>
+<style>
+  body { 
+    background-color: #0b45f3; margin: 0; position: relative; font-family: sans-serif; color: white;
+  }
+  
+  /* Normal quiet background */
+  .global-dots {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
+    background-image: radial-gradient(rgba(255,255,255,0.2) 2px, transparent 2.5px);
+    background-size: 30px 30px;
+  }
+  
+  .content {
+    max-width: 800px; margin: 40px auto; padding: 40px;
+  }
+
+  .title { font-size: 2.5rem; font-weight: bold; margin-bottom: 20px; text-shadow: 3px 3px 0 #111;}
+  .text-block { background: #fcf9f2; color: #111; border: 2px solid #111; padding: 20px; margin-bottom: 40px; box-shadow: 4px 4px 0 #43c2f0; font-size: 1.1rem; line-height: 1.6;}
+  .desc { font-size: 1.2rem; color: #19d15e; font-weight: bold; margin-bottom: 30px; text-shadow: 2px 2px 0 #111;}
+
+  /* The exciting parallax window */
+  .parallax-window {
+    width: 100%;
+    height: 300px;
+    margin: 60px 0;
+    border-top: 4px solid #111;
+    border-bottom: 4px solid #111;
+    /* CSS magic to make background fixed */
+    background-attachment: fixed;
+    background-position: center;
+    background-image: conic-gradient(
+      from 180deg at 50% 50%,
+      rgba(67, 194, 240, 1) 0deg 20deg, transparent 20deg 35deg,
+      rgba(247, 106, 159, 1) 35deg 50deg, transparent 50deg 65deg,
+      rgba(25, 209, 94, 1) 65deg 80deg, transparent 80deg 95deg,
+      rgba(255, 222, 0, 1) 95deg 110deg, transparent 110deg 125deg,
+      rgba(67, 194, 240, 1) 125deg 140deg, transparent 140deg 155deg,
+      rgba(247, 106, 159, 1) 155deg 170deg, transparent 170deg 180deg,
+      transparent 180deg 190deg, rgba(247, 106, 159, 1) 190deg 205deg,
+      transparent 205deg 220deg, rgba(67, 194, 240, 1) 220deg 235deg,
+      transparent 235deg 250deg, rgba(255, 222, 0, 1) 250deg 265deg,
+      transparent 265deg 280deg, rgba(25, 209, 94, 1) 280deg 295deg,
+      transparent 295deg 310deg, rgba(247, 106, 159, 1) 310deg 325deg,
+      transparent 325deg 340deg, rgba(67, 194, 240, 1) 340deg 360deg
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 10px 20px rgba(0,0,0,0.3);
+  }
+  .parallax-window span {
+    background: #111; color: #ffde00; font-family: monospace; font-size: 2rem; padding: 10px 20px; border: 4px dashed #ffde00; transform: rotate(-2deg);
+  }
+</style>
+</head>
+<body>
+  <div class="global-dots"></div>
+  
+  <div class="content">
+    <div class="title">方案 C: 视差隔离窗<br>(Parallax Windows)</div>
+    <div class="desc">平时安静，滚动时爆发的动静结合。</div>
+    <div class="text-block">平时阅读的区域，背景只是安静的纯深蓝 + 细微的白色波点。极大地保护了长文的阅读体验。</div>
+    <div class="text-block">（请慢慢向下滚动...）</div>
+  </div>
+
+  <!-- Parallax Break -->
+  <div class="parallax-window">
+    <span>SUPER VIBE!</span>
+  </div>
+
+  <div class="content">
+    <div class="text-block">但是在模块与模块之间的空隙，我们切开一个“视差滚动窗”。在这个窗口里，那个极其花哨、高饱和的放射背景被展现出来，并且带有酷炫的视差滚动效果。</div>
+    <div class="text-block">这样既满足了全局都有酷炫元素的渴望，又完美避开了和正文内容的冲突。</div>
+  </div>
+</body>
+</html>

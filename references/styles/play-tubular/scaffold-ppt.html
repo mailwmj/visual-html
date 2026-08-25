@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Play Tubular Engineering — PPT Scaffold (16:9)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   Play Tubular / 玩味工程彩管风 
+   16:9 PPT Slides Presentation Scaffold
+   ============================================================ */
+
+:root {
+  --bg: #FAF8F3;
+  --bg-stage: #EAE6DB;
+  --bg-subtle: #F4F0E6;
+  --bg-card: #FFFFFF;
+  --bg-card-subtle: #FAF9F6;
+
+  --text-primary: #111111;
+  --text-secondary: #4A4A48;
+  --text-muted: #7E7E7A;
+  --text-inverse: #FFFFFF;
+
+  --grad-blue-magenta: linear-gradient(135deg, #0052FF 0%, #7928CA 50%, #FF0080 100%);
+  --grad-orange-gold: linear-gradient(135deg, #FF4500 0%, #FF8A00 50%, #FFD600 100%);
+  --grad-emerald-cyan: linear-gradient(135deg, #00C853 0%, #00E5FF 100%);
+  --grad-coral-purple: linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 50%, #C77DFF 100%);
+  --grad-cobalt-lime: linear-gradient(135deg, #2563EB 0%, #06B6D4 50%, #84CC16 100%);
+
+  --accent-blue: #0052FF;
+  --accent-orange: #FF5500;
+  --accent-yellow: #FFD600;
+  --accent-green: #00C853;
+  --accent-magenta: #FF0080;
+
+  --border: rgba(17, 17, 17, 0.08);
+  --border-strong: rgba(17, 17, 17, 0.16);
+  --border-active: #0052FF;
+
+  --shadow-card: 0 8px 24px rgba(17, 17, 17, 0.04), 0 1px 3px rgba(17, 17, 17, 0.02);
+  --shadow-card-hover: 0 16px 36px rgba(0, 82, 255, 0.12), 0 4px 12px rgba(255, 69, 0, 0.08);
+
+  --radius: 20px;
+  --radius-sm: 12px;
+  --radius-pill: 999px;
+
+  --font-display: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "HarmonyOS Sans SC", "Microsoft YaHei", "微软雅黑", sans-serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "HarmonyOS Sans SC", "Microsoft YaHei", "微软雅黑", sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", "SFMono-Regular", Consolas, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg-stage);
+  font-family: var(--font-sans);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 48px 0;
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---- 单页 16:9 画布容器 ---- */
+.slide {
+  position: relative;
+  width: min(92vw, 1160px);
+  aspect-ratio: 16 / 9;
+  background: var(--bg);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(28, 25, 20, 0.12), 0 2px 6px rgba(28, 25, 20, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 48px 56px 36px 56px;
+}
+
+/* 画布内微型半调点阵底纹 */
+.slide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle at center, rgba(17, 17, 17, 0.08) 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 幻灯片背景 3D 彩管装饰层 */
+.slide-bg-tubes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 画布顶层内容容器 */
+.slide-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+/* ---- Eyebrow ---- */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  padding: 5px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 2px 6px rgba(17, 17, 17, 0.03);
+  margin-bottom: 12px;
+}
+
+.eyebrow .diamond {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--grad-orange-gold);
+  display: inline-block;
+}
+
+/* ---- 幻灯片页脚 ---- */
+.slide-footer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+}
+
+/* ============================================================
+   SLIDE 01: HERO COVER (封面页)
+   ============================================================ */
+.slide-hero {
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 32px 36px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius);
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 12px 36px rgba(17, 17, 17, 0.04);
+  max-width: 780px;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(42px, 5.2vw, 68px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: var(--text-primary);
+}
+
+.hero-title .highlight {
+  background: var(--grad-blue-magenta);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-title .cross {
+  color: var(--accent-orange);
+  font-weight: 400;
+  margin: 0 6px;
+}
+
+.hero-desc {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  max-width: 680px;
+  font-weight: 500;
+}
+
+.hero-tags {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.hero-tag {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hero-tag::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-green);
+}
+
+/* ============================================================
+   SLIDE 02: CARDS & SPECS (模块与规格)
+   ============================================================ */
+.slide-title {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 850;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.card-item {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 22px;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-item::before {
+  content: "";
+  width: 36px;
+  height: 4.5px;
+  border-radius: var(--radius-pill);
+  background: var(--grad-orange-gold);
+  margin-bottom: 14px;
+  display: block;
+}
+
+.card-item:nth-child(2)::before {
+  background: var(--grad-blue-magenta);
+}
+
+.card-item:nth-child(3)::before {
+  background: var(--grad-emerald-cyan);
+}
+
+.card-num {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  display: block;
+}
+
+.card-item:nth-child(1) .card-num {
+  background: var(--grad-orange-gold);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card-item:nth-child(2) .card-num {
+  background: var(--grad-blue-magenta);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card-item:nth-child(3) .card-num {
+  background: var(--grad-emerald-cyan);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card-item h3 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.card-item p {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  flex-grow: 1;
+}
+
+.card-item.selected {
+  border-color: var(--accent-blue);
+  box-shadow: 0 12px 30px rgba(0, 82, 255, 0.14);
+}
+
+/* ============================================================
+   SLIDE 03: STATS & MATRIX (数据与对比矩阵)
+   ============================================================ */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.stat-box {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  box-shadow: var(--shadow-card);
+  position: relative;
+}
+
+.stat-box:nth-child(1) {
+  background: rgba(0, 82, 255, 0.025);
+  border-color: rgba(0, 82, 255, 0.16);
+}
+
+.stat-box:nth-child(2) {
+  background: rgba(255, 85, 0, 0.025);
+  border-color: rgba(255, 85, 0, 0.16);
+}
+
+.stat-box:nth-child(3) {
+  background: rgba(0, 200, 83, 0.025);
+  border-color: rgba(0, 200, 83, 0.16);
+}
+
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 38px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-num span {
+  font-size: 18px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  display: inline-block;
+  line-height: 1.25;
+  padding: 2px 2px 0 2px;
+  vertical-align: baseline;
+  color: var(--accent-blue);
+}
+
+.stat-desc {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.ppt-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--bg-card);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1.5px solid var(--border);
+  box-shadow: var(--shadow-card);
+}
+
+.ppt-table th, .ppt-table td {
+  padding: 14px 20px;
+  font-size: 13px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.ppt-table th {
+  background: var(--bg-card-subtle);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.ppt-table .highlight {
+  background: rgba(0, 82, 255, 0.025);
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.ppt-table th.highlight {
+  background: rgba(0, 82, 255, 0.05);
+  color: var(--text-primary);
+}
+
+.ppt-table .rec-tag {
+  display: inline-flex;
+  padding: 2px 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--text-inverse);
+  background: var(--grad-blue-magenta);
+  border-radius: var(--radius-pill);
+  margin-left: 6px;
+}
+
+/* ============================================================
+   SLIDE 04: STEPS & FLOW (流程拆解)
+   ============================================================ */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.step-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 26px 22px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.step-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: var(--grad-blue-magenta);
+  color: var(--text-inverse);
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 82, 255, 0.25);
+}
+
+.step-card:nth-child(2) .step-badge {
+  background: var(--grad-orange-gold);
+  box-shadow: 0 4px 12px rgba(255, 138, 0, 0.25);
+}
+
+.step-card:nth-child(3) .step-badge {
+  background: var(--grad-emerald-cyan);
+  box-shadow: 0 4px 12px rgba(0, 200, 83, 0.25);
+}
+
+.step-card h3 {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.step-card p {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+/* ============================================================
+   SLIDE 05: SUMMARY & FAQ (总结与问答)
+   ============================================================ */
+.summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.admonition-box {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 24px 22px 34px;
+  box-shadow: var(--shadow-card);
+  position: relative;
+}
+
+.admonition-box::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  bottom: 20px;
+  left: 16px;
+  width: 4.5px;
+  border-radius: var(--radius-pill);
+  background: var(--grad-blue-magenta);
+}
+
+.admonition-box h3 {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.admonition-box p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  box-shadow: var(--shadow-card);
+}
+
+.faq-box .q {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 800;
+  margin-bottom: 4px;
+  color: var(--text-primary);
+}
+
+.faq-box .a {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+</style>
+</head>
+<body>
+
+<!-- SLIDE 01: COVER (玩味工程彩管经典流体全景) -->
+<div class="slide">
+  <!-- 3D 渐变彩管背景层 -->
+  <svg class="slide-bg-tubes" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- 高能 5-6 停点原版复刻能量渐变 -->
+      <linearGradient id="ppt-grad-rainbow-u" x1="0%" y1="100%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#0047FF" />
+        <stop offset="25%" stop-color="#5500FF" />
+        <stop offset="50%" stop-color="#C800FF" />
+        <stop offset="72%" stop-color="#FF0077" />
+        <stop offset="88%" stop-color="#FF5500" />
+        <stop offset="100%" stop-color="#FFC700" />
+      </linearGradient>
+
+      <linearGradient id="ppt-grad-sunset-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#FF1E00" />
+        <stop offset="26%" stop-color="#FF7300" />
+        <stop offset="54%" stop-color="#FFAE00" />
+        <stop offset="80%" stop-color="#FFD600" />
+        <stop offset="100%" stop-color="#76FF03" />
+      </linearGradient>
+
+      <linearGradient id="ppt-grad-aurora-mint" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#00FF88" />
+        <stop offset="35%" stop-color="#00E5FF" />
+        <stop offset="70%" stop-color="#0055FF" />
+        <stop offset="100%" stop-color="#7928CA" />
+      </linearGradient>
+
+      <linearGradient id="ppt-grad-scarlet-coral" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#FF1A00" />
+        <stop offset="50%" stop-color="#FF4800" />
+        <stop offset="100%" stop-color="#FF8A00" />
+      </linearGradient>
+
+      <linearGradient id="ppt-grad-spring-lime" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#00E676" />
+        <stop offset="50%" stop-color="#00F5A0" />
+        <stop offset="100%" stop-color="#A3E635" />
+      </linearGradient>
+
+      <pattern id="ppt-halftone-cloud" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse">
+        <circle cx="6" cy="6" r="1.8" fill="#111111" opacity="0.08" />
+      </pattern>
+
+      <filter id="ppt-shadow-3d">
+        <feDropShadow dx="0" dy="20" stdDeviation="18" flood-color="#0A0A16" flood-opacity="0.16" />
+      </filter>
+      <filter id="ppt-shadow-soft">
+        <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0A0A16" flood-opacity="0.10" />
+      </filter>
+    </defs>
+
+    <!-- 背景点阵浮动微光层 -->
+    <rect x="780" y="40" width="420" height="420" rx="180" fill="url(#ppt-halftone-cloud)" />
+
+    <!-- 1. 左上方经典流体组 -->
+    <g filter="url(#ppt-shadow-soft)" opacity="0.90">
+      <path d="M -40 100 C 100 60, 260 90, 400 180" stroke="url(#ppt-grad-scarlet-coral)" stroke-width="56" stroke-linecap="round" fill="none" />
+      <path d="M -30 220 C 120 200, 180 320, 130 440" stroke="url(#ppt-grad-rainbow-u)" stroke-width="60" stroke-linecap="round" fill="none" />
+    </g>
+
+    <!-- 2. 右上方主视觉群：巨型日落大圆环 + 电光长管纵深穿插 + 青翠极光弧 -->
+    <g filter="url(#ppt-shadow-3d)" opacity="0.95">
+      <path d="M 880 -40 C 1080 50, 1220 240, 1060 410 C 900 550, 750 410, 860 270 C 940 160, 1130 140, 1240 220" stroke="url(#ppt-grad-sunset-gold)" stroke-width="62" stroke-linecap="round" fill="none" />
+      <path d="M 580 -60 C 540 120, 690 250, 910 360 C 1100 450, 1210 640, 1100 810" stroke="url(#ppt-grad-rainbow-u)" stroke-width="58" stroke-linecap="round" fill="none" />
+      <path d="M 1210 280 C 1080 330, 990 490, 1100 630" stroke="url(#ppt-grad-aurora-mint)" stroke-width="48" stroke-linecap="round" fill="none" />
+    </g>
+
+    <!-- 3. 底部青绿笑脸托底弧 -->
+    <g filter="url(#ppt-shadow-soft)" opacity="0.88">
+      <path d="M -60 560 C 120 580, 220 720, 160 880" stroke="url(#ppt-grad-spring-lime)" stroke-width="50" stroke-linecap="round" fill="none" />
+    </g>
+  </svg>
+
+  <div class="slide-content">
+    <div class="eyebrow"><span class="diamond"></span><span>KEYNOTE // 01</span></div>
+    
+    <div class="slide-hero">
+      <h1 class="hero-title">Play Engineering <span class="cross">✕</span> <span class="highlight">ChatGPT · LLM</span></h1>
+      <p class="hero-desc">融合工程严谨架构与玩味探索活力的全新智能交互体系，通过 3D 渐变立体彩管与半调点阵光影，重构现代长文展示体验。</p>
+      <div class="hero-tags">
+        <div class="hero-tag">LLM ARCHITECTURE</div>
+        <div class="hero-tag">DYNAMIC 3D TUBES</div>
+        <div class="hero-tag">HALFTONE MATRIX</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>PLAY TUBULAR // SYSTEM PRESENTATION</span>
+    <span>SLIDE 01 / 05</span>
+  </div>
+</div>
+
+<!-- SLIDE 02: CARDS & SPECS -->
+<div class="slide">
+  <!-- 背景局部彩管装饰 -->
+  <svg class="slide-bg-tubes" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g filter="url(#ppt-tube-shadow)" opacity="0.65">
+      <path d="M 1120 -30 C 1220 120, 1300 280, 1200 400" stroke="url(#ppt-g-electric-flow)" stroke-width="48" stroke-linecap="round" fill="none" />
+      <path d="M -40 540 C 120 520, 240 620, 320 740" stroke="url(#ppt-g-sunset-burst)" stroke-width="44" stroke-linecap="round" fill="none" />
+    </g>
+  </svg>
+
+  <div class="slide-content">
+    <div class="eyebrow"><span class="diamond"></span><span>CORE MODULES // 02</span></div>
+    <h2 class="slide-title">模块化特性与架构拆解</h2>
+
+    <div class="cards-grid">
+      <div class="card-item">
+        <div class="card-num">01</div>
+        <h3>动态彩管骨架</h3>
+        <p>基于多停点高饱和能量渐变渲染的立体管道几何，带来强烈的视觉焦点与信息流引流效果。</p>
+      </div>
+      <div class="card-item selected">
+        <div class="card-num">02</div>
+        <h3>半调点阵光影</h3>
+        <p>将复古波普与现代工程图例相结合的 Halftone Dot 质感，兼顾严谨工程性与设计趣味。</p>
+      </div>
+      <div class="card-item">
+        <div class="card-num">03</div>
+        <h3>弹簧回弹微交互</h3>
+        <p>配置 Playful Spring 曲线，赋予每个卡片和组件如同从画板拾起般愉悦轻快的交互手感。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>PLAY TUBULAR // ARCHITECTURE</span>
+    <span>SLIDE 02 / 05</span>
+  </div>
+</div>
+
+<!-- SLIDE 03: STATS & MATRIX -->
+<div class="slide">
+  <!-- 背景局部彩管装饰 -->
+  <svg class="slide-bg-tubes" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g filter="url(#ppt-tube-shadow)" opacity="0.65">
+      <path d="M 1240 180 C 1140 260, 1080 400, 1160 520 C 1220 620, 1300 660, 1340 760" stroke="url(#ppt-g-aurora-cyan)" stroke-width="48" stroke-linecap="round" fill="none" />
+    </g>
+  </svg>
+
+  <div class="slide-content">
+    <div class="eyebrow"><span class="diamond"></span><span>PERFORMANCE // 03</span></div>
+    <h2 class="slide-title">核心指标与方案对比</h2>
+
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-num">300<span>%</span></div>
+        <div class="stat-desc">ANNUAL GROWTH</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">1.2<span>M</span></div>
+        <div class="stat-desc">ACTIVE DEVELOPERS</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">0.5<span>ms</span></div>
+        <div class="stat-desc">ENGINEERING LATENCY</div>
+      </div>
+    </div>
+
+    <table class="ppt-table">
+      <thead>
+        <tr>
+          <th>对比维度</th>
+          <th>传统排版 (基础版)</th>
+          <th class="highlight">Play Tubular <span class="rec-tag">RECOMMENDED</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>视觉表现力</strong></td>
+          <td>静态平面，缺乏层次</td>
+          <td class="highlight">3D 能量彩管 + 半调点阵光影</td>
+        </tr>
+        <tr>
+          <td><strong>组件覆盖率</strong></td>
+          <td>仅支持基础段落与卡片</td>
+          <td class="highlight">100% 覆盖 16 项标准组件</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="slide-footer">
+    <span>PLAY TUBULAR // METRICS</span>
+    <span>SLIDE 03 / 05</span>
+  </div>
+</div>
+
+<!-- SLIDE 04: STEPS & WORKFLOW -->
+<div class="slide">
+  <!-- 背景局部彩管装饰 -->
+  <svg class="slide-bg-tubes" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g filter="url(#ppt-tube-shadow)" opacity="0.65">
+      <path d="M -50 180 C 100 160, 220 260, 180 400" stroke="url(#ppt-g-electric-flow)" stroke-width="44" stroke-linecap="round" fill="none" />
+      <path d="M 1080 480 C 1180 540, 1260 620, 1320 720" stroke="url(#ppt-g-sunset-burst)" stroke-width="44" stroke-linecap="round" fill="none" />
+    </g>
+  </svg>
+
+  <div class="slide-content">
+    <div class="eyebrow"><span class="diamond"></span><span>WORKFLOW // 04</span></div>
+    <h2 class="slide-title">三步闭环执行流程</h2>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-badge">01</div>
+        <h3>意图识别与契约</h3>
+        <p>基于用户输入的复杂长文本，自动提取核心论点、数据指标与时间序列，匹配最优语义组件。</p>
+      </div>
+      <div class="step-card">
+        <div class="step-badge">02</div>
+        <h3>风格注入与装配</h3>
+        <p>精准加载 play-tubular Design Tokens，注入高能渐变彩管与半调网点专属视觉脚手架。</p>
+      </div>
+      <div class="step-card">
+        <div class="step-badge">03</div>
+        <h3>双层质检与交付</h3>
+        <p>执行通用骨架质检与彩管风格专属清单验收，输出零外部依赖的独立离线 HTML / PPT 文件。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>PLAY TUBULAR // WORKFLOW</span>
+    <span>SLIDE 04 / 05</span>
+  </div>
+</div>
+
+<!-- SLIDE 05: SUMMARY & FAQ -->
+<div class="slide">
+  <!-- 背景局部彩管装饰 -->
+  <svg class="slide-bg-tubes" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g filter="url(#ppt-tube-shadow)" opacity="0.75">
+      <path d="M 980 -50 C 1120 40, 1220 200, 1140 320 C 1060 420, 940 380, 1020 260" stroke="url(#ppt-g-sunset-burst)" stroke-width="50" stroke-linecap="round" fill="none" />
+    </g>
+  </svg>
+
+  <div class="slide-content">
+    <div class="eyebrow"><span class="diamond"></span><span>CONCLUSION // 05</span></div>
+    <h2 class="slide-title">总结与常见问题</h2>
+
+    <div class="summary-grid">
+      <div class="admonition-box">
+        <h3>核心结论 (KEY TAKEAWAY)</h3>
+        <p>Play Tubular 风格通过多维能量渐变与复古半调光影，打破了传统工程文档的冰冷沉闷，是 AI/LLM 创新展示、创意产品发布与现代技术分享的理想载体。</p>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-box">
+          <div class="q">Q: 是否支持一键导出与离线演示？</div>
+          <div class="a">支持。单文件 HTML 内嵌所有样式与 SVG 矢量资源，双击即可全屏演示。</div>
+        </div>
+        <div class="faq-box">
+          <div class="q">Q: 如何适配不同的屏幕分辨率？</div>
+          <div class="a">基于 16:9 标准比例自适应缩放，保证在投影仪与高分屏上均具备清晰锐利的排版效果。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>PLAY TUBULAR // CONCLUSION</span>
+    <span>SLIDE 05 / 05</span>
+  </div>
+</div>
+
+</body>
+</html>

@@ -13,37 +13,39 @@
    与 Industrial Dark PPT scaffold 共享五类页型结构，视觉语言切换为浅蓝柔和。
    画布 1280×720，安全边距 6%。
    ============================================================ */
-:root{
-  --bg:#EAF6FC;
-  --bg-deep:#D8EEF8;
-  --surface-1:rgba(255,255,255,.88);
-  --surface-2:rgba(255,255,255,.55);
 
-  --text-primary:#2A3F54;
-  --text-secondary:#5D7A8C;
-  --text-muted:#90A8B8;
+:root {
+  --bg: #4578A6;
+  --bg-deep: #325C84;
+  --surface-1: #F2EAE0;
+  --surface-2: #FFFFFF;
 
-  --border:rgba(93,179,232,.28);
-  --border-strong:rgba(93,179,232,.48);
+  --text-primary: #F2EAE0;
+  --text-secondary: rgba(242, 234, 224, 0.75);
+  --text-muted: rgba(242, 234, 224, 0.45);
 
-  --signal-blue:#4A9FD4;
-  --signal-blue-soft:#7FC2EA;
-  --signal-accent:#0284C7;
-  --signal-accent-bg:rgba(2,132,199,.06);
+  --border: rgba(242, 234, 224, 0.25);
+  --border-strong: rgba(242, 234, 224, 0.45);
 
-  --grid-minor:rgba(93,179,232,.08);
-  --grid-major:rgba(93,179,232,.14);
+  --signal-blue: #FFC300;
+  --signal-blue-soft: #FFE066;
+  --signal-accent: #FFC300;
+  --signal-accent-bg: rgba(255, 195, 0, 0.12);
 
-  --radius:14px;
-  --radius-sm:8px;
+  --grid-minor: rgba(242, 234, 224, 0.04);
+  --grid-major: rgba(242, 234, 224, 0.08);
 
-  --font-display:"Nunito","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
-  --font-mono:"IBM Plex Mono","JetBrains Mono","SFMono-Regular",monospace;
+  --radius: 4px;
+  --radius-sm: 2px;
+
+  --font-display: "Helvetica Neue", Helvetica, Arial, "微软雅黑", "Microsoft YaHei", sans-serif;
+  --font-mono: "Fira Code", "JetBrains Mono", Consolas, monospace;
 }
+
 
 *{box-sizing:border-box;margin:0;padding:0;}
 body{
-  background:#F0F6FA;
+  background:#325C84;
   font-family:var(--font-display);
   display:flex;flex-direction:column;align-items:center;
   gap:32px;padding:40px 0;
@@ -53,16 +55,12 @@ body{
 .slide{
   position:relative;
   width:min(92vw,1160px);aspect-ratio:16/9;
-  background-color:#F5FBFE;
-  background-image:
-    radial-gradient(ellipse 85% 60% at 50% -5%, rgba(125,211,252,.52) 0%, transparent 68%),
-    radial-gradient(circle 600px at -5% 38%, rgba(56,189,248,.25) 0%, transparent 62%),
-    radial-gradient(circle 550px at 105% 65%, rgba(167,243,208,.20) 0%, transparent 60%),
-    radial-gradient(ellipse 90% 60% at 50% 105%, rgba(186,230,253,.45) 0%, transparent 70%),
-    linear-gradient(180deg, #EDF7FC 0%, #F5FBFE 45%, #E8F4FA 100%);
+  background-color:var(--bg);
+  background-image: radial-gradient(var(--border) 1px, transparent 1px);
+  background-size: 20px 20px;
   border:1px solid var(--border);
   border-radius:var(--radius);
-  box-shadow:0 12px 40px rgba(42,63,84,.06);
+  box-shadow:0 12px 40px rgba(0,0,0,.2);
   overflow:hidden;
   padding:6%;
   display:flex;flex-direction:column;

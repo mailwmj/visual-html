@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" width="400" height="240">
+  <defs>
+    <!-- CAD Grid Pattern -->
+    <pattern id="cad-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#222B27" stroke-width="0.75" stroke-opacity="0.6"/>
+    </pattern>
+    <pattern id="cad-cross" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M 0 5 L 0 -5 M -5 0 L 5 0" fill="none" stroke="#67E38B" stroke-width="0.75" stroke-opacity="0.3"/>
+    </pattern>
+    <linearGradient id="ind-card-grad" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#111614"/>
+      <stop offset="100%" stop-color="#0B0F0E"/>
+    </linearGradient>
+  </defs>
+
+  <style>
+    .mono { font-family: "IBM Plex Mono", "SF Mono", Consolas, monospace; }
+    .sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+  </style>
+
+  <!-- Background Canvas -->
+  <rect width="400" height="240" fill="#090C0B" rx="8"/>
+  <rect width="400" height="240" fill="url(#cad-grid)" rx="8"/>
+  <rect width="400" height="240" fill="url(#cad-cross)" rx="8"/>
+  <rect width="398" height="238" x="1" y="1" fill="none" stroke="#2A302E" stroke-width="1" rx="7"/>
+
+  <!-- Tier 1: Eyebrow Tag (y: 12..30) -->
+  <g transform="translate(18, 12)">
+    <text class="mono" font-size="9" font-weight="700" fill="#67E38B" x="0" y="12" letter-spacing="1.5">◆ INDUSTRIAL // 01</text>
+    <line x1="140" y1="8" x2="364" y2="8" stroke="#2A302E" stroke-width="1"/>
+  </g>
+
+  <!-- Tier 2: Title (y: 44..60, baseline: 58) -->
+  <g transform="translate(18, 58)">
+    <text class="sans" font-size="16" font-weight="700" fill="#F2F3EF" x="0" y="0">暗色工业档案风</text>
+    <text class="mono" font-size="9" font-weight="500" fill="#6F7672" x="125" y="-1">INDUSTRIAL DARK</text>
+  </g>
+
+  <!-- Tier 3: Main Card (y: 72..192, height: 120) -->
+  <g transform="translate(18, 72)">
+    <!-- Card Base -->
+    <rect width="364" height="120" fill="url(#ind-card-grad)" stroke="#2A302E" stroke-width="1" rx="2"/>
+    
+    <!-- Top Status Bar -->
+    <line x1="0" y1="28" x2="364" y2="28" stroke="#2A302E" stroke-width="1"/>
+    <circle cx="16" cy="14" r="3" fill="#67E38B"/>
+    <text class="mono" font-size="9" font-weight="600" fill="#A8ADA8" x="26" y="17" letter-spacing="0.5">STATUS: OPERATIONAL</text>
+    
+    <!-- Violet Tag -->
+    <rect x="270" y="7" width="82" height="15" fill="#8C7CFF" fill-opacity="0.12" stroke="#8C7CFF" stroke-opacity="0.4" rx="2"/>
+    <text class="mono" font-size="8" font-weight="700" fill="#8C7CFF" x="278" y="18">RECOMMENDED</text>
+
+    <!-- Stat 1 -->
+    <g transform="translate(16, 36)">
+      <text class="mono" font-size="26" font-weight="700" fill="#67E38B" x="0" y="26">99.98<tspan font-size="14" fill="#A0F0B7">%</tspan></text>
+      <text class="mono" font-size="8" font-weight="500" fill="#6F7672" x="0" y="46" letter-spacing="0.5">BENCHMARK ACCURACY</text>
+    </g>
+
+    <!-- Divider Line -->
+    <line x1="182" y1="36" x2="182" y2="96" stroke="#2A302E" stroke-width="1" stroke-dasharray="2 2"/>
+
+    <!-- Stat 2 -->
+    <g transform="translate(198, 36)">
+      <text class="mono" font-size="26" font-weight="700" fill="#F2F3EF" x="0" y="26">0.42<tspan font-size="14" fill="#6F7672">ms</tspan></text>
+      <text class="mono" font-size="8" font-weight="500" fill="#6F7672" x="0" y="46" letter-spacing="0.5">PIPELINE LATENCY</text>
+    </g>
+
+    <!-- Mini Indicator -->
+    <rect x="16" y="102" width="332" height="4" fill="#18201D" rx="1"/>
+    <rect x="16" y="102" width="250" height="4" fill="#67E38B" rx="1"/>
+  </g>
+
+  <!-- Tier 4: Footer Meta (y: 220) -->
+  <g transform="translate(18, 220)">
+    <text class="mono" font-size="9" font-weight="600" fill="#6F7672" x="0" y="0">style_id: <tspan fill="#A8ADA8">industrial-dark</tspan></text>
+    <g transform="translate(268, -8)">
+      <rect x="0" y="0" width="14" height="14" fill="#090C0B" stroke="#2A302E" rx="2"/>
+      <rect x="18" y="0" width="14" height="14" fill="#0D1110" stroke="#2A302E" rx="2"/>
+      <rect x="36" y="0" width="14" height="14" fill="#67E38B" rx="2"/>
+      <rect x="54" y="0" width="14" height="14" fill="#8C7CFF" rx="2"/>
+    </g>
+  </g>
+</svg>

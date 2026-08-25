@@ -122,22 +122,22 @@
 ## 7. Comparison Table (对比矩阵)
 
 ```html
-<div class="cmp">
-  <div class="row head">
-    <div class="cell">对比维度</div>
-    <div class="cell">方案 A</div>
-    <div class="cell selected-col">方案 B (推荐)</div>
+<div class="cmp cmp-matrix">
+  <div class="row cmp-row head header">
+    <div class="cell cmp-cell">对比维度</div>
+    <div class="cell cmp-cell">方案 A</div>
+    <div class="cell cmp-cell selected-col highlight-col">方案 B (推荐)</div>
   </div>
-  <div class="row">
-    <div class="cell">调度能力</div>
-    <div class="cell"><span class="dot"></span></div>
-    <div class="cell selected-col"><span class="dot"></span></div>
+  <div class="row cmp-row">
+    <div class="cell cmp-cell">调度能力</div>
+    <div class="cell cmp-cell"><span class="dot"></span> 基础支持</div>
+    <div class="cell cmp-cell selected-col highlight-col"><span class="dot"></span> 完整闭环</div>
   </div>
 </div>
 ```
 
 - **语义场景**：将文本中的多方案优劣对比、版本差异转化为矩阵化结构。
-- **组件结构**：包含表头行与数据行，使用标记类（`.dot`, `.dash` 等）或纯文本表示状态，支持列级的强调语义（`.selected-col`）。
+- **组件结构**：包含表头行与数据行，使用标记类（`.dot`, `.dash` 等）或纯文本表示状态，支持列级的强调语义（`.selected-col` / `.highlight-col`）。兼容 `.cmp` 与 `.cmp-matrix` 两套主流命名。
 
 ---
 
@@ -283,6 +283,7 @@
 - **组件结构**：负责包裹 SVG 的响应式外层容器（`.flowchart`），内含多节点与箭头连接线。
 - **渲染推荐**：
   1. **首选纯 SVG 渲染（原生离线零依赖）**：自包含节点、文字与箭头，无任何外部 CDN 依赖，加载稳定迅速。
+     * 推荐 4 节点标准横向排版：`viewBox="0 0 800 120"`，节点宽 `150`，高 `70`，`y=25`，起始 `x=20`，步长 `205`（即第 $i$ 个节点 $x = 20 + i \times 205$），连接线为 $(x_i + 150, 60) \to (x_{i+1}, 60)$。
   2. **可选 Mermaid.js 运行时**：若需客户端直接解析 Mermaid 文本，可在页面底部引入 ESM 脚本：
      `<script type="module">import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs'; mermaid.initialize({ startOnLoad: true, theme: 'dark' });</script>` 并在容器内使用 `<pre class="mermaid">flowchart LR ...</pre>`。
 
@@ -343,3 +344,75 @@
 
 - **语义场景**：采访记录、常见问题解答、文档末尾的疑难排解。
 - **组件结构**：问答对容器，分别包裹问题（`.q`）与答案（`.a`）。
+
+---
+
+## 17. Sticky Quick Nav & Progress Bar (长文档悬浮目录与进度条 - 可选增强)
+
+```html
+<!-- 顶部阅读进度条 -->
+<div class="reading-progress" id="reading-progress"></div>
+
+<!-- 悬浮快捷目录 (适用于多章节长文，必须配置隐藏原生滚动条并支持自适应居中折行) -->
+<nav class="quick-nav">
+  <a href="#section-1">01 / 摘要</a>
+  <a href="#section-2">02 / 核心参数</a>
+  <a href="#section-3">03 / 系统架构</a>
+</nav>
+```
+
+- **语义场景**：当生成的 Web 页面包含 4 个以上大章节时，在顶部添加极简悬浮胶囊目录与平滑进度条，提升长文阅读的定位效率。
+- **排版契约**：必须隐藏浏览器原生横向滚动条（`scrollbar-width: none;` 及 `::-webkit-scrollbar { display: none; }`），容器必须居中自适应（`max-width: fit-content; margin: 0 auto;`），严禁在药丸下方出现灰色滚动条轨道。
+
+---
+
+## 18. Editorial Interview & Dialogue Rounds (社论访谈录 / 交互推演轮次)
+
+```html
+<div class="interview-rounds">
+  <div class="round-card">
+    <div class="round-header">
+      <span class="round-badge">ROUND 01 / 阶段标头</span>
+      <span class="round-status">STATUS // 前沿与依赖状态</span>
+    </div>
+    <div class="round-body">
+      <!-- AI 提问卡组 -->
+      <div class="ai-questions-block">
+        <div class="ai-block-head">
+          <span class="dot"></span>
+          <span>AI 访谈助手 · 第 1 轮前沿提问</span>
+        </div>
+        <div class="q-deck">
+          <div class="q-item">
+            <div class="q-badge">01</div>
+            <div class="q-title">核心决策问题内容？</div>
+            <div class="q-recom-note">
+              <strong>✦ 推荐方案</strong>针对该问题的最优建议与详细论证说明。
+            </div>
+          </div>
+          <div class="q-item">
+            <div class="q-badge">02</div>
+            <div class="q-title">事实排查或次级衍生问题？</div>
+            <div class="q-subagent-note">
+              <strong>📡 异步子代理排查中</strong>正在后台静默检索客观事实，报告返回前不阻塞主线程交互...
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 用户决策拍板便签 -->
+      <div class="user-decision-note">
+        <div class="user-decision-head">
+          <span class="check-badge">✓</span>
+          <span>DECISION // 你的拍板反馈</span>
+        </div>
+        <div class="user-decision-text">“用户针对本轮问题的确认或调整结果。”</div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+- **语义场景**：多轮需求访谈、AI Agent 人机协同推演、复杂系统阶段性决策审查与步骤答辩。
+- **组件结构**：轮次大卡片（`.round-card`）包含阶段标头、AI 前沿提问卡组（`.ai-questions-block`，内含问题项 `.q-item`、推荐方案便签 `.q-recom-note`、异步子代理排查条 `.q-subagent-note`）以及独立的用户拍板决策便签（`.user-decision-note`）。
+- **排版原则**：严禁使用通用即时聊天工具的生硬粗边框或廉价对话气泡；必须按照社论访谈录 / 手账便签卡片的典雅格式排版。

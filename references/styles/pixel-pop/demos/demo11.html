@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Demo E: Crayon Split</title>
+<style>
+  body { 
+    background-color: #0b45f3; margin: 0; position: relative; font-family: sans-serif; color: white;
+  }
+  
+  .split-bg {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2;
+    background: linear-gradient(90deg, #0b45f3 50%, #43c2f0 50%);
+  }
+  
+  /* Crayon Divider down the middle */
+  .divider {
+    position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: 40px; height: 100vh; z-index: -1;
+    background: repeating-linear-gradient(45deg, #111 0px, #111 10px, transparent 10px, transparent 20px);
+    filter: url(#crayon-filter);
+  }
+
+  .content { max-width: 800px; margin: 40px auto; padding: 40px; min-height: 150vh; position: relative; z-index: 10;}
+  .title { font-size: 2.5rem; font-weight: bold; margin-bottom: 20px; text-shadow: 3px 3px 0 #111;}
+  .text-block { background: #fcf9f2; color: #111; border: 4px solid #111; padding: 20px; margin-bottom: 20px; box-shadow: 6px 6px 0 #f76a9f; font-size: 1.1rem; line-height: 1.6;}
+</style>
+</head>
+<body>
+  <!-- Crayon SVG Filter -->
+  <svg width="0" height="0" style="position:absolute;z-index:-10;">
+    <filter id="crayon-filter">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" result="noise" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </svg>
+
+  <div class="split-bg"></div>
+  <div class="divider"></div>
+  
+  <div class="content">
+    <div class="title">方案 E: 蜡笔双拼<br>(Crayon Split)</div>
+    <div class="text-block">极简且大胆的设计。</div>
+    <div class="text-block">背景干脆一分为二，左边是深蓝，右边是亮青（或者粉色）。中间用一根标志性的、粗犷的“黑色蜡笔纹理线条”贯穿整个页面。</div>
+    <div class="text-block">摒弃了一切细碎的波点和射线，靠极致的撞色和大色块来体现波普精神，页面非常大气、干净。</div>
+  </div>
+</body>
+</html>

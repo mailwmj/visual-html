@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" width="400" height="240">
+  <defs>
+    <linearGradient id="sky-bg" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#EAF6FC"/>
+      <stop offset="50%" stop-color="#F5FBFE"/>
+      <stop offset="100%" stop-color="#D8EEF8"/>
+    </linearGradient>
+    <radialGradient id="sky-aurora-1" cx="50%" cy="0%" r="60%">
+      <stop offset="0%" stop-color="#7DD3FC" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#7DD3FC" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="sky-aurora-2" cx="10%" cy="60%" r="50%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#38BDF8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="sky-aurora-3" cx="95%" cy="70%" r="50%">
+      <stop offset="0%" stop-color="#A7F3D0" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#A7F3D0" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="sky-shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#4A9FD4" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <style>
+    .mono { font-family: "IBM Plex Mono", "SF Mono", Consolas, monospace; }
+    .sans { font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+  </style>
+
+  <!-- Background Canvas -->
+  <rect width="400" height="240" fill="url(#sky-bg)" rx="8"/>
+  <rect width="400" height="240" fill="url(#sky-aurora-1)" rx="8"/>
+  <rect width="400" height="240" fill="url(#sky-aurora-2)" rx="8"/>
+  <rect width="400" height="240" fill="url(#sky-aurora-3)" rx="8"/>
+  <rect width="398" height="238" x="1" y="1" fill="none" stroke="rgba(93, 179, 232, 0.35)" stroke-width="1" rx="7"/>
+
+  <!-- Tier 1: Eyebrow (y: 12..30) -->
+  <g transform="translate(18, 12)">
+    <rect width="138" height="18" rx="9" fill="rgba(2, 132, 199, 0.08)" stroke="rgba(2, 132, 199, 0.22)" stroke-width="1"/>
+    <circle cx="10" cy="9" r="3" fill="#0284C7"/>
+    <text class="mono" font-size="9" font-weight="700" fill="#0284C7" x="18" y="12" letter-spacing="1">SOFT SKY // 02</text>
+  </g>
+
+  <!-- Tier 2: Title (y: 44..60, baseline: 58) -->
+  <g transform="translate(18, 58)">
+    <text class="sans" font-size="16" font-weight="800" fill="#1F3144" x="0" y="0">柔空浅蓝风</text>
+    <text class="mono" font-size="9" font-weight="600" fill="#748FAD" x="100" y="-1">SOFT SKY EDITORIAL</text>
+  </g>
+
+  <!-- Tier 3: Main Card (y: 72..192, height: 120) -->
+  <g transform="translate(18, 72)">
+    <rect width="364" height="120" rx="14" fill="rgba(255, 255, 255, 0.90)" stroke="rgba(93, 179, 232, 0.35)" stroke-width="1" filter="url(#sky-shadow)"/>
+    <line x1="14" y1="1" x2="350" y2="1" stroke="rgba(255, 255, 255, 0.95)" stroke-width="1.5"/>
+
+    <!-- Row 1: Badges (y: 12..30) -->
+    <g transform="translate(16, 12)">
+      <rect width="90" height="18" rx="9" fill="rgba(2, 132, 199, 0.08)" stroke="rgba(2, 132, 199, 0.25)" stroke-width="0.75"/>
+      <text class="mono" font-size="8" font-weight="700" fill="#0284C7" x="8" y="12">✦ LIFESTYLE</text>
+
+      <rect x="256" y="0" width="76" height="18" rx="9" fill="#0284C7"/>
+      <text class="sans" font-size="8" font-weight="700" fill="#FFFFFF" x="268" y="12">SELECTED</text>
+    </g>
+
+    <!-- Row 2: Headline (baseline: 50) -->
+    <text class="sans" font-size="13" font-weight="800" fill="#1F3144" x="16" y="50">清透空灵 · 雅致包装展示</text>
+
+    <!-- Row 3: Subtitle (baseline: 68) -->
+    <text class="sans" font-size="9" font-weight="500" fill="#5D7A8C" x="16" y="68">纯净同色系微光弥散，8-16px 柔和圆角与毛玻璃光泽</text>
+
+    <!-- Row 4: Progress Indicator (y: 86..90) -->
+    <g transform="translate(16, 88)">
+      <rect width="40" height="4" rx="2" fill="#0284C7"/>
+      <rect x="46" width="20" height="4" rx="2" fill="rgba(2, 132, 199, 0.2)"/>
+      <rect x="72" width="20" height="4" rx="2" fill="rgba(2, 132, 199, 0.2)"/>
+    </g>
+  </g>
+
+  <!-- Tier 4: Footer Meta (y: 220) -->
+  <g transform="translate(18, 220)">
+    <text class="mono" font-size="9" font-weight="600" fill="#748FAD" x="0" y="0">style_id: <tspan fill="#47627A">soft-sky</tspan></text>
+    <g transform="translate(262, -8)">
+      <circle cx="7" cy="7" r="7" fill="#EAF6FC" stroke="rgba(93, 179, 232, 0.5)"/>
+      <circle cx="25" cy="7" r="7" fill="#FFFFFF" stroke="rgba(93, 179, 232, 0.5)"/>
+      <circle cx="43" cy="7" r="7" fill="#4A9FD4"/>
+      <circle cx="61" cy="7" r="7" fill="#0284C7"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Demo F: Hollow Typography</title>
+<style>
+  body { 
+    background-color: #0b45f3; margin: 0; position: relative; font-family: sans-serif; color: white; overflow: hidden;
+  }
+  .global-dots {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -3;
+    background-image: radial-gradient(rgba(255,255,255,0.4) 2px, transparent 2.5px);
+    background-size: 40px 40px;
+  }
+  
+  /* Outline Typography fixed in background */
+  .bg-text {
+    position: fixed;
+    font-size: 15vw;
+    font-weight: 900;
+    font-family: Impact, sans-serif;
+    color: transparent;
+    -webkit-text-stroke: 3px rgba(25, 209, 94, 0.4);
+    z-index: -2;
+    line-height: 0.8;
+    white-space: nowrap;
+    pointer-events: none;
+    transform: rotate(-10deg);
+  }
+  .bg-text.t1 { top: -5%; left: -10%; -webkit-text-stroke-color: rgba(247, 106, 159, 0.5); }
+  .bg-text.t2 { bottom: 10%; right: -5%; -webkit-text-stroke-color: rgba(67, 194, 240, 0.5); }
+  .bg-text.t3 { top: 40%; left: -20%; font-size: 25vw; -webkit-text-stroke: 4px rgba(255, 222, 0, 0.3); }
+
+  .content { max-width: 800px; margin: 40px auto; padding: 40px; min-height: 150vh; }
+  .title { font-size: 2.5rem; font-weight: bold; margin-bottom: 20px; text-shadow: 3px 3px 0 #111;}
+  .text-block { background: #fcf9f2; color: #111; border: 4px solid #111; padding: 20px; margin-bottom: 20px; box-shadow: 6px 6px 0 #111; font-size: 1.1rem; line-height: 1.6;}
+</style>
+</head>
+<body>
+  <div class="global-dots"></div>
+  <div class="bg-text t1">HOUKAGO VIBE</div>
+  <div class="bg-text t2">CALPIS POP</div>
+  <div class="bg-text t3">TOKYO</div>
+  
+  <div class="content">
+    <div class="title">方案 F: 巨大镂空字符<br>(Hollow Typography)</div>
+    <div class="text-block">回归原宿街头排版！完全放弃几何色块。</div>
+    <div class="text-block">背景依然是蓝底白点。但是我在背景层塞入了巨大无比的、倾斜的英文字符。</div>
+    <div class="text-block">关键在于：这些字符是**镂空的（只有彩色的细边框）**。所以它们占据了极大的视觉面积，提供了夸张的日系潮牌感，但又因为是透明镂空的，所以丝毫不感觉拥挤或脏乱。</div>
+  </div>
+</body>
+</html>

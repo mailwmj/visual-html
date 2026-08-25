@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Warm Craft Editorial — PPT Scaffold (16:9)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400..800;1,6..72,400..800&family=Noto+Serif+SC:wght@500;600;700;900&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   Warm Craft / 暖纸手作与温润社论风 
+   16:9 PPT Slides Scaffold (Zero Harsh Borders, Rich Typography)
+   ============================================================ */
+
+:root {
+  --bg: #F7F4EC;
+  --bg-warm: #FAF7F0;
+  --bg-deep: #EDE7DA;
+  
+  --surface-card: #FFFFFF;
+  --surface-card-subtle: #FAF8F2;
+
+  --text-primary: #1E231B;
+  --text-secondary: #565E50;
+  --text-muted: #8E9685;
+  --text-inverse: #FFFFFF;
+
+  --signal-primary: #323D24;
+  --signal-primary-hover: #242E18;
+
+  --pastel-yellow: #FEDB71;
+  --pastel-yellow-text: #5A3E00;
+  --pastel-yellow-border: rgba(236, 197, 85, 0.5);
+
+  --pastel-orange: #FFA963;
+  --pastel-orange-text: #542200;
+  --pastel-orange-border: rgba(232, 142, 68, 0.5);
+
+  --pastel-green: #B7D97A;
+  --pastel-green-text: #243D06;
+  --pastel-green-border: rgba(158, 194, 94, 0.5);
+
+  --pastel-purple: #AAB7F2;
+  --pastel-purple-text: #1B2966;
+  --pastel-purple-border: rgba(141, 157, 224, 0.5);
+
+  --pastel-blue: #7CB6F8;
+  --pastel-blue-text: #0B3363;
+  --pastel-blue-border: rgba(94, 156, 230, 0.5);
+
+  --pastel-coral: #FCA598;
+  --pastel-coral-text: #631C12;
+  --pastel-coral-border: rgba(229, 134, 119, 0.5);
+
+  --border: rgba(50, 61, 36, 0.08);
+  --border-strong: rgba(50, 61, 36, 0.16);
+  --shadow-card: 0 6px 24px rgba(45, 40, 25, 0.05), 0 1px 3px rgba(45, 40, 25, 0.03);
+  --shadow-sticker: 0 8px 24px rgba(50, 45, 30, 0.07), 0 2px 6px rgba(50, 45, 30, 0.03);
+
+  --radius: 20px;
+  --radius-sm: 12px;
+  --radius-pill: 100px;
+
+  --font-serif: "Newsreader", "Playfair Display", "Songti SC", "STSong", "Source Han Serif SC", "Noto Serif SC", "Noto Serif CJK SC", "SimSun", "STFangsong", "FangSong", "Georgia", serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "HarmonyOS Sans SC", "Microsoft YaHei", "微软雅黑", sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", "SFMono-Regular", Consolas, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #E8E2D5;
+  font-family: var(--font-sans);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+  padding: 40px 0;
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 文字高亮标记与修饰效果 */
+.marker-highlight {
+  background: linear-gradient(180deg, transparent 60%, rgba(254, 219, 113, 0.65) 60%);
+  padding: 0 4px;
+  border-radius: 2px;
+}
+.marker-highlight-orange {
+  background: linear-gradient(180deg, transparent 60%, rgba(255, 169, 99, 0.65) 60%);
+  padding: 0 4px;
+  border-radius: 2px;
+}
+
+/* ---- 单页 16:9 画布 ---- */
+.slide {
+  position: relative;
+  width: min(92vw, 1160px);
+  aspect-ratio: 16/9;
+  background-color: var(--bg);
+  background-image: 
+    radial-gradient(circle at 12% 15%, rgba(254, 219, 113, 0.28) 0%, transparent 45%),
+    radial-gradient(circle at 88% 20%, rgba(183, 217, 122, 0.22) 0%, transparent 40%),
+    radial-gradient(circle at 18% 85%, rgba(170, 183, 242, 0.20) 0%, transparent 45%),
+    radial-gradient(circle at 82% 85%, rgba(255, 169, 99, 0.22) 0%, transparent 45%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 16px 48px rgba(45, 58, 36, 0.10);
+  overflow: hidden;
+  padding: 5.5% 6%;
+  display: flex;
+  flex-direction: column;
+}
+
+.slide .meta-foot {
+  position: absolute;
+  left: 6%;
+  bottom: 4.5%;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.slide .slide-no {
+  position: absolute;
+  right: 6%;
+  bottom: 4.5%;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+/* ---- Eyebrow ---- */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--signal-primary);
+  margin-bottom: 20px;
+}
+.eyebrow .diamond {
+  width: 7px;
+  height: 7px;
+  background: var(--pastel-orange);
+  border-radius: 2px;
+  transform: rotate(45deg);
+  flex: none;
+}
+.eyebrow .line {
+  flex: 1;
+  height: 1px;
+  background: var(--border-strong);
+}
+
+/* ---- Typography ---- */
+h1.s {
+  font-family: var(--font-serif);
+  font-size: clamp(34px, 4.8vw, 56px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  max-width: 20ch;
+}
+h2.s {
+  font-family: var(--font-serif);
+  font-size: clamp(26px, 3.4vw, 38px);
+  font-weight: 700;
+  line-height: 1.22;
+  color: var(--text-primary);
+}
+.lead-s {
+  font-size: clamp(16px, 1.8vw, 20px);
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  margin-top: 16px;
+  max-width: 44ch;
+}
+.body-s {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+.mono {
+  font-family: var(--font-mono);
+}
+
+/* ============================================================
+   SLIDE A — Statement
+   ============================================================ */
+.sl-statement .hero {
+  margin-top: auto;
+}
+.sl-statement .lead-s {
+  margin-bottom: auto;
+}
+.sl-statement .hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: var(--pastel-yellow);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--pastel-yellow-text);
+  margin-bottom: 20px;
+  width: fit-content;
+  transform: rotate(-1.5deg);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+/* ============================================================
+   SLIDE B — 3-Column (Staggered Pastel Sticker Cards, Elastic Hover)
+   ============================================================ */
+.col-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.col-3 .c {
+  border-radius: var(--radius);
+  padding: 26px 22px;
+  box-shadow: var(--shadow-sticker);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.35s ease;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  will-change: transform, box-shadow;
+}
+.col-3 .c .n {
+  font-family: var(--font-mono);
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+.col-3 .c .tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 12px 0 8px;
+  width: fit-content;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+.col-3 .c h3 {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 700;
+  margin: 4px 0 8px;
+  line-height: 1.25;
+}
+.col-3 .c p {
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+
+/* 各卡片个性化粉彩底色与扇形微倾角（左外展 -2deg，中居中 0deg，右外展 +2deg 镜像对称） */
+.col-3 .c:nth-child(1) {
+  background: var(--pastel-yellow);
+  transform: rotate(-2deg) translateY(2px);
+}
+.col-3 .c:nth-child(1) .n,
+.col-3 .c:nth-child(1) h3 { color: var(--pastel-yellow-text); }
+.col-3 .c:nth-child(1) p { color: rgba(90, 62, 0, 0.88); }
+.col-3 .c:nth-child(1) .tag { color: var(--pastel-yellow-text); }
+
+.col-3 .c:nth-child(2) {
+  background: var(--pastel-orange);
+  transform: rotate(0deg);
+}
+.col-3 .c:nth-child(2) .n,
+.col-3 .c:nth-child(2) h3 { color: var(--pastel-orange-text); }
+.col-3 .c:nth-child(2) p { color: rgba(84, 34, 0, 0.88); }
+.col-3 .c:nth-child(2) .tag { color: var(--pastel-orange-text); }
+
+.col-3 .c:nth-child(3) {
+  background: var(--pastel-green);
+  transform: rotate(2deg) translateY(2px);
+}
+.col-3 .c:nth-child(3) .n,
+.col-3 .c:nth-child(3) h3 { color: var(--pastel-green-text); }
+.col-3 .c:nth-child(3) p { color: rgba(36, 61, 6, 0.88); }
+.col-3 .c:nth-child(3) .tag { color: var(--pastel-green-text); }
+
+/* 默认卡片 Hover 动效：回正 + 弹性上浮 + 强阴影 */
+.col-3 .c:hover {
+  transform: rotate(0deg) translateY(-8px) scale(1.03) !important;
+  box-shadow: 0 18px 40px rgba(50, 45, 30, 0.14), 0 4px 10px rgba(50, 45, 30, 0.06);
+  z-index: 10;
+}
+.col-3 .c:hover .n {
+  transform: scale(1.08);
+}
+.col-3 .c:hover .tag {
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-2px);
+}
+
+/* 选中态：温润高光白边与基准上浮 */
+.col-3 .c.selected {
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 14px 32px rgba(255, 169, 99, 0.28), 0 4px 10px rgba(45, 40, 25, 0.05);
+  transform: rotate(0deg) translateY(-6px) scale(1.01);
+  z-index: 3;
+}
+.col-3 .c.selected .tag {
+  background: #FFFFFF;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+/* 选中态 Hover：进一步弹性高升与弥散光晕 */
+.col-3 .c.selected:hover {
+  transform: rotate(0deg) translateY(-12px) scale(1.05) !important;
+  box-shadow: 0 24px 50px rgba(255, 169, 99, 0.42), 0 6px 14px rgba(50, 45, 30, 0.08);
+  z-index: 12;
+}
+
+/* ============================================================
+   SLIDE C — Product + Annotation
+   ============================================================ */
+.sl-product {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 5%;
+  align-items: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.product-frame {
+  margin-top: 14px;
+  aspect-ratio: 4/3;
+  background: var(--surface-card);
+  border: 1.5px dashed var(--border-strong);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
+  box-shadow: var(--shadow-card);
+}
+.anno {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.anno .a {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  box-shadow: var(--shadow-card);
+}
+.anno .a .k {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--pastel-orange-text);
+  text-transform: uppercase;
+}
+.anno .a p {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin-top: 6px;
+}
+
+/* ============================================================
+   SLIDE D — Comparison
+   ============================================================ */
+.cmp {
+  margin-top: auto;
+  margin-bottom: auto;
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.cmp .row {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  border-bottom: 1px solid var(--border);
+}
+.cmp .row:last-child {
+  border-bottom: none;
+}
+.cmp .row .cell {
+  padding: 12px 16px;
+  border-right: 1px solid var(--border);
+  font-size: 14px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+}
+.cmp .row .cell:last-child {
+  border-right: none;
+}
+.cmp .row.head {
+  background: var(--bg-deep);
+  border-bottom: 1px solid var(--border-strong);
+}
+.cmp .row.head .cell {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  font-weight: 700;
+}
+.cmp .row.head .cell.selected {
+  color: var(--pastel-orange-text);
+  background: rgba(255, 169, 99, 0.22);
+  font-weight: 800;
+}
+.cmp .row .cell.selected {
+  background: rgba(255, 169, 99, 0.10);
+  font-weight: 600;
+}
+.cmp .row .cell.selected .dot {
+  background: var(--pastel-orange-text);
+}
+.cmp .row .cell:first-child {
+  color: var(--text-primary);
+  font-family: var(--font-serif);
+  font-weight: 700;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--signal-primary);
+  display: inline-block;
+}
+.dash {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+/* ============================================================
+   SLIDE E — Process
+   ============================================================ */
+.proc {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.proc .step {
+  flex: 1;
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 20px;
+  box-shadow: var(--shadow-card);
+  position: relative;
+}
+.proc .step .idx {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--pastel-yellow);
+  color: var(--pastel-yellow-text);
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 800;
+}
+.proc .step:nth-child(2) .idx {
+  background: var(--pastel-orange);
+  color: var(--pastel-orange-text);
+}
+.proc .step:nth-child(3) .idx {
+  background: var(--pastel-green);
+  color: var(--pastel-green-text);
+}
+.proc .step h3 {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 12px 0 6px;
+  line-height: 1.25;
+}
+.proc .step p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+/* ---- PPT PDF 导出支持 (Print Media) ---- */
+@media print {
+  @page { size: 16in 9in; margin: 0; }
+  body { background: none; display: block; padding: 0; gap: 0; margin: 0; }
+  .slide { 
+    width: 100vw; 
+    height: 100vh; 
+    aspect-ratio: auto; 
+    margin: 0; 
+    border: none; 
+    box-shadow: none; 
+    border-radius: 0; 
+    page-break-after: always;
+    page-break-inside: avoid;
+    transform: none !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ A · STATEMENT ============ -->
+<section class="slide sl-statement">
+  <div class="eyebrow"><span class="diamond"></span><span>01 / EXECUTIVE CONTEXT</span><span class="line"></span></div>
+  <div class="hero-tag">✦ INTELLIGENT AGENT // 持续沉淀</div>
+  <h1 class="s hero">让智能助手处理繁琐工作，<br>用得越多，<span class="marker-highlight">它就越出色</span>。</h1>
+  <p class="lead-s">一个在工作中持续学习的智能代理，让重复工作更快、输出质量提升、成本持续下降。</p>
+  <div class="meta-foot">WARM CRAFT // RESEARCH & EXECUTION</div>
+  <div class="slide-no">01 / 05</div>
+</section>
+
+<!-- ============ B · 3-COLUMN ============ -->
+<section class="slide">
+  <div class="eyebrow"><span class="diamond"></span><span>02 / WORKFLOW ARCHITECTURE</span><span class="line"></span></div>
+  <h2 class="s">三项核心支柱，构建<span class="marker-highlight-orange">复利体系</span>。</h2>
+  <div class="col-3">
+    <div class="c"><div class="n">01</div><div class="tag">RUN ANY TASK</div><h3>任何任务托管</h3><p>输入自然语言需求，自主规划多步研究与页面操作执行。</p></div>
+    <div class="c selected"><div class="n">02</div><div class="tag">✦ WORKING WITH YOU</div><h3>深度内化经验</h3><p>记忆每一次修正与指引，自动建立领域知识与工作流索引。</p></div>
+    <div class="c"><div class="n">03</div><div class="tag">REUSE AS SERVICE</div><h3>资产持续复利</h3><p>将高频工作沉淀为可一键运行的微服务，随时间呈指数提效。</p></div>
+  </div>
+  <div class="meta-foot">SYSTEM ARCHITECTURE // WARM CRAFT</div>
+  <div class="slide-no">02 / 05</div>
+</section>
+
+<!-- ============ C · PRODUCT + ANNOTATION ============ -->
+<section class="slide sl-product">
+  <div>
+    <div class="eyebrow"><span class="diamond"></span><span>03 / AGENT CO-PILOT</span><span class="line"></span></div>
+    <h2 class="s">全流程深度协同。</h2>
+    <div class="product-frame">AI AGENT INTERFACE · 4:3 PREVIEW</div>
+  </div>
+  <div class="anno">
+    <div class="a"><div class="k">// NATURAL PROMPT</div><p>无需繁复工程化提示词，像与真人同事对话般委派任务。</p></div>
+    <div class="a"><div class="k">// BROWSER SANDBOX</div><p>自主浏览网页、抓取深度数据并清洗为高结构化报告。</p></div>
+    <div class="a"><div class="k">// CONTINUOUS MEMORY</div><p>每一次运行都在丰富业务知识库，越用越懂你的偏好。</p></div>
+  </div>
+  <div class="meta-foot">WARM CRAFT // PRODUCT MANUAL</div>
+  <div class="slide-no">03 / 05</div>
+</section>
+
+<!-- ============ D · COMPARISON ============ -->
+<section class="slide">
+  <div class="eyebrow"><span class="diamond"></span><span>04 / COMPARATIVE MATRIX</span><span class="line"></span></div>
+  <h2 class="s">传统工具对比智能代理系统。</h2>
+  <div class="cmp">
+    <div class="row head"><div class="cell">核心维度</div><div class="cell">传统 Chatbot</div><div class="cell">脚本自动化</div><div class="cell selected">智能代理 (推荐)</div></div>
+    <div class="row"><div class="cell">记忆沉淀</div><div class="cell"><span class="dash">—</span></div><div class="cell"><span class="dash">—</span></div><div class="cell selected"><span class="dot"></span></div></div>
+    <div class="row"><div class="cell">多步自主规划</div><div class="cell"><span class="dash">—</span></div><div class="cell"><span class="dot"></span></div><div class="cell selected"><span class="dot"></span></div></div>
+    <div class="row"><div class="cell">服务复用能力</div><div class="cell"><span class="dash">—</span></div><div class="cell"><span class="dash">—</span></div><div class="cell selected"><span class="dot"></span></div></div>
+  </div>
+  <div class="meta-foot">BENCHMARK // EVALUATION REPORT</div>
+  <div class="slide-no">04 / 05</div>
+</section>
+
+<!-- ============ E · PROCESS ============ -->
+<section class="slide">
+  <div class="eyebrow"><span class="diamond"></span><span>05 / EXECUTION STEPS</span><span class="line"></span></div>
+  <h2 class="s">三步开启智能自动驾驶。</h2>
+  <div class="proc">
+    <div class="step"><div class="idx">01</div><h3>下达意图目标</h3><p>用自然语言描述待办事项、研究方向或需要抓取的数据。</p></div>
+    <div class="step"><div class="idx">02</div><h3>自主多步探索</h3><p>智能代理在沙盒环境中并行执行检索、验证与逻辑梳理。</p></div>
+    <div class="step"><div class="idx">03</div><h3>交付并沉淀经验</h3><p>产出精美交付件，并将工作流结构化存入知识 Hub 备用。</p></div>
+  </div>
+  <div class="meta-foot">WARM CRAFT // GETTING STARTED</div>
+  <div class="slide-no">05 / 05</div>
+</section>
+
+</body>
+</html>

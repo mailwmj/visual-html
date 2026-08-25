@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pixel Pop Scaffold - PPT</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Varela+Round&display=swap');
+
+    :root {
+      /* Base Colors */
+      --bg-base: #0b45f3;           /* 核心亮蓝底色 */
+      --surface-board: #fcf9f2;      /* 正文模块整体奶油背景看板 */
+      --surface-card: #ffffff;       /* 内部卡片纯白底色 */
+      --surface-card-alt: #fffde6;   /* 内部卡片浅黄高亮底色 */
+      --text-main: #111111;          /* 纯黑主文字 */
+      --text-light: #ffffff;         /* 纯白文字 */
+      --text-muted: #555555;         /* 次级文字 */
+      
+      /* Signal Accent Colors */
+      --c-green: #19d15e;            /* 鲜绿强调色 */
+      --c-pink: #f76a9f;             /* 糖果西瓜粉 */
+      --c-yellow: #ffde00;           /* 明黄色 */
+      --c-cyan: #43c2f0;             /* 荧光青蓝 */
+      
+      /* Typography */
+      --font-mono: 'Press Start 2P', monospace;
+      --font-sans: 'Varela Round', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', sans-serif;
+      
+      /* Borders & Shadows */
+      --pop-border-thick: 4px solid var(--text-main);
+      --pop-border: 3px solid var(--text-main);
+      --pop-border-thin: 2px solid var(--text-main);
+      --pop-shadow-lg: 10px 10px 0 var(--text-main);
+      --pop-shadow-md: 5px 5px 0 var(--text-main);
+      --pop-shadow-sm: 3px 3px 0 var(--text-main);
+    }
+
+    * { box-sizing: border-box; }
+    
+    body {
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* GLOBAL FIXED BACKGROUND: Sunburst + Dots */
+    .global-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: -2;
+      pointer-events: none;
+      /* The Sunburst */
+      background: conic-gradient(
+        from 180deg at 50% 50%,
+        rgba(67, 194, 240, 0.9) 0deg 20deg, transparent 20deg 35deg,
+        rgba(247, 106, 159, 0.9) 35deg 50deg, transparent 50deg 65deg,
+        rgba(25, 209, 94, 0.9) 65deg 80deg, transparent 80deg 95deg,
+        rgba(255, 222, 0, 0.9) 95deg 110deg, transparent 110deg 125deg,
+        rgba(67, 194, 240, 0.9) 125deg 140deg, transparent 140deg 155deg,
+        rgba(247, 106, 159, 0.9) 155deg 170deg, transparent 170deg 180deg,
+        /* mirror for the other half */
+        transparent 180deg 190deg, rgba(247, 106, 159, 0.9) 190deg 205deg,
+        transparent 205deg 220deg, rgba(67, 194, 240, 0.9) 220deg 235deg,
+        transparent 235deg 250deg, rgba(255, 222, 0, 0.9) 250deg 265deg,
+        transparent 265deg 280deg, rgba(25, 209, 94, 0.9) 280deg 295deg,
+        transparent 295deg 310deg, rgba(247, 106, 159, 0.9) 310deg 325deg,
+        transparent 325deg 340deg, rgba(67, 194, 240, 0.9) 340deg 360deg
+      );
+    }
+    
+    /* Dots overlay on top of the sunburst */
+    .global-dots {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Ccircle cx='20' cy='20' r='3' fill='%23ffffff' opacity='0.7'/%3E%3Ccircle cx='80' cy='50' r='4' fill='%2343c2f0' opacity='0.7'/%3E%3Ccircle cx='40' cy='90' r='2' fill='%23ffde00' opacity='0.7'/%3E%3Ccircle cx='100' cy='100' r='3' fill='%23ffffff' opacity='0.5'/%3E%3C/svg%3E");
+    }
+
+    /* SVG Filter Classes (FOR DECORATIVE ACCENTS ONLY) */
+    .crayon-effect { filter: url(#crayon-filter); }
+
+    /* 16:9 SLIDE CONTAINER: 具有独立看板背景，隔绝背景干扰 */
+    .slide {
+      width: 1280px;
+      height: 720px;
+      background-color: var(--surface-board);
+      border: var(--pop-border-thick);
+      border-radius: 24px;
+      box-shadow: 16px 16px 0 var(--text-main);
+      position: relative;
+      padding: 44px 50px;
+      box-sizing: border-box;
+      transform: scale(min(calc(100vw/1280), calc(100vh/720)));
+      transform-origin: center center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Slide Header */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    /* 1. Section Eyebrow */
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      background-color: var(--c-yellow);
+      padding: 6px 14px;
+      border: var(--pop-border);
+      border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+      font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase;
+      transform: rotate(-2deg);
+      box-shadow: var(--pop-shadow-sm);
+    }
+    .eyebrow .diamond { width: 10px; height: 10px; background-color: var(--c-pink); display: inline-block; }
+
+    .section-title {
+      font-family: var(--font-sans);
+      font-weight: 900;
+      font-size: 1.8rem;
+      margin: 0;
+      color: var(--text-light);
+      background: var(--text-main);
+      padding: 8px 20px;
+      display: inline-flex;
+      align-items: center;
+      border-radius: 8px;
+      transform: rotate(-1deg);
+      box-shadow: 4px 4px 0 var(--c-pink);
+    }
+
+    /* Slide Content Area */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* 4. Number Cards */
+    .cards-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+    .num-card {
+      background: var(--surface-card);
+      border: var(--pop-border);
+      border-radius: 14px;
+      box-shadow: var(--pop-shadow-md);
+      padding: 26px;
+      position: relative;
+    }
+    .num-card h3 {
+      margin: 12px 0 8px 0;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    .num-card p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .num-card .num {
+      position: absolute;
+      top: -14px; left: -12px;
+      background: var(--c-pink);
+      color: var(--text-light);
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      padding: 6px 12px;
+      border: var(--pop-border-thin);
+      border-radius: 6px;
+      transform: rotate(-8deg);
+      box-shadow: var(--pop-shadow-sm);
+    }
+    .num-card.selected {
+      background: var(--surface-card-alt);
+      box-shadow: 6px 6px 0 var(--c-pink);
+    }
+
+    /* 8. Slide Footer */
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 15px;
+      border-top: 2px dashed #ccc;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+    .slide-footer .badge {
+      background: var(--text-main);
+      color: var(--text-light);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <!-- GLOBAL FIXED BACKGROUND: Sunburst Ray & Dots -->
+  <div class="global-bg"></div>
+  <div class="global-dots"></div>
+
+  <!-- SVG Filters for Crayon Effect (STRICTLY ON DECORATORS) -->
+  <svg width="0" height="0" style="position:absolute;z-index:-1;">
+    <filter id="crayon-filter">
+      <feTurbulence type="fractalNoise" baseFrequency="0.4" numOctaves="3" result="noise" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </svg>
+
+  <div class="slide">
+    <div class="slide-header">
+      <div class="eyebrow">
+        <span class="diamond"></span>
+        <span>01 / EXECUTIVE SUMMARY</span>
+      </div>
+      <h2 class="section-title">核心特色模块展示</h2>
+    </div>
+
+    <div class="slide-body">
+      <div class="cards-3">
+        <div class="num-card">
+          <div class="num">01</div>
+          <h3>清晰文本排版</h3>
+          <p>移除所有作用于正文文字上的破坏性滤镜，确保幻灯片内所有文字与图表清晰高保真。</p>
+        </div>
+        <div class="num-card selected">
+          <div class="num">02</div>
+          <h3>独立看板衬底</h3>
+          <p>16:9 画布配备整体奶油浅色背景看板，杜绝背景放射光束对演示内容的抢焦与干扰。</p>
+        </div>
+        <div class="num-card">
+          <div class="num">03</div>
+          <h3>点缀性波普质感</h3>
+          <p>蜡笔滤镜与涂鸦效果精准收敛于装饰元素与角标贴纸上，完美平衡视觉活力与专业度。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>PIXEL POP // PPT PRESENTATION</span>
+      <span class="badge">SLIDE 01 / 05</span>
+    </div>
+  </div>
+</body>
+</html>

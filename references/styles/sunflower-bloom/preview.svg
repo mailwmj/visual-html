@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" width="400" height="240">
+  <defs>
+    <linearGradient id="sun-bg-grad" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#4B82B4"/>
+      <stop offset="100%" stop-color="#3D6D98"/>
+    </linearGradient>
+  </defs>
+
+  <style>
+    .mono { font-family: "Fira Code", "JetBrains Mono", Consolas, monospace; }
+    .sans { font-family: "Helvetica Neue", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+  </style>
+
+  <!-- Calm Paper Blue Canvas -->
+  <rect width="400" height="240" fill="url(#sun-bg-grad)" rx="8"/>
+  <rect width="398" height="238" x="1" y="1" fill="none" stroke="rgba(242, 234, 224, 0.25)" stroke-width="1" rx="7"/>
+
+  <!-- Tier 1: Eyebrow (y: 12..30) -->
+  <g transform="translate(18, 12)">
+    <rect width="6" height="6" fill="#FFC300" y="5"/>
+    <text class="mono" font-size="9" font-weight="700" fill="rgba(242, 234, 224, 0.85)" x="14" y="11" letter-spacing="1">SUNFLOWER BLOOM // 07</text>
+    <line x1="175" y1="8" x2="364" y2="8" stroke="rgba(242, 234, 224, 0.2)" stroke-width="1"/>
+  </g>
+
+  <!-- Tier 2: Title (y: 44..60, baseline: 58) -->
+  <g transform="translate(18, 58)">
+    <text class="sans" font-size="16" font-weight="800" fill="#F2EAE0" x="0" y="0">向日葵生机风</text>
+    <text class="mono" font-size="9" font-weight="600" fill="#FFC300" x="110" y="-1">SUNFLOWER BLOOM</text>
+  </g>
+
+  <!-- Tier 3: Main Card (y: 72..192, height: 120) -->
+  <g transform="translate(18, 72)">
+    <rect width="364" height="120" rx="4" fill="#F2EAE0"/>
+    <rect x="0" y="0" width="6" height="120" fill="#FFC300" rx="2"/>
+
+    <g transform="translate(20, 14)">
+      <!-- Row 1: Tag (y: 0..18) -->
+      <rect width="76" height="18" rx="3" fill="#2A455C"/>
+      <text class="mono" font-size="8" font-weight="700" fill="#FFC300" x="8" y="12">✦ GROWTH</text>
+
+      <!-- Row 2: Headline (baseline: 40) -->
+      <text class="sans" font-size="13" font-weight="800" fill="#2A455C" x="0" y="40">沉静纸质蓝 · 米白奶油字 · 明黄高光</text>
+      
+      <!-- Row 3: Subtitle (baseline: 58) -->
+      <text class="sans" font-size="9" font-weight="500" fill="#537593" x="0" y="58">积极向上的生命力传递 · 纸质文艺排版与大字号对比</text>
+
+      <!-- Row 4: Stat Widget (y: 72..90) -->
+      <g transform="translate(0, 72)">
+        <rect width="64" height="18" rx="3" fill="#FFC300"/>
+        <text class="sans" font-size="10" font-weight="900" fill="#2A455C" x="6" y="13">+148%</text>
+        <text class="mono" font-size="8" font-weight="700" fill="#2A455C" x="72" y="13">ORGANIC REACH</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Tier 4: Footer Meta (y: 220) -->
+  <g transform="translate(18, 220)">
+    <text class="mono" font-size="9" font-weight="600" fill="rgba(242, 234, 224, 0.7)" x="0" y="0">style_id: <tspan fill="#F2EAE0">sunflower-bloom</tspan></text>
+    <g transform="translate(268, -8)">
+      <circle cx="7" cy="7" r="7" fill="#4578A6" stroke="rgba(242, 234, 224, 0.5)"/>
+      <circle cx="25" cy="7" r="7" fill="#F2EAE0"/>
+      <circle cx="43" cy="7" r="7" fill="#FFC300"/>
+      <circle cx="61" cy="7" r="7" fill="#6B8E23"/>
+    </g>
+  </g>
+</svg>

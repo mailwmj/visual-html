@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Demo Final: Authentic Poster Background</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #0b45f3; /* Authentic deep bright blue */
+    font-family: 'Helvetica Neue', sans-serif;
+  }
+  
+  /* SVG Background Container */
+  .bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+  }
+  
+  .content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: white;
+    text-align: center;
+  }
+  
+  h1 {
+    font-size: 5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+    color: #ffffff;
+    text-shadow: 
+      4px 4px 0 #0b45f3,
+      8px 8px 0 #19d15e,
+      12px 12px 0 #f76a9f;
+  }
+  
+  p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    background: #ffde00;
+    color: #111;
+    padding: 10px 20px;
+    border: 4px solid #111;
+    border-radius: 5px;
+    transform: rotate(-3deg);
+    box-shadow: 6px 6px 0 #111;
+    margin-top: 30px;
+  }
+</style>
+</head>
+<body>
+
+  <!-- The SVG Canvas ensures PERFECT layering without CSS background conflicts -->
+  <svg class="bg-canvas" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+    
+    <!-- DEFINE PATTERNS AND MASKS -->
+    <defs>
+      <!-- Checkerboard / Halftone Pattern -->
+      <pattern id="checker" width="20" height="20" patternUnits="userSpaceOnUse">
+        <rect x="0" y="0" width="10" height="10" fill="#fcf9f2" opacity="0.8"/>
+        <rect x="10" y="10" width="10" height="10" fill="#fcf9f2" opacity="0.8"/>
+      </pattern>
+      
+      <pattern id="dots" width="60" height="60" patternUnits="userSpaceOnUse">
+        <circle cx="10" cy="10" r="3" fill="#ffffff" opacity="0.7"/>
+        <circle cx="45" cy="25" r="4" fill="#00ffff" opacity="0.7"/>
+        <circle cx="30" cy="50" r="2" fill="#ffde00" opacity="0.7"/>
+      </pattern>
+
+      <!-- Gradient Masks for blending the halftone -->
+      <linearGradient id="mask-grad-bl" x1="1" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="black" stop-opacity="0"/>
+        <stop offset="50%" stop-color="black" stop-opacity="1"/>
+      </linearGradient>
+      <linearGradient id="mask-grad-br" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="black" stop-opacity="0"/>
+        <stop offset="50%" stop-color="black" stop-opacity="1"/>
+      </linearGradient>
+
+      <mask id="fade-bl">
+        <rect x="0" y="580" width="500" height="500" fill="url(#mask-grad-bl)" />
+      </mask>
+      <mask id="fade-br">
+        <rect x="1420" y="580" width="500" height="500" fill="url(#mask-grad-br)" />
+      </mask>
+      
+      <!-- Crayon Filter for elements that need rough edges -->
+      <filter id="crayon">
+        <feTurbulence type="fractalNoise" baseFrequency="0.4" numOctaves="3" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </defs>
+
+    <!-- 1. BASE BLUE -->
+    <rect width="1920" height="1080" fill="#0b45f3" />
+    
+    <!-- 2. SCATTERED CONFETTI DOTS -->
+    <!-- Applying dot pattern to the whole background, but behind the color fields -->
+    <rect width="1920" height="1080" fill="url(#dots)" />
+
+    <!-- 3. SUNBURST RAYS (Top Center) -->
+    <!-- Radiating from roughly (960, 400) -->
+    <g opacity="0.9" style="mix-blend-mode: screen;">
+      <!-- We use a polygon approach for rays -->
+      <polygon points="960,400 -200,-200 100,-200" fill="#43c2f0" />
+      <polygon points="960,400 300,-200 600,-200" fill="#f76a9f" />
+      <polygon points="960,400 800,-200 1100,-200" fill="#19d15e" />
+      <polygon points="960,400 1300,-200 1600,-200" fill="#ffde00" />
+      <polygon points="960,400 1800,-200 2200,-200" fill="#43c2f0" />
+      
+      <!-- Side rays -->
+      <polygon points="960,400 -200,100 -200,300" fill="#19d15e" />
+      <polygon points="960,400 2200,100 2200,300" fill="#f76a9f" />
+    </g>
+
+    <!-- 4. PIXELATED COLOR FIELDS -->
+    <g style="shape-rendering: crispEdges;">
+      <!-- Huge Green Pixel Block on Left -->
+      <path d="
+        M0,1080 
+        L800,1080 L800,900 
+        L840,900 L840,840 
+        L800,840 L800,780 
+        L760,780 L760,720 
+        L720,720 L720,660 
+        L680,660 L680,600 
+        L600,600 L600,540 
+        L540,540 L540,480 
+        L480,480 L480,420 
+        L360,420 L360,480 
+        L240,480 L240,420 
+        L180,420 L180,360 
+        L120,360 L120,300 
+        L0,300 Z" 
+        fill="#19d15e" />
+
+      <!-- Huge Pink Pixel Block on Right -->
+      <path d="
+        M1920,1080 
+        L1100,1080 L1100,960 
+        L1040,960 L1040,900 
+        L1080,900 L1080,840 
+        L1140,840 L1140,780 
+        L1200,780 L1200,720 
+        L1260,720 L1260,660 
+        L1320,660 L1320,600 
+        L1400,600 L1400,540 
+        L1500,540 L1500,600 
+        L1600,600 L1600,540 
+        L1700,540 L1700,480 
+        L1800,480 L1800,420 
+        L1920,420 Z" 
+        fill="#f76a9f" />
+        
+      <!-- Random floating pixel blocks (blue overlay on green) -->
+      <rect x="400" y="600" width="40" height="40" fill="#0b45f3" />
+      <rect x="440" y="640" width="40" height="40" fill="#0b45f3" />
+      
+      <!-- Cyan pixel squiggle -->
+      <path d="M100,200 h20 v20 h20 v-20 h20 v-20 h20 v20 h20" fill="none" stroke="#00ffff" stroke-width="15" />
+      
+      <!-- Green pixel squiggle -->
+      <path d="M500,150 h20 v20 h20 v20 h20 v-20 h20" fill="none" stroke="#19d15e" stroke-width="15" />
+    </g>
+
+    <!-- 5. HALFTONE CHECKERBOARD TRANSITIONS (Bottom Corners) -->
+    <!-- Applied over the green and pink blocks, fading via mask -->
+    <rect x="0" y="580" width="500" height="500" fill="url(#checker)" mask="url(#fade-bl)" />
+    <rect x="1420" y="580" width="500" height="500" fill="url(#checker)" mask="url(#fade-br)" />
+
+    <!-- 6. CRAYON DECORATION (Bottom Center) -->
+    <!-- Simulating the crayon rainbow -->
+    <g transform="translate(960, 1000)" filter="url(#crayon)">
+      <path d="M-300,100 Q0,-100 300,100" fill="none" stroke="#ffde00" stroke-width="30" />
+      <path d="M-250,100 Q0,-50 250,100" fill="none" stroke="#19d15e" stroke-width="30" />
+      <path d="M-200,100 Q0,-0 200,100" fill="none" stroke="#f76a9f" stroke-width="30" />
+    </g>
+    
+    <!-- Crayon Zigzag on top right -->
+    <path d="M1600,150 L1650,50 L1700,150 L1750,50 L1800,150" fill="none" stroke="#ff3333" stroke-width="12" filter="url(#crayon)" />
+
+  </svg>
+
+  <!-- FOREGROUND CONTENT -->
+  <div class="content">
+    <h1>HOUKAGO<br>CALPIS VIBE</h1>
+    <p>完全根据原图 1:1 拆解还原的 SVG 背景基底！</p>
+  </div>
+
+</body>
+</html>

@@ -92,11 +92,11 @@
 | **Flowchart (矢量流程图)** | 纯白半透明柔和圆角容器 + 天蓝/蔚蓝箭头 + 圆角矩形节点 | `.flowchart` (内嵌响应式 SVG / `.node`) |
 | **Number Card** | 白色半透明卡片、14px 圆角、极淡阴影，天蓝大编号 | `.num-card`, `.num`, `.tag` |
 | **Selected Card** | 蔚蓝边框 (`#0284C7`) + 蔚蓝编号 + 实心蔚蓝胶囊 Tag (`#0284C7` 底白字) + 微上浮投影 | `.num-card.selected` |
-| **Admonition (语义提示框)** | 白色毛玻璃卡片，左侧 4px 天蓝/琥珀黄/绿边框，柔和阴影 | `.admonition`, `.admonition.info`, `.admonition.warning` |
-| **Pros & Cons (红黑榜)** | 左右双分栏，顶部 3px 天蓝（优势）/ 灰阶（劣势）横线，白色圆角卡片 | `.pros-cons`, `.pro-card`, `.con-card` |
+| **Admonition (语义提示框)** | 浅蓝柔光渐变毛玻璃卡片 + 标题内嵌独立解耦色条（零毛刺） + 1px 细边框与白高光内阴影 | `.admonition`, `.admonition.info`, `.admonition.warning`, `.admonition-title` |
+| **Pros & Cons (红黑榜)** | 左右双分栏，冷蓝/灰阶双层微光渐变卡片 + 状态微光圆点 + `+ / —` Mono 列表符号 | `.pros-cons`, `.pro-card`, `.con-card` |
 | **Spec Row (硬件规格栏)** | 顶部 1px 天蓝色细线 + 4列等分 + 深蓝灰大数字 + Mono 单位 | `.spec-row`, `.spec`, `.val`, `.unit` |
 | **Process Steps** | 白色圆角模块，左侧深蓝灰 Mono 编号，天蓝标号点缀 | `.steps`, `.step`, `.idx` |
-| **Comparison Table** | 极简白色圆角表格，推荐列 `.head.selected-col` 带天蓝微底色与圆点 | `.cmp`, `.row`, `.selected-col` |
+| **Comparison Table** | 全封闭毛玻璃圆角表格（白色 Surface），表头带淡天蓝结构微底色（`rgba(74,159,212,.08)`），推荐列带蔚蓝高亮（`#0284C7`）与发光圆点 | `.cmp`, `.row`, `.head`, `.selected-col` |
 | **FAQ List (常见问答)** | 白色圆角毛玻璃卡片，深蓝灰问题加粗，答案柔和排版 | `.faq`, `.faq-item`, `.q`, `.a` |
 | **Metadata Footer** | 浅灰蓝边框，Mono 字体，颜色为 `#90A8B8`，大写字母 | `footer`, `.meta-foot` |
 
