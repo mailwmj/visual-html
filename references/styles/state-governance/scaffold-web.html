@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>State Governance Blue — 国企政务严谨汇报风 Web Scaffold</title>
+<style>
+/* ============================================================
+   State Governance Blue / 国企政务严谨汇报风
+   Web Design System & Scaffold Stylesheet
+   ============================================================ */
+
+:root {
+  /* 背景层与画布 */
+  --bg: #FFFFFF;
+  --bg-subtle: #F4F7FB;
+  --bg-stage: #EEF2F8;
+  
+  /* 表面层 (Surface) */
+  --surface-card: #FFFFFF;
+  --surface-card-subtle: #F0F6FF;
+  --surface-highlight: #E0EDFD;
+  --surface-navy: #103A71;
+  --surface-navy-dark: #0A254A;
+
+  /* 文字层 */
+  --text-primary: #0F172A;
+  --text-secondary: #334155;
+  --text-muted: #64748B;
+  --text-navy: #103A71;
+  --text-inverse: #FFFFFF;
+
+  /* 核心主行动色与国企政务蓝色谱 */
+  --signal-primary: #103A71;       /* 权威国企深海蓝 */
+  --signal-brand: #1A56DB;         /* 工信科技蓝 */
+  --signal-sky: #3B82F6;           /* 蔚蓝 */
+  --signal-light: #EFF6FF;         /* 冰霜浅蓝高亮底 */
+  --signal-hover: #0C2B54;         /* 悬停深海蓝 */
+
+  /* 功能语义点缀色 */
+  --signal-accent-red: #D32F2F;    /* 印章红 / 警示红 */
+  --signal-accent-green: #16A34A;  /* 松柏绿 / 达标绿 */
+  --signal-accent-amber: #D97706;  /* 沉稳金 / 待办黄 */
+
+  /* 边框与分割线 */
+  --border: #E2E8F0;
+  --border-strong: #CBD5E1;
+  --border-blue: #BFDBFE;
+  --border-dashed: #2563EB;
+  --border-navy: #103A71;
+
+  /* 投影系统 */
+  --shadow-sm: 0 1px 3px rgba(16, 58, 113, 0.05);
+  --shadow-card: 0 4px 16px rgba(16, 58, 113, 0.06), 0 1px 3px rgba(16, 58, 113, 0.04);
+  --shadow-card-hover: 0 8px 24px rgba(16, 58, 113, 0.10);
+  --shadow-navy: 0 4px 14px rgba(16, 58, 113, 0.20);
+
+  /* 尺寸与圆角 */
+  --radius: 8px;
+  --radius-sm: 4px;
+  --radius-pill: 999px;
+  --container: 1140px;
+
+  /* 字体栈 */
+  --font-sans: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "Noto Sans CJK SC", "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "Cascadia Mono", Consolas, "SFMono-Regular", "Liberation Mono", Menlo, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background-color: var(--bg-subtle);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.wrap {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+section {
+  padding: 48px 0;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+section:nth-child(even) {
+  background: var(--bg-subtle);
+}
+
+/* ============================================================
+   01 / SECTION EYEBROW & TITLES (带贯穿深蓝分割线)
+   ============================================================ */
+.section-head {
+  margin-bottom: 32px;
+  padding-bottom: 14px;
+  border-bottom: 1.5px solid var(--border-navy);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--signal-brand);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.eyebrow .diamond {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--signal-primary);
+  transform: rotate(45deg);
+}
+
+.eyebrow .line {
+  flex: 1;
+  max-width: 40px;
+  height: 1px;
+  background: var(--signal-brand);
+  opacity: 0.4;
+}
+
+h1.hero {
+  font-size: clamp(32px, 4vw, 42px);
+  font-weight: 800;
+  color: var(--signal-primary);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  margin-top: 12px;
+  margin-bottom: 16px;
+}
+
+h2.section-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+p.lead {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  line-height: 1.68;
+  max-width: 900px;
+  margin-bottom: 32px;
+}
+
+/* ============================================================
+   03 / STATS GRID (宏观数据看板)
+   ============================================================ */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-blue);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.stat-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--signal-primary);
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--signal-sky);
+}
+
+.stat-val {
+  font-family: var(--font-mono);
+  font-size: 38px;
+  font-weight: 800;
+  color: var(--signal-primary);
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+.stat-val span {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--signal-brand);
+  margin-left: 4px;
+}
+
+.stat-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   04 / TECHNICAL SPEC ROW (规格参数栏)
+   ============================================================ */
+.spec-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  background: var(--surface-card-subtle);
+  border: 1px solid var(--border-blue);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+}
+
+.spec {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.spec .val {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.spec .val em {
+  font-style: normal;
+  font-size: 12px;
+  color: var(--signal-brand);
+  margin-left: 3px;
+}
+
+.spec .unit {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   05 / ADMONITIONS (智能语义提示框)
+   ============================================================ */
+.admonition {
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  margin-bottom: 24px;
+  border-left: 4px solid var(--signal-primary);
+  background: var(--surface-card-subtle);
+  border: 1px solid var(--border-blue);
+  border-left-width: 4px;
+  border-left-color: var(--signal-primary);
+}
+
+.admonition.info {
+  border-left-color: var(--signal-brand);
+  background: #F0F6FF;
+}
+
+.admonition.warning {
+  border-left-color: var(--signal-accent-amber);
+  background: #FFFBEB;
+  border-color: #FDE68A;
+}
+
+.admonition.success {
+  border-left-color: var(--signal-accent-green);
+  background: #F0FDF4;
+  border-color: #BBF7D0;
+}
+
+.admonition-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--signal-primary);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.admonition p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+/* ============================================================
+   06 / RICH TEXT (长文本正文模块)
+   ============================================================ */
+.rich-text {
+  color: var(--text-secondary);
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 32px;
+}
+
+.rich-text p {
+  margin-bottom: 16px;
+}
+
+.rich-text strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.rich-text em {
+  color: var(--signal-primary);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.rich-text code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background: var(--surface-card-subtle);
+  color: var(--signal-primary);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--border-blue);
+}
+
+.rich-text blockquote {
+  border-left: 3px solid var(--signal-primary);
+  background: var(--surface-card-subtle);
+  padding: 14px 20px;
+  margin: 20px 0;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.rich-text h4 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--signal-primary);
+  margin: 24px 0 12px;
+}
+
+.rich-text ul, .rich-text ol {
+  padding-left: 24px;
+  margin-bottom: 16px;
+}
+
+.rich-text li {
+  margin-bottom: 8px;
+}
+
+/* ============================================================
+   07 / CODE BLOCK & TERMINAL (终端代码块)
+   ============================================================ */
+.code-block {
+  background: #0A192F;
+  border: 1px solid #1E3A5F;
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-navy);
+}
+
+.code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: #061120;
+  border-bottom: 1px solid #1E3A5F;
+}
+
+.code-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.code-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #334E68;
+}
+
+.code-dots span:nth-child(1) { background: #E12D39; }
+.code-dots span:nth-child(2) { background: #F6AD55; }
+.code-dots span:nth-child(3) { background: #48BB78; }
+
+.code-lang {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: #90CDF4;
+  letter-spacing: 0.08em;
+}
+
+.code-copy-btn {
+  background: #102A43;
+  color: #90CDF4;
+  border: 1px solid #243E63;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.code-copy-btn:hover {
+  background: #243E63;
+  color: #FFFFFF;
+}
+
+.code-block pre {
+  padding: 18px 20px;
+  overflow-x: auto;
+  color: #E2E8F0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.token-comment { color: #627D98; }
+.token-keyword { color: #63B3ED; font-weight: 700; }
+.token-function { color: #9AE6B4; }
+
+/* ============================================================
+   08 / NUMBER CARDS (并列模块卡片)
+   ============================================================ */
+.cards-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.num-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease;
+}
+
+.num-card:hover {
+  border-color: var(--border-blue);
+  box-shadow: var(--shadow-card);
+}
+
+.num-card.selected {
+  background: var(--surface-card-subtle);
+  border: 1.5px solid var(--signal-brand);
+  box-shadow: var(--shadow-card);
+}
+
+.num-card .num {
+  font-family: var(--font-mono);
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--signal-brand);
+  opacity: 0.9;
+  margin-bottom: 8px;
+}
+
+.num-card h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--signal-primary);
+  margin-bottom: 8px;
+}
+
+.num-card p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+  flex: 1;
+  margin-bottom: 16px;
+}
+
+.num-card .tag {
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-subtle);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+.num-card.selected .tag {
+  background: var(--signal-primary);
+  color: var(--text-inverse);
+  border-color: var(--signal-primary);
+}
+
+/* ============================================================
+   09 / FEATURE CARD & MEDIA FRAME
+   ============================================================ */
+.feat-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.feat-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-blue);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.feat-card .tag {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--signal-brand);
+  margin-bottom: 8px;
+}
+
+.feat-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--signal-primary);
+  margin-bottom: 8px;
+}
+
+.feat-card p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.feat-card .frame {
+  background: var(--surface-card-subtle);
+  border: 1.5px dashed var(--border-dashed);
+  border-radius: var(--radius-sm);
+  padding: 36px 20px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--signal-primary);
+}
+
+/* ============================================================
+   10 / FLOWCHART & DIAGRAMS (自包含矢量 SVG 与 Mermaid)
+   ============================================================ */
+.flowchart {
+  background: var(--surface-card);
+  border: 1px solid var(--border-blue);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  margin-bottom: 32px;
+  overflow-x: auto;
+}
+
+.flowchart svg {
+  width: 100%;
+  height: auto;
+  color: var(--signal-primary);
+}
+
+.flowchart .node rect {
+  fill: var(--surface-card-subtle);
+  stroke: var(--signal-brand);
+}
+
+.flowchart .node.active rect {
+  fill: #EBF3FE;
+  stroke: var(--signal-primary);
+}
+
+.mermaid-wrapper {
+  background: var(--surface-card-subtle);
+  border: 1px solid var(--border-blue);
+  text-align: center;
+}
+
+/* ============================================================
+   11 / PROCESS STEPS (步骤流拆解)
+   ============================================================ */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.step {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex;
+  gap: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.step .idx {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--signal-brand);
+  background: var(--surface-card-subtle);
+  border: 1px solid var(--border-blue);
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.step h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--signal-primary);
+  margin-bottom: 4px;
+}
+
+.step p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ============================================================
+   12 / TIMELINE (发展演进与时间轴)
+   ============================================================ */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 32px;
+  position: relative;
+  padding-left: 20px;
+  border-left: 2px solid var(--border-blue);
+}
+
+.timeline-item {
+  position: relative;
+}
+
+.timeline-marker {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--signal-primary);
+  background: #FFFFFF;
+  border: 2px solid var(--signal-brand);
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
+  display: inline-block;
+  margin-bottom: 8px;
+  margin-left: -32px;
+}
+
+.timeline-content {
+  background: var(--surface-card);
+  border: 1px solid var(--border-blue);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.timeline-content h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--signal-primary);
+  margin-bottom: 4px;
+}
+
+.timeline-content p {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+/* ============================================================
+   13 / COMPARISON TABLE (对比矩阵)
+   ============================================================ */
+.cmp-matrix-wrapper {
+  overflow-x: auto;
+  margin-bottom: 32px;
+}
+
+.cmp-matrix {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface-card);
+  border: 1px solid var(--border-blue);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: table;
+}
+
+.cmp-row {
+  display: table-row;
+  border-bottom: 1px solid var(--border);
+}
+
+.cmp-row.head {
+  background: var(--surface-navy);
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.cmp-cell {
+  display: table-cell;
+  padding: 14px 20px;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.cmp-row.head .cmp-cell {
+  color: #FFFFFF;
+  font-size: 14px;
+}
+
+.cmp-cell.selected-col {
+  background: #F0F6FF;
+  font-weight: 600;
+  color: var(--signal-primary);
+}
+
+.cmp-row.head .cmp-cell.selected-col {
+  background: var(--surface-navy-dark);
+  color: #93C5FD;
+}
+
+.cmp-cell .dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--signal-brand);
+  margin-right: 6px;
+}
+
+.cmp-cell .dash {
+  color: var(--text-muted);
+  margin-right: 6px;
+}
+
+/* ============================================================
+   14 / PROS & CONS (红黑榜 / 评估卡)
+   ============================================================ */
+.pros-cons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.pro-card, .con-card {
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow-sm);
+}
+
+.pro-card {
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+}
+
+.pro-card .tag {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--signal-accent-green);
+  margin-bottom: 12px;
+}
+
+.con-card {
+  background: #FFFBEB;
+  border: 1px solid #FDE68A;
+}
+
+.con-card .tag {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--signal-accent-amber);
+  margin-bottom: 12px;
+}
+
+.pro-card ul, .con-card ul {
+  padding-left: 20px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.pro-card li, .con-card li {
+  margin-bottom: 8px;
+}
+
+/* ============================================================
+   15 / EDITORIAL INTERVIEW & DIALOGUE ROUNDS (推演访谈卡)
+   ============================================================ */
+.interview-rounds {
+  margin-bottom: 32px;
+}
+
+.round-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-blue);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.round-header {
+  background: var(--surface-navy);
+  color: #FFFFFF;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.round-status {
+  font-size: 11px;
+  color: #93C5FD;
+}
+
+.round-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ai-block-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--signal-brand);
+  margin-bottom: 12px;
+}
+
+.ai-block-head .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--signal-brand);
+}
+
+.q-item {
+  background: var(--surface-card-subtle);
+  border: 1px solid var(--border-blue);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+}
+
+.q-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--signal-brand);
+  margin-bottom: 4px;
+}
+
+.q-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--signal-primary);
+  margin-bottom: 8px;
+}
+
+.q-recom-note {
+  font-size: 13px;
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border-blue);
+  padding-top: 8px;
+  margin-top: 8px;
+}
+
+.user-decision-note {
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+}
+
+.user-decision-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--signal-accent-green);
+  margin-bottom: 6px;
+}
+
+.user-decision-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #14532D;
+}
+
+/* ============================================================
+   16 / FAQ & Q&A LIST
+   ============================================================ */
+.faq {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.faq-item {
+  background: var(--surface-card);
+  border: 1px solid var(--border-blue);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.faq-item .q {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--signal-primary);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.faq-item .q::before {
+  content: "Q";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  background: var(--surface-navy);
+  color: #FFFFFF;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.faq-item .a {
+  font-size: 14px;
+  color: var(--text-secondary);
+  padding-left: 30px;
+  line-height: 1.65;
+}
+
+/* ============================================================
+   17 / REFERENCES
+   ============================================================ */
+.references {
+  background: var(--surface-card-subtle);
+  border: 1px solid var(--border-blue);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+}
+
+.references h3 {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--signal-primary);
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
+}
+
+.references ol {
+  padding-left: 20px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.references li {
+  margin-bottom: 6px;
+}
+
+.references a {
+  color: var(--signal-brand);
+  text-decoration: none;
+}
+
+/* ============================================================
+   18 / METADATA FOOTER
+   ============================================================ */
+footer {
+  background: var(--surface-navy);
+  color: #93C5FD;
+  padding: 24px 0;
+  border-top: 3px solid var(--signal-brand);
+}
+
+.meta-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   RESPONSIVE & PRINT ADAPTATION
+   ============================================================ */
+@media (max-width: 768px) {
+  .section-head .section-title { font-size: 20px; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .cards-3 { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; }
+  .pros-cons { grid-template-columns: 1fr; }
+}
+
+@media print {
+  body { background: #FFFFFF; font-size: 12pt; }
+  section { padding: 24px 0; break-inside: avoid; }
+  .code-block { box-shadow: none; border-color: #CBD5E1; }
+  footer { background: #FFFFFF; color: #000000; border-top: 1px solid #000000; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     PHASE 1: 篇首概览与核心导读 (HERO & EXECUTIVE SUMMARY)
+     ============================================================ -->
+
+<section class="hero-section" id="section-summary">
+  <div class="wrap">
+    <!-- 01 / SECTION EYEBROW -->
+    <div class="eyebrow">
+      <span class="diamond"></span>
+      <span>01 / EXECUTIVE SUMMARY</span>
+      <span class="line"></span>
+    </div>
+
+    <!-- 02 / TYPOGRAPHY SCALE (Hero & Lead) -->
+    <h1 class="hero">国企数字化转型战略规划<br>全周期精细化管理白皮书</h1>
+    <p class="lead">导读段落 (Lead Paragraph)：本规划围绕央企与省属国企核心主营业务，以数据资产全覆盖、业务流程全贯通为抓手，全面推行现代化治理与韧性供应链体系。</p>
+    
+    <!-- 03 / STATS GRID -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-val">300<span>%</span></div>
+        <div class="stat-label">ANNUAL GROWTH / 年度产值增长</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">99.8<span>%</span></div>
+        <div class="stat-label">COMPLIANCE RATE / 合规风控达标率</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">100<span>%</span></div>
+        <div class="stat-label">SETTLEMENT / 财务全周期结算率</div>
+      </div>
+    </div>
+
+    <!-- 04 / TECHNICAL SPEC ROW -->
+    <div class="spec-row">
+      <div class="spec">
+        <div class="val">8<em>维度</em></div>
+        <div class="unit">RADAR DIMENSIONS / 韧性评估维度</div>
+      </div>
+      <div class="spec">
+        <div class="val">5<em>大阶段</em></div>
+        <div class="unit">LIFECYCLE / 全生命周期切片</div>
+      </div>
+      <div class="spec">
+        <div class="val">100%</div>
+        <div class="unit">GOVERNANCE / 治理全覆盖率</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PHASE 2: 核心论述、关键提醒与代码实操 (CONTEXT, NARRATIVE & CODE)
+     ============================================================ -->
+
+<section class="narrative-section" id="section-narrative">
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow">
+        <span class="diamond"></span>
+        <span>02 / CONTEXT & NARRATIVE</span>
+        <span class="line"></span>
+      </div>
+      <h2 class="section-title">核心论述与制度约束</h2>
+    </div>
+    
+    <!-- 05 / ADMONITIONS -->
+    <div class="admonition info">
+      <div class="admonition-title">关键结论与战略部署 (INFO)</div>
+      <p>严格按照国家关于深化国有企业改革与数字化转型指导意见，坚持“横向到边、纵向到底”的管控原则，推进全流程数据穿透式监管与阳光结算。</p>
+    </div>
+
+    <!-- 06 / RICH TEXT -->
+    <div class="rich-text">
+      <p>在推进数字政务与集团化管理过程中，必须严格坚持 <strong>集中管控与分级授权</strong> 的辩证统一，实现 <em>业务规范、风险受控、效益最优</em> 的治理目标，所有核心指标均需纳入 <code>实时动态监管大屏 (Dynamic Dashboard)</code>。</p>
+      <blockquote>“以数字技术赋能实体经济，构建具备高度自主可控与强韧性特征的现代化产业集群。”</blockquote>
+      
+      <h4>集团管控四项核心准则</h4>
+      <ul>
+        <li><strong>准则一</strong>：规范申报与准入审核，实行全生命周期合规穿透；</li>
+        <li><strong>准则二</strong>：考核规则全量上链，防范廉洁与经营双重风险；</li>
+        <li><strong>准则三</strong>：供应链韧性多维评估，建立跨区域应急调配网络；</li>
+      </ul>
+    </div>
+
+    <!-- 07 / CODE BLOCK & TERMINAL -->
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <span class="code-lang">BASH // DEPLOYMENT SCRIPT</span>
+        <button class="code-copy-btn" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').innerText); this.innerText='COPIED!'; setTimeout(()=>this.innerText='COPY', 2000)">COPY</button>
+      </div>
+      <pre><code><span class="token-comment"># 启动国企信创政务云节点集群</span>
+<span class="token-keyword">export</span> GOV_ENV=production
+<span class="token-keyword">export</span> CLUSTER_ZONE=china-north-gov
+
+<span class="token-function">curl</span> -fsSL https://portal.state-cloud.gov.cn/deploy | <span class="token-keyword">bash</span>
+systemctl enable --now gov-governance-engine.service</code></pre>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PHASE 3: 核心特性、架构与演进脉络 (ARCHITECTURE & FEATURES)
+     ============================================================ -->
+
+<section class="arch-section" id="section-arch">
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow">
+        <span class="diamond"></span>
+        <span>03 / ARCHITECTURE & FEATURES</span>
+        <span class="line"></span>
+      </div>
+      <h2 class="section-title">核心特性与全覆盖架构</h2>
+    </div>
+
+    <!-- 08 / NUMBER CARDS -->
+    <div class="cards-3">
+      <div class="num-card">
+        <div class="num">01</div>
+        <h3>功能全覆盖</h3>
+        <p>涵盖规范申报、考核规则管理、项目合作、合作变更、投诉违规管理与结算单核对等全流程。</p>
+        <div class="tag">STANDARD</div>
+      </div>
+      <div class="num-card selected">
+        <div class="num">02</div>
+        <h3>业务全覆盖 (推荐)</h3>
+        <p>在业务项目的全生命周期过程中提供业务能力与技术支撑，帮助合作伙伴在全周期当中以激励的状态砥砺奋进。</p>
+        <div class="tag">RECOMMENDED</div>
+      </div>
+      <div class="num-card">
+        <div class="num">03</div>
+        <h3>数据全覆盖</h3>
+        <p>建立资料分类、信息汇集与依据详实三大数据库，实现利于填写、数源精准与提升体验。</p>
+        <div class="tag">ENTERPRISE</div>
+      </div>
+    </div>
+
+    <!-- 09 / FEATURE CARD & MEDIA FRAME -->
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="tag">// CORE ENGINE</div>
+        <h3>韧性供应链与全景数字调度中心</h3>
+        <p>依托 8 大维度综合评估模型（规划能力、产品平台、地理范围、财务资本、分销配送、入厂物流、制造物流布局、供应版图），实现全链路可视化与闭环预警。</p>
+        <div class="frame">8-AXIS RADAR MONITORING PLATFORM / 调度平台架构图占位</div>
+      </div>
+    </div>
+
+    <!-- 10 / FLOWCHART & DIAGRAMS (10A: 原生纯矢量 SVG) -->
+    <div class="flowchart">
+      <svg viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="sg-arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#103A71" />
+          </marker>
+        </defs>
+        <g class="node">
+          <rect x="20" y="25" width="150" height="70" rx="6" fill="#F0F6FF" stroke="#1A56DB" stroke-width="1.5" />
+          <text x="35" y="52" fill="#1A56DB" font-size="11" font-weight="700" font-family="monospace">01 / INTRO</text>
+          <text x="35" y="74" fill="#103A71" font-size="14" font-weight="800">项目引入</text>
+        </g>
+        <line x1="170" y1="60" x2="220" y2="60" stroke="#103A71" stroke-width="1.5" marker-end="url(#sg-arrow)" />
+        <g class="node">
+          <rect x="225" y="25" width="150" height="70" rx="6" fill="#F0F6FF" stroke="#1A56DB" stroke-width="1.5" />
+          <text x="240" y="52" fill="#1A56DB" font-size="11" font-weight="700" font-family="monospace">02 / COLLAB</text>
+          <text x="240" y="74" fill="#103A71" font-size="14" font-weight="800">项目协同</text>
+        </g>
+        <line x1="375" y1="60" x2="425" y2="60" stroke="#103A71" stroke-width="1.5" marker-end="url(#sg-arrow)" />
+        <g class="node active">
+          <rect x="430" y="25" width="150" height="70" rx="6" fill="#E0EDFD" stroke="#103A71" stroke-width="2" />
+          <text x="445" y="52" fill="#103A71" font-size="11" font-weight="700" font-family="monospace">03 / MANAGE</text>
+          <text x="445" y="74" fill="#103A71" font-size="14" font-weight="800">项目管理</text>
+        </g>
+        <line x1="580" y1="60" x2="630" y2="60" stroke="#103A71" stroke-width="1.5" marker-end="url(#sg-arrow)" />
+        <g class="node">
+          <rect x="635" y="25" width="145" height="70" rx="6" fill="#F0F6FF" stroke="#1A56DB" stroke-width="1.5" />
+          <text x="650" y="52" fill="#1A56DB" font-size="11" font-weight="700" font-family="monospace">04 / CLOSE</text>
+          <text x="650" y="74" fill="#103A71" font-size="14" font-weight="800">结算与总结</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- 10B: Mermaid 动态图表引擎 -->
+    <div class="flowchart mermaid-wrapper">
+      <pre class="mermaid">
+flowchart LR
+    A[01 / 项目引入<br><b>准入申报与规范</b>] --> B[02 / 项目协同<br><b>跨部门联动作业</b>]
+    B --> C{合规风控核验<br><b>是否满足审计要求?</b>}
+    C -->|通过| D[03 / 项目管理<br><b>全流程动态监控</b>]
+    C -->|需整改| E[整改补充材料]
+    E --> B
+    D --> F[04 / 结算与总结<br><b>阳光清算归档</b>]
+      </pre>
+    </div>
+
+    <!-- 11 / PROCESS STEPS -->
+    <div class="steps">
+      <div class="step">
+        <div class="idx">01</div>
+        <div>
+          <h3>规划统筹阶段</h3>
+          <p>明确战略目标与合规底线，下发年度实施计划与任务分解清单。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="idx">02</div>
+        <div>
+          <h3>执行落地阶段</h3>
+          <p>依托数字化看板与标准化流程，开展跨部门协同推进与节点质检。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="idx">03</div>
+        <div>
+          <h3>复盘沉淀阶段</h3>
+          <p>进行数据穿透核对与成效审计，形成长效机制并输出知识资产。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12 / TIMELINE -->
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-marker">2024</div>
+        <div class="timeline-content">
+          <h3>顶层规划与试点先行</h3>
+          <p>完成全集团信息化底座搭建，在核心下属企业推行标准化流程管理。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-marker">2026</div>
+        <div class="timeline-content">
+          <h3>全面深化与数智跃迁</h3>
+          <p>实现产业链上下游全要素互联互通，打造行业领先的韧性供应链生态体系。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PHASE 4: 深度推演、决策对比与利弊评估 (EVALUATION & DECISION)
+     ============================================================ -->
+
+<section class="evaluation-section" id="section-evaluation">
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow">
+        <span class="diamond"></span>
+        <span>04 / COMPARISON & EVALUATION</span>
+        <span class="line"></span>
+      </div>
+      <h2 class="section-title">方案对比与综合评估</h2>
+    </div>
+
+    <!-- 13 / COMPARISON TABLE -->
+    <div class="cmp-matrix-wrapper">
+      <div class="cmp cmp-matrix">
+        <div class="row cmp-row head header">
+          <div class="cell cmp-cell">评估维度</div>
+          <div class="cell cmp-cell">传统线下分散模式</div>
+          <div class="cell cmp-cell selected-col highlight-col">数智化全周期统一治理 (推荐)</div>
+        </div>
+        <div class="row cmp-row">
+          <div class="cell cmp-cell">合规风险穿透</div>
+          <div class="cell cmp-cell"><span class="dash">—</span> 滞后人工抽检</div>
+          <div class="cell cmp-cell selected-col highlight-col"><span class="dot"></span> 100% 实时前置预警</div>
+        </div>
+        <div class="row cmp-row">
+          <div class="cell cmp-cell">供应链韧性响应</div>
+          <div class="cell cmp-cell"><span class="dash">—</span> 响应周期 >48h</div>
+          <div class="cell cmp-cell selected-col highlight-col"><span class="dot"></span> 8 维度分钟级智能调度</div>
+        </div>
+        <div class="row cmp-row">
+          <div class="cell cmp-cell">结算审计效率</div>
+          <div class="cell cmp-cell"><span class="dash">—</span> 周期长、纸质多</div>
+          <div class="cell cmp-cell selected-col highlight-col"><span class="dot"></span> 全流程电子单据即时核销</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 14 / PROS & CONS -->
+    <div class="pros-cons">
+      <div class="pro-card">
+        <div class="tag">ADVANTAGES / 方案优势</div>
+        <ul>
+          <li>体制机制高度完备，完美符合审计与纪检国资合规要求</li>
+          <li>图表化结构清晰，大幅降低跨部门沟通成本与宣贯门槛</li>
+        </ul>
+      </div>
+      <div class="con-card">
+        <div class="tag">CHALLENGES / 实施挑战</div>
+        <ul>
+          <li>前期需对历史存量数据进行集中清洗与标准对齐</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 15 / EDITORIAL INTERVIEW & DIALOGUE ROUNDS -->
+    <div class="interview-rounds">
+      <div class="round-card">
+        <div class="round-header">
+          <span class="round-badge">ROUND 01 / 战略决策审议</span>
+          <span class="round-status">STATUS // 集团党委会审议通过</span>
+        </div>
+        <div class="round-body">
+          <div class="ai-questions-block">
+            <div class="ai-block-head">
+              <span class="dot"></span>
+              <span>数智化推进小组 · 决策议题</span>
+            </div>
+            <div class="q-deck">
+              <div class="q-item">
+                <div class="q-badge">01</div>
+                <div class="q-title">是否将 8 大维度雷达评估纳入各子公司年度 KPI 考核？</div>
+                <div class="q-recom-note">
+                  <strong>✦ 建议方案</strong>：建议纳入权重 20% 的专项考核，按季度输出动态排名与风险清单。
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="user-decision-note">
+            <div class="user-decision-head">
+              <span class="check-badge">✓</span>
+              <span>DECISION // 领导班子决议</span>
+            </div>
+            <div class="user-decision-text">“同意纳入专项考核，由运营管理部牵头按月督办，确保数字化战略务实见效。”</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PHASE 5: 尾部答疑、引用出处与系统页脚 (FAQ, REFERENCES & FOOTER)
+     ============================================================ -->
+
+<section class="faq-references-section" id="section-faq">
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow">
+        <span class="diamond"></span>
+        <span>05 / FAQ & REFERENCES</span>
+        <span class="line"></span>
+      </div>
+      <h2 class="section-title">常见问题与政策依据</h2>
+    </div>
+
+    <!-- 16 / FAQ / Q&A LIST -->
+    <div class="faq">
+      <div class="faq-item">
+        <div class="q">本方案如何保障涉密与数据安全？</div>
+        <div class="a">系统全面适配国家信创标准，核心数据均存储于政务专有云，支持三员分立与商密算法加解密。</div>
+      </div>
+      <div class="faq-item">
+        <div class="q">如何快速将该视觉风格导出为正式汇报材料？</div>
+        <div class="a">本模板支持浏览器直接导出无边距 PDF，亦可切换至 16:9 PPT 演示脚手架进行全屏投影宣讲。</div>
+      </div>
+    </div>
+
+    <!-- 17 / REFERENCES -->
+    <div class="references">
+      <h3>REFERENCES / 政策文件与参考文献</h3>
+      <ol>
+        <li id="ref-1">国务院国资委. 《关于加快推进国有企业数字化转型工作的通知》. 国资发科创〔2020〕39号. <a href="#ref-1">↩</a></li>
+        <li id="ref-2">国家标准化管理委员会. 《信息化和工业化融合管理体系要求》. GB/T 23001-2017. <a href="#ref-2">↩</a></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 18 / METADATA FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="meta-foot">
+      <span>STATE GOVERNANCE // SYSTEM CORE</span>
+      <span>SECURITY CLASSIFICATION // INTERNAL USE ONLY</span>
+      <span>DOCUMENT TYPE // STRATEGIC WHITE PAPER</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Mermaid.js 动态图表运行时 -->
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  const mermaidElements = document.querySelectorAll('.mermaid');
+  if (mermaidElements.length > 0) {
+    mermaidElements.forEach(el => {
+      el.textContent = el.textContent
+        .replace(/^\s*\/\/\s*MERMAID/i, '')
+        .replace(/^\s*\/\*[\s\S]*?\*\//, '')
+        .trim();
+    });
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'base',
+      themeVariables: {
+        darkMode: false,
+        background: '#FFFFFF',
+        primaryColor: '#F0F6FF',
+        primaryTextColor: '#103A71',
+        primaryBorderColor: '#1A56DB',
+        lineColor: '#103A71',
+        secondaryColor: '#E0EDFD',
+        tertiaryColor: '#FFFFFF',
+        fontFamily: 'inherit'
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

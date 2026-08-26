@@ -9,37 +9,14 @@ const SESSION_DIR = path.resolve(process.env.VISUAL_HTML_SESSION_DIR || '.visual
 const STATE_DIR = path.join(SESSION_DIR, 'state');
 const GALLERY_FILE = path.resolve(process.env.VISUAL_HTML_GALLERY || path.join(__dirname, '../../style-gallery.html'));
 const ASSET_ROOT = path.dirname(GALLERY_FILE);
-const REGISTRY_FILE = path.resolve(process.env.VISUAL_HTML_REGISTRY || path.join(ASSET_ROOT, 'styles/registry.json'));
 const HOST = process.env.VISUAL_HTML_HOST || '127.0.0.1';
 const REQUESTED_PORT = Number(process.env.VISUAL_HTML_PORT || 0);
 const TOKEN = process.env.VISUAL_HTML_TOKEN || crypto.randomBytes(24).toString('hex');
-const MAX_BODY_BYTES = 64 * 1024;
-const EVENTS_FILE = path.join(STATE_DIR, 'events');
 const INFO_FILE = path.join(STATE_DIR, 'server-info');
 const PID_FILE = path.join(STATE_DIR, 'server.pid');
 const COOKIE_NAME = 'visual-html-session';
 
 fs.mkdirSync(STATE_DIR, { recursive: true, mode: 0o700 });
-
-function loadStyleRegistry() {
-  const payload = JSON.parse(fs.readFileSync(REGISTRY_FILE, 'utf8'));
-  if (!payload || !Array.isArray(payload.styles) || payload.styles.length === 0) {
-    throw new Error(`Style registry is empty or invalid: ${REGISTRY_FILE}`);
-  }
-  const styles = new Map();
-  for (const style of payload.styles) {
-    if (!style || typeof style.id !== 'string' || typeof style.name !== 'string') {
-      throw new Error(`Style registry entry is invalid: ${REGISTRY_FILE}`);
-    }
-    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(style.id) || styles.has(style.id)) {
-      throw new Error(`Style registry contains an invalid or duplicate id: ${style.id}`);
-    }
-    styles.set(style.id, Object.freeze({ id: style.id, name: style.name }));
-  }
-  return styles;
-}
-
-const STYLE_REGISTRY = loadStyleRegistry();
 
 function safeEqual(left, right) {
   const a = Buffer.from(String(left || ''));
@@ -74,77 +51,11 @@ function json(response, status, body) {
   send(response, status, JSON.stringify(body), 'application/json; charset=utf-8');
 }
 
-function companionBootstrap() {
-  return `<script>(function () {
-    const endpoint = '/__visual_html/events';
-    window.visualHtmlCompanion = Object.freeze({
-      send: async function (event) {
-        const response = await fetch(endpoint, {
-          method: 'POST',
-          credentials: 'same-origin',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify(event)
-        });
-        if (!response.ok) throw new Error('选择事件提交失败（HTTP ' + response.status + '）');
-        return response.json();
-      }
-    });
-  }());</script>`;
-}
-
-function galleryHtml() {
-  const source = fs.readFileSync(GALLERY_FILE, 'utf8');
-  const marker = '</head>';
-  if (!source.includes(marker)) throw new Error(`Gallery is missing ${marker}: ${GALLERY_FILE}`);
-  return source.replace(marker, `${companionBootstrap()}${marker}`);
-}
-
 function safeAssetPath(urlPath) {
   const decoded = decodeURIComponent(urlPath.split('?')[0]);
   if (!decoded.startsWith('/styles/')) return null;
   const candidate = path.resolve(ASSET_ROOT, `.${decoded}`);
   return candidate.startsWith(`${ASSET_ROOT}${path.sep}`) ? candidate : null;
-}
-
-function readBody(request) {
-  return new Promise((resolve, reject) => {
-    let total = 0;
-    const chunks = [];
-    request.on('data', chunk => {
-      total += chunk.length;
-      if (total > MAX_BODY_BYTES) {
-        reject(new Error('request body too large'));
-        request.destroy();
-        return;
-      }
-      chunks.push(chunk);
-    });
-    request.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
-    request.on('error', reject);
-  });
-}
-
-function validateEvent(value) {
-  if (!value || value.type !== 'style-selected') throw new Error('unsupported event type');
-  for (const field of ['styleId', 'styleName', 'prompt']) {
-    if (typeof value[field] !== 'string' || value[field].length === 0 || value[field].length > 1000) {
-      throw new Error(`invalid ${field}`);
-    }
-  }
-  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value.styleId)) throw new Error('invalid styleId');
-  const style = STYLE_REGISTRY.get(value.styleId);
-  if (!style) throw new Error(`unknown styleId: ${value.styleId}`);
-  if (value.styleName !== style.name) throw new Error(`styleName does not match registry for ${value.styleId}`);
-  if (!value.prompt.includes(value.styleId)) throw new Error('prompt must include styleId');
-  return {
-    type: value.type,
-    choice: value.styleId,
-    styleId: value.styleId,
-    styleName: style.name,
-    prompt: value.prompt,
-    text: value.prompt,
-    timestamp: Date.now()
-  };
 }
 
 async function handle(request, response) {
@@ -156,24 +67,13 @@ async function handle(request, response) {
 
   const requestUrl = new URL(request.url, `http://${HOST}`);
   if (request.method === 'GET' && (requestUrl.pathname === '/' || requestUrl.pathname === '/index.html')) {
-    try { send(response, 200, galleryHtml(), 'text/html; charset=utf-8'); }
+    try { send(response, 200, fs.readFileSync(GALLERY_FILE), 'text/html; charset=utf-8'); }
     catch (error) { send(response, 500, error.message); }
     return;
   }
 
   if (request.method === 'GET' && requestUrl.pathname === '/__visual_html/status') {
     json(response, 200, { ok: true, sessionDir: SESSION_DIR });
-    return;
-  }
-
-  if (request.method === 'POST' && requestUrl.pathname === '/__visual_html/events') {
-    try {
-      const event = validateEvent(JSON.parse(await readBody(request)));
-      fs.appendFileSync(EVENTS_FILE, `${JSON.stringify(event)}\n`, { mode: 0o600 });
-      json(response, 200, { ok: true, choice: event.choice });
-    } catch (error) {
-      json(response, 400, { ok: false, error: error.message });
-    }
     return;
   }
 

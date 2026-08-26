@@ -105,6 +105,13 @@
       "englishName": "Ink Bamboo",
       "categories": ["editorial", "lifestyle"],
       "dir": "ink-bamboo"
+    },
+    {
+      "id": "state-governance",
+      "name": "国企政务严谨汇报风",
+      "englishName": "State Governance Blue",
+      "categories": ["editorial", "tech"],
+      "dir": "state-governance"
     }
   ]
 }

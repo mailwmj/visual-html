@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Start the Visual HTML style-selection companion and print connection info.
+# Start the Visual HTML style gallery server and print connection info.
 # Usage: start-server.sh [--project-dir <path>] [--open] [--foreground]
 
 set -euo pipefail

@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" width="100%" height="100%">
+  <defs>
+    <filter id="gov-shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#103A71" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <style>
+    .mono { font-family: "Cascadia Mono", "Consolas", "SFMono-Regular", monospace; }
+    .sans { font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", -apple-system, sans-serif; }
+  </style>
+
+  <!-- Background Canvas -->
+  <rect width="400" height="240" fill="#F4F7FB" rx="8"/>
+  <rect width="398" height="238" x="1" y="1" fill="none" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+
+  <!-- Tier 1: Eyebrow (y: 12..30) -->
+  <g transform="translate(18, 14)">
+    <rect width="168" height="18" rx="4" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1"/>
+    <polygon points="10,6 14,9 10,12 6,9" fill="#103A71"/>
+    <text class="mono" font-size="9" font-weight="700" fill="#1A56DB" x="20" y="13" letter-spacing="0.5">STATE GOVERNANCE // 16</text>
+  </g>
+
+  <!-- Tier 2: Title (y: 44..60, baseline: 56) -->
+  <g transform="translate(18, 56)">
+    <text class="sans" font-size="16" font-weight="800" fill="#0F172A" x="0" y="0">国企政务严谨汇报风</text>
+    <text class="mono" font-size="9" font-weight="600" fill="#64748B" x="156" y="-1">STATE GOVERNANCE</text>
+    <line x1="0" y1="6" x2="364" y2="6" stroke="#103A71" stroke-width="1.5"/>
+  </g>
+
+  <!-- Tier 3: Main Card (y: 72..192, height: 120) -->
+  <g transform="translate(18, 72)">
+    <rect width="364" height="120" rx="8" fill="#FFFFFF" stroke="#BFDBFE" stroke-width="1" filter="url(#gov-shadow)"/>
+
+    <!-- Left Box: Dashed Focus Card -->
+    <g transform="translate(12, 12)">
+      <rect width="180" height="96" rx="6" fill="#F0F6FF" stroke="#2563EB" stroke-width="1.2" stroke-dasharray="3,3"/>
+      <circle cx="12" cy="14" r="3" fill="#1A56DB"/>
+      <text class="sans" font-size="11" font-weight="800" fill="#103A71" x="20" y="18">2024 年工作开展详情</text>
+      <text class="sans" font-size="8" fill="#334155" x="12" y="38">围绕数字化转型与全覆盖治理体系</text>
+      <text class="sans" font-size="8" fill="#334155" x="12" y="52">实现重点考核指标稳健增长 69%</text>
+      
+      <!-- Mini Spec Badges -->
+      <rect x="12" y="66" width="72" height="18" rx="3" fill="#FFFFFF" stroke="#BFDBFE" stroke-width="0.8"/>
+      <text class="mono" font-size="8" font-weight="700" fill="#103A71" x="18" y="79">合规率 99.8%</text>
+
+      <rect x="90" y="66" width="78" height="18" rx="3" fill="#103A71"/>
+      <text class="mono" font-size="8" font-weight="700" fill="#FFFFFF" x="98" y="79">结算率 100%</text>
+    </g>
+
+    <!-- Right Box: Chevron Stream & Metrics -->
+    <g transform="translate(202, 12)">
+      <!-- Top Chevron Stream Badge -->
+      <rect width="150" height="26" rx="4" fill="#103A71"/>
+      <text class="mono" font-size="10" font-weight="900" fill="#93C5FD" x="8" y="17">›››</text>
+      <text class="sans" font-size="9" font-weight="700" fill="#FFFFFF" x="28" y="17">业务 / 数据全覆盖</text>
+
+      <!-- Mini Radar / Perspective Flow -->
+      <rect y="34" width="150" height="62" rx="4" fill="#F8FAFD" stroke="#E2E8F0" stroke-width="1"/>
+      <g transform="translate(8, 42)">
+        <text class="sans" font-size="8" font-weight="700" fill="#103A71" y="0">8 维度策略雷达</text>
+        <text class="mono" font-size="7" fill="#64748B" y="12">RADAR EVALUATION</text>
+        
+        <!-- Mini Progress Bar / Indicators -->
+        <rect y="22" width="134" height="4" rx="2" fill="#E2E8F0"/>
+        <rect y="22" width="108" height="4" rx="2" fill="#1A56DB"/>
+        <rect y="32" width="134" height="4" rx="2" fill="#E2E8F0"/>
+        <rect y="32" width="124" height="4" rx="2" fill="#3B82F6"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- Tier 4: Footer Meta (y: 220) -->
+  <g transform="translate(18, 220)">
+    <text class="mono" font-size="9" font-weight="600" fill="#64748B" x="0" y="0">style_id: <tspan fill="#103A71" font-weight="700">state-governance</tspan></text>
+    <g transform="translate(262, -8)">
+      <circle cx="7" cy="7" r="7" fill="#F4F7FB" stroke="#CBD5E1"/>
+      <circle cx="25" cy="7" r="7" fill="#F0F6FF" stroke="#BFDBFE"/>
+      <circle cx="43" cy="7" r="7" fill="#3B82F6"/>
+      <circle cx="61" cy="7" r="7" fill="#1A56DB"/>
+      <circle cx="79" cy="7" r="7" fill="#103A71"/>
+    </g>
+  </g>
+</svg>

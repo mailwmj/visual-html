@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>State Governance Blue — 国企政务严谨汇报风 PPT Scaffold (16:9)</title>
+<style>
+/* ============================================================
+   State Governance Blue / 国企政务严谨汇报风
+   16:9 PPT Slides Scaffold (Formal Corporate & Governance)
+   ============================================================ */
+
+:root {
+  /* 背景层与画布 */
+  --bg: #FFFFFF;
+  --bg-subtle: #F4F7FB;
+  --bg-stage: #E2E8F0;
+  
+  /* 表面层 (Surface) */
+  --surface-card: #FFFFFF;
+  --surface-card-subtle: #F0F6FF;
+  --surface-highlight: #E0EDFD;
+  --surface-navy: #103A71;
+  --surface-navy-dark: #0A254A;
+
+  /* 文字层 */
+  --text-primary: #0F172A;
+  --text-secondary: #334155;
+  --text-muted: #64748B;
+  --text-navy: #103A71;
+  --text-inverse: #FFFFFF;
+
+  /* 核心主行动色与国企政务蓝色谱 */
+  --signal-primary: #103A71;       /* 权威国企深海蓝 */
+  --signal-brand: #1A56DB;         /* 工信科技蓝 */
+  --signal-sky: #3B82F6;           /* 蔚蓝 */
+  --signal-light: #EFF6FF;         /* 冰霜浅蓝高亮底 */
+
+  /* 边框与分割线 */
+  --border: #E2E8F0;
+  --border-strong: #CBD5E1;
+  --border-blue: #BFDBFE;
+  --border-dashed: #2563EB;
+  --border-navy: #103A71;
+
+  /* 投影与圆角 */
+  --shadow-slide: 0 12px 36px rgba(15, 23, 42, 0.12), 0 2px 8px rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 1px 3px rgba(16, 58, 113, 0.06);
+  --radius: 8px;
+  --radius-sm: 4px;
+  --radius-pill: 999px;
+
+  /* 字体栈 */
+  --font-sans: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "Noto Sans CJK SC", "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "Cascadia Mono", Consolas, "SFMono-Regular", "Liberation Mono", Menlo, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background-color: var(--bg-stage);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 40px 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 16:9 幻灯片舞台画布 (1280px × 720px) */
+.slide {
+  width: 1280px;
+  height: 720px;
+  background: var(--bg);
+  box-shadow: var(--shadow-slide);
+  border-radius: 4px;
+  padding: 40px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* 幻灯片顶部贯穿线标题栏 */
+.slide-header {
+  border-bottom: 2px solid var(--border-navy);
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.slide-title-group {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.slide-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.slide-title .accent-navy {
+  color: var(--signal-primary);
+  font-weight: 900;
+}
+
+.slide-subtitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.slide-badge {
+  background: var(--surface-card-subtle);
+  border: 1px solid var(--border-blue);
+  color: var(--signal-primary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+}
+
+/* 幻灯片内容区域 */
+.slide-body {
+  flex: 1;
+  display: flex;
+  gap: 28px;
+  align-items: stretch;
+  min-height: 0;
+}
+
+/* 幻灯片底部页脚 */
+.slide-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+  margin-top: 16px;
+}
+
+.slide-footer .confidential {
+  color: var(--signal-brand);
+}
+
+/* ============================================================
+   SLIDE 1: 气泡数据云 + 虚线工作详情 + 区域折线图
+   ============================================================ */
+.bubble-chart-col {
+  flex: 1;
+  background: var(--surface-card-subtle);
+  border: 1px solid var(--border-blue);
+  border-radius: var(--radius);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.bubble-chart-title {
+  position: absolute;
+  top: 16px;
+  left: 20px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--signal-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bubble-svg-wrapper {
+  width: 100%;
+  height: 480px;
+}
+
+.detail-col {
+  flex: 1.1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dashed-focus-card {
+  background: var(--surface-card);
+  border: 1.5px dashed var(--border-dashed);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.dashed-focus-card h3 {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--signal-primary);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dashed-focus-card p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.68;
+  margin-bottom: 8px;
+}
+
+.chart-card {
+  flex: 1;
+  background: var(--surface-card);
+  border: 1px solid var(--border-blue);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-card h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--signal-primary);
+  margin-bottom: 12px;
+}
+
+/* ============================================================
+   SLIDE 2: 生命周期环形图 + 三级覆盖流
+   ============================================================ */
+.lifecycle-col {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-card-subtle);
+  border: 1px solid var(--border-blue);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.coverage-col {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.coverage-row {
+  background: var(--surface-card);
+  border: 1px solid var(--border-blue);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  align-items: center;
+  gap: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.coverage-badge {
+  background: var(--surface-navy);
+  color: #FFFFFF;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.coverage-badge .chevron {
+  color: #93C5FD;
+  font-weight: 900;
+  letter-spacing: -2px;
+}
+
+.coverage-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.coverage-pill {
+  background: var(--surface-card-subtle);
+  border: 1px solid var(--border-blue);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.coverage-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.data-three-col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.data-box {
+  background: var(--surface-card-subtle);
+  border: 1px solid var(--border-blue);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  text-align: center;
+}
+
+.data-box-head {
+  background: var(--surface-navy);
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px;
+}
+
+.data-box-body {
+  padding: 6px 4px;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+/* ============================================================
+   SLIDE 3: 顶栏策略 + 多视角矩阵与算式框
+   ============================================================ */
+.slide3-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.top-strategy-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.strategy-box {
+  background: var(--surface-card-subtle);
+  border: 1px solid var(--border-blue);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+}
+
+.strategy-box-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--signal-primary);
+  border-bottom: 1px solid var(--border-blue);
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.strategy-box-list {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+.strategy-box-list div {
+  margin-bottom: 4px;
+}
+
+.perspective-board {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--surface-card);
+  border: 1px solid var(--border-blue);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+}
+
+.p-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  align-items: center;
+  gap: 18px;
+}
+
+.p-badge {
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  text-align: center;
+  font-size: 13px;
+  font-weight: 800;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.p-badge.navy {
+  background: var(--surface-navy);
+  color: #FFFFFF;
+}
+
+.p-badge.blue {
+  background: var(--signal-brand);
+  color: #FFFFFF;
+}
+
+.p-badge.sky {
+  background: #E0EDFD;
+  color: var(--signal-primary);
+  border: 1px solid var(--border-blue);
+}
+
+.p-flow-steps {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.p-step {
+  background: var(--surface-card-subtle);
+  border: 1px solid var(--border-blue);
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.p-step.active {
+  background: var(--surface-navy);
+  color: #FFFFFF;
+  border-color: var(--surface-navy);
+}
+
+.p-arrow {
+  color: var(--signal-brand);
+  font-weight: 800;
+}
+
+.formula-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.formula-item {
+  background: var(--surface-card-subtle);
+  border: 1px solid var(--border-blue);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.formula-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--surface-navy);
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.formula-calc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.formula-calc .frac-line {
+  width: 100%;
+  height: 1px;
+  background: var(--text-secondary);
+  margin: 2px 0;
+}
+
+/* ============================================================
+   SLIDE 4: 8 维度雷达 + 供给端/需求端双栏对比
+   ============================================================ */
+.radar-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr 1fr;
+  gap: 20px;
+  width: 100%;
+  height: 100%;
+}
+
+.side-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.side-header {
+  background: var(--surface-card-subtle);
+  border: 1px solid var(--border-blue);
+  padding: 8px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--signal-primary);
+  border-radius: var(--radius-sm);
+}
+
+.side-header.navy {
+  background: var(--surface-navy);
+  color: #FFFFFF;
+  border-color: var(--surface-navy);
+}
+
+.side-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.side-icon {
+  font-size: 18px;
+  color: var(--signal-brand);
+}
+
+.side-card h4 {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--signal-primary);
+  margin-bottom: 2px;
+}
+
+.side-card p {
+  font-size: 11px;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+.radar-center-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-card-subtle);
+  border: 1px solid var(--border-blue);
+  border-radius: var(--radius);
+  padding: 16px;
+  position: relative;
+}
+
+.radar-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--signal-primary);
+  margin-bottom: 8px;
+}
+
+.radar-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: center;
+  max-width: 380px;
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+/* ============================================================
+   打印与快捷导出
+   ============================================================ */
+@media print {
+  @page {
+    size: 16/9 landscape;
+    margin: 0;
+  }
+  body {
+    padding: 0;
+    background: none;
+    gap: 0;
+  }
+  .slide {
+    width: 100vw;
+    height: 100vh;
+    box-shadow: none;
+    border-radius: 0;
+    break-after: page;
+    page-break-after: always;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     SLIDE 1: 气泡数据云 + 虚线工作详情 + 区域折线图
+     ============================================================ -->
+<div class="slide" id="slide-1">
+  <div class="slide-header">
+    <div class="slide-title-group">
+      <div class="slide-title">高端 PPT 系列之一：<span class="accent-navy">打工人必备 PPT 逻辑图</span></div>
+    </div>
+    <div class="slide-badge">01 / 经营分析</div>
+  </div>
+
+  <div class="slide-body">
+    <!-- 左侧：气泡图 -->
+    <div class="bubble-chart-col">
+      <div class="bubble-chart-title">
+        <span>各品类销量情况</span>
+      </div>
+      <div class="bubble-svg-wrapper">
+        <svg viewBox="0 0 440 380" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+          <!-- 下滑趋势提示小徽章 -->
+          <circle cx="50" cy="50" r="36" fill="#1A56DB" />
+          <text x="50" y="46" fill="#FFFFFF" font-size="12" font-weight="700" text-anchor="middle">下滑</text>
+          <text x="50" y="62" fill="#93C5FD" font-size="10" text-anchor="middle">销量趋势</text>
+
+          <!-- 核心主气泡 -->
+          <circle cx="210" cy="190" r="85" fill="#103A71" />
+          <text x="210" y="180" fill="#FFFFFF" font-size="20" font-weight="900" font-family="monospace" text-anchor="middle">¥20,000</text>
+          <text x="210" y="206" fill="#BFDBFE" font-size="13" font-weight="600" text-anchor="middle">生活家居</text>
+
+          <!-- 环绕梯度气泡 -->
+          <!-- 类别 1 -->
+          <circle cx="280" cy="65" r="32" fill="#1A56DB" />
+          <text x="280" y="65" fill="#FFFFFF" font-size="11" font-weight="700" font-family="monospace" text-anchor="middle">¥9,000</text>
+          <text x="280" y="110" fill="#475569" font-size="11" text-anchor="middle">类别 1</text>
+          <line x1="280" y1="98" x2="280" y2="102" stroke="#94A3B8" />
+
+          <!-- 类别 2 -->
+          <circle cx="345" cy="130" r="28" fill="#2563EB" />
+          <text x="345" y="134" fill="#FFFFFF" font-size="10" font-weight="700" font-family="monospace" text-anchor="middle">¥8,000</text>
+          <text x="345" y="172" fill="#475569" font-size="11" text-anchor="middle">类别 2</text>
+
+          <!-- 类别 3 -->
+          <circle cx="345" cy="220" r="24" fill="#3B82F6" />
+          <text x="345" y="224" fill="#FFFFFF" font-size="10" font-weight="700" font-family="monospace" text-anchor="middle">¥7,000</text>
+          <text x="345" y="258" fill="#475569" font-size="11" text-anchor="middle">类别 3</text>
+
+          <!-- 类别 4 -->
+          <circle cx="310" cy="290" r="20" fill="#60A5FA" />
+          <text x="310" y="294" fill="#FFFFFF" font-size="9" font-weight="700" font-family="monospace" text-anchor="middle">¥6,000</text>
+          <text x="310" y="324" fill="#475569" font-size="11" text-anchor="middle">类别 4</text>
+
+          <!-- 类别 5 -->
+          <circle cx="240" cy="325" r="18" fill="#93C5FD" />
+          <text x="240" y="329" fill="#103A71" font-size="8" font-weight="700" font-family="monospace" text-anchor="middle">¥5,000</text>
+          <text x="240" y="354" fill="#475569" font-size="11" text-anchor="middle">类别 5</text>
+
+          <!-- 类别 6-12 逆时针小气泡 -->
+          <circle cx="170" cy="330" r="16" fill="#BFDBFE" />
+          <circle cx="110" cy="305" r="14" fill="#93C5FD" />
+          <circle cx="65" cy="265" r="12" fill="#60A5FA" />
+          <circle cx="55" cy="205" r="12" fill="#3B82F6" />
+          <circle cx="65" cy="150" r="12" fill="#2563EB" />
+          <circle cx="95" cy="105" r="14" fill="#1A56DB" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- 右侧：详情 + 折线图 -->
+    <div class="detail-col">
+      <div class="dashed-focus-card">
+        <h3>
+          <span style="color:var(--signal-brand)">●</span>
+          2024 年工作开展详情
+        </h3>
+        <p>2024 年，在公司党委统一部署下，全面开展增效降本工作。服饰、生活用品、娱乐设备、美食、日常出行以及阅读学习成为本年度销量的有力增长点，增长幅度最高可达到 69%。</p>
+        <p>围绕数字化营销与精细化运营，打通供应链上下游协同链路，各品类毛利水平持续改善。</p>
+      </div>
+
+      <div class="chart-card">
+        <h3>每月销量数据趋势</h3>
+        <svg viewBox="0 0 500 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+          <!-- 网格线 -->
+          <line x1="40" y1="20" x2="480" y2="20" stroke="#E2E8F0" stroke-dasharray="3,3" />
+          <line x1="40" y1="60" x2="480" y2="60" stroke="#E2E8F0" stroke-dasharray="3,3" />
+          <line x1="40" y1="100" x2="480" y2="100" stroke="#E2E8F0" />
+          
+          <!-- 面积渐变 -->
+          <defs>
+            <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#3B82F6" stop-opacity="0.0"/>
+            </linearGradient>
+          </defs>
+          <polygon points="50,65 130,78 210,95 290,45 370,25 450,40 450,100 50,100" fill="url(#area-grad)" />
+          <polyline points="50,65 130,78 210,95 290,45 370,25 450,40" fill="none" stroke="#2563EB" stroke-width="2.5" />
+          
+          <!-- 数据点与标签 -->
+          <circle cx="50" cy="65" r="4" fill="#103A71" />
+          <text x="50" y="55" font-size="10" font-family="monospace" fill="#103A71" text-anchor="middle">1345</text>
+          
+          <circle cx="130" cy="78" r="4" fill="#103A71" />
+          <text x="130" y="70" font-size="10" font-family="monospace" fill="#103A71" text-anchor="middle">1245</text>
+          
+          <circle cx="210" cy="95" r="4" fill="#103A71" />
+          <text x="210" y="88" font-size="10" font-family="monospace" fill="#103A71" text-anchor="middle">1000</text>
+          
+          <circle cx="290" cy="45" r="4" fill="#103A71" />
+          <text x="290" y="36" font-size="10" font-family="monospace" fill="#103A71" text-anchor="middle">1400</text>
+          
+          <circle cx="370" cy="25" r="4" fill="#103A71" />
+          <text x="370" y="16" font-size="10" font-family="monospace" fill="#103A71" text-anchor="middle">1700</text>
+          
+          <circle cx="450" cy="40" r="4" fill="#103A71" />
+          <text x="450" y="32" font-size="10" font-family="monospace" fill="#103A71" text-anchor="middle">1500</text>
+
+          <!-- X 轴月份 -->
+          <text x="50" y="118" font-size="11" fill="#64748B" text-anchor="middle">1月</text>
+          <text x="130" y="118" font-size="11" fill="#64748B" text-anchor="middle">2月</text>
+          <text x="210" y="118" font-size="11" fill="#64748B" text-anchor="middle">3月</text>
+          <text x="290" y="118" font-size="11" fill="#64748B" text-anchor="middle">4月</text>
+          <text x="370" y="118" font-size="11" fill="#64748B" text-anchor="middle">5月</text>
+          <text x="450" y="118" font-size="11" fill="#64748B" text-anchor="middle">6月</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>国有企业数字化经营管理汇报材料</span>
+    <span class="confidential">内部资料 · 严禁外传</span>
+    <span>第 01 页</span>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     SLIDE 2: 产业大模型生命周期与全覆盖体系
+     ============================================================ -->
+<div class="slide" id="slide-2">
+  <div class="slide-header">
+    <div class="slide-title-group">
+      <div class="slide-title">产业大模型<span class="accent-navy">生命周期与全覆盖体系</span></div>
+    </div>
+    <div class="slide-badge">02 / 架构规划</div>
+  </div>
+
+  <div class="slide-body">
+    <!-- 左侧：环形生命周期切片 -->
+    <div class="lifecycle-col">
+      <svg viewBox="0 0 380 380" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+        <!-- 5 个扇区环 (中心 190, 190, 外半径 170, 内半径 75) -->
+        <!-- 扇区 1: 项目引入 (Top-Right) -->
+        <path d="M 190,20 A 170,170 0 0,1 351,137 L 261,166 A 75,75 0 0,0 190,115 Z" fill="#60A5FA" />
+        <text x="250" y="85" fill="#FFFFFF" font-size="13" font-weight="700">📄 项目引入</text>
+
+        <!-- 扇区 2: 项目协同 (Right-Bottom) -->
+        <path d="M 351,137 A 170,170 0 0,1 290,327 L 234,251 A 75,75 0 0,0 261,166 Z" fill="#2563EB" />
+        <text x="260" y="225" fill="#FFFFFF" font-size="13" font-weight="700">🤝 项目协同</text>
+
+        <!-- 扇区 3: 项目管理 (Bottom-Left) -->
+        <path d="M 290,327 A 170,170 0 0,1 90,327 L 146,251 A 75,75 0 0,0 234,251 Z" fill="#103A71" />
+        <text x="190" y="300" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">👤 项目管理</text>
+
+        <!-- 扇区 4: 项目结算 (Left-Bottom) -->
+        <path d="M 90,327 A 170,170 0 0,1 29,137 L 119,166 A 75,75 0 0,0 146,251 Z" fill="#1E40AF" />
+        <text x="80" y="225" fill="#FFFFFF" font-size="13" font-weight="700">💳 项目结算</text>
+
+        <!-- 扇区 5: 项目总结 (Left-Top) -->
+        <path d="M 29,137 A 170,170 0 0,1 190,20 L 190,115 A 75,75 0 0,0 119,166 Z" fill="#3B82F6" />
+        <text x="120" y="85" fill="#FFFFFF" font-size="13" font-weight="700">🚀 项目总结</text>
+
+        <!-- 中心圆 -->
+        <circle cx="190" cy="190" r="70" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" />
+        <text x="190" y="182" fill="#103A71" font-size="16" font-weight="900" text-anchor="middle">产业</text>
+        <text x="190" y="206" fill="#103A71" font-size="16" font-weight="900" text-anchor="middle">生命周期</text>
+      </svg>
+    </div>
+
+    <!-- 右侧：三层全覆盖卡片 -->
+    <div class="coverage-col">
+      <!-- 1. 功能全覆盖 -->
+      <div class="coverage-row">
+        <div class="coverage-badge">
+          <span class="chevron">›››</span>
+          <span>功能全覆盖</span>
+        </div>
+        <div class="coverage-pills">
+          <span class="coverage-pill">规范申报</span>
+          <span class="coverage-pill">考核规则管理</span>
+          <span class="coverage-pill">项目合作</span>
+          <span class="coverage-pill">合作变更</span>
+          <span class="coverage-pill">投诉违规管理</span>
+          <span class="coverage-pill">结算单核对</span>
+        </div>
+      </div>
+
+      <!-- 2. 业务全覆盖 -->
+      <div class="coverage-row">
+        <div class="coverage-badge">
+          <span class="chevron">›››</span>
+          <span>业务全覆盖</span>
+        </div>
+        <div class="coverage-desc">
+          在业务项目的全生命周期过程中提供业务能力与技术支撑，帮助合作伙伴在全周期当中以激励的状态砥砺奋进。
+        </div>
+      </div>
+
+      <!-- 3. 数据全覆盖 -->
+      <div class="coverage-row">
+        <div class="coverage-badge">
+          <span class="chevron">›››</span>
+          <span>数据全覆盖</span>
+        </div>
+        <div class="data-three-col">
+          <div class="data-box">
+            <div class="data-box-head">资料分类</div>
+            <div class="data-box-body">利于填写<br>方便归集</div>
+          </div>
+          <div class="data-box">
+            <div class="data-box-head">信息汇集</div>
+            <div class="data-box-body">层层汇集<br>关键指标</div>
+          </div>
+          <div class="data-box">
+            <div class="data-box-head">依据详实</div>
+            <div class="data-box-body">数源精准<br>提升体验</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>产业互联网大模型全生命周期运营平台</span>
+    <span class="confidential">内部资料 · 严禁外传</span>
+    <span>第 02 页</span>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     SLIDE 3: 生活服务行业 DY 直播运营与多视角矩阵
+     ============================================================ -->
+<div class="slide" id="slide-3">
+  <div class="slide-header">
+    <div class="slide-title-group">
+      <div class="slide-title">生活服务行业 <span class="accent-navy">DY 直播运营逻辑图</span></div>
+    </div>
+    <div class="slide-badge">03 / 业务推演</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide3-wrapper">
+      <!-- 顶栏三项策略 -->
+      <div class="top-strategy-row">
+        <div class="strategy-box">
+          <div class="strategy-box-title">规划直播策略</div>
+          <div class="strategy-box-list">
+            <div>| 进行「选品组品」确定直播内容</div>
+            <div>| 确认「开播配置」寻找合适开播时段、频次时长</div>
+            <div>| 学习「直播规范」避免因违规影响流量分发</div>
+          </div>
+        </div>
+
+        <div class="strategy-box">
+          <div class="strategy-box-title">规划直播策略</div>
+          <div class="strategy-box-list">
+            <div>| 通过「直播预热」扩大流量来源</div>
+            <div>| 使用「流量投放」针对转化漏斗中的关键指标做提升，加速直播间的转化</div>
+          </div>
+        </div>
+
+        <div class="strategy-box">
+          <div class="strategy-box-title">诊断复盘数据</div>
+          <div class="strategy-box-list">
+            <div>| 回顾目标 评估结果</div>
+            <div>| 分析原因 总结规律</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 底部视角流转看板 -->
+      <div class="perspective-board">
+        <!-- 用户视角 -->
+        <div class="p-row">
+          <div class="p-badge navy">
+            <span>👥</span>
+            <span>用户视角</span>
+          </div>
+          <div class="p-flow-steps">
+            <div class="p-step">看到直播间</div>
+            <div class="p-arrow">→</div>
+            <div class="p-step">进入直播间</div>
+            <div class="p-arrow">→</div>
+            <div class="p-step">点击商品卡</div>
+            <div class="p-arrow">→</div>
+            <div class="p-step">进入详情页</div>
+            <div class="p-arrow">→</div>
+            <div class="p-step active">成功下单</div>
+          </div>
+        </div>
+
+        <!-- 关键指标 -->
+        <div class="p-row">
+          <div class="p-badge blue">
+            <span>📊</span>
+            <span>关键指标</span>
+          </div>
+          <div class="formula-grid">
+            <div class="formula-item">
+              <div class="formula-circle">进房率</div>
+              <div class="formula-calc">
+                <span>直播间进房人数</span>
+                <span class="frac-line"></span>
+                <span>直播间曝光人数</span>
+              </div>
+            </div>
+
+            <div class="formula-item">
+              <div class="formula-circle">停留互动</div>
+              <div class="formula-calc">
+                <span>互动行为(点赞/评论/分享)</span>
+                <span class="frac-line"></span>
+                <span>总停留时长</span>
+              </div>
+            </div>
+
+            <div class="formula-item">
+              <div class="formula-circle">转化率</div>
+              <div class="formula-calc">
+                <span>成交人数</span>
+                <span class="frac-line"></span>
+                <span>商品点击人数</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>数字商业全链路漏斗与多视角转化模型</span>
+    <span class="confidential">内部资料 · 严禁外传</span>
+    <span>第 03 页</span>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     SLIDE 4: 韧性供应链策略与 8 维度雷达评估
+     ============================================================ -->
+<div class="slide" id="slide-4">
+  <div class="slide-header">
+    <div class="slide-title-group">
+      <div class="slide-title">韧性供应链策略：<span class="accent-navy">8 大维度评估模型</span></div>
+    </div>
+    <div class="slide-badge">04 / 战略韧性</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="radar-layout">
+      <!-- 供给端韧性 -->
+      <div class="side-column">
+        <div class="side-header">供给端韧性</div>
+        <div class="side-card">
+          <div class="side-icon">📅</div>
+          <div>
+            <h4>规划能力</h4>
+            <p>能够迅速感知供求关系的变化并作出相应调整</p>
+          </div>
+        </div>
+        <div class="side-card">
+          <div class="side-icon">🌐</div>
+          <div>
+            <h4>供应版图</h4>
+            <p>多样化的供应来源与冗余备份</p>
+          </div>
+        </div>
+        <div class="side-card">
+          <div class="side-icon">🏭</div>
+          <div>
+            <h4>制造物流布局</h4>
+            <p>将韧性纳入仓储/生产网络布局设计的考量</p>
+          </div>
+        </div>
+        <div class="side-card">
+          <div class="side-icon">🚚</div>
+          <div>
+            <h4>入厂物流</h4>
+            <p>覆盖物流和全催全链路的可视化和灵活性</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 中央雷达图 -->
+      <div class="radar-center-col">
+        <div class="radar-title">韧性指南介绍：8 大维度</div>
+        <svg viewBox="0 0 320 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:240px;">
+          <!-- 8 边形多层网格 (中心 160, 140) -->
+          <polygon points="160,50 223,76 250,140 223,203 160,230 96,203 70,140 96,76" fill="none" stroke="#CBD5E1" stroke-width="1" />
+          <polygon points="160,80 202,97 220,140 202,182 160,200 117,182 100,140 117,97" fill="none" stroke="#E2E8F0" stroke-width="1" />
+          
+          <!-- 雷达轴线 -->
+          <line x1="160" y1="140" x2="160" y2="50" stroke="#CBD5E1" />
+          <line x1="160" y1="140" x2="223" y2="76" stroke="#CBD5E1" />
+          <line x1="160" y1="140" x2="250" y2="140" stroke="#CBD5E1" />
+          <line x1="160" y1="140" x2="223" y2="203" stroke="#CBD5E1" />
+          <line x1="160" y1="140" x2="160" y2="230" stroke="#CBD5E1" />
+          <line x1="160" y1="140" x2="96" y2="203" stroke="#CBD5E1" />
+          <line x1="160" y1="140" x2="70" y2="140" stroke="#CBD5E1" />
+          <line x1="160" y1="140" x2="96" y2="76" stroke="#CBD5E1" />
+
+          <!-- 数据填充区域 -->
+          <polygon points="160,60 215,85 240,140 210,195 160,215 105,190 80,140 110,85" fill="#3B82F6" fill-opacity="0.45" stroke="#1D4ED8" stroke-width="2" />
+          <circle cx="160" cy="60" r="3.5" fill="#103A71" />
+          <circle cx="215" cy="85" r="3.5" fill="#103A71" />
+          <circle cx="240" cy="140" r="3.5" fill="#103A71" />
+          <circle cx="210" cy="195" r="3.5" fill="#103A71" />
+          <circle cx="160" cy="215" r="3.5" fill="#103A71" />
+          <circle cx="105" cy="190" r="3.5" fill="#103A71" />
+          <circle cx="80" cy="140" r="3.5" fill="#103A71" />
+          <circle cx="110" cy="85" r="3.5" fill="#103A71" />
+
+          <!-- 维度文字 -->
+          <text x="160" y="42" font-size="10" font-weight="700" fill="#103A71" text-anchor="middle">规划能力</text>
+          <text x="245" y="70" font-size="10" font-weight="700" fill="#103A71">产品平台</text>
+          <text x="260" y="144" font-size="10" font-weight="700" fill="#103A71">地理范围</text>
+          <text x="245" y="215" font-size="10" font-weight="700" fill="#103A71">财务资本</text>
+          <text x="160" y="248" font-size="10" font-weight="700" fill="#103A71" text-anchor="middle">分销配送</text>
+          <text x="75" y="215" font-size="10" font-weight="700" fill="#103A71" text-anchor="end">入厂物流</text>
+          <text x="60" y="144" font-size="10" font-weight="700" fill="#103A71" text-anchor="end">制造布局</text>
+          <text x="75" y="70" font-size="10" font-weight="700" fill="#103A71" text-anchor="end">供应版图</text>
+        </svg>
+        <div class="radar-desc">
+          韧性指南提供了 8 个维度的评估框架，以加快韧性建设进程，从而提高应对中断能力并锁定管控优先事项。
+        </div>
+      </div>
+
+      <!-- 需求端韧性 -->
+      <div class="side-column">
+        <div class="side-header navy">需求端韧性</div>
+        <div class="side-card">
+          <div class="side-icon">📦</div>
+          <div>
+            <h4>产品平台</h4>
+            <p>通过积极的产品组合管理，提高产品和需求的匹配度</p>
+          </div>
+        </div>
+        <div class="side-card">
+          <div class="side-icon">🗺️</div>
+          <div>
+            <h4>地理范围</h4>
+            <p>业务布局的多样性和地理位置以满足客户各类需求</p>
+          </div>
+        </div>
+        <div class="side-card">
+          <div class="side-icon">💰</div>
+          <div>
+            <h4>财务资本</h4>
+            <p>整个端到端价值链财务健康水平透明度</p>
+          </div>
+        </div>
+        <div class="side-card">
+          <div class="side-icon">🚛</div>
+          <div>
+            <h4>分销配送</h4>
+            <p>通过多种多样的渠道满足客户需求</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>战略韧性供应链多维评估模型</span>
+    <span class="confidential">内部资料 · 严禁外传</span>
+    <span>第 04 页</span>
+  </div>
+</div>
+
+<script>
+  // 键盘翻页交互支持
+  document.addEventListener('keydown', (e) => {
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    let currentIdx = slides.findIndex(s => {
+      const rect = s.getBoundingClientRect();
+      return rect.top >= -100 && rect.top <= window.innerHeight / 2;
+    });
+    if (currentIdx === -1) currentIdx = 0;
+
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+      if (currentIdx < slides.length - 1) {
+        slides[currentIdx + 1].scrollIntoView({ behavior: 'smooth' });
+      }
+    } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      if (currentIdx > 0) {
+        slides[currentIdx - 1].scrollIntoView({ behavior: 'smooth' });
+      }
+    } else if (e.key.toLowerCase() === 'f') {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {});
+      } else {
+        document.exitFullscreen().catch(err => {});
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Stop a Visual HTML style-selection companion session.
+# Stop a Visual HTML style gallery server session.
 
 set -euo pipefail
 
@@ -11,7 +11,7 @@ fi
 SESSION_DIR="$(cd "$1" && pwd)"
 PID_FILE="$SESSION_DIR/state/server.pid"
 if [[ ! -f "$PID_FILE" ]]; then
-  echo "No running companion found in $SESSION_DIR" >&2
+  echo "No running gallery server found in $SESSION_DIR" >&2
   exit 1
 fi
 

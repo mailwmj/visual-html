@@ -3,10 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Visual HTML — 15 套设计风格全量画廊 (Style Gallery)</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+  <title>Visual HTML — 16 套设计风格全量画廊 (Style Gallery)</title>
   <style>
     :root {
       --bg: #0C0F14;
@@ -20,6 +17,8 @@
       --accent: #38BDF8;
       --accent-glow: rgba(56, 189, 248, 0.15);
       --radius: 16px;
+      --font-sans: "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", "Segoe UI", sans-serif;
+      --font-mono: "Cascadia Mono", Consolas, "SFMono-Regular", monospace;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,8 +29,9 @@
         radial-gradient(circle 600px at 90% 80%, rgba(168, 85, 247, 0.08), transparent 60%);
       background-attachment: fixed;
       color: var(--text-pri);
-      font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-      line-height: 1.6;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.65;
       padding: 48px 24px 100px;
     }
 
@@ -49,7 +49,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-family: "IBM Plex Mono", monospace;
+      font-family: var(--font-mono);
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.12em;
@@ -64,7 +64,7 @@
     h1 {
       font-size: clamp(32px, 4vw, 48px);
       font-weight: 800;
-      letter-spacing: -0.02em;
+      letter-spacing: 0;
       margin-bottom: 14px;
       background: linear-gradient(180deg, #FFFFFF 30%, #94A3B8 100%);
       -webkit-background-clip: text;
@@ -72,7 +72,8 @@
     }
     p.lead {
       color: var(--text-sec);
-      font-size: 16px;
+      font-size: 17px;
+      line-height: 1.65;
       max-width: 720px;
       margin: 0 auto;
     }
@@ -86,7 +87,7 @@
       margin-bottom: 40px;
     }
     .filter-btn {
-      font-family: "IBM Plex Mono", monospace;
+      font-family: var(--font-mono);
       font-size: 12px;
       font-weight: 600;
       padding: 8px 18px;
@@ -165,13 +166,14 @@
     }
     .style-name {
       color: var(--text-pri);
-      font-size: 16px;
-      font-weight: 800;
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.45;
     }
     .style-id {
       color: var(--text-mut);
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 10px;
+      font-family: var(--font-mono);
+      font-size: 11px;
       white-space: nowrap;
     }
 
@@ -182,7 +184,7 @@
     }
     .btn-use {
       grid-column: span 2;
-      font-family: "IBM Plex Mono", monospace;
+      font-family: var(--font-mono);
       font-size: 13px;
       font-weight: 700;
       padding: 10px 14px;
@@ -198,13 +200,10 @@
       transition: all 0.2s ease;
     }
     .btn-use:hover { filter: brightness(1.08); transform: translateY(-1px); }
-    .btn-use:disabled { cursor: default; opacity: 0.78; transform: none; }
-    .btn-use.sent { background: #10B981; border-color: #10B981; color: #FFFFFF; }
-    .btn-use.fallback { background: var(--surface-2); border-color: var(--border); color: var(--accent); }
     .btn-link {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 11px;
-      font-weight: 600;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
       padding: 8px 12px;
       border-radius: 8px;
       background: var(--surface-2);
@@ -223,54 +222,140 @@
       background: rgba(56, 189, 248, 0.08);
     }
 
-    /* Toast */
-    #toast {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: #10B981;
-      color: #FFF;
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 12px;
-      font-weight: 700;
-      padding: 12px 24px;
-      border-radius: 8px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-      transform: translateY(100px);
-      opacity: 0;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      z-index: 1000;
+    .btn-use.copy-success {
+      background: var(--surface-1);
+      border-color: var(--accent);
+      color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow), 0 0 18px var(--accent-glow);
+      animation: copy-confirm 1.9s ease-out;
     }
-    #toast.show {
-      transform: translateY(0);
-      opacity: 1;
+    .btn-use.copy-failure {
+      background: #3A121E;
+      border-color: #FB7185;
+      color: #FDA4AF;
+    }
+    @keyframes copy-confirm {
+      0% { box-shadow: 0 0 0 0 var(--accent-glow); }
+      25% { box-shadow: 0 0 0 5px var(--accent-glow), 0 0 24px rgba(56, 189, 248, 0.3); }
+      100% { box-shadow: 0 0 0 3px var(--accent-glow), 0 0 18px var(--accent-glow); }
+    }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    body.is-previewing {
+      padding: 0;
+      overflow: hidden;
+      background-image: none;
+    }
+    .preview-view {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: grid;
+      grid-template-rows: 68px minmax(0, 1fr);
+      background: var(--bg);
+    }
+    .preview-view[hidden] { display: none; }
+    .preview-nav {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 20px;
+      padding: 0 28px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(12, 15, 20, 0.96);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
+    }
+    .preview-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 38px;
+      padding: 0 12px;
+      border: 1px solid rgba(56, 189, 248, 0.36);
+      border-radius: 6px;
+      background: var(--surface-1);
+      color: var(--text-pri);
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+    }
+    .preview-back:hover {
+      border-color: var(--accent);
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent);
+    }
+    .preview-back-icon {
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 16px;
+      line-height: 1;
+    }
+    .preview-context {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      min-width: 0;
+      overflow: hidden;
+    }
+    .preview-name {
+      overflow: hidden;
+      color: var(--text-pri);
+      font-size: 15px;
+      font-weight: 700;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .preview-id,
+    .preview-format {
+      flex: 0 0 auto;
+      color: var(--text-mut);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .preview-format {
+      padding: 5px 8px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--accent);
+      background: var(--accent-glow);
+    }
+    .preview-frame {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #FFFFFF;
     }
 
     @media (max-width: 860px) {
       .gallery-grid { grid-template-columns: 1fr; }
+      body { padding: 32px 16px 72px; }
+      header { margin-bottom: 32px; }
+      .preview-view { grid-template-rows: 58px minmax(0, 1fr); }
+      .preview-nav { gap: 12px; padding: 0 12px; }
+      .preview-back { padding: 0 9px; font-size: 13px; }
+      .preview-id { display: none; }
+      .preview-name { font-size: 14px; }
+      .preview-format { font-size: 10px; }
     }
   </style>
 </head>
 <body>
 
-  <div class="wrap">
+  <main class="wrap" id="gallery-view">
     <header>
-      <div class="eyebrow">
-        <span class="dot"></span>
-        VISUAL HTML STYLE PACKS // 3.0
-      </div>
-      <h1>设计风格全量画廊</h1>
-      <p class="lead">已内置 15 套独立演进的可插拔设计系统。先查看风格预览；点击“使用此风格”提交选择，Companion 会回传给 Agent，直接打开页面时则复制待发送文本。</p>
-    </header>
-
-    <!-- Filter Buttons -->
-    <div class="filter-bar">
-      <button class="filter-btn active" data-filter="all">全部风格 (15)</button>
-      <button class="filter-btn" data-filter="tech">硬核科技 / 参数展示</button>
-      <button class="filter-btn" data-filter="pop">潮流创意 / 像素波普</button>
-      <button class="filter-btn" data-filter="editorial">人文社论 / 智识工作流</button>
-      <button class="filter-btn" data-filter="lifestyle">清新雅致 / 生活方式</button>
-    </div>
 
     <!-- Gallery Grid -->
     <div class="gallery-grid" id="grid">
@@ -282,9 +367,9 @@
         </div>
         <div class="card-body">
           <div class="card-actions">
-            <button type="button" class="btn-use" onclick="sendStyleSelection('industrial-dark', '暗黑极客工业风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/industrial-dark/scaffold-web.html" target="_blank">网页示例</a>
-            <a class="btn-link" href="styles/industrial-dark/scaffold-ppt.html" target="_blank">PPT 示例</a>
+            <button type="button" class="btn-use" onclick="copyStyleSelection('industrial-dark', '暗黑极客工业风', this)">使用此风格</button>
+            <a class="btn-link" href="styles/industrial-dark/scaffold-web.html">网页示例</a>
+            <a class="btn-link" href="styles/industrial-dark/scaffold-ppt.html">PPT 示例</a>
           </div>
         </div>
       </div>
@@ -296,9 +381,9 @@
         </div>
         <div class="card-body">
           <div class="card-actions">
-            <button type="button" class="btn-use" onclick="sendStyleSelection('soft-sky', '清透空灵浅蓝风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/soft-sky/scaffold-web.html" target="_blank">网页示例</a>
-            <a class="btn-link" href="styles/soft-sky/scaffold-ppt.html" target="_blank">PPT 示例</a>
+            <button type="button" class="btn-use" onclick="copyStyleSelection('soft-sky', '清透空灵浅蓝风', this)">使用此风格</button>
+            <a class="btn-link" href="styles/soft-sky/scaffold-web.html">网页示例</a>
+            <a class="btn-link" href="styles/soft-sky/scaffold-ppt.html">PPT 示例</a>
           </div>
         </div>
       </div>
@@ -310,9 +395,9 @@
         </div>
         <div class="card-body">
           <div class="card-actions">
-            <button type="button" class="btn-use" onclick="sendStyleSelection('obsidian-cyan', '黑曜霓蓝展厅风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/obsidian-cyan/scaffold-web.html" target="_blank">网页示例</a>
-            <a class="btn-link" href="styles/obsidian-cyan/scaffold-ppt.html" target="_blank">PPT 示例</a>
+            <button type="button" class="btn-use" onclick="copyStyleSelection('obsidian-cyan', '黑曜霓蓝展厅风', this)">使用此风格</button>
+            <a class="btn-link" href="styles/obsidian-cyan/scaffold-web.html">网页示例</a>
+            <a class="btn-link" href="styles/obsidian-cyan/scaffold-ppt.html">PPT 示例</a>
           </div>
         </div>
       </div>
@@ -324,9 +409,9 @@
         </div>
         <div class="card-body">
           <div class="card-actions">
-            <button type="button" class="btn-use" onclick="sendStyleSelection('play-tubular', '玩味极客彩管风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/play-tubular/scaffold-web.html" target="_blank">网页示例</a>
-            <a class="btn-link" href="styles/play-tubular/scaffold-ppt.html" target="_blank">PPT 示例</a>
+            <button type="button" class="btn-use" onclick="copyStyleSelection('play-tubular', '玩味极客彩管风', this)">使用此风格</button>
+            <a class="btn-link" href="styles/play-tubular/scaffold-web.html">网页示例</a>
+            <a class="btn-link" href="styles/play-tubular/scaffold-ppt.html">PPT 示例</a>
           </div>
         </div>
       </div>
@@ -338,9 +423,9 @@
         </div>
         <div class="card-body">
           <div class="card-actions">
-            <button type="button" class="btn-use" onclick="sendStyleSelection('warm-craft', '温润纸感手札风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/warm-craft/scaffold-web.html" target="_blank">网页示例</a>
-            <a class="btn-link" href="styles/warm-craft/scaffold-ppt.html" target="_blank">PPT 示例</a>
+            <button type="button" class="btn-use" onclick="copyStyleSelection('warm-craft', '温润纸感手札风', this)">使用此风格</button>
+            <a class="btn-link" href="styles/warm-craft/scaffold-web.html">网页示例</a>
+            <a class="btn-link" href="styles/warm-craft/scaffold-ppt.html">PPT 示例</a>
           </div>
         </div>
       </div>
@@ -352,9 +437,9 @@
         </div>
         <div class="card-body">
           <div class="card-actions">
-            <button type="button" class="btn-use" onclick="sendStyleSelection('neon-3d', '暗紫流体极光风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/neon-3d/scaffold-web.html" target="_blank">网页示例</a>
-            <a class="btn-link" href="styles/neon-3d/scaffold-ppt.html" target="_blank">PPT 示例</a>
+            <button type="button" class="btn-use" onclick="copyStyleSelection('neon-3d', '暗紫流体极光风', this)">使用此风格</button>
+            <a class="btn-link" href="styles/neon-3d/scaffold-web.html">网页示例</a>
+            <a class="btn-link" href="styles/neon-3d/scaffold-ppt.html">PPT 示例</a>
           </div>
         </div>
       </div>
@@ -366,9 +451,9 @@
         </div>
         <div class="card-body">
           <div class="card-actions">
-            <button type="button" class="btn-use" onclick="sendStyleSelection('pixel-pop', '日系像素波普风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/pixel-pop/scaffold-web.html" target="_blank">网页示例</a>
-            <a class="btn-link" href="styles/pixel-pop/scaffold-ppt.html" target="_blank">PPT 示例</a>
+            <button type="button" class="btn-use" onclick="copyStyleSelection('pixel-pop', '日系像素波普风', this)">使用此风格</button>
+            <a class="btn-link" href="styles/pixel-pop/scaffold-web.html">网页示例</a>
+            <a class="btn-link" href="styles/pixel-pop/scaffold-ppt.html">PPT 示例</a>
           </div>
         </div>
       </div>
@@ -380,9 +465,9 @@
         </div>
         <div class="card-body">
           <div class="card-actions">
-            <button type="button" class="btn-use" onclick="sendStyleSelection('brutalist-acid', '先锋撞色海报风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/brutalist-acid/scaffold-web.html" target="_blank">网页示例</a>
-            <a class="btn-link" href="styles/brutalist-acid/scaffold-ppt.html" target="_blank">PPT 示例</a>
+            <button type="button" class="btn-use" onclick="copyStyleSelection('brutalist-acid', '先锋撞色海报风', this)">使用此风格</button>
+            <a class="btn-link" href="styles/brutalist-acid/scaffold-web.html">网页示例</a>
+            <a class="btn-link" href="styles/brutalist-acid/scaffold-ppt.html">PPT 示例</a>
           </div>
         </div>
       </div>
@@ -394,9 +479,9 @@
         </div>
         <div class="card-body">
           <div class="card-actions">
-            <button type="button" class="btn-use" onclick="sendStyleSelection('sunflower-bloom', '向日葵暖阳风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/sunflower-bloom/scaffold-web.html" target="_blank">网页示例</a>
-            <a class="btn-link" href="styles/sunflower-bloom/scaffold-ppt.html" target="_blank">PPT 示例</a>
+            <button type="button" class="btn-use" onclick="copyStyleSelection('sunflower-bloom', '向日葵暖阳风', this)">使用此风格</button>
+            <a class="btn-link" href="styles/sunflower-bloom/scaffold-web.html">网页示例</a>
+            <a class="btn-link" href="styles/sunflower-bloom/scaffold-ppt.html">PPT 示例</a>
           </div>
         </div>
       </div>
@@ -408,9 +493,9 @@
         </div>
         <div class="card-body">
           <div class="card-actions">
-            <button type="button" class="btn-use" onclick="sendStyleSelection('summer-dopamine', '夏日多巴胺风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/summer-dopamine/scaffold-web.html" target="_blank">网页示例</a>
-            <a class="btn-link" href="styles/summer-dopamine/scaffold-ppt.html" target="_blank">PPT 示例</a>
+            <button type="button" class="btn-use" onclick="copyStyleSelection('summer-dopamine', '夏日多巴胺风', this)">使用此风格</button>
+            <a class="btn-link" href="styles/summer-dopamine/scaffold-web.html">网页示例</a>
+            <a class="btn-link" href="styles/summer-dopamine/scaffold-ppt.html">PPT 示例</a>
           </div>
         </div>
       </div>
@@ -422,9 +507,9 @@
         </div>
         <div class="card-body">
           <div class="card-actions">
-            <button type="button" class="btn-use" onclick="sendStyleSelection('soft-editorial-future', '极简未来展厅风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/soft-editorial-future/scaffold-web.html" target="_blank">网页示例</a>
-            <a class="btn-link" href="styles/soft-editorial-future/scaffold-ppt.html" target="_blank">PPT 示例</a>
+            <button type="button" class="btn-use" onclick="copyStyleSelection('soft-editorial-future', '极简未来展厅风', this)">使用此风格</button>
+            <a class="btn-link" href="styles/soft-editorial-future/scaffold-web.html">网页示例</a>
+            <a class="btn-link" href="styles/soft-editorial-future/scaffold-ppt.html">PPT 示例</a>
           </div>
         </div>
       </div>
@@ -436,9 +521,9 @@
         </div>
         <div class="card-body">
           <div class="card-actions">
-            <button type="button" class="btn-use" onclick="sendStyleSelection('nothing-design-dark', 'Nothing 极简点阵暗黑风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/nothing-design-dark/scaffold-web.html" target="_blank">网页示例</a>
-            <a class="btn-link" href="styles/nothing-design-dark/scaffold-ppt.html" target="_blank">PPT 示例</a>
+            <button type="button" class="btn-use" onclick="copyStyleSelection('nothing-design-dark', 'Nothing 极简点阵暗黑风', this)">使用此风格</button>
+            <a class="btn-link" href="styles/nothing-design-dark/scaffold-web.html">网页示例</a>
+            <a class="btn-link" href="styles/nothing-design-dark/scaffold-ppt.html">PPT 示例</a>
           </div>
         </div>
       </div>
@@ -450,9 +535,9 @@
         </div>
         <div class="card-body">
           <div class="card-actions">
-            <button type="button" class="btn-use" onclick="sendStyleSelection('nothing-design-light', 'Nothing 极简点阵亮白风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/nothing-design-light/scaffold-web.html" target="_blank">网页示例</a>
-            <a class="btn-link" href="styles/nothing-design-light/scaffold-ppt.html" target="_blank">PPT 示例</a>
+            <button type="button" class="btn-use" onclick="copyStyleSelection('nothing-design-light', 'Nothing 极简点阵亮白风', this)">使用此风格</button>
+            <a class="btn-link" href="styles/nothing-design-light/scaffold-web.html">网页示例</a>
+            <a class="btn-link" href="styles/nothing-design-light/scaffold-ppt.html">PPT 示例</a>
           </div>
         </div>
       </div>
@@ -464,9 +549,9 @@
         </div>
         <div class="card-body">
           <div class="card-actions">
-            <button type="button" class="btn-use" onclick="sendStyleSelection('pixel-crystal', '油画粉彩晶光风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/pixel-crystal/scaffold-web.html" target="_blank">网页示例</a>
-            <a class="btn-link" href="styles/pixel-crystal/scaffold-ppt.html" target="_blank">PPT 示例</a>
+            <button type="button" class="btn-use" onclick="copyStyleSelection('pixel-crystal', '油画粉彩晶光风', this)">使用此风格</button>
+            <a class="btn-link" href="styles/pixel-crystal/scaffold-web.html">网页示例</a>
+            <a class="btn-link" href="styles/pixel-crystal/scaffold-ppt.html">PPT 示例</a>
           </div>
         </div>
       </div>
@@ -478,30 +563,50 @@
         </div>
         <div class="card-body">
           <div class="card-actions">
-            <button type="button" class="btn-use" onclick="sendStyleSelection('ink-bamboo', '青绿水墨竹韵风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/ink-bamboo/scaffold-web.html" target="_blank">网页示例</a>
-            <a class="btn-link" href="styles/ink-bamboo/scaffold-ppt.html" target="_blank">PPT 示例</a>
+            <button type="button" class="btn-use" onclick="copyStyleSelection('ink-bamboo', '青绿水墨竹韵风', this)">使用此风格</button>
+            <a class="btn-link" href="styles/ink-bamboo/scaffold-web.html">网页示例</a>
+            <a class="btn-link" href="styles/ink-bamboo/scaffold-ppt.html">PPT 示例</a>
           </div>
         </div>
       </div>
 
     </div>
-  </div>
+  </main>
 
-  <!-- Toast Notification -->
-  <div id="toast"><span id="toast-text"></span></div>
+  <section class="preview-view" id="preview-view" hidden aria-label="风格示例预览">
+    <nav class="preview-nav" aria-label="示例预览导航">
+      <button class="preview-back" id="preview-back" type="button">
+        <span class="preview-back-icon" aria-hidden="true">←</span>
+        <span>返回画廊</span>
+      </button>
+      <div class="preview-context">
+        <span class="preview-name" id="preview-name"></span>
+        <span class="preview-id" id="preview-id"></span>
+      </div>
+      <span class="preview-format" id="preview-format"></span>
+    </nav>
+    <iframe class="preview-frame" id="preview-frame" title="风格示例预览"></iframe>
+  </section>
+
+  <p id="copy-status" class="sr-only" aria-live="polite"></p>
 
   <script>
     function selectionPrompt(styleId, styleName) {
-      return `我选择了视觉风格“${styleName}”（style_id: ${styleId}）。请继续确认我想制作成网页还是 PPT。`;
+      return `我选择了视觉风格“${styleName}”（style_id: ${styleId}）。`;
     }
 
-    function showSelectionToast(message) {
-      const toast = document.getElementById('toast');
-      const toastText = document.getElementById('toast-text');
-      toastText.textContent = message;
-      toast.classList.add('show');
-      window.setTimeout(() => toast.classList.remove('show'), 2600);
+    const copyFeedbackTimers = new WeakMap();
+
+    function showCopyFeedback(button, label, state) {
+      window.clearTimeout(copyFeedbackTimers.get(button));
+      button.classList.remove('copy-success', 'copy-failure');
+      button.classList.add(state);
+      button.textContent = label;
+      document.getElementById('copy-status').textContent = label;
+      copyFeedbackTimers.set(button, window.setTimeout(() => {
+        button.classList.remove('copy-success', 'copy-failure');
+        button.textContent = '使用此风格';
+      }, 1900));
     }
 
     async function copyText(text) {
@@ -522,39 +627,12 @@
       if (!copied) throw new Error('当前浏览器禁止访问剪贴板');
     }
 
-    async function sendStyleSelection(styleId, styleName, button) {
-      const prompt = selectionPrompt(styleId, styleName);
-      button.disabled = true;
-
+    async function copyStyleSelection(styleId, styleName, button) {
       try {
-        if (window.visualHtmlCompanion?.send) {
-          await window.visualHtmlCompanion.send({
-            type: 'style-selected',
-            styleId,
-            styleName,
-            prompt
-          });
-          button.classList.add('sent');
-          button.textContent = '✓ 已提交选择';
-          showSelectionToast(`${styleName} 已提交，返回对话继续`);
-          return;
-        }
-
-        if (window.openai?.sendFollowUpMessage) {
-          await window.openai.sendFollowUpMessage({ prompt, scrollToBottom: true });
-          button.classList.add('sent');
-          button.textContent = '✓ 已回到对话';
-          showSelectionToast(`${styleName} 已发送到对话`);
-          return;
-        }
-
-        await copyText(prompt);
-        button.classList.add('fallback');
-        button.textContent = '✓ 已复制选择';
-        showSelectionToast('当前页面没有对话宿主，已复制可粘贴的选择文本');
+        await copyText(selectionPrompt(styleId, styleName));
+        showCopyFeedback(button, '✓ 风格已复制', 'copy-success');
       } catch (error) {
-        button.disabled = false;
-        showSelectionToast(error?.message || '发送风格选择失败');
+        showCopyFeedback(button, '复制失败', 'copy-failure');
       }
     }
 
@@ -574,26 +652,136 @@
       body.prepend(label);
     });
 
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        
-        const filter = btn.getAttribute('data-filter');
-        document.querySelectorAll('.style-card').forEach(card => {
-          if (filter === 'all') {
-            card.style.display = 'flex';
-          } else {
-            const categories = card.getAttribute('data-category') || '';
-            if (categories.includes(filter)) {
-              card.style.display = 'flex';
-            } else {
-              card.style.display = 'none';
-            }
-          }
-        });
+    const galleryView = document.getElementById('gallery-view');
+    const previewView = document.getElementById('preview-view');
+    const previewFrame = document.getElementById('preview-frame');
+    const previewName = document.getElementById('preview-name');
+    const previewId = document.getElementById('preview-id');
+    const previewFormat = document.getElementById('preview-format');
+    const previewBack = document.getElementById('preview-back');
+    const baseTitle = document.title;
+    const galleryStateKey = 'visual-html-gallery-state';
+    let activeFilter = 'all';
+
+    function setGalleryFilter(filter) {
+      const selectedButton = document.querySelector(`.filter-btn[data-filter="${filter}"]`);
+      if (!selectedButton) filter = 'all';
+      activeFilter = filter;
+
+      document.querySelectorAll('.filter-btn').forEach(button => {
+        button.classList.toggle('active', button.getAttribute('data-filter') === activeFilter);
+      });
+      document.querySelectorAll('.style-card').forEach(card => {
+        const categories = card.getAttribute('data-category') || '';
+        card.style.display = activeFilter === 'all' || categories.includes(activeFilter) ? 'flex' : 'none';
+      });
+    }
+
+    function saveGalleryState() {
+      sessionStorage.setItem(galleryStateKey, JSON.stringify({ filter: activeFilter, scrollY: window.scrollY }));
+    }
+
+    function restoreGalleryState() {
+      try {
+        const saved = JSON.parse(sessionStorage.getItem(galleryStateKey) || 'null');
+        if (!saved) return;
+        setGalleryFilter(saved.filter);
+        window.requestAnimationFrame(() => window.scrollTo(0, Number(saved.scrollY) || 0));
+      } catch {
+        setGalleryFilter('all');
+      }
+    }
+
+    function galleryUrl() {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('preview');
+      url.searchParams.delete('format');
+      return `${url.pathname}${url.search}${url.hash}`;
+    }
+
+    function previewUrl(styleId, format) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('preview', styleId);
+      url.searchParams.set('format', format);
+      return `${url.pathname}${url.search}${url.hash}`;
+    }
+
+    function previewRoute() {
+      const url = new URL(window.location.href);
+      const styleId = url.searchParams.get('preview');
+      const format = url.searchParams.get('format');
+      const card = Array.from(document.querySelectorAll('.style-card')).find(item => item.getAttribute('data-style-id') === styleId);
+      if (!card || !['web', 'ppt'].includes(format)) return null;
+      return {
+        styleId,
+        styleName: card.getAttribute('data-style-name') || styleId,
+        format,
+        href: `styles/${styleId}/scaffold-${format}.html`
+      };
+    }
+
+    function showPreview(route) {
+      const formatLabel = route.format === 'web' ? '网页示例' : 'PPT 示例';
+      galleryView.hidden = true;
+      previewView.hidden = false;
+      document.body.classList.add('is-previewing');
+      previewName.textContent = route.styleName;
+      previewId.textContent = route.styleId;
+      previewFormat.textContent = formatLabel;
+      previewFrame.title = `${route.styleName} ${formatLabel}`;
+      previewFrame.src = route.href;
+      document.title = `${route.styleName} · ${formatLabel} — Visual HTML`;
+    }
+
+    function showGallery({ restore = false } = {}) {
+      previewFrame.removeAttribute('src');
+      previewView.hidden = true;
+      galleryView.hidden = false;
+      document.body.classList.remove('is-previewing');
+      document.title = baseTitle;
+      if (restore) restoreGalleryState();
+    }
+
+    function openPreview(link) {
+      const card = link.closest('.style-card');
+      const styleId = card?.getAttribute('data-style-id');
+      const styleName = card?.getAttribute('data-style-name');
+      const format = link.href.includes('scaffold-ppt.html') ? 'ppt' : 'web';
+      if (!styleId || !styleName) return;
+      saveGalleryState();
+      history.pushState({ visualHtmlView: 'preview' }, '', previewUrl(styleId, format));
+      showPreview({ styleId, styleName, format, href: link.getAttribute('href') });
+    }
+
+    document.querySelectorAll('.filter-btn').forEach(button => {
+      button.addEventListener('click', () => setGalleryFilter(button.getAttribute('data-filter') || 'all'));
+    });
+
+    document.querySelectorAll('.btn-link').forEach(link => {
+      link.addEventListener('click', event => {
+        event.preventDefault();
+        openPreview(link);
       });
     });
+
+    previewBack.addEventListener('click', () => {
+      history.replaceState({ visualHtmlView: 'gallery' }, '', galleryUrl());
+      showGallery({ restore: true });
+    });
+
+    window.addEventListener('popstate', () => {
+      const route = previewRoute();
+      if (route) showPreview(route);
+      else showGallery({ restore: true });
+    });
+
+    const initialRoute = previewRoute();
+    if (initialRoute) {
+      history.replaceState({ visualHtmlView: 'preview' }, '', window.location.href);
+      showPreview(initialRoute);
+    } else {
+      setGalleryFilter('all');
+    }
   </script>
 </body>
 </html>

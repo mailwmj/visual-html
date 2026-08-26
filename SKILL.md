@@ -15,7 +15,7 @@ description: Use when the user asks to turn long-form content into a highly desi
 ## 1. 风格注册表 (Style Registry)
 
 当前系统内置的风格包列表以 `references/styles/registry.json` 为机器可读真相源。每种风格均包含独立的 `design.md`、`scaffold-web.html`、`scaffold-ppt.html`、矢量源文件 `preview.svg`，以及供对话直接渲染的微缩视觉名片 `preview.png`：
-> 🎨 **查看全部风格**：按下方流程启动本次选择会话后，把命令输出的带 `?key=` URL 作为 [查看全部风格] 链接；这样画廊中的“使用此风格”才能回传到当前对话。只有 Companion 无法启动时，才回退为当前 Skill 目录下的 `references/style-gallery.html` 文件链接。
+> 🎨 **查看全部风格**：按下方流程启动本地画廊后，把命令输出的带 `?key=` URL 作为 [查看全部风格] 链接。点击“使用此风格”会复制选择文本，用户可粘贴到当前对话；本地画廊服务不可用时，使用当前 Skill 目录下的 `references/style-gallery.html` 文件链接。
 
 | Style ID | 风格名称 | 核心视觉特征 | 推荐场景与关键词 | 微缩预览与风格包 |
 |---|---|---|---|---|
@@ -34,6 +34,60 @@ description: Use when the user asks to turn long-form content into a highly desi
 | **`nothing-design-light`** | **Nothing 极简点阵亮白风**<br>(Nothing Monochrome Light) | 陶瓷冷白背景 (`#FFFFFF`) + 浅灰点阵网格 + Doto 点阵字 + 纯黑正文 + 多通道功能色（信号红 `#D71921`、翡翠绿 `#16A34A`、琥珀金 `#D97706`）+ 18 项标准语义骨架 | 白瓷工业设计、白皮书、现代印刷质感报告、硬件参数发布、极简日间阅读、学术出版物 | [预览名片](references/styles/nothing-design-light/preview.png)<br>`references/styles/nothing-design-light/` |
 | **`pixel-crystal`** | **油画粉彩晶光风**<br>(Pixel Crystal) | 温润油画布纹 (`#FDF8F7`) + 莫奈复调渐变 + 晶透苹果图腾 + 点彩星芒 + 珍珠母贝画板 + 熟褐暗茜草墨色正文 (`#3C2836`) | 艺术企划、文化出版、Vtuber、梦幻生活方式、独立游戏、高端少女心与治愈系产品、创意插画案例集 | [预览名片](references/styles/pixel-crystal/preview.png)<br>`references/styles/pixel-crystal/` |
 | **`ink-bamboo`** | **青绿水墨竹韵风**<br>(Ink Bamboo) | 古法宣纸暖底 (`#F6F4EE`) + 右侧水墨竹节竿影 + 古典宋体大标题 + 翠竹生青 (`#5A8F43`) + 朱砂印章点睛 (`#C03E2D`) + 矿物青绿色谱 | 中式文化企划、行业深度研报、学术白皮书、东方文创展示、自然生态战略、高端政企汇报 | [预览名片](references/styles/ink-bamboo/preview.png)<br>`references/styles/ink-bamboo/` |
+| **`state-governance`** | **国企政务严谨汇报风**<br>(State Governance Blue) | 纯净冷白/微浅蓝画布 + 权威深海蓝 (`#103A71`) + 工信科技蓝 (`#1A56DB`) + 标题贯穿深蓝细线 + 蓝色虚线重点框 + 三箭头推进器 + 多视角流转矩阵 | 国企/央企工作汇报、政府与公共事业规划、政企数字化方案、大型企业管理架构、全生命周期业务推演、供应链韧性策略、党政战略发布会 | [预览名片](references/styles/state-governance/preview.png)<br>`references/styles/state-governance/` |
+
+> 💡 **未来扩展**：新增风格只需在 `references/styles/<style_id>/` 目录下添加设计规范、脚手架、矢量源文件 `preview.svg` 与对话预览 `preview.png`，并同步在 `style-gallery.html` 与本表中注册即可。
+
+---
+
+## 2. 共享设计骨架 (Shared Skeleton DNA)
+
+所有风格共享同一套信息骨架，确保任何风格下都具备高级的设计质感：
+
+1. **信息结构本身就是视觉**：优先使用大字号标题、严格左对齐、模块化卡片、编号系统、标签、1px 细边框、Mono 等宽元数据与规格栏建立视觉身份，而非堆砌插画、3D、高光渐变与 emoji。
+2. **克制优先于装饰**：
+   - 能用排版解决就不加图形；能用边框解决就不加阴影；
+   - 能用字号解决就不加颜色；能用留白解决就不加装饰；
+   - 信号色仅占 3–7%，必须承担明确的语义/状态（如 Eyebrow 标头、序号、选中态、关键指标）。
+3. **大标题负责观点，正文负责解释**：Hero 标题短小、字重大、有冲击力，支持中文语义主动换行；每页或每个 Section 只有一个唯一视觉焦点。
+
+---
+
+## 3. 标准执行工作流 (Standard Workflow)
+
+```mermaid
+flowchart LR
+    A["1. 意图分析与匹配"] --> B["2. 对话内嵌视觉预览并确认风格"]
+    B --> C["3. 按需读取专属规范与模版"]
+    C --> D["4. 结构化代码生成"]
+    D --> E["5. 双层质量清单验收"]
+```
+
+### 第一步：意图分析与交互确认（视觉卡片推荐）
+
+本 Skill 触发后，**不要直接生成全部代码**。首先分析用户需求与偏好：
+
+1. **已明确指定**：若用户已明确指定风格（如“用浅蓝风”、“Industrial Dark”、“Play Tubular”），直接锁定对应 `style_id`。
+2. **基于图像参考（多模态设计逆向工程）**：如果用户提供了一张**设计参考图**，请先执行解构分析：
+   - 提取全局底色（背景）。
+   - 提取核心信号色（品牌色、高光色、渐变色）。
+   - 提取形状特征（圆角大小、卡片阴影质感、3D或扁平）。
+   - 提取排版特征（字重、留白、边框风格）。
+   - **完成分析后，严格遵守“Clean Room Design”法则，不要继承旧模板，直接从 `references/_base-scaffold-web.html` 读取基座并在其上编写全新 CSS**，以防止硬编码污染。
+3. **智能推荐机制（输出 3～5 款设计风格）**：
+   - 当用户提供了长文或排版需求但未锁定风格，或者意图较为宽泛时，分析文本特征并挑选 **最契合的 3～5 套风格**。
+   - **对话内嵌视觉预览（强制）**：在同一条推荐回复中，用 Markdown 图片直接展示每个候选风格的 `preview.png`，然后再给出文字说明。用户必须能在对话流中看见实际色彩、构图和组件质感后再选择。
+     - 从当前 `SKILL.md` 所在目录解析每个候选的绝对路径：`references/styles/<style_id>/preview.png`。
+     - 使用绝对本地路径的 Markdown 图片语法，路径含空格时包裹在尖括号内：`![<style_id> 风格预览](</绝对路径/references/styles/<style_id>/preview.png>)`。
+     - **不得**改用 `preview.svg`、`file://` 链接、相对路径、纯文字卡片、Artifact 或浏览器画廊来替代该图片。画廊只能作为查看全部风格的补充入口。
+     - 仅当当前客户端明确无法显示本地 Markdown 图片时，才降级为文字卡片和画廊链接；需明确说明“当前客户端无法内嵌本地预览”，不能假称已经展示预览。
+   - **每项说明**：每张预览图下保留风格名称、`style_id`、一句视觉基因和一句推荐理由，便于用户依据预览与场景共同决策：
+     ```markdown
+     ### 1. 玩味极客彩管风 (`play-tubular`)
+     ![玩味极客彩管风预览](</绝对路径/references/styles/play-tubular/preview.png>)
+     - **视觉基因**：浅暖米白点阵画布 + 3D 渐变立体彩管 + 半调网点光影。
+     - **推荐理由**：适合 AI/LLM 架构与技术白皮书，兼顾工程感与活力。
+| **`state-governance`** | **国企政务严谨汇报风**<br>(State Governance Blue) | 纯净冷白/微浅蓝画布 + 权威深海蓝 (`#103A71`) + 工信科技蓝 (`#1A56DB`) + 标题贯穿深蓝细线 + 蓝色虚线重点框 + 三箭头推进器 + 多视角流转矩阵 | 国企/央企工作汇报、政府与公共事业规划、政企数字化方案、大型企业管理架构、全生命周期业务推演、供应链韧性策略、党政战略发布会 | [预览名片](references/styles/state-governance/preview.png)<br>`references/styles/state-governance/` |
 
 > 💡 **未来扩展**：新增风格只需在 `references/styles/<style_id>/` 目录下添加设计规范、脚手架、矢量源文件 `preview.svg` 与对话预览 `preview.png`，并同步在 `style-gallery.html` 与本表中注册即可。
 
@@ -92,24 +146,14 @@ flowchart LR
      - **视觉基因**：近黑背景 + CAD 网格 + 信号绿与紫色通道 + 硬边模块。
      - **推荐理由**：适合硬核技术规格与系统参数展示。
      ```
-   - **画廊补充入口**：在推荐内容末尾附带本次 Companion 会话返回的带 `?key=` URL，链接文字固定为“查看全部风格”。用户点击后在 Codex 内置浏览器打开已注入事件桥的画廊，额外对比全部 15 种风格的完整动态效果与配色；不要把静态 `file://` 链接当作默认入口。
+   - **画廊补充入口**：在推荐内容末尾附带本次本地画廊服务返回的带 `?key=` URL，链接文字固定为“查看全部风格”。用户可在 Codex 内置浏览器对比全部 16 种风格的完整动态效果与配色；点击“使用此风格”后，页面复制包含中文风格名与 `style_id` 的选择文本，并显示“风格已复制”。
    - **条件式确认**：风格和媒介都已明确时直接生成；只明确风格时只询问媒介；只明确媒介时推荐 3–5 款风格；两者都不明确时才推荐 3–5 款并询问媒介。不要重复确认用户已经明确的选择。
 
-   - **本地 Companion（默认选择路径）**：当用户需要浏览并选择风格时，自动运行 `references/scripts/style-companion/start-server.sh --project-dir <当前项目根> --open`。这是 Skill 自带的本地 Node 服务，不需要用户安装 MCP server、浏览器插件或额外依赖。命令会返回带会话 key 的 URL、`state_dir` 和会话目录；把完整 URL（包括 `?key=`）作为“查看全部风格”链接，并在当前客户端支持时用内置浏览器打开。
+   - **本地画廊（默认选择路径）**：当用户需要浏览并选择风格时，自动运行 `references/scripts/style-companion/start-server.sh --project-dir <当前项目根> --open`。这是 Skill 自带的本地 Node 服务，不需要用户安装 MCP server、浏览器插件或额外依赖。命令会返回带会话 key 的 URL、`state_dir` 和会话目录；把完整 URL（包括 `?key=`）作为“查看全部风格”链接，并在当前客户端支持时用内置浏览器打开。
      - 在 Codex 中直接运行该命令并保留前台终端会话，然后使用内置 Browser 将返回的 URL 导航到画廊；不要依赖操作系统的默认浏览器，也不要用命令替换吞掉会话。启动脚本会检测 Codex 环境，确保服务跨对话轮次持续运行。
-     - 页面由本地 Companion 注入同源事件桥接；点击“使用此风格”会提交 `style-selected` 事件到 `state_dir/events`，不访问任意外部 URL。
-     - 等待用户完成选择后，在下一轮先检查 `state_dir/server-info` 存在且 `server-stopped` 不存在，再读取 `state_dir/events`。使用最新一条事件中的 `styleId` 锁定风格，然后在对话中询问“想制作成网页还是 PPT”。没有事件时不得猜测用户选择。
-     - 服务不可用或事件提交失败时，明确说明原因，并回退到静态画廊的复制文本路径。完成流程后可运行 `references/scripts/style-companion/stop-server.sh <session_dir>` 停止服务。
-
-   - **画廊中的“使用此风格”回传契约**：画廊卡片必须携带稳定的 `style_id`。当画廊运行在当前支持 `window.openai.sendFollowUpMessage` 的宿主 iframe 中时，点击按钮发送一条后续消息，内容同时包含 `style_id`、中文风格名，并继续询问用户想制作成网页还是 PPT：
-     ```js
-     await window.openai.sendFollowUpMessage({
-       prompt: `我选择了视觉风格“${styleName}”（style_id: ${styleId}）。请继续确认我想制作成网页还是 PPT。`,
-       scrollToBottom: true,
-     });
-     ```
-   - **宿主边界与降级**：由 Companion 服务注入的本地页面使用上面的 `state_dir/events` 回传；未经过 Companion 注入的普通顶层页面没有对话桥接，按钮只能复制同一段待发送文本，并明确提示“当前页面没有对话宿主，已复制选择文本”。不要从 URL query 接收任意 `selectionEndpoint` 并 POST。
-   - **MCP Apps 宿主边界**：当前画廊实际实现的是 Companion 同源事件桥和 `window.openai.sendFollowUpMessage` 兼容路径。只有在未来由 MCP server 提供 UI resource 且实现 `ui/message` 时，才宣称支持该标准；`ui/update-model-context` 不能替代可见消息。
+     - 点击“使用此风格”只复制选择文本并显示“风格已复制”；不向对话发送消息、不创建本地选择事件，也不注入对话桥接。
+     - 用户将复制文本粘贴到对话后，使用其中的 `style_id` 锁定风格，并继续询问“想制作成网页还是 PPT”。用户未在对话中明确风格时不得从画廊操作猜测。
+     - 服务不可用时，明确说明原因并提供静态画廊链接。完成流程后可运行 `references/scripts/style-companion/stop-server.sh <session_dir>` 停止服务。
 
 
 ### 第二步：按需精准读取 (On-Demand Loading)

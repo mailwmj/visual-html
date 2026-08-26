@@ -300,7 +300,7 @@ flowchart LR
 - 完全断网或内网交付使用 `--strict`，移除外部字体和 Mermaid runtime，只保留静态 SVG 与系统字体栈。
 - 静态 fallback 必须包含可读文本和 `role="img"`/`aria-label`，不能只显示“图表加载失败”。
 
-#### 3. 15 款视觉风格专属 Mermaid `themeVariables` 字典对照表：
+#### 3. 16 款视觉风格专属 Mermaid `themeVariables` 字典对照表：
 
 | 风格 ID (`style_id`) | `darkMode` | `background` | `primaryColor` | `primaryTextColor` | `lineColor` | `primaryBorderColor` |
 |---|---|---|---|---|---|---|
@@ -319,6 +319,7 @@ flowchart LR
 | **`nothing-design-light`** | `false` | `#FFFFFF` | `#F5F5F5` | `#111111` | `#D71921` | `#D71921` |
 | **`pixel-crystal`** | `false` | `#FDF8F7` | `#FAF2F4` | `#3C2836` | `#D88CA8` | `#D88CA8` |
 | **`ink-bamboo`** | `false` | `#FAF8F3` | `#EAF2E6` | `#1C241B` | `#2B4E24` | `#5A8F43` |
+| **`state-governance`** | `false` | `#FFFFFF` | `#F0F6FF` | `#103A71` | `#103A71` | `#1A56DB` |
 
 ---
 
