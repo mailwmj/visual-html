@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Visual HTML — 16 套设计风格全量画廊 (Style Gallery)</title>
+  <title>Visual HTML — 设计风格全量画廊 (Style Gallery)</title>
   <style>
     :root {
       --bg: #0C0F14;
@@ -117,6 +117,15 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
       gap: 24px;
+    }
+    .gallery-error {
+      grid-column: 1 / -1;
+      margin: 0;
+      padding: 20px;
+      border: 1px solid rgba(248, 113, 113, 0.35);
+      border-radius: var(--radius);
+      background: rgba(127, 29, 29, 0.18);
+      color: #FCA5A5;
     }
 
     /* Style Card */
@@ -256,78 +265,11 @@
       position: fixed;
       inset: 0;
       z-index: 20;
-      display: grid;
-      grid-template-rows: 68px minmax(0, 1fr);
+      width: 100vw;
+      height: 100vh;
       background: var(--bg);
     }
     .preview-view[hidden] { display: none; }
-    .preview-nav {
-      display: grid;
-      grid-template-columns: auto minmax(0, 1fr) auto;
-      align-items: center;
-      gap: 20px;
-      padding: 0 28px;
-      border-bottom: 1px solid var(--border);
-      background: rgba(12, 15, 20, 0.96);
-      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
-    }
-    .preview-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      min-height: 38px;
-      padding: 0 12px;
-      border: 1px solid rgba(56, 189, 248, 0.36);
-      border-radius: 6px;
-      background: var(--surface-1);
-      color: var(--text-pri);
-      font-family: var(--font-sans);
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
-    }
-    .preview-back:hover {
-      border-color: var(--accent);
-      background: rgba(56, 189, 248, 0.1);
-      color: var(--accent);
-    }
-    .preview-back-icon {
-      color: var(--accent);
-      font-family: var(--font-mono);
-      font-size: 16px;
-      line-height: 1;
-    }
-    .preview-context {
-      display: flex;
-      align-items: baseline;
-      gap: 12px;
-      min-width: 0;
-      overflow: hidden;
-    }
-    .preview-name {
-      overflow: hidden;
-      color: var(--text-pri);
-      font-size: 15px;
-      font-weight: 700;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    .preview-id,
-    .preview-format {
-      flex: 0 0 auto;
-      color: var(--text-mut);
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 700;
-    }
-    .preview-format {
-      padding: 5px 8px;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      color: var(--accent);
-      background: var(--accent-glow);
-    }
     .preview-frame {
       display: block;
       width: 100%;
@@ -336,16 +278,91 @@
       background: #FFFFFF;
     }
 
+    /* Floating Left-Top Discrete Squircles (Option A) */
+    .floating-actions {
+      position: fixed;
+      top: 16px;
+      left: 18px;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: rgba(12, 15, 20, 0.72);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      padding: 0;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+    .action-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.24);
+      background: rgba(12, 15, 20, 0.9);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+    }
+    .action-btn:active {
+      transform: translateY(0);
+    }
+    .action-btn-back {
+      color: var(--text-sec);
+    }
+    .action-btn-back:hover {
+      color: #F8FAFC;
+    }
+    .action-btn-back:hover .action-svg {
+      transform: translateX(-1.5px);
+    }
+    .action-svg {
+      display: block;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+    .action-btn-use {
+      color: #7DD3FC;
+      background: rgba(14, 165, 233, 0.12);
+      border-color: rgba(56, 189, 248, 0.28);
+    }
+    .action-btn-use:hover {
+      color: #F0F9FF;
+      background: rgba(56, 189, 248, 0.22);
+      border-color: rgba(56, 189, 248, 0.5);
+    }
+    .action-icon-check {
+      display: none;
+    }
+    .action-btn-use.copy-success {
+      color: #6EE7B7 !important;
+      background: rgba(16, 185, 129, 0.2) !important;
+      border-color: rgba(16, 185, 129, 0.5) !important;
+    }
+    .action-btn-use.copy-success .action-icon-copy {
+      display: none;
+    }
+    .action-btn-use.copy-success .action-icon-check {
+      display: block;
+    }
+    .action-btn-use.copy-failure {
+      color: #FDA4AF !important;
+      background: rgba(244, 63, 94, 0.2) !important;
+      border-color: rgba(244, 63, 94, 0.5) !important;
+    }
+
     @media (max-width: 860px) {
       .gallery-grid { grid-template-columns: 1fr; }
       body { padding: 32px 16px 72px; }
       header { margin-bottom: 32px; }
-      .preview-view { grid-template-rows: 58px minmax(0, 1fr); }
-      .preview-nav { gap: 12px; padding: 0 12px; }
-      .preview-back { padding: 0 9px; font-size: 13px; }
-      .preview-id { display: none; }
-      .preview-name { font-size: 14px; }
-      .preview-format { font-size: 10px; }
+      .floating-actions { top: 12px; left: 12px; gap: 6px; }
+      .action-btn { width: 32px; height: 32px; border-radius: 7px; }
     }
   </style>
 </head>
@@ -358,260 +375,40 @@
         VISUAL HTML STYLE PACKS // 3.0
       </div>
       <h1>设计风格全量画廊</h1>
-      <p class="lead">已内置 16 套独立演进的可插拔设计系统。先查看风格预览；点击“使用此风格”即可复制选择文本，粘贴到对话后继续。</p>
+      <p class="lead">已内置 <span id="style-count">0</span> 套独立演进的可插拔设计系统。先查看风格预览；点击“使用此风格”即可复制选择文本，粘贴到对话后继续。</p>
     </header>
 
     <!-- Filter Buttons -->
     <div class="filter-bar">
-      <button class="filter-btn active" data-filter="all">全部风格 (16)</button>
+      <button class="filter-btn active" data-filter="all">全部风格 (0)</button>
       <button class="filter-btn" data-filter="tech">硬核科技 / 参数展示</button>
       <button class="filter-btn" data-filter="pop">潮流创意 / 像素波普</button>
       <button class="filter-btn" data-filter="editorial">人文社论 / 智识工作流</button>
       <button class="filter-btn" data-filter="lifestyle">清新雅致 / 生活方式</button>
     </div>
 
-    <!-- Gallery Grid -->
-    <div class="gallery-grid" id="grid">
-
-      <!-- 1. industrial-dark -->
-      <div class="style-card" data-style-id="industrial-dark" data-style-name="暗黑极客工业风" data-category="tech">
-        <div class="card-preview">
-          <img src="styles/industrial-dark/preview.png" alt="industrial-dark preview" loading="lazy">
-        </div>
-        <div class="card-body">
-          <div class="card-actions">
-            <button type="button" class="btn-use" onclick="copyStyleSelection('industrial-dark', '暗黑极客工业风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/industrial-dark/scaffold-web.html">查看网页 Demo</a>
-            <a class="btn-link" href="styles/industrial-dark/scaffold-ppt.html">查看 PPT 模版</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2. soft-sky -->
-      <div class="style-card" data-style-id="soft-sky" data-style-name="清透空灵浅蓝风" data-category="lifestyle">
-        <div class="card-preview">
-          <img src="styles/soft-sky/preview.png" alt="soft-sky preview" loading="lazy">
-        </div>
-        <div class="card-body">
-          <div class="card-actions">
-            <button type="button" class="btn-use" onclick="copyStyleSelection('soft-sky', '清透空灵浅蓝风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/soft-sky/scaffold-web.html">查看网页 Demo</a>
-            <a class="btn-link" href="styles/soft-sky/scaffold-ppt.html">查看 PPT 模版</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3. obsidian-cyan -->
-      <div class="style-card" data-style-id="obsidian-cyan" data-style-name="黑曜霓蓝展厅风" data-category="tech">
-        <div class="card-preview">
-          <img src="styles/obsidian-cyan/preview.png" alt="obsidian-cyan preview" loading="lazy">
-        </div>
-        <div class="card-body">
-          <div class="card-actions">
-            <button type="button" class="btn-use" onclick="copyStyleSelection('obsidian-cyan', '黑曜霓蓝展厅风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/obsidian-cyan/scaffold-web.html">查看网页 Demo</a>
-            <a class="btn-link" href="styles/obsidian-cyan/scaffold-ppt.html">查看 PPT 模版</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 4. play-tubular -->
-      <div class="style-card" data-style-id="play-tubular" data-style-name="玩味极客彩管风" data-category="tech pop">
-        <div class="card-preview">
-          <img src="styles/play-tubular/preview.png" alt="play-tubular preview" loading="lazy">
-        </div>
-        <div class="card-body">
-          <div class="card-actions">
-            <button type="button" class="btn-use" onclick="copyStyleSelection('play-tubular', '玩味极客彩管风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/play-tubular/scaffold-web.html">查看网页 Demo</a>
-            <a class="btn-link" href="styles/play-tubular/scaffold-ppt.html">查看 PPT 模版</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 5. warm-craft -->
-      <div class="style-card" data-style-id="warm-craft" data-style-name="温润纸感手札风" data-category="editorial">
-        <div class="card-preview">
-          <img src="styles/warm-craft/preview.png" alt="warm-craft preview" loading="lazy">
-        </div>
-        <div class="card-body">
-          <div class="card-actions">
-            <button type="button" class="btn-use" onclick="copyStyleSelection('warm-craft', '温润纸感手札风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/warm-craft/scaffold-web.html">查看网页 Demo</a>
-            <a class="btn-link" href="styles/warm-craft/scaffold-ppt.html">查看 PPT 模版</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 6. neon-3d -->
-      <div class="style-card" data-style-id="neon-3d" data-style-name="暗紫流体极光风" data-category="pop tech">
-        <div class="card-preview">
-          <img src="styles/neon-3d/preview.png" alt="neon-3d preview" loading="lazy">
-        </div>
-        <div class="card-body">
-          <div class="card-actions">
-            <button type="button" class="btn-use" onclick="copyStyleSelection('neon-3d', '暗紫流体极光风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/neon-3d/scaffold-web.html">查看网页 Demo</a>
-            <a class="btn-link" href="styles/neon-3d/scaffold-ppt.html">查看 PPT 模版</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 7. pixel-pop -->
-      <div class="style-card" data-style-id="pixel-pop" data-style-name="日系像素波普风" data-category="pop">
-        <div class="card-preview">
-          <img src="styles/pixel-pop/preview.png" alt="pixel-pop preview" loading="lazy">
-        </div>
-        <div class="card-body">
-          <div class="card-actions">
-            <button type="button" class="btn-use" onclick="copyStyleSelection('pixel-pop', '日系像素波普风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/pixel-pop/scaffold-web.html">查看网页 Demo</a>
-            <a class="btn-link" href="styles/pixel-pop/scaffold-ppt.html">查看 PPT 模版</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 8. brutalist-acid -->
-      <div class="style-card" data-style-id="brutalist-acid" data-style-name="先锋撞色海报风" data-category="pop">
-        <div class="card-preview">
-          <img src="styles/brutalist-acid/preview.png" alt="brutalist-acid preview" loading="lazy">
-        </div>
-        <div class="card-body">
-          <div class="card-actions">
-            <button type="button" class="btn-use" onclick="copyStyleSelection('brutalist-acid', '先锋撞色海报风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/brutalist-acid/scaffold-web.html">查看网页 Demo</a>
-            <a class="btn-link" href="styles/brutalist-acid/scaffold-ppt.html">查看 PPT 模版</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 9. sunflower-bloom -->
-      <div class="style-card" data-style-id="sunflower-bloom" data-style-name="向日葵暖阳风" data-category="lifestyle editorial">
-        <div class="card-preview">
-          <img src="styles/sunflower-bloom/preview.png" alt="sunflower-bloom preview" loading="lazy">
-        </div>
-        <div class="card-body">
-          <div class="card-actions">
-            <button type="button" class="btn-use" onclick="copyStyleSelection('sunflower-bloom', '向日葵暖阳风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/sunflower-bloom/scaffold-web.html">查看网页 Demo</a>
-            <a class="btn-link" href="styles/sunflower-bloom/scaffold-ppt.html">查看 PPT 模版</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 10. summer-dopamine -->
-      <div class="style-card" data-style-id="summer-dopamine" data-style-name="夏日多巴胺风" data-category="lifestyle pop">
-        <div class="card-preview">
-          <img src="styles/summer-dopamine/preview.png" alt="summer-dopamine preview" loading="lazy">
-        </div>
-        <div class="card-body">
-          <div class="card-actions">
-            <button type="button" class="btn-use" onclick="copyStyleSelection('summer-dopamine', '夏日多巴胺风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/summer-dopamine/scaffold-web.html">查看网页 Demo</a>
-            <a class="btn-link" href="styles/summer-dopamine/scaffold-ppt.html">查看 PPT 模版</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 11. soft-editorial-future -->
-      <div class="style-card" data-style-id="soft-editorial-future" data-style-name="极简未来展厅风" data-category="editorial tech">
-        <div class="card-preview">
-          <img src="styles/soft-editorial-future/preview.png" alt="soft-editorial-future preview" loading="lazy">
-        </div>
-        <div class="card-body">
-          <div class="card-actions">
-            <button type="button" class="btn-use" onclick="copyStyleSelection('soft-editorial-future', '极简未来展厅风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/soft-editorial-future/scaffold-web.html">查看网页 Demo</a>
-            <a class="btn-link" href="styles/soft-editorial-future/scaffold-ppt.html">查看 PPT 模版</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 12. nothing-design-dark -->
-      <div class="style-card" data-style-id="nothing-design-dark" data-style-name="Nothing 极简点阵暗黑风" data-category="tech editorial">
-        <div class="card-preview">
-          <img src="styles/nothing-design-dark/preview.png" alt="nothing-design-dark preview" loading="lazy">
-        </div>
-        <div class="card-body">
-          <div class="card-actions">
-            <button type="button" class="btn-use" onclick="copyStyleSelection('nothing-design-dark', 'Nothing 极简点阵暗黑风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/nothing-design-dark/scaffold-web.html">查看网页 Demo</a>
-            <a class="btn-link" href="styles/nothing-design-dark/scaffold-ppt.html">查看 PPT 模版</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 13. nothing-design-light -->
-      <div class="style-card" data-style-id="nothing-design-light" data-style-name="Nothing 极简点阵亮白风" data-category="tech editorial">
-        <div class="card-preview">
-          <img src="styles/nothing-design-light/preview.png" alt="nothing-design-light preview" loading="lazy">
-        </div>
-        <div class="card-body">
-          <div class="card-actions">
-            <button type="button" class="btn-use" onclick="copyStyleSelection('nothing-design-light', 'Nothing 极简点阵亮白风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/nothing-design-light/scaffold-web.html">查看网页 Demo</a>
-            <a class="btn-link" href="styles/nothing-design-light/scaffold-ppt.html">查看 PPT 模版</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 14. pixel-crystal -->
-      <div class="style-card" data-style-id="pixel-crystal" data-style-name="油画粉彩晶光风" data-category="pop lifestyle editorial">
-        <div class="card-preview">
-          <img src="styles/pixel-crystal/preview.png" alt="pixel-crystal preview" loading="lazy">
-        </div>
-        <div class="card-body">
-          <div class="card-actions">
-            <button type="button" class="btn-use" onclick="copyStyleSelection('pixel-crystal', '油画粉彩晶光风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/pixel-crystal/scaffold-web.html">查看网页 Demo</a>
-            <a class="btn-link" href="styles/pixel-crystal/scaffold-ppt.html">查看 PPT 模版</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 15. ink-bamboo -->
-      <div class="style-card" data-style-id="ink-bamboo" data-style-name="青绿水墨竹韵风" data-category="editorial lifestyle">
-        <div class="card-preview">
-          <img src="styles/ink-bamboo/preview.png" alt="ink-bamboo preview" loading="lazy">
-        </div>
-        <div class="card-body">
-          <div class="card-actions">
-            <button type="button" class="btn-use" onclick="copyStyleSelection('ink-bamboo', '青绿水墨竹韵风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/ink-bamboo/scaffold-web.html">查看网页 Demo</a>
-            <a class="btn-link" href="styles/ink-bamboo/scaffold-ppt.html">查看 PPT 模版</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 16. state-governance -->
-      <div class="style-card" data-style-id="state-governance" data-style-name="国企政务严谨汇报风" data-category="editorial tech">
-        <div class="card-preview">
-          <img src="styles/state-governance/preview.png" alt="state-governance preview" loading="lazy">
-        </div>
-        <div class="card-body">
-          <div class="card-actions">
-            <button type="button" class="btn-use" onclick="copyStyleSelection('state-governance', '国企政务严谨汇报风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/state-governance/scaffold-web.html">查看网页 Demo</a>
-            <a class="btn-link" href="styles/state-governance/scaffold-ppt.html">查看 PPT 模版</a>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    <!-- Cards are generated from styles/registry.json. -->
+    <div class="gallery-grid" id="grid" aria-live="polite"></div>
   </main>
 
   <section class="preview-view" id="preview-view" hidden aria-label="风格示例预览">
-    <nav class="preview-nav" aria-label="示例预览导航">
-      <button class="preview-back" id="preview-back" type="button">
-        <span class="preview-back-icon" aria-hidden="true">←</span>
-        <span>返回画廊</span>
+    <div class="floating-actions" aria-label="示例预览导航">
+      <button class="action-btn action-btn-back" id="preview-back" type="button" title="返回画廊" aria-label="返回画廊">
+        <svg class="action-svg" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
       </button>
-      <div class="preview-context">
-        <span class="preview-name" id="preview-name"></span>
-        <span class="preview-id" id="preview-id"></span>
-      </div>
-      <span class="preview-format" id="preview-format"></span>
-    </nav>
+      <button class="action-btn action-btn-use" id="preview-use" type="button" title="使用此风格 (复制提示词)" aria-label="使用此风格">
+        <svg class="action-svg action-icon-copy" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        <svg class="action-svg action-icon-check" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </button>
+    </div>
     <iframe class="preview-frame" id="preview-frame" title="风格示例预览"></iframe>
   </section>
 
@@ -628,11 +425,22 @@
       window.clearTimeout(copyFeedbackTimers.get(button));
       button.classList.remove('copy-success', 'copy-failure');
       button.classList.add(state);
-      button.textContent = label;
+      const isIconOnly = button.classList.contains('action-btn') || button.classList.contains('dock-btn');
+      if (isIconOnly) {
+        button.setAttribute('title', label);
+        button.setAttribute('aria-label', label);
+      } else {
+        button.textContent = label;
+      }
       document.getElementById('copy-status').textContent = label;
       copyFeedbackTimers.set(button, window.setTimeout(() => {
         button.classList.remove('copy-success', 'copy-failure');
-        button.textContent = '使用此风格';
+        if (isIconOnly) {
+          button.setAttribute('title', '使用此风格 (复制提示词)');
+          button.setAttribute('aria-label', '使用此风格');
+        } else {
+          button.textContent = '使用此风格';
+        }
       }, 1900));
     }
 
@@ -668,13 +476,91 @@
     const galleryView = document.getElementById('gallery-view');
     const previewView = document.getElementById('preview-view');
     const previewFrame = document.getElementById('preview-frame');
-    const previewName = document.getElementById('preview-name');
-    const previewId = document.getElementById('preview-id');
-    const previewFormat = document.getElementById('preview-format');
     const previewBack = document.getElementById('preview-back');
+    const previewUse = document.getElementById('preview-use');
+    const galleryGrid = document.getElementById('grid');
+    const styleCount = document.getElementById('style-count');
     const baseTitle = document.title;
     const galleryStateKey = 'visual-html-gallery-state';
     let activeFilter = 'all';
+    let currentPreviewRoute = null;
+    let registeredStyles = [];
+
+    function createPreviewLink(label, href) {
+      const link = document.createElement('a');
+      link.className = 'btn-link';
+      link.href = href;
+      link.textContent = label;
+      link.addEventListener('click', event => {
+        event.preventDefault();
+        openPreview(link);
+      });
+      return link;
+    }
+
+    function createStyleCard(style) {
+      const card = document.createElement('article');
+      card.className = 'style-card';
+      card.dataset.styleId = style.id;
+      card.dataset.styleName = style.name;
+      card.dataset.category = style.categories.join(' ');
+
+      const preview = document.createElement('div');
+      preview.className = 'card-preview';
+      const image = document.createElement('img');
+      image.src = `styles/${encodeURIComponent(style.dir)}/preview.png`;
+      image.alt = `${style.id} preview`;
+      image.loading = 'lazy';
+      preview.appendChild(image);
+
+      const body = document.createElement('div');
+      body.className = 'card-body';
+      const actions = document.createElement('div');
+      actions.className = 'card-actions';
+      const useButton = document.createElement('button');
+      useButton.type = 'button';
+      useButton.className = 'btn-use';
+      useButton.textContent = '使用此风格';
+      useButton.addEventListener('click', () => copyStyleSelection(style.id, style.name, useButton));
+      actions.append(
+        useButton,
+        createPreviewLink('查看网页 Demo', `styles/${encodeURIComponent(style.dir)}/scaffold-web.html`),
+        createPreviewLink('查看 PPT 模版', `styles/${encodeURIComponent(style.dir)}/scaffold-ppt.html`)
+      );
+      body.appendChild(actions);
+      card.append(preview, body);
+      return card;
+    }
+
+    function renderStyleCards(styles) {
+      registeredStyles = styles;
+      const fragment = document.createDocumentFragment();
+      styles.forEach(style => fragment.appendChild(createStyleCard(style)));
+      galleryGrid.replaceChildren(fragment);
+      styleCount.textContent = String(styles.length);
+      document.querySelector('.filter-btn[data-filter="all"]').textContent = `全部风格 (${styles.length})`;
+    }
+
+    function showRegistryError() {
+      const message = document.createElement('p');
+      message.className = 'gallery-error';
+      message.textContent = '无法加载风格注册表。请通过 Visual HTML 本地画廊服务打开此页面。';
+      galleryGrid.replaceChildren(message);
+    }
+
+    async function loadStyleRegistry() {
+      const registryUrl = new URL('styles/registry.json', window.location.href);
+      const response = await fetch(registryUrl, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`Registry request failed: ${response.status}`);
+      const payload = await response.json();
+      const styles = Array.isArray(payload?.styles) ? payload.styles : [];
+      const validStyles = styles.filter(style =>
+        style && typeof style.id === 'string' && typeof style.name === 'string' &&
+        typeof style.dir === 'string' && Array.isArray(style.categories)
+      );
+      if (!validStyles.length) throw new Error('Registry contains no valid styles');
+      renderStyleCards(validStyles);
+    }
 
     function setGalleryFilter(filter) {
       const selectedButton = document.querySelector(`.filter-btn[data-filter="${filter}"]`);
@@ -723,30 +609,29 @@
       const url = new URL(window.location.href);
       const styleId = url.searchParams.get('preview');
       const format = url.searchParams.get('format');
-      const card = Array.from(document.querySelectorAll('.style-card')).find(item => item.getAttribute('data-style-id') === styleId);
-      if (!card || !['web', 'ppt'].includes(format)) return null;
+      const style = registeredStyles.find(item => item.id === styleId);
+      if (!style || !['web', 'ppt'].includes(format)) return null;
       return {
         styleId,
-        styleName: card.getAttribute('data-style-name') || styleId,
+        styleName: style.name,
         format,
-        href: `styles/${styleId}/scaffold-${format}.html`
+        href: `styles/${style.dir}/scaffold-${format}.html`
       };
     }
 
     function showPreview(route) {
+      currentPreviewRoute = route;
       const formatLabel = route.format === 'web' ? '网页 Demo' : 'PPT 模版';
       galleryView.hidden = true;
       previewView.hidden = false;
       document.body.classList.add('is-previewing');
-      previewName.textContent = route.styleName;
-      previewId.textContent = route.styleId;
-      previewFormat.textContent = formatLabel;
-      previewFrame.title = `${route.styleName} ${formatLabel}`;
+      previewFrame.title = `${route.styleName} · ${formatLabel}`;
       previewFrame.src = route.href;
       document.title = `${route.styleName} · ${formatLabel} — Visual HTML`;
     }
 
     function showGallery({ restore = false } = {}) {
+      currentPreviewRoute = null;
       previewFrame.removeAttribute('src');
       previewView.hidden = true;
       galleryView.hidden = false;
@@ -770,17 +655,17 @@
       button.addEventListener('click', () => setGalleryFilter(button.getAttribute('data-filter') || 'all'));
     });
 
-    document.querySelectorAll('.btn-link').forEach(link => {
-      link.addEventListener('click', event => {
-        event.preventDefault();
-        openPreview(link);
-      });
-    });
-
     previewBack.addEventListener('click', () => {
       history.replaceState({ visualHtmlView: 'gallery' }, '', galleryUrl());
       showGallery({ restore: true });
     });
+
+    if (previewUse) {
+      previewUse.addEventListener('click', () => {
+        if (!currentPreviewRoute) return;
+        copyStyleSelection(currentPreviewRoute.styleId, currentPreviewRoute.styleName, previewUse);
+      });
+    }
 
     window.addEventListener('popstate', () => {
       const route = previewRoute();
@@ -788,13 +673,23 @@
       else showGallery({ restore: true });
     });
 
-    const initialRoute = previewRoute();
-    if (initialRoute) {
-      history.replaceState({ visualHtmlView: 'preview' }, '', window.location.href);
-      showPreview(initialRoute);
-    } else {
-      setGalleryFilter('all');
+    async function initializeGallery() {
+      try {
+        await loadStyleRegistry();
+        const initialRoute = previewRoute();
+        if (initialRoute) {
+          history.replaceState({ visualHtmlView: 'preview' }, '', window.location.href);
+          showPreview(initialRoute);
+        } else {
+          setGalleryFilter('all');
+        }
+      } catch (error) {
+        console.error(error);
+        showRegistryError();
+      }
     }
+
+    void initializeGallery();
   </script>
 </body>
 </html>

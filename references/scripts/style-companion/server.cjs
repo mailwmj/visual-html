@@ -86,6 +86,7 @@ async function handle(request, response) {
         '.png': 'image/png',
         '.svg': 'image/svg+xml',
         '.css': 'text/css; charset=utf-8',
+        '.json': 'application/json; charset=utf-8',
         '.js': 'text/javascript; charset=utf-8'
       };
       send(response, 200, fs.readFileSync(assetPath), contentTypes[extension] || 'application/octet-stream');

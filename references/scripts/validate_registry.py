@@ -11,7 +11,6 @@ from pathlib import Path
 
 
 STYLE_ID_RE = re.compile(r"^\| \*\*`([^`]+)`\*\*")
-GALLERY_ID_RE = re.compile(r'<div class="style-card" data-style-id="([^"]+)"')
 THEME_ID_RE = re.compile(r"^\| \*\*`([^`]+)`\*\* \|")
 
 
@@ -53,6 +52,7 @@ def main() -> int:
         style_id = entry.get("id")
         style_dir = entry.get("dir")
         name = entry.get("name")
+        categories = entry.get("categories")
         if not isinstance(style_id, str) or not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", style_id):
             errors.append(f"invalid style id: {style_id!r}")
             continue
@@ -64,6 +64,8 @@ def main() -> int:
             continue
         if not isinstance(name, str) or not name:
             errors.append(f"{style_id}: missing display name")
+        if not isinstance(categories, list) or not categories or not all(isinstance(category, str) and category for category in categories):
+            errors.append(f"{style_id}: categories must be a non-empty string array")
         style_path = styles_root / style_dir
         for required in ("design.md", "scaffold-web.html", "scaffold-ppt.html", "preview.svg", "preview.png"):
             if not (style_path / required).is_file():
@@ -78,10 +80,9 @@ def main() -> int:
         if orphaned:
             errors.append("registry entries without directories: " + ", ".join(orphaned))
 
-    gallery_ids = ids_from_file(references / "style-gallery.html", GALLERY_ID_RE)
     skill_ids = ids_from_file(root / "SKILL.md", STYLE_ID_RE)
     theme_ids = ids_from_file(references / "shared-components.md", THEME_ID_RE)
-    for label, actual in (("gallery", gallery_ids), ("SKILL.md", skill_ids), ("Mermaid theme table", theme_ids)):
+    for label, actual in (("SKILL.md", skill_ids), ("Mermaid theme table", theme_ids)):
         if set(actual) != set(registry_ids):
             errors.append(f"{label} IDs do not match registry content")
 

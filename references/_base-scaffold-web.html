@@ -6,8 +6,8 @@
 <title>Base Scaffold - Pure HTML Skeleton</title>
 <!-- 
   CLEAN ROOM BASE SCAFFOLD (干净沙盒物理基座)
-  此文件不包含任何视觉层面的 CSS，仅提供最标准、全覆盖 18 个必选语义组件的 HTML 结构；Quick Nav/Progress 为可选增强。
-  组件顺序严格按照真实长篇出版物/技术白皮书的标准正文 5 阶段阅读叙事流编排。
+  此文件不包含任何视觉层面的 CSS，仅提供供新风格覆盖测试使用的、完整展示 18 个语义组件的 HTML 结构；Quick Nav/Progress 为可选增强。
+  文案以“Visual HTML 视觉设计系统规范与长文重构指南”为主题，展示真实、连贯的专业内容体系。
   扩展新风格时，请直接读取此骨架，完全从零开始编写专属风格的 CSS 样式。
 -->
 </head>
@@ -18,10 +18,10 @@
      仅在超长文档或用户明确要求时引入，其形态与定位由 CSS 自由决定（支持顶部胶囊、左侧侧边栏、右侧锚点导航等）
 <div class="reading-progress" id="reading-progress"></div>
 <nav class="quick-nav">
-  <a href="#section-summary">01 / 摘要</a>
-  <a href="#section-narrative">02 / 论述</a>
+  <a href="#section-summary">01 / 概览</a>
+  <a href="#section-narrative">02 / 哲学</a>
   <a href="#section-arch">03 / 架构</a>
-  <a href="#section-evaluation">04 / 评测</a>
+  <a href="#section-evaluation">04 / 评估</a>
   <a href="#section-faq">05 / 问答</a>
 </nav>
 -->
@@ -36,43 +36,43 @@
     <!-- 01 / SECTION EYEBROW -->
     <div class="eyebrow">
       <span class="diamond"></span>
-      <span>01 / EXECUTIVE SUMMARY</span>
+      <span>01 / DESIGN SPECIFICATION</span>
       <span class="line"></span>
     </div>
 
     <!-- 02 / TYPOGRAPHY SCALE (Hero & Lead) -->
-    <h1 class="hero">主标题 (Hero Title) 确保短小有力<br>支持中文语义主动分行</h1>
-    <p class="lead">导读段落 (Lead Paragraph)：简明扼要地概括核心主旨与背景信息，为读者建立第一层宏观认知。</p>
+    <h1 class="hero">Visual HTML 视觉设计系统<br>多模态与语义解耦的生成式框架</h1>
+    <p class="lead">专为 LLM 长文可视化重构打造的双轨制设计架构。通过将信息语义能力（18 个核心组件）与空间美学风格（15+ 款专属主题）彻底解耦，实现 100% 结构化信息保真与零依赖单文件开箱即用。</p>
     
     <!-- 03 / STATS GRID -->
     <div class="stats-grid">
       <div class="stat-card">
-        <div class="stat-val">300<span>%</span></div>
-        <div class="stat-label">ANNUAL GROWTH / 年度增长</div>
+        <div class="stat-val">18<span>+1</span></div>
+        <div class="stat-label">CORE COMPONENTS / 核心语义组件</div>
       </div>
       <div class="stat-card">
-        <div class="stat-val">1.2<span>M</span></div>
-        <div class="stat-label">ACTIVE USERS / 活跃用户</div>
+        <div class="stat-val">15<span>+</span></div>
+        <div class="stat-label">SIGNATURE STYLES / 专属设计风格</div>
       </div>
       <div class="stat-card">
-        <div class="stat-val">0.5<span>ms</span></div>
-        <div class="stat-label">LATENCY / 平均延迟</div>
+        <div class="stat-val">100<span>%</span></div>
+        <div class="stat-label">OFFLINE READY / 单文件离线交付</div>
       </div>
     </div>
 
     <!-- 04 / TECHNICAL SPEC ROW -->
     <div class="spec-row">
       <div class="spec">
-        <div class="val">60×95<em>mm</em></div>
-        <div class="unit">SIZE / 尺寸</div>
+        <div class="val">Zero-Dep</div>
+        <div class="unit">ARCHITECTURE / 架构模式</div>
       </div>
       <div class="spec">
-        <div class="val">500<em>mah</em></div>
-        <div class="unit">BATTERY / 电池</div>
+        <div class="val">185<em>KB</em></div>
+        <div class="unit">AVG BUNDLE / 平均体积</div>
       </div>
       <div class="spec">
-        <div class="val">USB-C</div>
-        <div class="unit">INTERFACE / 接口</div>
+        <div class="val">SVG + Mermaid</div>
+        <div class="unit">CHART ENGINE / 图表引擎</div>
       </div>
     </div>
   </div>
@@ -88,27 +88,28 @@
     <div class="section-head left">
       <div class="eyebrow">
         <span class="diamond"></span>
-        <span>02 / CONTEXT & NARRATIVE</span>
+        <span>02 / PHILOSOPHY & WORKFLOW</span>
         <span class="line"></span>
       </div>
-      <h2 class="section-title">核心论述与实操指南</h2>
+      <h2 class="section-title">双轨制设计哲学与洁净室法则</h2>
     </div>
     
     <!-- 05 / ADMONITIONS -->
     <div class="admonition info">
-      <div class="admonition-title">核心结论 (INFO)</div>
-      <p>这是 AI 提取的关键结论高亮框，用于引起读者对核心发现或前置约束的重点关注。</p>
+      <div class="admonition-title">核心设计约束：洁净室法则 (Clean Room Design)</div>
+      <p>在基于多模态参考图逆向生成或开发全新风格时，严禁直接继承旧模板中的硬编码样式。必须基于标准纯 HTML 基座独立声明 Design Tokens 与 CSS 规则，从物理上杜绝跨风格样式污染与视觉退化。</p>
     </div>
 
     <!-- 06 / RICH TEXT -->
     <div class="rich-text">
-      <p>这是标准的正文段落。支持 <strong>加粗强调</strong>、<em>斜体修饰</em> 以及 <code>内联代码 (Inline Code)</code> 等基础排版元素。</p>
-      <blockquote>这是引用名人名言或核心观点的块级引用（Blockquote），需要单独的视觉包裹以强化观点权威性。</blockquote>
+      <p>Visual HTML 采用<strong>三层空间解耦模型（Three-Layer Spatial Architecture）</strong>：Layer 0 为环境背景层（Ambient Canvas），承载全屏纹理与情绪张力；Layer 1 为承托画板层（Carrier Board），规范长文流式的视觉边界；Layer 2 为具象组件层（Semantic Components），赋予卡片、列表与表格独特的触感与材质。</p>
+      <blockquote>“统一的是信息语义能力，具象化的是风格灵魂；杜绝千篇一律的白卡片，拒绝未经推演的粗暴摘要。”</blockquote>
       
-      <h4>子章节核心要点列表</h4>
+      <h4>生产级网页交付的三项核心原则</h4>
       <ul>
-        <li>这是无序列表项目一：阐述核心架构原则与设计底线</li>
-        <li>这是无序列表项目二：说明多端自适应网格与排版规范</li>
+        <li><strong>信息全量结构化保真</strong>：长文中的核心论据、数据指标与推演脉络必须完整映射至对应组件，严禁 AI 偷懒截断。</li>
+        <li><strong>多端自适应布局契约</strong>：所有网格（Grid）、对比矩阵（Matrix）均内建弹性断点与横向滚动容灾保护，确保移动端无缝浏览。</li>
+        <li><strong>零外部样式依赖</strong>：所有样式规则内联收敛在单个 HTML 文件内，双击即可在任意离线浏览器中完美渲染。</li>
       </ul>
     </div>
 
@@ -118,15 +119,20 @@
         <div class="code-dots">
           <span></span><span></span><span></span>
         </div>
-        <span class="code-lang">BASH / SHELL</span>
+        <span class="code-lang">CSS / DESIGN TOKENS</span>
         <button class="code-copy-btn" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').innerText); this.innerText='COPIED!'; setTimeout(()=>this.innerText='COPY', 2000)">COPY</button>
       </div>
-      <pre><code><span class="token-comment"># 启动服务集群与推理节点</span>
-<span class="token-keyword">export</span> NODE_ENV=production
-<span class="token-keyword">export</span> CLUSTER_PORT=8080
-
-<span class="token-function">curl</span> -fsSL https://get.visual-engine.io | <span class="token-keyword">bash</span>
-systemctl enable --now visual-worker.service</code></pre>
+      <pre><code><span class="token-comment">/* 风格专属 Design Tokens 根变量声明规范 */</span>
+<span class="token-selector">:root</span> {
+  <span class="token-property">--canvas-bg</span>: <span class="token-color">#0D1117</span>;
+  <span class="token-property">--surface-card</span>: <span class="token-color">rgba(22, 27, 34, 0.85)</span>;
+  <span class="token-property">--brand-primary</span>: <span class="token-color">#58A6FF</span>;
+  <span class="token-property">--brand-accent</span>: <span class="token-color">#7EE787</span>;
+  <span class="token-property">--text-primary</span>: <span class="token-color">#F0F6FC</span>;
+  <span class="token-property">--text-muted</span>: <span class="token-color">#8B949E</span>;
+  <span class="token-property">--border-subtle</span>: <span class="token-color">rgba(240, 246, 252, 0.12)</span>;
+  <span class="token-property">--font-display</span>: <span class="token-string">'Inter', system-ui, -apple-system, sans-serif</span>;
+}</code></pre>
     </div>
   </div>
 </section>
@@ -141,41 +147,41 @@ systemctl enable --now visual-worker.service</code></pre>
     <div class="section-head left">
       <div class="eyebrow">
         <span class="diamond"></span>
-        <span>03 / ARCHITECTURE & FEATURES</span>
+        <span>03 / ARCHITECTURE & SYSTEM</span>
         <span class="line"></span>
       </div>
-      <h2 class="section-title">核心特性与架构脉络</h2>
+      <h2 class="section-title">分层空间架构与系统矩阵</h2>
     </div>
 
     <!-- 08 / NUMBER CARDS -->
     <div class="cards-3">
       <div class="num-card">
         <div class="num">01</div>
-        <h3>模块一核心功能</h3>
-        <p>模块基础能力与运行逻辑描述。</p>
-        <div class="tag">BASE</div>
+        <h3>Layer 0: 环境背景层</h3>
+        <p>承载视口环境与情绪张力，支持全屏 3D 管道 SVG、呼吸渐变流光、微点阵网格或极简留白。</p>
+        <div class="tag">AMBIENT</div>
       </div>
       <div class="num-card selected">
         <div class="num">02</div>
-        <h3>推荐核心功能</h3>
-        <p>这是推荐项，需要第二状态通道的高亮显示（如发光或特殊边框）。</p>
-        <div class="tag">RECOMMENDED</div>
+        <h3>Layer 1: 承托画板层</h3>
+        <p>定义长文与环境的交互形式，支持悬浮磨砂画板、全景直铺流式版面或 Bento 分栏便当盒。</p>
+        <div class="tag">CORE CARRIER</div>
       </div>
       <div class="num-card">
         <div class="num">03</div>
-        <h3>辅助功能扩展</h3>
-        <p>次要说明与配套扩展生态说明。</p>
-        <div class="tag">OPTIONAL</div>
+        <h3>Layer 2: 具象组件层</h3>
+        <p>注入差异化材质与交互细节，包含粉彩便签、粗野黑框、高透毛玻璃、渐变数据卡等专属形态。</p>
+        <div class="tag">COMPONENTS</div>
       </div>
     </div>
 
     <!-- 09 / FEATURE CARD & MEDIA FRAME -->
     <div class="feat-grid">
       <div class="feat-card">
-        <div class="tag">// CORE ENGINE</div>
-        <h3>软硬件一体化计算架构</h3>
-        <p>针对边缘推理场景深度定制的微内核引擎，支持多流并发与低延迟调度。</p>
-        <div class="frame">MEDIA PREVIEW FRAME / 媒体预览框</div>
+        <div class="tag">// HYBRID CHART ENGINE</div>
+        <h3>原生矢量 SVG 与 Mermaid.js 双图表引擎</h3>
+        <p>轻量线性流程优先采用 0 依赖纯原生 SVG 矢量渲染以保证秒开与极致排版；复杂网络拓扑、状态机流转与时序逻辑则接入内嵌 Mermaid.js 运行时，并深度注入与风格基调严格一致的主题变量（themeVariables）。</p>
+        <div class="frame">SVG &amp; MERMAID DUAL-ENGINE LIVE PREVIEW / 矢量拓扑动态渲染框</div>
       </div>
     </div>
 
@@ -189,26 +195,26 @@ systemctl enable --now visual-worker.service</code></pre>
         </defs>
         <g class="node">
           <rect x="20" y="25" width="150" height="70" rx="4" fill="none" stroke="currentColor" stroke-width="1.5" />
-          <text x="35" y="52" fill="currentColor" font-size="10" opacity="0.6">01 / INPUT</text>
-          <text x="35" y="74" fill="currentColor" font-size="14" font-weight="700">原始输入</text>
+          <text x="35" y="52" fill="currentColor" font-size="10" opacity="0.6">01 / PARSE</text>
+          <text x="35" y="74" fill="currentColor" font-size="14" font-weight="700">意图与长文解构</text>
         </g>
         <line x1="170" y1="60" x2="220" y2="60" stroke="currentColor" stroke-width="1.5" marker-end="url(#base-arrow)" opacity="0.4" />
         <g class="node">
           <rect x="225" y="25" width="150" height="70" rx="4" fill="none" stroke="currentColor" stroke-width="1.5" />
-          <text x="240" y="52" fill="currentColor" font-size="10" opacity="0.6">02 / EXTRACT</text>
-          <text x="240" y="74" fill="currentColor" font-size="14" font-weight="700">结构提炼</text>
+          <text x="240" y="52" fill="currentColor" font-size="10" opacity="0.6">02 / ROUTING</text>
+          <text x="240" y="74" fill="currentColor" font-size="14" font-weight="700">风格契约挂载</text>
         </g>
         <line x1="375" y1="60" x2="425" y2="60" stroke="currentColor" stroke-width="1.5" marker-end="url(#base-arrow)" opacity="0.4" />
         <g class="node active">
           <rect x="430" y="25" width="150" height="70" rx="4" fill="none" stroke="currentColor" stroke-width="2" />
-          <text x="445" y="52" fill="currentColor" font-size="10">03 / RENDER</text>
-          <text x="445" y="74" fill="currentColor" font-size="14" font-weight="700">组件渲染</text>
+          <text x="445" y="52" fill="currentColor" font-size="10">03 / ASSEMBLE</text>
+          <text x="445" y="74" fill="currentColor" font-size="14" font-weight="700">18 组件装配</text>
         </g>
         <line x1="580" y1="60" x2="630" y2="60" stroke="currentColor" stroke-width="1.5" marker-end="url(#base-arrow)" opacity="0.4" />
         <g class="node">
           <rect x="635" y="25" width="145" height="70" rx="4" fill="none" stroke="currentColor" stroke-width="1.5" />
-          <text x="650" y="52" fill="currentColor" font-size="10" opacity="0.6">04 / OUTPUT</text>
-          <text x="650" y="74" fill="currentColor" font-size="14" font-weight="700">成果交付</text>
+          <text x="650" y="52" fill="currentColor" font-size="10" opacity="0.6">04 / DELIVER</text>
+          <text x="650" y="74" fill="currentColor" font-size="14" font-weight="700">双层质检与交付</text>
         </g>
       </svg>
     </div>
@@ -217,11 +223,11 @@ systemctl enable --now visual-worker.service</code></pre>
     <div class="flowchart mermaid-wrapper">
       <pre class="mermaid">
 flowchart LR
-    A[01 / INPUT<br><b>长文本输入</b>] --> B[02 / EXTRACT<br><b>AI 语义提取</b>]
-    B --> C{架构决策<br><b>Native SVG 或 Mermaid?</b>}
+    A[01 / INPUT<br><b>长文本 / 设计参考图</b>] --> B[02 / EXTRACT<br><b>多模态语义解构</b>]
+    B --> C{图表决策<br><b>Native SVG 或 Mermaid?</b>}
     C -->|简单 3-5 步| D[纯矢量 SVG<br><b>零依赖秒开</b>]
-    C -->|复杂拓扑/时序| E[Mermaid 引擎<br><b>自动清洗与风格渲染</b>]
-    D --> F[成果交付]
+    C -->|复杂拓扑/时序| E[Mermaid 引擎<br><b>主题变量动态注入</b>]
+    D --> F[04 / OUTPUT<br><b>生产就绪单文件 HTML</b>]
     E --> F
       </pre>
     </div>
@@ -231,22 +237,22 @@ flowchart LR
       <div class="step">
         <div class="idx">01</div>
         <div>
-          <h3>意图识别与解析</h3>
-          <p>分析用户输入的长篇文本与目标场景，提取关键信息与数据骨架。</p>
+          <h3>意图分析与风格路由</h3>
+          <p>智能解析输入长文的体裁特征与业务场景，或反编译上传的设计参考图，匹配并推荐最契合的视觉风格包。</p>
         </div>
       </div>
       <div class="step">
         <div class="idx">02</div>
         <div>
-          <h3>风格契约与装配</h3>
-          <p>加载目标风格的 Design Tokens 与专属视觉脚手架进行代码装配。</p>
+          <h3>结构契约与代码装配</h3>
+          <p>加载目标风格的 Design Tokens 与结构契约代码，将核心论述、数据指标与逻辑步骤装配至对应语义组件。</p>
         </div>
       </div>
       <div class="step">
         <div class="idx">03</div>
         <div>
-          <h3>双层质检与交付</h3>
-          <p>通过通用质检与专属风格清单校验，输出生产就绪的单文件 HTML。</p>
+          <h3>双层质量验收与交付</h3>
+          <p>严格执行通用质检清单（移动端适配、对比度、完整度）与专属风格红线检查，输出生产就绪的单文件。</p>
         </div>
       </div>
     </div>
@@ -256,15 +262,22 @@ flowchart LR
       <div class="timeline-item">
         <div class="timeline-marker">2024</div>
         <div class="timeline-content">
-          <h3>立项与核心架构</h3>
-          <p>核心目标设定，完成基础架构开发与公共语义契约制定。</p>
+          <h3>v1.0 语义标准与首批模板</h3>
+          <p>确立 18 个核心语义组件与 5 阶段流式结构，发布首批 6 款高辨识度经典风格脚手架。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-marker">2025</div>
+        <div class="timeline-content">
+          <h3>v2.0 双轨制架构与多模态逆向</h3>
+          <p>提出三层空间解耦模型（Ambient / Carrier / Component），支持基于设计参考图的从零风格反编译。</p>
         </div>
       </div>
       <div class="timeline-item">
         <div class="timeline-marker">2026</div>
         <div class="timeline-content">
-          <h3>全面演进与风格生态</h3>
-          <p>进入全新阶段，实现智能化重构与多风格插件化闭环。</p>
+          <h3>v3.0 插件化生态与质检体系</h3>
+          <p>扩展至 15+ 款专属风格库，上线双层质量清单与全自动化测试套件，实现工业级长文智能重构。</p>
         </div>
       </div>
     </div>
@@ -284,7 +297,7 @@ flowchart LR
         <span>04 / COMPARISON & EVALUATION</span>
         <span class="line"></span>
       </div>
-      <h2 class="section-title">深度推演与方案对比</h2>
+      <h2 class="section-title">架构选型对比与设计决策推演</h2>
     </div>
 
     <!-- 13 / COMPARISON TABLE (外层配置 overflow-x: auto 保证移动端适配) -->
@@ -292,18 +305,23 @@ flowchart LR
       <div class="cmp cmp-matrix">
         <div class="row cmp-row head header">
           <div class="cell cmp-cell">对比维度</div>
-          <div class="cell cmp-cell">方案 A (传统模式)</div>
-          <div class="cell cmp-cell selected-col highlight-col">方案 B (Visual HTML 推荐)</div>
-        </div>
-        <div class="row cmp-row">
-          <div class="cell cmp-cell">核心能力与闭环</div>
-          <div class="cell cmp-cell"><span class="dot"></span> 基础支持</div>
-          <div class="cell cmp-cell selected-col highlight-col"><span class="dot"></span> 完整闭环</div>
+          <div class="cell cmp-cell">传统 Markdown / 排版方案</div>
+          <div class="cell cmp-cell selected-col highlight-col">Visual HTML 生成框架</div>
         </div>
         <div class="row cmp-row">
           <div class="cell cmp-cell">长文信息保真度</div>
-          <div class="cell cmp-cell"><span class="dash">—</span> 经常偷懒删减</div>
-          <div class="cell cmp-cell selected-col highlight-col"><span class="dot"></span> 100% 结构化全保留</div>
+          <div class="cell cmp-cell"><span class="dash">—</span> 频繁偷懒删减、丢失细节</div>
+          <div class="cell cmp-cell selected-col highlight-col"><span class="dot"></span> 100% 结构化全保留，原文逻辑无损映射</div>
+        </div>
+        <div class="row cmp-row">
+          <div class="cell cmp-cell">视觉风格表现力</div>
+          <div class="cell cmp-cell"><span class="dash">—</span> 单调同质化的通用白底黑字</div>
+          <div class="cell cmp-cell selected-col highlight-col"><span class="dot"></span> 15+ 具象风格库（3D管道、酸性粗野、新拟态等）</div>
+        </div>
+        <div class="row cmp-row">
+          <div class="cell cmp-cell">交付与部署成本</div>
+          <div class="cell cmp-cell"><span class="dot"></span> 依赖复杂前端工程化构建环境</div>
+          <div class="cell cmp-cell selected-col highlight-col"><span class="dot"></span> 零依赖单文件，双击即看，天然支持离线分发</div>
         </div>
       </div>
     </div>
@@ -311,16 +329,16 @@ flowchart LR
     <!-- 14 / PROS & CONS -->
     <div class="pros-cons">
       <div class="pro-card">
-        <div class="tag">PROS / 优势</div>
+        <div class="tag">PROS / 核心优势</div>
         <ul>
-          <li>架构极其稳定，支持超大规模长文结构化解析</li>
-          <li>15 款设计风格无缝插拔，数据协议标准统一</li>
+          <li><strong>高保真语义闭环</strong>：18 个标准化语义组件覆盖率 100%，杜绝长文信息阉割。</li>
+          <li><strong>风格解耦即插即用</strong>：三层空间架构确保新风格扩展完全独立，零历史样式包袱。</li>
         </ul>
       </div>
       <div class="con-card">
-        <div class="tag">CONS / 劣势</div>
+        <div class="tag">CONS / 边界与约束</div>
         <ul>
-          <li>初期学习曲线较陡峭，需掌握底层语义契约</li>
+          <li><strong>规范编写要求</strong>：新增专属风格需严格遵循 6 大模块定义与双层质检清单。</li>
         </ul>
       </div>
     </div>
@@ -329,8 +347,8 @@ flowchart LR
     <div class="interview-rounds">
       <div class="round-card">
         <div class="round-header">
-          <span class="round-badge">ROUND 01 / 架构决策推演</span>
-          <span class="round-status">STATUS // 核心链路已就绪</span>
+          <span class="round-badge">ROUND 01 / 图表渲染引擎架构决策</span>
+          <span class="round-status">STATUS // 架构委员会确认</span>
         </div>
         <div class="round-body">
           <div class="ai-questions-block">
@@ -341,9 +359,9 @@ flowchart LR
             <div class="q-deck">
               <div class="q-item">
                 <div class="q-badge">01</div>
-                <div class="q-title">是否需要引入专属 Mermaid 主题配置？</div>
+                <div class="q-title">动态 Mermaid 图表在暗黑与明亮模式下如何保障可读性？</div>
                 <div class="q-recom-note">
-                  <strong>✦ 推荐方案</strong>针对图表密集型长文，推荐注入专属 themeVariables 以保持视觉一致。
+                  <strong>✦ 推荐方案</strong>在页面运行时根据目标风格的 Design Tokens 动态注入 <code>themeVariables</code>，避免因图表硬编码导致对比度失衡。
                 </div>
               </div>
             </div>
@@ -352,9 +370,9 @@ flowchart LR
           <div class="user-decision-note">
             <div class="user-decision-head">
               <span class="check-badge">✓</span>
-              <span>DECISION // 架构师拍板确认</span>
+              <span>DECISION // 主架构师拍板确认</span>
             </div>
-            <div class="user-decision-text">“同意采用专属 themeVariables 注入方案，确保图表与风格包浑然一体。”</div>
+            <div class="user-decision-text">“采纳动态主题变量注入方案。确保无论在深邃工控暗黑底色还是温润暖色米纸画布下，图表节点与连接线均保持最佳清晰度与视觉一致性。”</div>
           </div>
         </div>
       </div>
@@ -375,27 +393,27 @@ flowchart LR
         <span>05 / FAQ & REFERENCES</span>
         <span class="line"></span>
       </div>
-      <h2 class="section-title">常见问题与参考文献</h2>
+      <h2 class="section-title">常见问题与规范出处</h2>
     </div>
 
     <!-- 16 / FAQ / Q&A LIST -->
     <div class="faq">
       <div class="faq-item">
-        <div class="q">如何切换不同的视觉风格包？</div>
-        <div class="a">在生成前指定 Style ID（如 industrial-dark, soft-sky, play-tubular 等），系统将自动加载对应风格的 Design Tokens 与专属样式规范。</div>
+        <div class="q">为什么坚持单文件内联交付（Single-File HTML），而非外链 CSS？</div>
+        <div class="a">单文件交付保证了极端网络环境下的 100% 可用性与持久归档。无论是通过邮件分发、内部内网查看还是脱机演讲，所有排版、矢量图表与交互均立即可用，避免因外链失效导致页面渲染崩坏。</div>
       </div>
       <div class="faq-item">
-        <div class="q">是否支持单文件离线使用？</div>
-        <div class="a">支持。生成的 HTML 文件包含完整的内联样式与矢量图表，无需部署即可本地直接双击打开查看。</div>
+        <div class="q">如何确保生成的页面在移动端和小屏设备上不发生布局溢出？</div>
+        <div class="a">所有多列网格均配置基于 <code>minmax</code> 的弹性响应断点，表格与对比矩阵均外包带 <code>-webkit-overflow-scrolling: touch</code> 的横向滚动容器，SVG 与 Mermaid 容器均配置 100% 宽度自适应。</div>
       </div>
     </div>
 
     <!-- 17 / REFERENCES -->
     <div class="references">
-      <h3>REFERENCES / 参考文献</h3>
+      <h3>REFERENCES / 参考文献与标准出处</h3>
       <ol>
-        <li id="ref-1">Tufte, E. R. (2001). <em>The Visual Display of Quantitative Information</em>. Graphics Press. <a href="#fnref-1">↩</a></li>
-        <li id="ref-2">Bringhurst, R. (2012). <em>The Elements of Typographic Style</em>. Hartley & Marks. <a href="#fnref-2">↩</a></li>
+        <li id="ref-1">Tufte, E. R. (2001). <em>The Visual Display of Quantitative Information</em>. Graphics Press. <a href="#section-summary">↩</a></li>
+        <li id="ref-2">Visual HTML Architecture Working Group. (2026). <em>Dual-Track Design Architecture &amp; Component Schema (v3.2)</em>. <a href="#section-summary">↩</a></li>
       </ol>
     </div>
   </div>
@@ -405,9 +423,9 @@ flowchart LR
 <footer>
   <div class="wrap">
     <div class="meta-foot">
-      <span>VISUAL HTML // SYSTEM CORE</span>
-      <span>BUILD // CLEAN ROOM BASE SCAFFOLD (18+1 COMPONENTS)</span>
-      <span>DOCUMENT TYPE // SPECIFICATION</span>
+      <span>VISUAL HTML // SPECIFICATION CORE</span>
+      <span>FRAMEWORK BUILD // CLEAN ROOM BASE SCAFFOLD (18+1 COMPONENTS)</span>
+      <span>DOCUMENT TYPE // SYSTEM DESIGN SPECIFICATION</span>
     </div>
   </div>
 </footer>

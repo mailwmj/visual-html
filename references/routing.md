@@ -27,7 +27,7 @@
 
 - 已注册风格：从 `references/styles/registry.json` 读取候选；锁定 `style_id` 后读取该目录的 `design.md` 和目标媒介脚手架。
 - 参考图：先做色彩、形状、排版和材质解构，再从 [`_base-scaffold-web.html`](_base-scaffold-web.html) 建立新结构；不得把参考图当作未声明的模板路径。
-- 自由设计：使用共享语义骨架和 route 约束，不读取无关风格包。
+- 自由设计：使用原文优先的语义组件映射和 route 约束，不读取无关风格包。
 
 ### Conditional stages
 

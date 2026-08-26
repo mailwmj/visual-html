@@ -112,6 +112,13 @@
       "englishName": "State Governance Blue",
       "categories": ["editorial", "tech"],
       "dir": "state-governance"
+    },
+    {
+      "id": "ink-calligraphy",
+      "name": "宣纸泼墨挥毫风",
+      "englishName": "Ink Calligraphy",
+      "categories": ["editorial", "lifestyle"],
+      "dir": "ink-calligraphy"
     }
   ]
 }

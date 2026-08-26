@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" width="100%" height="100%">
+  <defs>
+    <filter id="xuan-shadow-1" x="-10%" y="-10%" width="125%" height="125%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#141312" flood-opacity="0.06"/>
+    </filter>
+    <filter id="seal-shadow" x="-10%" y="-10%" width="125%" height="125%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#C23531" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <style>
+    .mono { font-family: "IBM Plex Mono", "SF Mono", Consolas, monospace; }
+    .calligraphy { font-family: "Ma Shan Zheng", "Long Cang", "STKaiti", "KaiTi", "Songti SC", cursive, serif; }
+    .serif { font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", "SimSun", "Cinzel", serif; }
+    .sans { font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Inter", sans-serif; }
+  </style>
+
+  <!-- Xuan Paper Background -->
+  <rect width="400" height="240" fill="#F5F2EB" rx="8"/>
+  <rect width="398" height="238" x="1" y="1" fill="none" stroke="rgba(20, 19, 18, 0.12)" stroke-width="1" rx="7"/>
+
+  <!-- Subtle Ink Splatters on Canvas -->
+  <circle cx="340" cy="36" r="2.5" fill="#141312" fill-opacity="0.55"/>
+  <circle cx="352" cy="48" r="1.5" fill="#141312" fill-opacity="0.40"/>
+  <circle cx="38" cy="188" r="2.8" fill="#141312" fill-opacity="0.45"/>
+  <circle cx="370" cy="192" r="1.8" fill="#141312" fill-opacity="0.35"/>
+
+  <!-- Tier 1: Eyebrow (y: 14) -->
+  <g transform="translate(18, 14)">
+    <rect x="0" y="2" width="13" height="13" rx="2" fill="#C23531"/>
+    <text class="calligraphy" font-size="9" fill="#FAF7F0" x="2.5" y="12">墨</text>
+    <text class="mono" font-size="9" font-weight="700" fill="#C23531" x="19" y="12" letter-spacing="1.4">INK CALLIGRAPHY // 17</text>
+    <line x1="184" y1="9" x2="364" y2="9" stroke="rgba(194, 53, 49, 0.20)" stroke-width="1"/>
+  </g>
+
+  <!-- Tier 2: Title (y: 56) -->
+  <g transform="translate(18, 56)">
+    <text class="calligraphy" font-size="18" font-weight="400" fill="#141312" x="0" y="0">宣纸泼墨挥毫风</text>
+    <rect x="136" y="-12" width="34" height="14" rx="2" fill="#C23531" fill-opacity="0.12" stroke="#C23531" stroke-width="0.8"/>
+    <text class="serif" font-size="8" font-weight="700" fill="#C23531" x="140" y="-2">墨韵</text>
+    <text class="mono" font-size="8" font-weight="600" fill="#7E7972" x="178" y="-1">XUAN INK</text>
+  </g>
+
+  <!-- Tier 3: Main Card (y: 72, height: 120) -->
+  <g transform="translate(18, 72)">
+    <!-- Base Xuan Paper Board -->
+    <rect width="364" height="120" rx="8" fill="#FAF7F0" stroke="rgba(20, 19, 18, 0.10)" stroke-width="1"/>
+
+    <!-- Left Sub-card: Calligraphic Hero Showcase -->
+    <g transform="translate(12, 12)">
+      <rect width="180" height="96" rx="6" fill="#F0EBE0" stroke="rgba(20, 19, 18, 0.08)" stroke-width="1"/>
+      
+      <!-- Seal Mark -->
+      <rect x="12" y="10" width="16" height="16" rx="2" fill="#C23531" filter="url(#seal-shadow)"/>
+      <text class="calligraphy" font-size="11" fill="#FAF7F0" x="15" y="22">卷</text>
+      
+      <text class="mono" font-size="8" font-weight="600" fill="#7E7972" x="34" y="21">气韵生动 · 榜书</text>
+      
+      <!-- Big Calligraphy Text -->
+      <text class="calligraphy" font-size="21" fill="#141312" x="12" y="52">蓬萊萬象生</text>
+      
+      <!-- Dry Brush Divider Path -->
+      <path d="M12 66 C45 64 90 68 168 66" stroke="#141312" stroke-width="1.2" stroke-dasharray="6 2 12 3 4 2" stroke-opacity="0.35"/>
+      
+      <text class="sans" font-size="7.5" fill="#524E48" x="12" y="80">焦墨立骨 · 渴笔飞白拉丝</text>
+      
+      <!-- Small Ink Drop on Card -->
+      <circle cx="162" cy="24" r="1.8" fill="#141312" fill-opacity="0.5"/>
+    </g>
+
+    <!-- Right Sub-card: Stats & Seal Grid -->
+    <g transform="translate(202, 12)">
+      <rect width="150" height="96" rx="6" fill="#FFFFFF" stroke="rgba(20, 19, 18, 0.12)" stroke-width="1" filter="url(#xuan-shadow-1)"/>
+      
+      <!-- Vermilion Approved Badge -->
+      <rect x="10" y="10" width="38" height="15" rx="2" fill="#FDEEEC" stroke="#C23531" stroke-width="0.8"/>
+      <text class="mono" font-size="7" font-weight="700" fill="#C23531" x="14" y="21">朱批定案</text>
+      
+      <!-- Stat Number -->
+      <text class="serif" font-size="24" font-weight="900" fill="#141312" x="10" y="48">5000<tspan font-size="12" fill="#C23531">载</tspan></text>
+      <text class="mono" font-size="7.5" fill="#7E7972" x="10" y="62">CULTURAL TRADITION</text>
+      
+      <!-- Five Shades Indicator -->
+      <g transform="translate(10, 74)">
+        <rect width="22" height="12" rx="2" fill="#141312"/>
+        <text class="serif" font-size="6.5" fill="#FAF7F0" x="4" y="8.5">焦</text>
+        <rect x="26" width="22" height="12" rx="2" fill="#2B2927"/>
+        <text class="serif" font-size="6.5" fill="#FAF7F0" x="30" y="8.5">浓</text>
+        <rect x="52" width="22" height="12" rx="2" fill="#524E48"/>
+        <text class="serif" font-size="6.5" fill="#FAF7F0" x="56" y="8.5">重</text>
+        <rect x="78" width="22" height="12" rx="2" fill="#7E7972"/>
+        <text class="serif" font-size="6.5" fill="#FAF7F0" x="82" y="8.5">淡</text>
+        <rect x="104" width="22" height="12" rx="2" fill="#EBE6DC"/>
+        <text class="serif" font-size="6.5" fill="#141312" x="108" y="8.5">清</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Tier 4: Footer Meta (y: 220) -->
+  <g transform="translate(18, 220)">
+    <text class="mono" font-size="9" font-weight="600" fill="#7E7972" x="0" y="0">style_id: <tspan fill="#C23531">ink-calligraphy</tspan></text>
+    <g transform="translate(260, -8)">
+      <circle cx="7" cy="7" r="7" fill="#F5F2EB" stroke="rgba(20, 19, 18, 0.2)"/>
+      <circle cx="23" cy="7" r="7" fill="#141312"/>
+      <circle cx="39" cy="7" r="7" fill="#524E48"/>
+      <circle cx="55" cy="7" r="7" fill="#C23531"/>
+      <circle cx="71" cy="7" r="7" fill="#B37D36"/>
+    </g>
+  </g>
+</svg>

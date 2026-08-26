@@ -1,7 +1,7 @@
 # Visual HTML — 模板扩展与设计规范指南 (Template Extension Guide)
 
 > **核心哲学：双轨制设计架构（Dual-Track Design Architecture）**
-> 1. **统一的是信息语义骨架（Shared Semantic DNA）**：所有风格共享一套标准 5 阶段自然叙事流与 18 个必选语义组件（Hero, Stats, Admonition, Flowchart, Timeline, FAQ 等）；Quick Nav/Progress 是可选增强，确保长篇研报、白皮书与技术文档的信息结构高度严谨、可读性极强。
+> 1. **统一的是信息语义能力（Shared Semantic DNA）**：所有风格共享一套 18 个语义组件（Hero, Stats, Admonition, Flowchart, Timeline, FAQ 等）。创建新风格时，脚手架必须按标准 5 阶段顺序完整展示这些组件，以验证风格覆盖能力；实际页面生成则保留原文结构，按内容语义选用组件，不要求固定阶段、顺序或组件组合。Quick Nav/Progress 是可选增强。
 > 2. **强制具象化的是风格灵魂（Strict Concrete Visual Contracts）**：杜绝“过度抽象塌陷”。每种风格必须明确其专属的**空间纵深架构**、**环境背景层规则**、**材质色谱**与**强制结构契约**，绝不允许 AI 在生成时发生偷懒与机械降级。
 
 ---
@@ -42,8 +42,8 @@
 
 在 `references/styles/` 下创建以风格命名的子目录（小写中划线，如 `references/styles/cyber-bento/`）。该目录下必须包含：
 
-1. **`design.md`**：该风格的完整设计语言规范，必须严格遵循本文第 4 节的标准架构，包含不可剥离的 **“强制结构契约（Mandatory Skeleton Contract）”**。
-2. **`scaffold-web.html`**：该风格的 Web 单文件全组件脚手架，100% 具备空间架构与全套 18 个必选语义组件的高保真呈现。
+1. **`design.md`**：该风格的完整设计语言规范，必须严格遵循本文第 4 节的标准架构，包含不可剥离的 **“风格自有布局契约（Style-Owned Layout Contract）”**。
+2. **`scaffold-web.html`**：该风格的 Web 单文件全组件脚手架，必须按标准 5 阶段顺序完整展示空间架构与 18 个语义组件，以验证风格覆盖能力；实际交付按原文语义选用，不要求全量出现。
 3. **`scaffold-ppt.html`**：该风格的 16:9 演示文稿脚手架。
 4. **`preview.svg`**：该风格专属的 `400×240` 严格 4 层隔离坐标系矢量源文件。
 5. **`preview.png`**：由 `preview.svg` 导出的 `800×480` 高清位图，用于对话卡片内嵌预览与画廊展示。
@@ -54,8 +54,8 @@
 
 创建新风格脚手架时，必须遵循以下铁律：
 
-1. **完整组件覆盖（契约底线）**：
-   - 必须完整覆盖 `references/shared-components.md` 中定义的 18 个必选语义组件（Phase 1 至 Phase 5），绝不允许在脚手架中删除任何组件；第 19 项 Quick Nav/Progress 仅按需启用。
+1. **完整组件覆盖（模板契约底线）**：
+   - 新风格脚手架必须完整覆盖 `references/shared-components.md` 中定义的 18 个语义组件，并按其标准 5 阶段参考顺序展示，绝不允许删除任何组件；第 19 项 Quick Nav/Progress 仅按需启用。该要求只适用于创建或扩展风格的脚手架，不是实际文章的内容清单。
 2. **明确声明空间架构**：
    - 若风格采用“浮动展台型”，必须在 `<body>` 顶部提供 Layer 0 背景代码，并包裹 Layer 1 画板；
    - 若风格采用“直铺沉浸型”或“瑞士杂志型”，必须在 CSS 中明确声明全景平铺规则与排版网格。
@@ -77,10 +77,10 @@
 - 专属多色通道表（如 Play Tubular 的 5 大能量渐变、Warm Craft 的 6 种粉彩便签名册、Obsidian Cyan 的电光冷蓝）。
 - 完整的 CSS `:root` 变量代码块。
 
-### 3. `## 3. Mandatory Skeleton Contract` (强制结构契约 - 核心防退化保障)
-- **必须提供可直接复制执行的 HTML/SVG/CSS 顶层骨架模板**！
-- 明确给出 Layer 0 环境层（若有）与 Layer 1 顶层容器的完整代码。
-- 明确标注：任何基于此风格生成的网页**必须内嵌此骨架，严禁省略**。
+### 3. `## 3. Style-Owned Layout Contract` (风格自有布局契约)
+- **必须提供可直接执行的顶层结构说明与 HTML/SVG/CSS 示例**，或明确声明采用 `Direct Flow` / 无环境层等无额外容器结构。
+- 若风格使用 Layer 0 环境层或 Layer 1 顶层容器，给出完整代码；若不使用，也必须明确声明，避免生成时被通用模板补入画板或背景。
+- 明确标注：任何基于此风格生成的网页应遵循该风格声明的结构；只有该风格明确要求时才内嵌特定骨架。
 
 ### 4. `## 4. Typography Scale & Rules` (排版规范与全字阶量化表)
 - 字体栈规范（Display / Serif / Sans / Mono）。
@@ -147,5 +147,5 @@ python3 references/scripts/validate_previews.py
 
 ## 6. 最终并网注册 (Final Registration)
 
-1. **SKILL.md 注册**：在【1. 风格注册表 (Style Registry)】表格中添加新风格条目与 `preview.png` 预览。
-2. **全量画廊注册**：在 `references/style-gallery.html` 中新增卡片，并配置“使用此风格”回传契约。
+1. **注册表登记**：在 `references/styles/registry.json` 中添加新风格的 `id`、名称、目录和分类。画廊会在运行时从该注册表自动生成卡片、预览链接和“使用此风格”的复制内容；不得手工修改 `references/style-gallery.html` 添加风格。
+2. **人类可读目录**：如需更新 `SKILL.md` 的风格概览表，可单独维护说明文字；该表不是画廊运行时注册来源。
