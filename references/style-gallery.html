@@ -44,39 +44,16 @@
     /* Header */
     header {
       text-align: center;
-      margin-bottom: 48px;
+      margin-bottom: 36px;
     }
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      color: var(--accent);
-      background: var(--accent-glow);
-      border: 1px solid rgba(56, 189, 248, 0.25);
-      padding: 6px 16px;
-      border-radius: 999px;
-      margin-bottom: 20px;
-    }
-    .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
     h1 {
-      font-size: clamp(32px, 4vw, 48px);
+      font-size: clamp(30px, 3.6vw, 44px);
       font-weight: 800;
-      letter-spacing: 0;
-      margin-bottom: 14px;
+      letter-spacing: -0.01em;
+      margin-bottom: 0;
       background: linear-gradient(180deg, #FFFFFF 30%, #94A3B8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-    }
-    p.lead {
-      color: var(--text-sec);
-      font-size: 17px;
-      line-height: 1.65;
-      max-width: 720px;
-      margin: 0 auto;
     }
 
     /* Filters */
@@ -300,6 +277,7 @@
       -webkit-backdrop-filter: blur(16px) saturate(180%);
       border: 1px solid rgba(255, 255, 255, 0.12);
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+      color: var(--text-sec);
       cursor: pointer;
       padding: 0;
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -309,16 +287,11 @@
       transform: translateY(-1px);
       border-color: rgba(255, 255, 255, 0.24);
       background: rgba(12, 15, 20, 0.9);
+      color: #F8FAFC;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
     }
     .action-btn:active {
       transform: translateY(0);
-    }
-    .action-btn-back {
-      color: var(--text-sec);
-    }
-    .action-btn-back:hover {
-      color: #F8FAFC;
     }
     .action-btn-back:hover .action-svg {
       transform: translateX(-1.5px);
@@ -326,16 +299,6 @@
     .action-svg {
       display: block;
       transition: transform 0.2s ease, opacity 0.2s ease;
-    }
-    .action-btn-use {
-      color: #7DD3FC;
-      background: rgba(14, 165, 233, 0.12);
-      border-color: rgba(56, 189, 248, 0.28);
-    }
-    .action-btn-use:hover {
-      color: #F0F9FF;
-      background: rgba(56, 189, 248, 0.22);
-      border-color: rgba(56, 189, 248, 0.5);
     }
     .action-icon-check {
       display: none;
@@ -357,12 +320,47 @@
       border-color: rgba(244, 63, 94, 0.5) !important;
     }
 
+    /* Toast Floating Notification */
+    .toast-notify {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-10px);
+      z-index: 100;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: 999px;
+      background: rgba(12, 15, 20, 0.88);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+      color: #F8FAFC;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 500;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .toast-notify.is-visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .toast-notify .toast-icon {
+      color: #34D399;
+      flex-shrink: 0;
+    }
+
     @media (max-width: 860px) {
       .gallery-grid { grid-template-columns: 1fr; }
       body { padding: 32px 16px 72px; }
       header { margin-bottom: 32px; }
       .floating-actions { top: 12px; left: 12px; gap: 6px; }
       .action-btn { width: 32px; height: 32px; border-radius: 7px; }
+      .toast-notify { top: 16px; font-size: 12px; padding: 7px 14px; }
     }
   </style>
 </head>
@@ -370,12 +368,7 @@
 
   <main class="wrap" id="gallery-view">
     <header>
-      <div class="eyebrow">
-        <span class="dot"></span>
-        VISUAL HTML STYLE PACKS // 3.0
-      </div>
       <h1>设计风格全量画廊</h1>
-      <p class="lead">已内置 <span id="style-count">0</span> 套独立演进的可插拔设计系统。先查看风格预览；点击“使用此风格”即可复制选择文本，粘贴到对话后继续。</p>
     </header>
 
     <!-- Filter Buttons -->
@@ -412,11 +405,18 @@
     <iframe class="preview-frame" id="preview-frame" title="风格示例预览"></iframe>
   </section>
 
+  <div id="toast-notify" class="toast-notify" role="status" aria-live="polite" hidden>
+    <svg class="toast-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+    <span id="toast-message">风格已复制</span>
+  </div>
+
   <p id="copy-status" class="sr-only" aria-live="polite"></p>
 
   <script>
     function selectionPrompt(styleId, styleName) {
-      return `我选择了视觉风格“${styleName}”（style_id: ${styleId}）。`;
+      return `使用视觉风格“${styleName}”（style_id: ${styleId}）。`;
     }
 
     const copyFeedbackTimers = new WeakMap();
@@ -462,12 +462,39 @@
       if (!copied) throw new Error('当前浏览器禁止访问剪贴板');
     }
 
+    let toastTimer = null;
+    let toastHideTimer = null;
+
+    function showToast(message = '风格已复制') {
+      const toast = document.getElementById('toast-notify');
+      const toastMsg = document.getElementById('toast-message');
+      if (!toast || !toastMsg) return;
+      toastMsg.textContent = message;
+      toast.hidden = false;
+      void toast.offsetWidth;
+      toast.classList.add('is-visible');
+
+      window.clearTimeout(toastTimer);
+      window.clearTimeout(toastHideTimer);
+
+      toastTimer = window.setTimeout(() => {
+        toast.classList.remove('is-visible');
+        toastHideTimer = window.setTimeout(() => {
+          if (!toast.classList.contains('is-visible')) {
+            toast.hidden = true;
+          }
+        }, 240);
+      }, 1900);
+    }
+
     async function copyStyleSelection(styleId, styleName, button) {
       try {
         await copyText(selectionPrompt(styleId, styleName));
         showCopyFeedback(button, '✓ 风格已复制', 'copy-success');
+        showToast('风格已复制');
       } catch (error) {
         showCopyFeedback(button, '复制失败', 'copy-failure');
+        showToast('复制失败，请重试');
       }
     }
 
@@ -479,7 +506,6 @@
     const previewBack = document.getElementById('preview-back');
     const previewUse = document.getElementById('preview-use');
     const galleryGrid = document.getElementById('grid');
-    const styleCount = document.getElementById('style-count');
     const baseTitle = document.title;
     const galleryStateKey = 'visual-html-gallery-state';
     let activeFilter = 'all';
@@ -537,7 +563,6 @@
       const fragment = document.createDocumentFragment();
       styles.forEach(style => fragment.appendChild(createStyleCard(style)));
       galleryGrid.replaceChildren(fragment);
-      styleCount.textContent = String(styles.length);
       document.querySelector('.filter-btn[data-filter="all"]').textContent = `全部风格 (${styles.length})`;
     }
 

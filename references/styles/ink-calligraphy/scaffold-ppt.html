@@ -10,7 +10,7 @@
 <style>
 /* ============================================================
    Ink Calligraphy (宣纸泼墨挥毫风) — 16:9 PPT Slides Scaffold
-   古法生宣 · 墨分五色 · 自然飞溅墨星 · 朱砂篆刻印章
+   古法生宣 · 墨分五色 · 背景狂草飞白大线条 · 朱砂篆刻印章
    ============================================================ */
 
 :root {
@@ -89,6 +89,17 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.045'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 0;
+}
+
+/* 背景狂草飞白大线条 SVG */
+.slide-brush-strokes {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.75;
 }
 
 /* 自然落墨飞溅墨星 */
@@ -307,6 +318,10 @@ p.slide-lead {
 
   <!-- SLIDE 1: COVER / HERO -->
   <section class="slide">
+    <svg class="slide-brush-strokes" viewBox="0 0 1160 652" preserveAspectRatio="none">
+      <path d="M 700,-50 C 850,50 1000,160 1120,380 C 1180,500 1200,650 1220,800" fill="none" stroke="#141312" stroke-width="32" stroke-linecap="round" stroke-dasharray="100 16 200 24 80 12" opacity="0.12" />
+      <path d="M -50,480 C 250,440 600,520 950,460 C 1150,420 1250,480 1350,450" fill="none" stroke="#141312" stroke-width="24" stroke-linecap="round" stroke-dasharray="180 20 280 24" opacity="0.08" />
+    </svg>
     <div class="ink-drop drop-1"></div>
     <div class="ink-drop drop-2"></div>
     <div class="ink-drop drop-3"></div>
@@ -333,6 +348,9 @@ p.slide-lead {
 
   <!-- SLIDE 2: EXECUTIVE SUMMARY / STATS -->
   <section class="slide">
+    <svg class="slide-brush-strokes" viewBox="0 0 1160 652" preserveAspectRatio="none">
+      <path d="M -50,200 C 250,150 550,280 850,220" fill="none" stroke="#141312" stroke-width="24" stroke-linecap="round" stroke-dasharray="140 18 220 22" opacity="0.08" />
+    </svg>
     <div class="ink-drop drop-1"></div>
     <div class="slide-content">
       <div>
@@ -367,6 +385,9 @@ p.slide-lead {
 
   <!-- SLIDE 3: THREE PILLARS / METHODOLOGY -->
   <section class="slide">
+    <svg class="slide-brush-strokes" viewBox="0 0 1160 652" preserveAspectRatio="none">
+      <path d="M 800,100 C 950,200 1100,320 1200,500" fill="none" stroke="#141312" stroke-width="28" stroke-linecap="round" stroke-dasharray="120 16 180 20" opacity="0.09" />
+    </svg>
     <div class="ink-drop drop-2"></div>
     <div class="slide-content">
       <div>
@@ -403,6 +424,9 @@ p.slide-lead {
 
   <!-- SLIDE 4: TIMELINE / EVOLUTION -->
   <section class="slide">
+    <svg class="slide-brush-strokes" viewBox="0 0 1160 652" preserveAspectRatio="none">
+      <path d="M -50,550 C 350,480 750,580 1200,520" fill="none" stroke="#141312" stroke-width="26" stroke-linecap="round" stroke-dasharray="160 20 300 25" opacity="0.08" />
+    </svg>
     <div class="ink-drop drop-3"></div>
     <div class="slide-content">
       <div>

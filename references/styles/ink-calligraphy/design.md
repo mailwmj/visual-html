@@ -6,19 +6,22 @@
 
 界面的核心视觉特征包括：
 
-1. **粗粝古法生宣背景与自然落墨微星（Layer 0: Ambient Xuan Canvas）**：
+1. **原生零依赖 WebGL 动态水墨烟岚与交互运笔引擎（Layer 0-A: Dynamic Ink Canvas）**：
+   - 视口基底搭载轻量原生 WebGL 着色器（Fragment Shader），基于分形布朗运动（fBm）模拟水墨在粗粝宣纸纤维中的缓慢扩散与烟岚呼吸（Fluid Ink Wash & Smoke Drift）；
+   - **运笔落墨交互**：光标划过页面时，如毛笔蘸水在宣纸上掠过，实时荡开动态水墨微晕与墨痕微澜，随后在 2~3 秒内自然渗入纸张淡出（Ink Bloom Diffusion）。
+2. **巨幅狂草毛笔水墨线条与写意飞白笔触（Layer 0-B: Ambient Brush Sweeps）**：
+   - 贯穿全景视口的巨幅狂草飞白大笔触（如右上苍劲大龙形扫笔、左下写意淡墨横波），笔势雄浑，带有清晰的丝缕枯笔拉丝（Feathered Bristle Striations），营造身临国家级书法艺术长卷大展的沉浸纵深。
+3. **粗粝古法生宣背景与自然落墨微星（Layer 0-B: Rough Xuan Paper Texture）**：
    - 视口基底选用温润古朴的古法生宣米黄调（`#F5F2EB` / `#FAF7F0`），叠加微观皮纸植物纤维杂质与帘纹糙面滤镜（Rough Mulberry Fiber Grain），彻底摆脱工业纯白与冷光屏幕的冰冷感；
    - 页面背景与标题周围点缀自然行笔时甩落的**有机墨滴与墨星（Ink Droplets & Splatters）**，大小从 1~3px 的微观墨星到 4~8px 的落墨水晕，模拟真实书法创作时的自然偶得与淋漓墨趣。
-2. **苍劲狂草/榜书大标题与古典宋体正文系统（Typography Scale）**：
+4. **苍劲狂草/榜书大标题与古典宋体正文系统（Typography Scale）**：
    - Hero 主标题与章节大标题引入苍劲流畅的行草/榜书毛笔体（`"Ma Shan Zheng"`, `"Long Cang"` 或书法回退栈），笔势雄浑，气贯长虹；
    - 副标题与卡片标题使用骨力挺拔的高阶古典宋体（`"Noto Serif SC"`, `"Source Han Serif SC"`, `"Songti SC"`）；
    - 正文使用高清晰度无衬线屏显字体，行高设定为 `1.85`，留白透气，深具文人墨卷的雅致秩序。
-3. **朱砂篆刻印章点睛（Vermilion Cinnabar Seal）**：
+5. **朱砂篆刻印章点睛（Vermilion Cinnabar Seal）**：
    - 模块 Eyebrow 标头、章节索引、拍板决策（Approved）与推荐徽章采用古典矿物朱砂红（`#C23531` / `#D43825`），以方圆篆刻印泥边框与朱文/白文印章形式点缀，控制在 3%~5% 的视觉面积，达到提神醒脑的平衡效果。
-4. **中国画“墨分五色”阶梯谱系（Five Shades of Ink）**：
+6. **中国画“墨分五色”阶梯谱系（Five Shades of Ink）**：
    - 颜色阶梯严格取自传统墨法：焦墨（`#141312`）、浓墨（`#2B2927`）、重墨（`#524E48`）、淡墨（`#7E7972`）、清墨洗底（`#EBE6DC`）与温润古赭（`#B37D36`）。
-5. **毛笔飞白扫墨横纹与撕边质感（Dry Brush Dividers）**：
-   - 章节过渡与数据卡片采用枯笔飞白拉丝的横向墨线，取代机械单调的普通灰色实线。
 
 ---
 
@@ -110,15 +113,34 @@
 ## 3. Mandatory Skeleton Contract (强制结构契约)
 
 ```html
-<!-- Layer 0: Ambient Xuan Paper Texture with Mulberry Fibers & Organic Ink Splatters -->
+<!-- Layer 0-A: WebGL Dynamic Ink Wash Canvas -->
+<canvas id="ink-webgl-canvas" aria-hidden="true"></canvas>
+
+<!-- Layer 0-B: Ambient Xuan Paper Texture with Mulberry Fibers, Sweeping Calligraphic Strokes & Organic Ink Splatters -->
 <div class="ambient-xuan-bg" aria-hidden="true">
-  <!-- SVG Filter for Xuan Paper Grain & Rough Texture -->
-  <svg class="paper-texture-filter" width="0" height="0">
-    <filter id="xuan-grain">
-      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" result="noise" />
-      <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.035 0" />
-      <feComposite in2="SourceGraphic" in="gl" operator="in" />
-    </filter>
+  <!-- 巨幅狂草毛笔水墨线条与写意飞白笔触 (Colossal Sweeping Calligraphic Strokes) -->
+  <svg class="ambient-brush-strokes" viewBox="0 0 1920 1080" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="brushFadeRight" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#141312" stop-opacity="0.22" />
+        <stop offset="50%" stop-color="#2B2927" stop-opacity="0.12" />
+        <stop offset="100%" stop-color="#524E48" stop-opacity="0.01" />
+      </linearGradient>
+      <linearGradient id="brushFadeLeft" x1="100%" y1="100%" x2="0%" y2="0%">
+        <stop offset="0%" stop-color="#141312" stop-opacity="0.18" />
+        <stop offset="60%" stop-color="#524E48" stop-opacity="0.08" />
+        <stop offset="100%" stop-color="#7E7972" stop-opacity="0.01" />
+      </linearGradient>
+    </defs>
+    <!-- 狂草大龙形扫笔 (Top-Right Sweeping Curve with Flying White Bristles) -->
+    <g transform="translate(1100, -120) rotate(18)">
+      <path d="M 0,200 C 300,100 650,220 900,450 C 1050,580 1100,800 1150,1100" fill="none" stroke="url(#brushFadeRight)" stroke-width="48" stroke-linecap="round" stroke-dasharray="120 15 280 20 90 10" opacity="0.85" />
+      <path d="M 15,220 C 315,115 660,235 910,465 C 1055,590 1105,810 1155,1110" fill="none" stroke="#141312" stroke-width="16" stroke-linecap="round" stroke-dasharray="40 8 160 12 70 8" opacity="0.35" />
+    </g>
+    <!-- 写意淡墨横波 (Bottom-Left Calligraphic Grounding Stroke) -->
+    <g transform="translate(-180, 680) rotate(-6)">
+      <path d="M 0,180 C 420,120 950,240 1500,160 C 1800,110 2100,190 2400,140" fill="none" stroke="url(#brushFadeLeft)" stroke-width="36" stroke-linecap="round" stroke-dasharray="240 25 380 30 140 15" opacity="0.75" />
+    </g>
   </svg>
   
   <!-- Organic Ink Splatters & Drops (自然飞溅墨滴) -->
@@ -133,61 +155,6 @@
 <main class="main-sheet">
   <!-- Layer 2: All Semantic Components go here -->
 </main>
-```
-
-```css
-/* Xuan Paper Ambient Layer */
-body {
-  background-color: var(--bg);
-  background-image: 
-    radial-gradient(ellipse at 85% 10%, rgba(179, 125, 54, 0.04), transparent 50%),
-    radial-gradient(ellipse at 15% 80%, rgba(20, 19, 18, 0.03), transparent 60%);
-  color: var(--text-primary);
-  font-family: var(--font-sans);
-  line-height: 1.85;
-  padding: 40px 24px 80px;
-  position: relative;
-  min-height: 100vh;
-}
-
-/* Rough Xuan Paper Noise Overlay */
-.ambient-xuan-bg::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.045'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Organic Ink Splatters (挥毫墨滴微星) */
-.ink-splatter {
-  position: fixed;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-  background: radial-gradient(circle, rgba(20, 19, 18, 0.85) 0%, rgba(20, 19, 18, 0.35) 70%, transparent 100%);
-}
-.ink-sp-1 { width: 5px; height: 5px; top: 7%; right: 12%; opacity: 0.55; }
-.ink-sp-2 { width: 3px; height: 3px; top: 14%; right: 9%; opacity: 0.40; }
-.ink-sp-3 { width: 7px; height: 6px; top: 22%; left: 8%; opacity: 0.45; transform: rotate(25deg); }
-.ink-sp-4 { width: 2px; height: 2px; top: 48%; right: 6%; opacity: 0.35; }
-.ink-sp-5 { width: 4px; height: 4px; bottom: 18%; left: 11%; opacity: 0.40; }
-
-/* Main Carrier Board */
-.main-sheet {
-  max-width: var(--container);
-  margin: 0 auto;
-  background: var(--surface-card);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: 0 16px 48px rgba(20, 19, 18, 0.05), 0 1px 4px rgba(20, 19, 18, 0.02);
-  padding: 56px 48px;
-  position: relative;
-  z-index: 1;
-}
 ```
 
 ---
@@ -211,95 +178,29 @@ body {
 
 ---
 
-## 5. Signature Component Patterns (特征组件规范)
-
-### 1. 朱砂篆刻印章标头 (Vermilion Seal Eyebrow)
-```html
-<div class="eyebrow">
-  <span class="seal-mark">墨</span>
-  <span>01 / CALLIGRAPHIC_ESSENCE</span>
-  <span class="brush-trail"></span>
-</div>
-```
-```css
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  color: var(--signal-seal);
-  margin-bottom: 16px;
-}
-.seal-mark {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  background: var(--signal-seal);
-  color: #FAF7F0;
-  font-family: var(--font-calligraphy);
-  font-size: 11px;
-  border-radius: 2px;
-  box-shadow: 0 1px 4px rgba(194, 53, 49, 0.25);
-}
-.brush-trail {
-  width: 28px;
-  height: 1.5px;
-  background: linear-gradient(90deg, var(--signal-seal) 0%, transparent 100%);
-}
-```
-
-### 2. 飞白水墨横向分割线 (Dry Brush Stroke Divider)
-```html
-<div class="brush-divider" aria-hidden="true">
-  <svg viewBox="0 0 1000 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0 6C150 5 300 8 500 6C700 4 850 7 1000 6" stroke="rgba(20, 19, 18, 0.18)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="8 3 14 2 20 4 3 2"/>
-  </svg>
-</div>
-```
-
-### 3. 朱批手札提示框 (Vermilion Inscribed Admonition)
-```html
-<div class="admonition admonition-tip">
-  <div class="admonition-seal">批</div>
-  <div class="admonition-content">
-    <h4>古法笔意提示</h4>
-    <p>计白当黑，知白守黑。页面留白不是空无，而是气韵流转之所在。</p>
-  </div>
-</div>
-```
-
----
-
-## 6. Do's and Don'ts
+## 5. Do's and Don'ts
 
 ### 7 项核心金律 (Do's)
 1. **Do** 必须保持古法生宣米黄温润底色与微观粗糙纤维噪点，杜绝冷光刺眼的无质感白底；
-2. **Do** 视口与大标题周围必须有克制、自然的飞溅墨滴微星（Ink Splatters），营造真实案头落墨之美；
+2. **Do** 背景层必须包含巨幅狂草飞白大线条装饰与 WebGL 动态水墨烟岚，呈现深邃写意纵深；
 3. **Do** Hero 主标题与阶段标题优先采用苍劲毛笔书法体（`"Ma Shan Zheng"`）或高阶古典宋体；
 4. **Do** 标头、推荐卡片与拍板确认必须点缀朱砂印章红色调（`#C23531`），面积控制在 3%~5%；
 5. **Do** 严格遵循“墨分五色”（焦、浓、重、淡、清）的明度秩序传达信息层级；
-6. **Do** 必须在容器与卡片间保持充裕疏朗的“计白当黑”留白空间，行高不低于 1.85；
+6. **Do** 鼠标滑动时支持水墨微澜交互扩散，零外部库依赖，60 FPS 极低开销；
 7. **Do** 100% 完整保留长篇长文本细节，所有未经特殊卡片归类的长篇论述一律放入 `.rich-text` 中完整呈现。
 
 ### 7 项严禁红线 (Don'ts)
-1. **Don't** 严禁大面积铺洒黑色形成脏乱污迹，墨滴飞溅必须精巧微观（1~8px），严禁遮挡任何文字；
-2. **Don't** 严禁使用生硬现代的荧光高亮色（如荧光绿、电光紫），只能使用矿物朱砂、古赭与石青；
-3. **Don't** 严禁出现未经裁切的顶部悬浮直角色条（Anti-Pattern: Unclipped top accent bars）；
-4. **Don't** 严禁在标题与卡片之间压缩间距导致文字下延笔画（Descender）被裁切；
-5. **Don't** 严禁在生成的 HTML 中输出任何 `<!-- 更多内容省略 -->` 等偷懒占位符；
-6. **Don't** 严禁随意使用现代无序 Emoji（如 🚀, 💡, 🔥），应用朱砂印记（`印` / `卷` / `批` / `◆` / `✦`）或中式标点（`「 」`, `【 】`）替代；
-7. **Don't** 严禁将卡片漂白为生硬的冷白矩形，必须保留宣纸微透（`rgba(255, 253, 248, 0.94)`）与淡墨边框。
+1. **Don't** 严禁大面积铺洒黑色形成脏乱污迹，墨滴飞溅与水墨流动必须精巧克制，严禁遮挡正文；
+2. **Don't** 严禁引入体积巨大的外部 WebGL 库（如 Three.js / Pixi.js），必须使用原生轻量着色器；
+3. **Don't** 严禁使用生硬现代的荧光高亮色（如荧光绿、电光紫），只能使用矿物朱砂、古赭与石青；
+4. **Don't** 严禁出现未经裁切的顶部悬浮直角色条（Anti-Pattern: Unclipped top accent bars）；
+5. **Don't** 严禁在标题与卡片之间压缩间距导致文字下延笔画（Descender）被裁切；
+6. **Don't** 严禁在生成的 HTML 中输出任何 `<!-- 更多内容省略 -->` 等偷懒占位符；
+7. **Don't** 严禁随意使用现代无序 Emoji（如 🚀, 💡, 🔥），应用朱砂印记（`印` / `卷` / `批` / `◆` / `✦`）替代。
 
 ---
 
-## 7. Mermaid Theme Configuration
-
-在线增强时，在 `</body>` 前注入以下匹配宣纸泼墨挥毫风的 `themeVariables`；最终交付仍需使用 `references/scripts/bundle_offline.py` 生成静态 SVG fallback：
+## 6. Mermaid Theme Configuration
 
 ```js
 mermaid.initialize({
@@ -319,15 +220,3 @@ mermaid.initialize({
   }
 });
 ```
-
----
-
-## 8. Quality Checklist
-
-- [ ] **古法宣纸粗糙底色**：是否具备生宣纸温润底色与微观纤维颗粒感，杜绝生硬纯白？
-- [ ] **自然落墨飞溅墨星**：视口四周与重点区域是否有点缀克制自然的有机墨滴（Ink Splatters）？
-- [ ] **毛笔书法字体栈**：大标题是否正确应用书法体（`Ma Shan Zheng`）及宋体/楷体回退栈？
-- [ ] **朱砂印章点睛**：标头与关键推荐项是否具备方正精致的朱砂印章点缀（面积 3%~5%）？
-- [ ] **墨分五色色谱**：色彩层级是否清晰严谨（焦墨标题、浓墨正文、重墨导读、淡墨注释）？
-- [ ] **信息完整度**：原文 18 项语义骨架与全部长文细节是否 100% 完整保留？
-- [ ] **离线交付**：断网时是否使用系统字体、静态 SVG 和已内联的本地资源？
