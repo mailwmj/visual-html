@@ -10,7 +10,7 @@
 <style>
 /* ============================================================
    Ink Calligraphy (宣纸泼墨挥毫风) — 16:9 PPT Slides Scaffold
-   古法生宣 · 墨分五色 · 背景狂草飞白大线条 · 朱砂篆刻印章
+   古法生宣 · 墨分五色 · 真迹毛笔书法全景背景 · 朱砂篆刻印章
    ============================================================ */
 
 :root {
@@ -68,9 +68,9 @@ body {
   width: min(92vw, 1160px);
   aspect-ratio: 16/9;
   background-color: var(--bg);
-  background-image: 
-    radial-gradient(ellipse at 85% 15%, rgba(179, 125, 54, 0.04), transparent 50%),
-    radial-gradient(ellipse at 15% 85%, rgba(20, 19, 18, 0.03), transparent 60%);
+  background-image: url('assets/calligraphy-bg.jpg');
+  background-size: cover;
+  background-position: center;
   border-radius: var(--radius);
   border: 1px solid rgba(20, 19, 18, 0.12);
   box-shadow: 0 20px 50px rgba(20, 19, 18, 0.10), 0 2px 6px rgba(20, 19, 18, 0.04);
@@ -80,39 +80,6 @@ body {
   justify-content: space-between;
   overflow: hidden;
 }
-
-/* 宣纸粗糙纤维噪点 */
-.slide::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.045'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* 背景狂草飞白大线条 SVG */
-.slide-brush-strokes {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.75;
-}
-
-/* 自然落墨飞溅墨星 */
-.slide .ink-drop {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  background: radial-gradient(circle, rgba(20, 19, 18, 0.85) 0%, rgba(20, 19, 18, 0.35) 70%, transparent 100%);
-  z-index: 0;
-}
-.slide .drop-1 { width: 5px; height: 5px; top: 10%; right: 12%; opacity: 0.60; }
-.slide .drop-2 { width: 3px; height: 3px; top: 18%; right: 9%; opacity: 0.40; }
-.slide .drop-3 { width: 7px; height: 5px; bottom: 15%; left: 8%; opacity: 0.45; transform: rotate(30deg); }
 
 .slide-content {
   position: relative;
@@ -318,13 +285,6 @@ p.slide-lead {
 
   <!-- SLIDE 1: COVER / HERO -->
   <section class="slide">
-    <svg class="slide-brush-strokes" viewBox="0 0 1160 652" preserveAspectRatio="none">
-      <path d="M 700,-50 C 850,50 1000,160 1120,380 C 1180,500 1200,650 1220,800" fill="none" stroke="#141312" stroke-width="32" stroke-linecap="round" stroke-dasharray="100 16 200 24 80 12" opacity="0.12" />
-      <path d="M -50,480 C 250,440 600,520 950,460 C 1150,420 1250,480 1350,450" fill="none" stroke="#141312" stroke-width="24" stroke-linecap="round" stroke-dasharray="180 20 280 24" opacity="0.08" />
-    </svg>
-    <div class="ink-drop drop-1"></div>
-    <div class="ink-drop drop-2"></div>
-    <div class="ink-drop drop-3"></div>
     <div class="slide-content">
       <div>
         <div class="eyebrow">
@@ -336,7 +296,7 @@ p.slide-lead {
       <div>
         <h1 class="slide-title">笔墨气韵 · 宣纸泼墨万象生</h1>
         <p class="slide-lead">
-          将中国传统书法美学、生宣纸粗糙纤维与自然落墨意境，注入现代高阶 16:9 演示文稿中，塑造温润而有骨力的东方文人视觉。
+          将中国传统书法美学、生宣纸粗糙纤维与真迹水墨飞白意境，注入现代高阶 16:9 演示文稿中，塑造温润而有骨力的东方文人视觉。
         </p>
       </div>
       <div class="slide-footer">
@@ -348,10 +308,6 @@ p.slide-lead {
 
   <!-- SLIDE 2: EXECUTIVE SUMMARY / STATS -->
   <section class="slide">
-    <svg class="slide-brush-strokes" viewBox="0 0 1160 652" preserveAspectRatio="none">
-      <path d="M -50,200 C 250,150 550,280 850,220" fill="none" stroke="#141312" stroke-width="24" stroke-linecap="round" stroke-dasharray="140 18 220 22" opacity="0.08" />
-    </svg>
-    <div class="ink-drop drop-1"></div>
     <div class="slide-content">
       <div>
         <div class="eyebrow">
@@ -385,10 +341,6 @@ p.slide-lead {
 
   <!-- SLIDE 3: THREE PILLARS / METHODOLOGY -->
   <section class="slide">
-    <svg class="slide-brush-strokes" viewBox="0 0 1160 652" preserveAspectRatio="none">
-      <path d="M 800,100 C 950,200 1100,320 1200,500" fill="none" stroke="#141312" stroke-width="28" stroke-linecap="round" stroke-dasharray="120 16 180 20" opacity="0.09" />
-    </svg>
-    <div class="ink-drop drop-2"></div>
     <div class="slide-content">
       <div>
         <div class="eyebrow">
@@ -405,9 +357,9 @@ p.slide-lead {
           <div class="pillar-desc">彻底告别冰冷生硬的工业纯白，还原手工皮纸的微粗糙触感与吸墨感。</div>
         </div>
         <div class="pillar-card">
-          <span class="pillar-badge">02 · 自然落墨</span>
-          <div class="pillar-title">飞溅墨滴与微观墨星</div>
-          <div class="pillar-desc">模拟书法疾书时的笔锋自然甩墨，克制点缀于边角，气韵生动。</div>
+          <span class="pillar-badge">02 · 真迹飞白</span>
+          <div class="pillar-title">干笔拉丝与自然墨趣</div>
+          <div class="pillar-desc">融合真迹毛笔飞白大笔触与微观墨滴，气韵生动，骨力内敛。</div>
         </div>
         <div class="pillar-card">
           <span class="pillar-badge">03 · 朱砂篆刻</span>
@@ -424,10 +376,6 @@ p.slide-lead {
 
   <!-- SLIDE 4: TIMELINE / EVOLUTION -->
   <section class="slide">
-    <svg class="slide-brush-strokes" viewBox="0 0 1160 652" preserveAspectRatio="none">
-      <path d="M -50,550 C 350,480 750,580 1200,520" fill="none" stroke="#141312" stroke-width="26" stroke-linecap="round" stroke-dasharray="160 20 300 25" opacity="0.08" />
-    </svg>
-    <div class="ink-drop drop-3"></div>
     <div class="slide-content">
       <div>
         <div class="eyebrow">

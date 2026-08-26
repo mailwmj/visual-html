@@ -113,43 +113,11 @@
 ## 3. Mandatory Skeleton Contract (强制结构契约)
 
 ```html
-<!-- Layer 0-A: WebGL Dynamic Ink Wash Canvas -->
-<canvas id="ink-webgl-canvas" aria-hidden="true"></canvas>
+<!-- Layer 0-A: Authentic Master Calligraphy Xuan Background Asset (2560x1440) -->
+<div class="ambient-xuan-bg" aria-hidden="true"></div>
 
-<!-- Layer 0-B: Ambient Xuan Paper Texture with Mulberry Fibers, Sweeping Calligraphic Strokes & Organic Ink Splatters -->
-<div class="ambient-xuan-bg" aria-hidden="true">
-  <!-- 巨幅狂草毛笔水墨线条与写意飞白笔触 (Colossal Sweeping Calligraphic Strokes) -->
-  <svg class="ambient-brush-strokes" viewBox="0 0 1920 1080" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="brushFadeRight" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#141312" stop-opacity="0.22" />
-        <stop offset="50%" stop-color="#2B2927" stop-opacity="0.12" />
-        <stop offset="100%" stop-color="#524E48" stop-opacity="0.01" />
-      </linearGradient>
-      <linearGradient id="brushFadeLeft" x1="100%" y1="100%" x2="0%" y2="0%">
-        <stop offset="0%" stop-color="#141312" stop-opacity="0.18" />
-        <stop offset="60%" stop-color="#524E48" stop-opacity="0.08" />
-        <stop offset="100%" stop-color="#7E7972" stop-opacity="0.01" />
-      </linearGradient>
-    </defs>
-    <!-- 狂草大龙形扫笔 (Top-Right Sweeping Curve with Flying White Bristles) -->
-    <g transform="translate(1100, -120) rotate(18)">
-      <path d="M 0,200 C 300,100 650,220 900,450 C 1050,580 1100,800 1150,1100" fill="none" stroke="url(#brushFadeRight)" stroke-width="48" stroke-linecap="round" stroke-dasharray="120 15 280 20 90 10" opacity="0.85" />
-      <path d="M 15,220 C 315,115 660,235 910,465 C 1055,590 1105,810 1155,1110" fill="none" stroke="#141312" stroke-width="16" stroke-linecap="round" stroke-dasharray="40 8 160 12 70 8" opacity="0.35" />
-    </g>
-    <!-- 写意淡墨横波 (Bottom-Left Calligraphic Grounding Stroke) -->
-    <g transform="translate(-180, 680) rotate(-6)">
-      <path d="M 0,180 C 420,120 950,240 1500,160 C 1800,110 2100,190 2400,140" fill="none" stroke="url(#brushFadeLeft)" stroke-width="36" stroke-linecap="round" stroke-dasharray="240 25 380 30 140 15" opacity="0.75" />
-    </g>
-  </svg>
-  
-  <!-- Organic Ink Splatters & Drops (自然飞溅墨滴) -->
-  <div class="ink-splatter ink-sp-1"></div>
-  <div class="ink-splatter ink-sp-2"></div>
-  <div class="ink-splatter ink-sp-3"></div>
-  <div class="ink-splatter ink-sp-4"></div>
-  <div class="ink-splatter ink-sp-5"></div>
-</div>
+<!-- Layer 0-B: Vanilla WebGL Dynamic Ink Wash & Interactive Diffusion Canvas -->
+<canvas id="ink-webgl-canvas" aria-hidden="true"></canvas>
 
 <!-- Layer 1: Carrier Board (素宣悬浮长卷画板) -->
 <main class="main-sheet">
