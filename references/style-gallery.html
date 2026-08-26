@@ -11,14 +11,15 @@
       --surface-2: #1D2533;
       --border: rgba(255, 255, 255, 0.08);
       --border-hover: rgba(56, 189, 248, 0.4);
-      --text-pri: #F1F5F9;
+      --text-pri: #F8FAFC;
       --text-sec: #94A3B8;
       --text-mut: #64748B;
       --accent: #38BDF8;
+      --accent-hover: #0EA5E9;
       --accent-glow: rgba(56, 189, 248, 0.15);
       --radius: 16px;
-      --font-sans: "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", "Segoe UI", sans-serif;
-      --font-mono: "Cascadia Mono", Consolas, "SFMono-Regular", monospace;
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
+      --font-mono: "Cascadia Code", "Cascadia Mono", Consolas, "SFMono-Regular", Menlo, Courier New, monospace;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -87,28 +88,28 @@
       margin-bottom: 40px;
     }
     .filter-btn {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      font-weight: 600;
-      padding: 8px 18px;
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      font-weight: 400;
+      padding: 6px 16px;
       border-radius: 999px;
-      background: var(--surface-1);
-      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       color: var(--text-sec);
       cursor: pointer;
       transition: all 0.2s ease;
     }
     .filter-btn:hover {
-      border-color: var(--accent);
+      border-color: rgba(255, 255, 255, 0.16);
       color: var(--text-pri);
+      background: rgba(255, 255, 255, 0.06);
       transform: translateY(-1px);
     }
     .filter-btn.active {
-      background: var(--accent);
-      color: #0C0F14;
-      border-color: var(--accent);
-      font-weight: 700;
-      box-shadow: 0 0 16px rgba(56, 189, 248, 0.35);
+      background: rgba(56, 189, 248, 0.12);
+      color: #7DD3FC;
+      border-color: rgba(56, 189, 248, 0.35);
+      font-weight: 500;
     }
 
     /* Grid */
@@ -130,9 +131,9 @@
       box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
     }
     .style-card:hover {
-      border-color: var(--border-hover);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4), 0 0 24px var(--accent-glow);
+      border-color: rgba(56, 189, 248, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
     }
     .card-preview {
       width: 100%;
@@ -153,28 +154,9 @@
       transform: scale(1.02);
     }
     .card-body {
-      padding: 16px;
+      padding: 14px 16px 16px;
       display: flex;
       flex-direction: column;
-    }
-    .style-label {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-    .style-name {
-      color: var(--text-pri);
-      font-size: 17px;
-      font-weight: 700;
-      line-height: 1.45;
-    }
-    .style-id {
-      color: var(--text-mut);
-      font-family: var(--font-mono);
-      font-size: 11px;
-      white-space: nowrap;
     }
 
     .card-actions {
@@ -184,55 +166,70 @@
     }
     .btn-use {
       grid-column: span 2;
-      font-family: var(--font-mono);
+      font-family: var(--font-sans);
       font-size: 13px;
-      font-weight: 700;
-      padding: 10px 14px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      padding: 9px 16px;
       border-radius: 8px;
-      background: var(--accent);
-      border: 1px solid var(--accent);
-      color: #0C0F14;
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.24);
+      color: #7DD3FC;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
-      transition: all 0.2s ease;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .btn-use:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .btn-use:hover {
+      background: rgba(56, 189, 248, 0.16);
+      border-color: rgba(56, 189, 248, 0.45);
+      color: #F0F9FF;
+      transform: translateY(-1px);
+    }
+    .btn-use:active {
+      transform: translateY(0);
+      background: rgba(56, 189, 248, 0.22);
+    }
     .btn-link {
-      font-family: var(--font-mono);
+      font-family: var(--font-sans);
       font-size: 12px;
-      font-weight: 700;
-      padding: 8px 12px;
+      font-weight: 400;
+      padding: 7px 12px;
       border-radius: 8px;
-      background: var(--surface-2);
-      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       color: var(--text-sec);
       text-decoration: none;
       text-align: center;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.2s ease;
+      white-space: nowrap;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .btn-link:hover {
       color: var(--text-pri);
-      border-color: var(--accent);
-      background: rgba(56, 189, 248, 0.08);
+      border-color: rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.06);
+      transform: translateY(-1px);
+    }
+    .btn-link:active {
+      transform: translateY(0);
     }
 
     .btn-use.copy-success {
-      background: var(--surface-1);
-      border-color: var(--accent);
-      color: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-glow), 0 0 18px var(--accent-glow);
-      animation: copy-confirm 1.9s ease-out;
+      background: rgba(16, 185, 129, 0.15) !important;
+      border-color: rgba(16, 185, 129, 0.4) !important;
+      color: #6EE7B7 !important;
+      box-shadow: none !important;
+      animation: none;
     }
     .btn-use.copy-failure {
-      background: #3A121E;
-      border-color: #FB7185;
-      color: #FDA4AF;
+      background: rgba(244, 63, 94, 0.15) !important;
+      border-color: rgba(244, 63, 94, 0.4) !important;
+      color: #FDA4AF !important;
     }
     @keyframes copy-confirm {
       0% { box-shadow: 0 0 0 0 var(--accent-glow); }
@@ -356,6 +353,22 @@
 
   <main class="wrap" id="gallery-view">
     <header>
+      <div class="eyebrow">
+        <span class="dot"></span>
+        VISUAL HTML STYLE PACKS // 3.0
+      </div>
+      <h1>设计风格全量画廊</h1>
+      <p class="lead">已内置 16 套独立演进的可插拔设计系统。先查看风格预览；点击“使用此风格”即可复制选择文本，粘贴到对话后继续。</p>
+    </header>
+
+    <!-- Filter Buttons -->
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">全部风格 (16)</button>
+      <button class="filter-btn" data-filter="tech">硬核科技 / 参数展示</button>
+      <button class="filter-btn" data-filter="pop">潮流创意 / 像素波普</button>
+      <button class="filter-btn" data-filter="editorial">人文社论 / 智识工作流</button>
+      <button class="filter-btn" data-filter="lifestyle">清新雅致 / 生活方式</button>
+    </div>
 
     <!-- Gallery Grid -->
     <div class="gallery-grid" id="grid">
@@ -368,8 +381,8 @@
         <div class="card-body">
           <div class="card-actions">
             <button type="button" class="btn-use" onclick="copyStyleSelection('industrial-dark', '暗黑极客工业风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/industrial-dark/scaffold-web.html">网页示例</a>
-            <a class="btn-link" href="styles/industrial-dark/scaffold-ppt.html">PPT 示例</a>
+            <a class="btn-link" href="styles/industrial-dark/scaffold-web.html">查看网页 Demo</a>
+            <a class="btn-link" href="styles/industrial-dark/scaffold-ppt.html">查看 PPT 模版</a>
           </div>
         </div>
       </div>
@@ -382,8 +395,8 @@
         <div class="card-body">
           <div class="card-actions">
             <button type="button" class="btn-use" onclick="copyStyleSelection('soft-sky', '清透空灵浅蓝风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/soft-sky/scaffold-web.html">网页示例</a>
-            <a class="btn-link" href="styles/soft-sky/scaffold-ppt.html">PPT 示例</a>
+            <a class="btn-link" href="styles/soft-sky/scaffold-web.html">查看网页 Demo</a>
+            <a class="btn-link" href="styles/soft-sky/scaffold-ppt.html">查看 PPT 模版</a>
           </div>
         </div>
       </div>
@@ -396,8 +409,8 @@
         <div class="card-body">
           <div class="card-actions">
             <button type="button" class="btn-use" onclick="copyStyleSelection('obsidian-cyan', '黑曜霓蓝展厅风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/obsidian-cyan/scaffold-web.html">网页示例</a>
-            <a class="btn-link" href="styles/obsidian-cyan/scaffold-ppt.html">PPT 示例</a>
+            <a class="btn-link" href="styles/obsidian-cyan/scaffold-web.html">查看网页 Demo</a>
+            <a class="btn-link" href="styles/obsidian-cyan/scaffold-ppt.html">查看 PPT 模版</a>
           </div>
         </div>
       </div>
@@ -410,8 +423,8 @@
         <div class="card-body">
           <div class="card-actions">
             <button type="button" class="btn-use" onclick="copyStyleSelection('play-tubular', '玩味极客彩管风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/play-tubular/scaffold-web.html">网页示例</a>
-            <a class="btn-link" href="styles/play-tubular/scaffold-ppt.html">PPT 示例</a>
+            <a class="btn-link" href="styles/play-tubular/scaffold-web.html">查看网页 Demo</a>
+            <a class="btn-link" href="styles/play-tubular/scaffold-ppt.html">查看 PPT 模版</a>
           </div>
         </div>
       </div>
@@ -424,8 +437,8 @@
         <div class="card-body">
           <div class="card-actions">
             <button type="button" class="btn-use" onclick="copyStyleSelection('warm-craft', '温润纸感手札风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/warm-craft/scaffold-web.html">网页示例</a>
-            <a class="btn-link" href="styles/warm-craft/scaffold-ppt.html">PPT 示例</a>
+            <a class="btn-link" href="styles/warm-craft/scaffold-web.html">查看网页 Demo</a>
+            <a class="btn-link" href="styles/warm-craft/scaffold-ppt.html">查看 PPT 模版</a>
           </div>
         </div>
       </div>
@@ -438,8 +451,8 @@
         <div class="card-body">
           <div class="card-actions">
             <button type="button" class="btn-use" onclick="copyStyleSelection('neon-3d', '暗紫流体极光风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/neon-3d/scaffold-web.html">网页示例</a>
-            <a class="btn-link" href="styles/neon-3d/scaffold-ppt.html">PPT 示例</a>
+            <a class="btn-link" href="styles/neon-3d/scaffold-web.html">查看网页 Demo</a>
+            <a class="btn-link" href="styles/neon-3d/scaffold-ppt.html">查看 PPT 模版</a>
           </div>
         </div>
       </div>
@@ -452,8 +465,8 @@
         <div class="card-body">
           <div class="card-actions">
             <button type="button" class="btn-use" onclick="copyStyleSelection('pixel-pop', '日系像素波普风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/pixel-pop/scaffold-web.html">网页示例</a>
-            <a class="btn-link" href="styles/pixel-pop/scaffold-ppt.html">PPT 示例</a>
+            <a class="btn-link" href="styles/pixel-pop/scaffold-web.html">查看网页 Demo</a>
+            <a class="btn-link" href="styles/pixel-pop/scaffold-ppt.html">查看 PPT 模版</a>
           </div>
         </div>
       </div>
@@ -466,8 +479,8 @@
         <div class="card-body">
           <div class="card-actions">
             <button type="button" class="btn-use" onclick="copyStyleSelection('brutalist-acid', '先锋撞色海报风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/brutalist-acid/scaffold-web.html">网页示例</a>
-            <a class="btn-link" href="styles/brutalist-acid/scaffold-ppt.html">PPT 示例</a>
+            <a class="btn-link" href="styles/brutalist-acid/scaffold-web.html">查看网页 Demo</a>
+            <a class="btn-link" href="styles/brutalist-acid/scaffold-ppt.html">查看 PPT 模版</a>
           </div>
         </div>
       </div>
@@ -480,8 +493,8 @@
         <div class="card-body">
           <div class="card-actions">
             <button type="button" class="btn-use" onclick="copyStyleSelection('sunflower-bloom', '向日葵暖阳风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/sunflower-bloom/scaffold-web.html">网页示例</a>
-            <a class="btn-link" href="styles/sunflower-bloom/scaffold-ppt.html">PPT 示例</a>
+            <a class="btn-link" href="styles/sunflower-bloom/scaffold-web.html">查看网页 Demo</a>
+            <a class="btn-link" href="styles/sunflower-bloom/scaffold-ppt.html">查看 PPT 模版</a>
           </div>
         </div>
       </div>
@@ -494,8 +507,8 @@
         <div class="card-body">
           <div class="card-actions">
             <button type="button" class="btn-use" onclick="copyStyleSelection('summer-dopamine', '夏日多巴胺风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/summer-dopamine/scaffold-web.html">网页示例</a>
-            <a class="btn-link" href="styles/summer-dopamine/scaffold-ppt.html">PPT 示例</a>
+            <a class="btn-link" href="styles/summer-dopamine/scaffold-web.html">查看网页 Demo</a>
+            <a class="btn-link" href="styles/summer-dopamine/scaffold-ppt.html">查看 PPT 模版</a>
           </div>
         </div>
       </div>
@@ -508,8 +521,8 @@
         <div class="card-body">
           <div class="card-actions">
             <button type="button" class="btn-use" onclick="copyStyleSelection('soft-editorial-future', '极简未来展厅风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/soft-editorial-future/scaffold-web.html">网页示例</a>
-            <a class="btn-link" href="styles/soft-editorial-future/scaffold-ppt.html">PPT 示例</a>
+            <a class="btn-link" href="styles/soft-editorial-future/scaffold-web.html">查看网页 Demo</a>
+            <a class="btn-link" href="styles/soft-editorial-future/scaffold-ppt.html">查看 PPT 模版</a>
           </div>
         </div>
       </div>
@@ -522,8 +535,8 @@
         <div class="card-body">
           <div class="card-actions">
             <button type="button" class="btn-use" onclick="copyStyleSelection('nothing-design-dark', 'Nothing 极简点阵暗黑风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/nothing-design-dark/scaffold-web.html">网页示例</a>
-            <a class="btn-link" href="styles/nothing-design-dark/scaffold-ppt.html">PPT 示例</a>
+            <a class="btn-link" href="styles/nothing-design-dark/scaffold-web.html">查看网页 Demo</a>
+            <a class="btn-link" href="styles/nothing-design-dark/scaffold-ppt.html">查看 PPT 模版</a>
           </div>
         </div>
       </div>
@@ -536,8 +549,8 @@
         <div class="card-body">
           <div class="card-actions">
             <button type="button" class="btn-use" onclick="copyStyleSelection('nothing-design-light', 'Nothing 极简点阵亮白风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/nothing-design-light/scaffold-web.html">网页示例</a>
-            <a class="btn-link" href="styles/nothing-design-light/scaffold-ppt.html">PPT 示例</a>
+            <a class="btn-link" href="styles/nothing-design-light/scaffold-web.html">查看网页 Demo</a>
+            <a class="btn-link" href="styles/nothing-design-light/scaffold-ppt.html">查看 PPT 模版</a>
           </div>
         </div>
       </div>
@@ -550,8 +563,8 @@
         <div class="card-body">
           <div class="card-actions">
             <button type="button" class="btn-use" onclick="copyStyleSelection('pixel-crystal', '油画粉彩晶光风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/pixel-crystal/scaffold-web.html">网页示例</a>
-            <a class="btn-link" href="styles/pixel-crystal/scaffold-ppt.html">PPT 示例</a>
+            <a class="btn-link" href="styles/pixel-crystal/scaffold-web.html">查看网页 Demo</a>
+            <a class="btn-link" href="styles/pixel-crystal/scaffold-ppt.html">查看 PPT 模版</a>
           </div>
         </div>
       </div>
@@ -564,8 +577,22 @@
         <div class="card-body">
           <div class="card-actions">
             <button type="button" class="btn-use" onclick="copyStyleSelection('ink-bamboo', '青绿水墨竹韵风', this)">使用此风格</button>
-            <a class="btn-link" href="styles/ink-bamboo/scaffold-web.html">网页示例</a>
-            <a class="btn-link" href="styles/ink-bamboo/scaffold-ppt.html">PPT 示例</a>
+            <a class="btn-link" href="styles/ink-bamboo/scaffold-web.html">查看网页 Demo</a>
+            <a class="btn-link" href="styles/ink-bamboo/scaffold-ppt.html">查看 PPT 模版</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 16. state-governance -->
+      <div class="style-card" data-style-id="state-governance" data-style-name="国企政务严谨汇报风" data-category="editorial tech">
+        <div class="card-preview">
+          <img src="styles/state-governance/preview.png" alt="state-governance preview" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div class="card-actions">
+            <button type="button" class="btn-use" onclick="copyStyleSelection('state-governance', '国企政务严谨汇报风', this)">使用此风格</button>
+            <a class="btn-link" href="styles/state-governance/scaffold-web.html">查看网页 Demo</a>
+            <a class="btn-link" href="styles/state-governance/scaffold-ppt.html">查看 PPT 模版</a>
           </div>
         </div>
       </div>
@@ -636,21 +663,7 @@
       }
     }
 
-    // Filter functionality
-    document.querySelectorAll('.style-card').forEach(card => {
-      const body = card.querySelector('.card-body');
-      if (!body) return;
-      const label = document.createElement('div');
-      label.className = 'style-label';
-      const name = document.createElement('span');
-      name.className = 'style-name';
-      name.textContent = card.getAttribute('data-style-name') || card.getAttribute('data-style-id') || '';
-      const id = document.createElement('span');
-      id.className = 'style-id';
-      id.textContent = card.getAttribute('data-style-id') || '';
-      label.append(name, id);
-      body.prepend(label);
-    });
+    // Gallery and filtering setup
 
     const galleryView = document.getElementById('gallery-view');
     const previewView = document.getElementById('preview-view');
@@ -721,7 +734,7 @@
     }
 
     function showPreview(route) {
-      const formatLabel = route.format === 'web' ? '网页示例' : 'PPT 示例';
+      const formatLabel = route.format === 'web' ? '网页 Demo' : 'PPT 模版';
       galleryView.hidden = true;
       previewView.hidden = false;
       document.body.classList.add('is-previewing');

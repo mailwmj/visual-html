@@ -1,7 +1,8 @@
 ---
 name: visual-html
-version: 3.0
 description: Use when the user asks to turn long-form content into a highly designed single-file Web page or 16:9 PPT, or asks to choose or apply a registered visual style pack.
+metadata:
+  version: "3.0"
 ---
 
 # Visual HTML — 模块化视觉设计与长文本排版系统
@@ -9,6 +10,20 @@ description: Use when the user asks to turn long-form content into a highly desi
 核心使命：**将长篇纯文本（如调研报告、方案白皮书、产品规划、技术总结、深度案例等）转换为结构清晰、高可读性、高辨识度且极具视觉美感的单文件 HTML 页面与 16:9 PPT 演示文稿**。
 
 本 Skill 采用**插件化风格包（Pluggable Style Packs）**架构，在保证长文本排版骨架高可读性与结构一致性的同时，支持多种独立演进的视觉风格。
+
+---
+
+## 0. 执行路由（必读）
+
+本入口负责共享约束和路由启动，不直接承担所有媒介的完整执行步骤。触发 Skill 后，先读取 [`references/routing.md`](references/routing.md)，根据请求形状选择**恰好一个顶层 route**，再读取该 route 的 authority 和明确触发的支持文档：
+
+- **Generate Web**：读取 [`references/routes/generate-web.md`](references/routes/generate-web.md)。
+- **Generate PPT**：读取 [`references/routes/generate-ppt.md`](references/routes/generate-ppt.md)。
+- **Extend Style Pack**：读取 [`references/template-extension-guide.md`](references/template-extension-guide.md)。
+
+风格是生成 route 内的 profile，不是新的顶层 route；画廊、离线打包和质量检查是按条件触发的 stage。路由确定后，不读取另一个媒介或生命周期的 authority；缺少前置条件时停在当前 route 并说明原因，不猜测风格、媒介或本地路径。
+
+所有 Skill 路径均相对于包含本文件的目录解析。执行命令前将该目录解析为绝对路径，不以当前工作目录作为 Skill 根目录。
 
 ---
 
@@ -230,31 +245,12 @@ flowchart LR
 
 ---
 
-## 4. 场景设计与交付要点 (Web vs PPT)
+## 4. Route-specific execution
 
-### A. Web 响应式场景 (Responsive Web Page)
-- 容器采用 `.wrap` 限制最大宽度（如 `1080px`–`1200px`）并水平居中。
-- 移动端适配：配置 `@media (max-width: 768px)`，网格布局自动折叠为单列（`grid-template-columns: 1fr`），对比矩阵增加 `overflow-x: auto` 横向平滑滚动保护。
-- 针对 4 章节以上的长篇文档，建议在顶部注入阅读进度条与目录导航。
-- 交付前运行 `python3 references/scripts/bundle_offline.py <input.html> -o <output.html>`；默认 hybrid 模式在线加载字体/Mermaid，离线使用系统字体和静态 SVG fallback。
-- 默认不捆绑字体文件以控制单文件体积；需要品牌字体时，用 `--font-map fonts.json` 按需内置 WOFF/WOFF2，断网交付使用 `--strict`。
+媒介和生命周期的具体执行规则已移到 route authority，避免入口在一次任务中加载无关分支：
 
-### B. PPT 场景设计与演示要点 (16:9 Slides)
-- **16:9 舞台布局**：画布固定为 16:9（如 `1280×720`），外层舞台居中展示，四周预留 5–7% 安全边距。
-- **单页聚焦**：单页聚焦一个核心论点，严禁长文滚动；长卡片压成 3 个关键模块；对比使用模块化边框表格。被压缩的论据必须通过附录、备注或来源页可追溯。
-- **演示控制器与打印导出（推荐内置轻量脚本）**：
-  * 支持键盘快捷键：`←` / `→` / `Space` 翻页，`F` 进入/退出全屏演示。
-  * 内置 `@media print { @page { size: 16/9 landscape; margin: 0; } body { padding: 0; background: none; } .slide { break-after: page; width: 100vw; height: 100vh; } }`，方便用户直接在浏览器中按 `Cmd + P` / `Ctrl + P` 一键导出无边距高清 16:9 PDF。
+- Web 响应式布局、离线 bundle、字体内联和单文件交付：读取 [`references/routes/generate-web.md`](references/routes/generate-web.md)。
+- PPT 16:9 舞台、单页聚焦、翻页/打印导出和演示交付：读取 [`references/routes/generate-ppt.md`](references/routes/generate-ppt.md)。
+- 新增或扩展风格包的目录、预览、注册和验证 SOP：读取 [`references/template-extension-guide.md`](references/template-extension-guide.md)。
 
----
-
-## 5. 新增设计风格模板 (Template Extension)
-
-> ⚠️ **注意**：如果用户要求新增、扩展或设计一套全新的视觉风格模板，请**不要**直接在本文件中查找或推理具体方法。
-> 你需要读取并严格遵守 `references/template-extension-guide.md` 中的标准工程规范（S.O.P）进行目录创建、架构继承、资源打包与变量定义。
-
-### 新增风格 4 大核心交付物与契约：
-1. **`design.md`**：必须包含视觉主题、Color Palette & Tokens、Typography 全字阶量化表、组件状态、间距/海拔与动效、Do's & Don'ts、Responsive/可访问性规则，以及至少 3 个核心特征组件 DOM 示范。
-2. **`scaffold-web.html` & `scaffold-ppt.html`**：直接复制干净沙盒基座 `references/_base-scaffold-web.html`，保留 18 个必选语义组件；Quick Nav/Progress 是可选增强，不得被误称为必选组件。
-3. **`preview.svg` (400×240) 与 `preview.png` (800×480)**：遵循 4 层隔离坐标系（Eyebrow, Title, Soul Component, Footer），并运行 `python3 references/scripts/validate_previews.py`。
-4. **并网注册**：先更新 `references/styles/registry.json`，再运行 `python3 references/scripts/validate_registry.py`，确保 SKILL、画廊、资源和 Mermaid 主题表同步。
+route 文档与本入口的共享质量清单共同构成验收标准；route 文档未声明的行为不从其他 route 推断。
