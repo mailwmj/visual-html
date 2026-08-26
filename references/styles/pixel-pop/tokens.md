@@ -45,10 +45,11 @@
 | **10. Timeline** | 亮蓝/鲜绿垂直实线，时间节点使用波普彩色像素方块徽章 | `.timeline`, `.timeline-item`, `.timeline-marker` |
 | **11. Pros & Cons** | 优势卡片使用鲜绿硬投影，劣势卡片使用西瓜粉硬投影 | `.pros-cons`, `.pro-card`, `.con-card` |
 | **12. Stats Grid** | 大号鲜绿/西瓜粉实色数字（48–56px），底部纯黑加粗等宽标签 | `.stats-grid`, `.stat-card`, `.stat-val`, `.stat-label` |
-| **13. Flowchart** | 3px 黑色粗边框节点，彩色填充，粗箭头连接线 | `.flowchart` (内嵌响应式 SVG / `.node`) |
+| **13. Flowchart & Mermaid** | 3px 黑色粗边框节点，纯色填充，粗连线。支持纯 SVG 与 Mermaid 引擎（`darkMode: false`, `background: '#FFFFFF'`, `lineColor: '#000000'`, `primaryBorderColor: '#000000'`） | `.flowchart`, `.mermaid-wrapper`, `.node`, `.mermaid` |
 | **14. References** | 浅米底色有序列表，等宽复古数字，内嵌回溯锚点 | `.references`, `<ol>`, `<li>` |
 | **15. Rich Text** | 纯黑正文，加粗文字使用亮黄/西瓜粉高光马克笔底色划线 | `.rich-text`, `p`, `blockquote`, `ul` |
 | **16. FAQ List** | 纯白卡片，3px 黑边，问题加粗带亮黄色 Q 徽章，答案清晰折叠/平铺 | `.faq`, `.faq-item`, `.q`, `.a` |
+| **17. Code Block** | 复古街机深蓝底座（`#111424`）+ 3px 黑粗边硬投影 + 亮黄色等宽语言 Badge + 像素明亮语法 Token 高亮 | `.code-block`, `.code-header`, `pre`, `code` |
 
 ---
 

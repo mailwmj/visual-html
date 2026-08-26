@@ -89,7 +89,7 @@
 | **Hero Heading** | 58–78px，字重 800，行高 1.02–1.08，颜色为 `#2A3F54`（柔和深蓝灰） | `h1.hero` |
 | **Stats Grid (顶部核心数据)** | 半透明纯白圆角卡片 + 48–52px 深蓝灰大数字 + 高阶蔚蓝单位 (`span`) + 底部等宽标签 | `.stats-grid`, `.stat-card`, `.stat-val`, `.stat-label` |
 | **Timeline (发展史与步骤)** | 左侧天蓝 Mono 年份（右对齐与 24px line-height 精准基线对齐）+ 居中圆点徽标 + 右侧白色卡片 | `.timeline`, `.timeline-item`, `.timeline-marker`, `.timeline-content` |
-| **Flowchart (矢量流程图)** | 纯白半透明柔和圆角容器 + 天蓝/蔚蓝箭头 + 圆角矩形节点 | `.flowchart` (内嵌响应式 SVG / `.node`) |
+| **Flowchart & Mermaid (流程与架构图)** | 纯白半透明柔和圆角容器 + 蔚蓝主线条 (`#0284C7`)。支持纯 SVG 与 Mermaid 引擎（`darkMode: false`, `background: '#FFFFFF'`, `lineColor: '#0284C7'`） | `.flowchart`, `.mermaid-wrapper`, `.node`, `.mermaid` |
 | **Number Card** | 白色半透明卡片、14px 圆角、极淡阴影，天蓝大编号 | `.num-card`, `.num`, `.tag` |
 | **Selected Card** | 蔚蓝边框 (`#0284C7`) + 蔚蓝编号 + 实心蔚蓝胶囊 Tag (`#0284C7` 底白字) + 微上浮投影 | `.num-card.selected` |
 | **Admonition (语义提示框)** | 浅蓝柔光渐变毛玻璃卡片 + 标题内嵌独立解耦色条（零毛刺） + 1px 细边框与白高光内阴影 | `.admonition`, `.admonition.info`, `.admonition.warning`, `.admonition-title` |
@@ -98,6 +98,7 @@
 | **Process Steps** | 白色圆角模块，左侧深蓝灰 Mono 编号，天蓝标号点缀 | `.steps`, `.step`, `.idx` |
 | **Comparison Table** | 全封闭毛玻璃圆角表格（白色 Surface），表头带淡天蓝结构微底色（`rgba(74,159,212,.08)`），推荐列带蔚蓝高亮（`#0284C7`）与发光圆点 | `.cmp`, `.row`, `.head`, `.selected-col` |
 | **FAQ List (常见问答)** | 白色圆角毛玻璃卡片，深蓝灰问题加粗，答案柔和排版 | `.faq`, `.faq-item`, `.q`, `.a` |
+| **Code Block (多行代码块与终端)** | 冷黑蓝深色终端 (`#0F172A`) + 三色圆点 + 天蓝 Mono 语言 Badge + 柔和青蓝语法高亮 | `.code-block`, `.code-header`, `pre`, `code` |
 | **Metadata Footer** | 浅灰蓝边框，Mono 字体，颜色为 `#90A8B8`，大写字母 | `footer`, `.meta-foot` |
 
 ---

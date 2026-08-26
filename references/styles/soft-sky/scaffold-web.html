@@ -383,9 +383,11 @@ footer{padding:60px 0 76px;border-top:1px solid var(--border);}
 .stat-val{font-size:clamp(38px,4.5vw,52px);font-weight:800;color:var(--text-primary);line-height:1;margin-bottom:14px;letter-spacing:-.02em;}
 .stat-val span{font-size:clamp(20px,2.2vw,28px);color:var(--signal-accent);margin-left:4px;font-family:var(--font-mono);font-weight:700;}
 .stat-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:var(--text-muted);text-transform:uppercase;font-weight:700;}
-/* ---- Flowchart ---- */
-.flowchart{background:var(--surface-1);border:1px solid var(--border);padding:32px 24px;margin-top:32px;display:flex;justify-content:center;overflow-x:auto;border-radius:var(--radius);box-shadow:0 4px 20px rgba(42,63,84,.04);}
+/* ---- Flowchart & Mermaid ---- */
+.flowchart{background:var(--surface-1);border:1px solid var(--border);padding:32px 24px;margin-top:32px;display:flex;justify-content:center;align-items:center;overflow-x:auto;border-radius:var(--radius);box-shadow:0 4px 20px rgba(42,63,84,.04);}
 .flowchart svg{width:100%;max-width:800px;min-width:600px;height:auto;display:block;}
+.mermaid-wrapper pre.mermaid, .mermaid { background: transparent !important; border: none !important; padding: 0 !important; margin: 0 auto !important; width: 100%; display: flex; justify-content: center; }
+.mermaid svg { max-width: 100%; height: auto; display: block; }
 /* ---- References ---- */
 .references{margin-top:64px;border-top:1px solid var(--border);padding-top:40px;font-size:14px;line-height:1.6;}
 .references h3{font-family:var(--font-mono);font-size:13px;letter-spacing:.12em;color:var(--text-secondary);margin-bottom:20px;font-weight: 800;}
@@ -402,8 +404,28 @@ footer{padding:60px 0 76px;border-top:1px solid var(--border);}
 .rich-text li { margin-bottom: 0.6em; }
 .rich-text strong { color: var(--text-primary); font-weight: 800; }
 .rich-text em { font-style: normal; color: var(--text-muted); }
-.rich-text blockquote { border-left: 4px solid var(--signal-blue); padding: 6px 0 6px 20px; margin-top: 32px; margin-bottom: 32px; color: var(--text-secondary); background: rgba(255,255,255,0.4); font-size: 18px; line-height: 1.7; font-weight: 500; }
 .rich-text code { font-family: var(--font-mono); font-size: 0.85em; background: rgba(255,255,255,0.8); border: 1px solid var(--border); padding: 3px 6px; border-radius: 6px; color: var(--signal-blue); }
+
+/* ---- Code Block & Pre (Soft Sky Slate Terminal) ---- */
+.code-block { background: #0F172A; border: 1px solid rgba(255, 255, 255, 0.15); border-radius: var(--radius); margin: 28px 0; overflow: hidden; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12); }
+.code-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: rgba(30, 41, 59, 0.85); border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+.code-dots { display: flex; gap: 6px; }
+.code-dots span { width: 9px; height: 9px; border-radius: 50%; background: rgba(255, 255, 255, 0.2); }
+.code-dots span:nth-child(1) { background: #FF5F56; }
+.code-dots span:nth-child(2) { background: #FFBD2E; }
+.code-dots span:nth-child(3) { background: #27C93F; }
+.code-lang { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: #38BDF8; text-transform: uppercase; }
+.code-copy-btn { font-family: var(--font-mono); font-size: 11px; padding: 3px 10px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 6px; color: #94A3B8; cursor: pointer; transition: all 0.15s ease; }
+.code-copy-btn:hover { color: #FFFFFF; border-color: #38BDF8; background: rgba(56, 189, 248, 0.15); }
+.code-block pre, .rich-text pre { margin: 0; padding: 18px 20px; background: #0F172A; overflow-x: auto; font-family: var(--font-mono); font-size: 13.5px; line-height: 1.65; color: #E2E8F0; scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.2) transparent; }
+.rich-text pre { border: 1px solid rgba(255, 255, 255, 0.15); border-radius: var(--radius); margin: 24px 0; }
+.code-block pre code, .rich-text pre code { background: transparent; border: none; padding: 0; color: inherit; font-size: inherit; }
+.token-comment { color: #64748B; font-style: italic; }
+.token-keyword { color: #38BDF8; font-weight: 700; }
+.token-string { color: #FDE047; }
+.token-function { color: #C084FC; }
+.token-number { color: #67E8F9; }
+.token-operator { color: #94A3B8; }
 
 /* ---- Comparison Table ---- */
 .cmp{
@@ -772,6 +794,21 @@ footer{padding:60px 0 76px;border-top:1px solid var(--border);}
         “排版设计的本质不是装饰，而是为了信息的清晰传达而做出的视觉契约。每一处留白，都在引导用户的视线流动。”
       </blockquote>
       
+      <!-- 19 / CODE BLOCK & TERMINAL -->
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-lang">CONFIG / YAML</span>
+          <button class="code-copy-btn" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').innerText); this.innerText='COPIED!'; setTimeout(()=>this.innerText='COPY', 2000)">COPY</button>
+        </div>
+        <pre><code><span class="token-comment"># Soft Sky 优雅主题配置文件</span>
+<span class="token-keyword">theme</span>:
+  <span class="token-function">name</span>: <span class="token-string">"soft-sky"</span>
+  <span class="token-function">radius</span>: <span class="token-number">14px</span>
+  <span class="token-function">primaryColor</span>: <span class="token-string">"#0284C7"</span>
+  <span class="token-function">enableFrostedGlass</span>: <span class="token-keyword">true</span></code></pre>
+      </div>
+      
       <h3>排版的四个核心原则</h3>
       <p>为了达到最佳的跨端阅读体验，我们在这套系统中确立了以下几项不可妥协的设计底线：</p>
       <ul>
@@ -804,6 +841,35 @@ footer{padding:60px 0 76px;border-top:1px solid var(--border);}
     </div>
   </div>
 </footer>
+
+<!-- Mermaid.js 动态图表运行时 -->
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  const mermaidElements = document.querySelectorAll('.mermaid');
+  if (mermaidElements.length > 0) {
+    mermaidElements.forEach(el => {
+      el.textContent = el.textContent
+        .replace(/^\s*\/\/\s*MERMAID/i, '')
+        .replace(/^\s*\/\*[\s\S]*?\*\//, '')
+        .trim();
+    });
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'base',
+      themeVariables: {
+        darkMode: false,
+        background: '#FFFFFF',
+        primaryColor: '#EAF6FC',
+        primaryTextColor: '#2A3F54',
+        primaryBorderColor: '#0284C7',
+        lineColor: '#0284C7',
+        secondaryColor: '#F0F9FF',
+        tertiaryColor: '#FFFFFF',
+        fontFamily: '"Plus Jakarta Sans", -apple-system, sans-serif'
+      }
+    });
+  }
+</script>
 
 </body>
 </html>

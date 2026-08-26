@@ -77,7 +77,7 @@
 | **Hero Heading** | 64–88px，字重 800–850，行高 0.98–1.05，短句且允许中文主动换行 | `h1.hero` |
 | **Stats Grid (顶部核心数据)** | 深灰实体 Surface 封闭卡片 + 48–52px 大数字 + 紫色高光单位 (`span`) + 底部等宽标签 | `.stats-grid`, `.stat-card`, `.stat-val`, `.stat-label` |
 | **Timeline (发展史与步骤)** | 左侧 Mono 年份（右对齐与 24px line-height 精准基线对齐）+ 居中 45° 旋转菱形点 + 右侧内容 | `.timeline`, `.timeline-item`, `.timeline-marker`, `.timeline-content` |
-| **Flowchart (矢量流程图)** | 深黑底色响应式容器 + 自定义 marker 工业级箭头 + 硬边圆角节点 | `.flowchart` (内嵌响应式 SVG / `.node`) |
+| **Flowchart & Mermaid (流程与架构图)** | 深黑底色响应式容器 (`#0D1110`) + 信号绿工业连线 (`#67E38B`) + 极淡 CAD 边框 (`#2A302E`)。支持纯 SVG 与 Mermaid 引擎（`darkMode: true`, `lineColor: '#67E38B'`） | `.flowchart`, `.mermaid-wrapper`, `.node`, `.mermaid` |
 | **Number Card** | `01` 第一层 → 标题 → 正文，1px 边框，2px 圆角，深灰 surface | `.num-card`, `.num`, `.tag` |
 | **Selected Card** | 紫色边框 + 紫色编号 + 紫色 Tag（第二状态通道） | `.num-card.selected` |
 | **Admonition (语义提示框)** | 深灰 Surface，左侧 4px 信号绿/紫/黄粗边，大写 Mono 标头 | `.admonition`, `.admonition.info`, `.admonition.warning` |
@@ -86,6 +86,7 @@
 | **Process Steps** | 硬边框模块，实体 Surface 背景，左侧超大 Mono 编号 | `.steps`, `.step`, `.idx` |
 | **Comparison Table** | 硬边框表格，推荐列 `.cell.violet`（全列统一紫色表头 + 边框 + 紫色圆点 + 微紫底色） | `.cmp`, `.row`, `.cell.violet` |
 | **FAQ List (常见问答)** | 深灰 Surface 边框卡片，问题加粗高亮，答案清晰排版 | `.faq`, `.faq-item`, `.q`, `.a` |
+| **Code Block (多行代码块与终端)** | 硬边深灰 Surface (`#0D1110`) + 顶栏工业控制圆点 + 信号绿 Mono 语言 Badge + 关键字/函数 Token 高亮 | `.code-block`, `.code-header`, `pre`, `code` |
 | **Metadata Footer** | 顶部 1px 边框，Mono、muted、大写字母元数据 | `footer`, `.meta-foot` |
 
 ---

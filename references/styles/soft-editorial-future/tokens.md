@@ -99,8 +99,8 @@
 10. **Timeline (`.timeline`, `.timeline-item`)**: 连续纵向渐变连接线，左侧右对齐年份 Mono 标记配合带光晕的空心节点圆点，右侧为独立悬浮磨砂玻璃内容卡片。
 11. **Pros & Cons (`.pros-cons`, `.pro-card`, `.con-card`)**: 统一采用纯白高透 Showroom 磨砂玻璃容器，告别彩色外边框与单调有色平涂底色。通过卡片内部精致克制的 Mono 药丸标签（`.tag`）与带柔和微底色的 `✓` / `✕` 圆形微徽章进行语义区分，与底层背景彩球折射完美共融。
 12. **Stats Grid (`.stats-grid`, `.stat-card`)**: 极简大气的玻璃数字面板，超大字体（48~76px）数字搭配蔚蓝单位与 Mono 大写指标标签。
-13. **Flowchart (`.flowchart`)**: 磨砂玻璃大展板，内部 SVG 流程图采用圆角卡片节点（12px 圆角）、现代浅灰细线与高亮蔚蓝激活节点（带发光投影）。
+13. **Flowchart & Mermaid (`.flowchart`)**: 磨砂玻璃大展板，内部 SVG 流程图采用圆角卡片节点（12px 圆角）、现代浅灰细线与高亮蔚蓝激活节点。支持纯 SVG 与 Mermaid 引擎（`darkMode: true`, `background: '#0C131F'`, `primaryColor: '#162032'`, `lineColor: '#38BDF8'`, `primaryBorderColor: '#38BDF8'`）。
 14. **FAQ (`.faq`, `.faq-item`)**: 独立圆角玻璃条目，问题前置蔚蓝方块 `Q` 徽标，答案文字优雅缩进。
 15. **Rich Text (`.rich-text`)**: 正文承载于居中的大面积磨砂玻璃阅读板内，支持左侧蔚蓝边框的精致引用块（`blockquote`）与淡蓝代码高亮（`code`）。
 16. **References (`.references`)**: 底部收尾的磨砂文献面板，包含带下划线的大写 Mono 标题与规范序号列表。
-
+17. **Code Block (`.code-block`)**: 极简深岩磨砂玻璃展柜终端（`#0C131F` / `rgba(12, 19, 31, 0.94)`），配备三色微光圆点、电光蔚蓝（`#38BDF8`）Mono 语言 Badge 与未来极简 Token 语法高亮。

@@ -346,8 +346,8 @@
        ========================================= */
     .timeline {
       border-left: 5px solid var(--text-main);
-      padding-left: 40px;
-      margin: 40px 0;
+      padding-left: 70px;
+      margin: 40px 0 40px 60px;
     }
     .timeline-item {
       position: relative;
@@ -355,13 +355,19 @@
     }
     .timeline-marker {
       position: absolute;
-      left: -60px;
-      top: 0;
+      left: -70px;
+      transform: translateX(-50%);
+      top: -4px;
       background: var(--signal-cyan);
       border: 3px solid var(--text-main);
       padding: 5px 10px;
       font-weight: 900;
       font-family: var(--font-mono);
+      white-space: nowrap;
+      z-index: 2;
+    }
+    .timeline-content {
+      position: relative;
     }
     .timeline-content h3 {
       margin: 0 0 10px 0;
@@ -438,6 +444,20 @@
       width: 100%;
       height: auto;
     }
+    .mermaid-wrapper pre.mermaid, .mermaid {
+      background: transparent !important;
+      border: none !important;
+      padding: 0 !important;
+      margin: 0 auto !important;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    .mermaid svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
 
     /* =========================================
        15. Rich Text
@@ -456,6 +476,103 @@
       font-weight: bold;
       background: #f9f9f9;
     }
+    .rich-text code {
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+      background: #000000;
+      color: var(--signal-cyan);
+      padding: 2px 6px;
+      font-weight: bold;
+    }
+
+    /* =========================================
+       17. Code Block & Pre (Brutalist Acid Raw Terminal)
+       ========================================= */
+    .code-block {
+      background: #000000;
+      border: 3px solid #000000;
+      border-radius: 0;
+      margin: 32px 0;
+      overflow: hidden;
+      box-shadow: 6px 6px 0px var(--signal-pink);
+    }
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: #111111;
+      border-bottom: 2px solid #333333;
+    }
+    .code-dots {
+      display: flex;
+      gap: 6px;
+    }
+    .code-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 0;
+    }
+    .code-dots span:nth-child(1) { background: var(--signal-pink); }
+    .code-dots span:nth-child(2) { background: #FFE600; }
+    .code-dots span:nth-child(3) { background: var(--signal-cyan); }
+    .code-lang {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      color: #000000;
+      background: var(--signal-cyan);
+      padding: 2px 8px;
+      text-transform: uppercase;
+    }
+    .code-copy-btn {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 900;
+      padding: 4px 12px;
+      background: var(--signal-pink);
+      border: 2px solid #FFFFFF;
+      color: #FFFFFF;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.1s ease;
+    }
+    .code-copy-btn:hover {
+      background: var(--signal-cyan);
+      color: #000000;
+      border-color: #000000;
+    }
+    .code-block pre, .rich-text pre {
+      margin: 0;
+      padding: 20px 24px;
+      background: #000000;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      line-height: 1.6;
+      color: #FFFFFF;
+      scrollbar-width: thin;
+      scrollbar-color: var(--signal-cyan) transparent;
+    }
+    .rich-text pre {
+      border: 3px solid #000000;
+      box-shadow: 6px 6px 0px var(--signal-pink);
+      margin: 24px 0;
+    }
+    .code-block pre code, .rich-text pre code {
+      background: transparent;
+      border: none;
+      padding: 0;
+      color: inherit;
+      font-size: inherit;
+    }
+    .token-comment { color: #888888; font-style: italic; }
+    .token-keyword { color: var(--signal-cyan); font-weight: 900; }
+    .token-string { color: #FFE600; }
+    .token-function { color: var(--signal-pink); font-weight: bold; }
+    .token-number { color: #39FF14; }
+    .token-operator { color: #FFFFFF; }
 
     /* =========================================
        16. FAQ
@@ -692,6 +809,22 @@
       <h3>Manifesto</h3>
       <p>这是一个 <strong>粗野主义</strong> 的排版测试段落。在这些设计中，<code>HTML</code> 和 <code>CSS</code> 不再是隐藏在背后的代码，而是暴露在外的结构美学。</p>
       <blockquote>Acid Graphic 拒绝平庸，我们用失真的色彩对抗理性的无聊。</blockquote>
+      
+      <!-- 17. Code Block & Raw Terminal -->
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-lang">RAW / CSS MANIFESTO</span>
+          <button class="code-copy-btn" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').innerText); this.innerText='COPIED!'; setTimeout(()=>this.innerText='COPY', 2000)">COPY</button>
+        </div>
+        <pre><code><span class="token-comment">/* Brutalist Acid 核心破坏性规则 */</span>
+<span class="token-keyword">.acid-distortion</span> {
+  <span class="token-function">filter</span>: <span class="token-keyword">contrast</span>(<span class="token-number">200%</span>) <span class="token-keyword">hue-rotate</span>(<span class="token-number">90deg</span>);
+  <span class="token-function">font-weight</span>: <span class="token-number">900</span>;
+  <span class="token-function">letter-spacing</span>: -<span class="token-number">0.05em</span>;
+}</code></pre>
+      </div>
+
       <ul>
         <li>破坏性的视觉对撞</li>
         <li>打破常规网格限制</li>
@@ -727,5 +860,34 @@
       </div>
     </div>
   </footer>
+
+  <!-- Mermaid.js 动态图表运行时 -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    const mermaidElements = document.querySelectorAll('.mermaid');
+    if (mermaidElements.length > 0) {
+      mermaidElements.forEach(el => {
+        el.textContent = el.textContent
+          .replace(/^\s*\/\/\s*MERMAID/i, '')
+          .replace(/^\s*\/\*[\s\S]*?\*\//, '')
+          .trim();
+      });
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: 'base',
+        themeVariables: {
+          darkMode: false,
+          background: '#FFFFFF',
+          primaryColor: '#00E5CC',
+          primaryTextColor: '#000000',
+          primaryBorderColor: '#FF4591',
+          lineColor: '#000000',
+          secondaryColor: '#FF4591',
+          tertiaryColor: '#FFFFFF',
+          fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
+        }
+      });
+    }
+  </script>
 </body>
 </html>

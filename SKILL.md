@@ -74,25 +74,28 @@ flowchart LR
    - 提取形状特征（圆角大小、卡片阴影质感、3D或扁平）。
    - 提取排版特征（字重、留白、边框风格）。
    - **完成分析后，严格遵守“Clean Room Design”法则，不要继承旧模板，直接从 `references/_base-scaffold-web.html` 读取基座并在其上编写全新 CSS**，以防止硬编码污染。
-3. **智能推荐机制（输出 3～5 款视觉名片卡片）**：
-   - 当用户提供了长文或排版需求但未锁定风格，或者意图较为宽泛时，分析文本特征并挑选 **最契合的 3～5 套风格**。
-   - **强制交互规范**：在对话中**并发内嵌输出这 3～5 款风格的微缩视觉名片 (`preview.svg`)**，附带 1 句简明推荐理由：
-     ```markdown
-     ### 1. 玩味工程彩管风 (`play-tubular`)
-     ![play-tubular](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/styles/play-tubular/preview.svg)
-     - 💡 **推荐理由**：适合 AI/LLM 架构与技术白皮书，3D彩管与半调网点极具创新活力。
+   - **智能推荐机制（输出 3～5 款设计风格）**：
+     - 当用户提供了长文或排版需求但未锁定风格，或者意图较为宽泛时，分析文本特征并挑选 **最契合的 3～5 套风格**。
+     - **方案 A：Artifacts 视觉面板（支持 Artifacts 的环境优先）**：
+       - 在支持 Artifacts 的 Agent 环境（如 Antigravity / Claude）中，优先创建专用的 **风格推荐 Artifact**（如 `style_recommendations.md` 或 HTML 视觉看板），利用独立 Webview 侧边栏原生高保真渲染目标风格的矢量名片与动效，规避聊天流沙箱限制。
+     - **方案 B：对话流结构化卡片（跨客户端通用兜底）**：
+       - 对话中同步输出「高可读性结构化设计卡片」，附带 1 句简明推荐理由：
+       ```markdown
+       ### 1. 玩味工程彩管风 (`play-tubular`)
+       - **视觉基因**：浅暖米白点阵画布 (`#FAF8F3`) + 3D 渐变立体彩管 + 半调网点 (Halftone) 光影 + 粗黑工程体
+       - 💡 **推荐理由**：适合 AI/LLM 架构与技术白皮书，3D彩管与半调网点极具创新活力。
 
-     ### 2. 暗色工业档案风 (`industrial-dark`)
-     ![industrial-dark](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/styles/industrial-dark/preview.svg)
-     - 💡 **推荐理由**：适合硬核技术规格与系统参数展示，CAD冷峻极客质感。
+       ### 2. 暗色工业档案风 (`industrial-dark`)
+       - **视觉基因**：近黑背景 (`#090C0B`) + CAD 极淡网格 + 信号绿 (`#67E38B`) + 紫色通道 + 硬边模块
+       - 💡 **推荐理由**：适合硬核技术规格与系统参数展示，CAD冷峻极客质感。
 
-     ### 3. 暖纸手作/温润社论风 (`warm-craft`)
-     ![warm-craft](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/styles/warm-craft/preview.svg)
-     - 💡 **推荐理由**：适合深度调研与知识沉淀，人文宋体与便签贴纸温润亲和。
-     ```
-   - **画廊全局入口**：在推荐卡片底部附带全局画廊入口，方便用户自主翻阅全部 11 种风格：
-     > 🎨 **查看全部风格**：可在浏览器中打开 [全量风格画廊 (style-gallery.html)](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/style-gallery.html)
-   - **引导确认**：询问用户期望使用的风格名称/序号以及目标媒介形式（**Web 响应式网页** 还是 **16:9 PPT 幻灯片**）。
+       ### 3. 暖纸手作/温润社论风 (`warm-craft`)
+       - **视觉基因**：暖米纸质画布 (`#F7F4EC`) + 人文宋体大标题 + 深橄榄绿行动通道 (`#323D24`) + 错落便签贴纸
+       - 💡 **推荐理由**：适合深度调研与知识沉淀，人文宋体与便签贴纸温润亲和。
+       ```
+     - **画廊全局入口**：在推荐卡片底部附带全局画廊入口，方便用户随时在浏览器中高保真预览全部 11 种风格的动态效果与配色：
+       > 🎨 **高保真画廊预览**：可在浏览器中打开 [全量风格画廊 (style-gallery.html)](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/style-gallery.html)
+     - **引导确认**：询问用户期望使用的风格名称/序号以及目标媒介形式（**Web 响应式网页** 还是 **16:9 PPT 幻灯片**）。
 
 
 ### 第二步：按需精准读取 (On-Demand Loading)
@@ -123,10 +126,11 @@ flowchart LR
 | **时间跨度 / 发展演进 / 历史版本** | `timeline` (`.timeline-item`, `.timeline-marker`) | 年份/日期时间戳 + 关键里程碑事件 |
 | **核心结论 / 重要警示 / 前置提醒** | `admonition` (`.info`, `.warning`, `.success`) | 语义边框高亮框 + 标头 + 提炼陈述 |
 | **爆炸性宏观数据 / KPI 统计** | `stats-grid` (`.stat-card`, `.stat-val`, `.stat-label`) | 超大号百分比/数字 + 统计指标解释 |
-| **系统架构 / 状态机 / 数据流图** | `flowchart` (`<svg>` 或 `<pre class="mermaid">`) | 零依赖纯矢量 SVG 或 Mermaid.js 自包含容器 |
+| **系统架构 / 状态机 / 数据流 / 复杂拓扑** | `flowchart` (`<svg>` 或 `<pre class="mermaid">`) | 零依赖纯矢量 SVG（3~5 步简单线性）或 Mermaid 引擎（复杂拓扑/时序/状态机，自动注入清洗脚本与专属 `themeVariables`） |
 | **长篇论述 / 深度背景 / 引用与列表** | `rich-text` (`p`, `blockquote`, `ul`, `code`) | 完整承载大段正文、粗体、代码块与引用，防止信息丢损 |
 | **多轮访谈 / 需求推演 / 智能体人机协同** | `interview-rounds` (`.round-card`, `.ai-questions-block`, `.user-decision-note`) | 结构化问答推演卡 + 推荐方案便签 + 拍板决策回执 |
 | **问答记录 / 疑难排解 / FAQ** | `faq` (`.faq-item`, `.q`, `.a`) | 结构化问答卡片对 |
+| **代码片段 / 终端指令 / 配置参数 / API** | `code-block` (`.code-block`, `.code-header`, `pre`, `code`) | 终端窗口卡片 + 控制圆点 + 语言 Badge + 复制按钮 + 语法 Token 高亮 |
 | **多章节超长文档导航 (可选增强)** | `reading-progress` / `quick-nav` | 顶部平滑阅读进度条 + 悬浮快捷胶囊目录（纯净无横向滚动条） |
 
 #### 2. 信息完整度与防偷懒契约 (Content Fidelity Contract)
@@ -138,6 +142,7 @@ flowchart LR
 - **Hierarchy (层级)**：确定本页唯一最重要的核心信息，用大字号 Hero 标题（支持中文主动换行）呈现，拒绝无主次平铺。
 - **Signal Color (信号色)**：先改字重/字号 → 再用边框 → 最后才点缀信号色（3–7% 控制比例）。
 - **Decoration (删装饰)**：删去不能表达层级、结构或技术语义的多余装饰。
+- **Mermaid 渲染与容错闭环**：若生成内容中包含 `<pre class="mermaid">`，**必须在页面底部 `</body>` 前注入 Mermaid ESM 模块、`// MERMAID` 注释清洗逻辑以及与当前风格包匹配的 `themeVariables` 配色字典**。
 
 ---
 
@@ -152,6 +157,7 @@ flowchart LR
 - [ ] **排版层级**：主标题字号是否足够大、短小有力，支持中文主动分行？
 - [ ] **字体规范**：参数、序号、标签、Footer 元数据是否均使用 Mono 等宽字体？
 - [ ] **克制留白**：留白是否充足，是否剔除了无意义的 emoji、弥散渐变、厚重投影与 3D 光效？
+- [ ] **图表与 Mermaid 完备性**：若使用了 Mermaid 图表，底部是否已注入 ESM 脚本、清洗逻辑与契合当前风格包的 `themeVariables`？若为纯 SVG，是否结构自包含？
 - [ ] **自包含单文件**：所有 CSS、SVG 图表与图标是否全部内联在单个 HTML 文件中，可本地离线双击打开？
 
 #### 风格专属质检项：

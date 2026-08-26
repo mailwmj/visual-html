@@ -53,10 +53,11 @@
 10. **Timeline (时间轴)**: 粗旷的左侧刻度，年份使用超大字号和 `--signal-yellow`。
 11. **Pros & Cons (优劣势红黑榜)**: Pros 的标题颜色为 `--signal-yellow`，Cons 为 `--text-secondary`，采用两列并排。
 12. **Stats Grid (核心数据卡片)**: 巨大的数字 `.stat-val` 使用米白色，单位 `.stat-label` 使用黄色，无卡片边框。
-13. **Flowchart (流程图)**: 节点边框为米白色，线条米白色，激活节点（`.active`）边框和文字为向日葵黄色。
+13. **Flowchart & Mermaid (流程与架构图)**: 节点边框为米白色，线条米白色，向日葵明黄高光。支持纯 SVG 与 Mermaid 引擎（`darkMode: true`, `background: '#1E3A5F'`, `primaryColor: '#2A455C'`, `lineColor: '#FFC300'`, `primaryBorderColor: '#FFC300'`）。
 14. **References (参考文献)**: 小字号，颜色淡，链接带下划线，悬浮变黄。
 15. **Rich Text (长文本正文模块)**: 行高 1.7，适于阅读。引用（Blockquote）左侧带黄色粗边框。
 16. **FAQ / Q&A List (问答列表)**: 展开式设计，问题使用加粗米白，答案使用半透米白，每个 Q&A 底部有分隔线。
+17. **Code Block (多行代码与配置终端)**: 纸质深蓝底座（`#1E3A5F`）+ 细线边框 + 向日葵明黄（`#FFC300`）Mono 语言 Badge + 明黄与嫩绿高光语法 Token。
 
 ## 4. 专属质检项 (QA Checklist)
 - [ ] 页面背景是否为纸质感的沉静蓝？

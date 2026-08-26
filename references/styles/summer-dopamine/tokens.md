@@ -83,10 +83,11 @@
 10. **Timeline**: 白色的垂直粗线，年份在胶囊状彩色渐变气泡中，内容节点为标准玻璃卡片。
 11. **Pros & Cons**: 左右两栏，优势卡片带一点薄荷绿背景光晕，劣势卡片带汽水粉背景光晕。
 12. **Stats Grid**: 超大纯白数字（80px+），背景为高度模糊的圆形或胶囊态斑块。
-13. **Flowchart**: SVG 线条为白色或高饱和粉蓝色，节点为 16px 圆角玻璃框，文字白色。
+13. **Flowchart & Mermaid**: SVG 线条为白色或高饱和粉蓝色，节点为 16px 圆角玻璃框。支持纯 SVG 与 Mermaid 引擎（`darkMode: true`, `background: 'rgba(15,23,42,0.85)'`, `lineColor: '#00E676'`, `primaryBorderColor: '#FF66B2'`）。
 14. **References**: 半透明玻璃底色的无序列表，链接颜色使用亮蓝色 `--signal-blue`。
 15. **Rich Text**: 标准 Markdown 内容包裹在 24px 圆角的毛玻璃大容器中，保持高对比度阅读。
 16. **FAQ / Q&A List**: 手风琴或堆叠卡片，问题为纯白色加粗大字号，答案为 `text-secondary`。
+17. **Code Block (多行代码块与毛玻璃终端)**: 极高模糊深色毛玻璃卡片（`rgba(15, 23, 42, 0.85)`）+ 多巴胺糖果三色圆点 + 柠檬黄 Mono 语言 Badge + 元气马卡龙色系语法 Token 高亮。
 
 ---
 

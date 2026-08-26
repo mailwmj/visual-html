@@ -751,9 +751,11 @@ footer { padding: 60px 0 80px; border-top: 1px solid var(--border); margin-top: 
 .stat-val{font-size:clamp(38px,4.5vw,52px);font-weight:800;color:var(--text-primary);line-height:1;margin-bottom:14px;letter-spacing:-.02em;text-shadow:0 0 16px var(--signal-cyan-soft);}
 .stat-val span{font-size:clamp(20px,2.2vw,28px);color:#A855F7;margin-left:4px;font-family:var(--font-mono);font-weight:700;}
 .stat-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:var(--text-muted);text-transform:uppercase;font-weight:700;}
-/* ---- Flowchart ---- */
-.flowchart{background:var(--surface-card);border:1px solid var(--border);padding:32px 24px;margin-top:32px;display:flex;justify-content:center;overflow-x:auto;border-radius:var(--radius-lg);box-shadow:var(--shadow-card);}
+/* ---- Flowchart & Mermaid ---- */
+.flowchart{background:var(--surface-card);border:1px solid var(--border);padding:32px 24px;margin-top:32px;display:flex;justify-content:center;align-items:center;overflow-x:auto;border-radius:var(--radius-lg);box-shadow:var(--shadow-card);}
 .flowchart svg{width:100%;max-width:800px;min-width:600px;height:auto;display:block;}
+.mermaid-wrapper pre.mermaid, .mermaid { background: transparent !important; border: none !important; padding: 0 !important; margin: 0 auto !important; width: 100%; display: flex; justify-content: center; }
+.mermaid svg { max-width: 100%; height: auto; display: block; }
 /* ---- References ---- */
 .references{margin-top:64px;border-top:1px solid var(--border);padding-top:40px;font-size:14px;line-height:1.6;}
 .references h3{font-family:var(--font-mono);font-size:13px;letter-spacing:.12em;color:var(--text-secondary);margin-bottom:20px;font-weight:700;}
@@ -770,8 +772,28 @@ footer { padding: 60px 0 80px; border-top: 1px solid var(--border); margin-top: 
 .rich-text li { margin-bottom: 0.6em; }
 .rich-text strong { color: #fff; font-weight: 800; }
 .rich-text em { font-style: normal; color: var(--text-muted); }
-.rich-text blockquote { border-left: 4px solid var(--signal-cyan); padding: 6px 0 6px 20px; margin-top: 2em; margin-bottom: 2em; color: var(--text-secondary); background: linear-gradient(90deg, rgba(168, 85, 247, 0.05) 0%, transparent 100%); font-size: 16px; }
 .rich-text code { font-family: var(--font-mono); font-size: 0.85em; background: rgba(0,0,0,0.4); border: 1px solid var(--border-subtle); padding: 3px 6px; border-radius: 6px; color: var(--signal-cyan); }
+
+/* ---- Code Block & Pre (Neon 3D Cyber Terminal) ---- */
+.code-block { background: #0D0D11; border: 1px solid rgba(168, 85, 247, 0.28); border-radius: var(--radius); margin: 28px 0; overflow: hidden; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), 0 0 20px rgba(168, 85, 247, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.1); }
+.code-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: rgba(22, 18, 30, 0.9); border-bottom: 1px solid rgba(168, 85, 247, 0.15); }
+.code-dots { display: flex; gap: 6px; }
+.code-dots span { width: 9px; height: 9px; border-radius: 50%; }
+.code-dots span:nth-child(1) { background: #EC4899; box-shadow: 0 0 6px #EC4899; }
+.code-dots span:nth-child(2) { background: #FBBF24; box-shadow: 0 0 6px #FBBF24; }
+.code-dots span:nth-child(3) { background: #A855F7; box-shadow: 0 0 6px #A855F7; }
+.code-lang { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: var(--signal-magenta); text-shadow: 0 0 10px rgba(236, 72, 153, 0.4); text-transform: uppercase; }
+.code-copy-btn { font-family: var(--font-mono); font-size: 11px; padding: 3px 10px; background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.25); border-radius: 6px; color: #C084FC; cursor: pointer; transition: all 0.15s ease; }
+.code-copy-btn:hover { color: #FFFFFF; border-color: var(--signal-magenta); background: rgba(236, 72, 153, 0.25); box-shadow: 0 0 12px rgba(236, 72, 153, 0.4); }
+.code-block pre, .rich-text pre { margin: 0; padding: 18px 20px; background: #0D0D11; overflow-x: auto; font-family: var(--font-mono); font-size: 13.5px; line-height: 1.65; color: #F3E8FF; scrollbar-width: thin; scrollbar-color: rgba(168, 85, 247, 0.3) transparent; }
+.rich-text pre { border: 1px solid rgba(168, 85, 247, 0.28); border-radius: var(--radius); margin: 24px 0; }
+.code-block pre code, .rich-text pre code { background: transparent; border: none; padding: 0; color: inherit; font-size: inherit; }
+.token-comment { color: #6B7280; font-style: italic; }
+.token-keyword { color: #C084FC; font-weight: 700; }
+.token-string { color: #F472B6; }
+.token-function { color: #38BDF8; }
+.token-number { color: #FDE047; }
+.token-operator { color: #A855F7; }
 </style>
 </head>
 <body>
@@ -807,6 +829,24 @@ footer { padding: 60px 0 80px; border-top: 1px solid var(--border); margin-top: 
       <blockquote>
         “好的设计是显而易见的，而伟大的设计是透明的。在这个信息爆炸的时代，我们的目标是让内容本身发光，而不是让包装喧宾夺主。”<br>—— 工业设计排版准则
       </blockquote>
+      
+      <!-- 19 / CODE BLOCK & TERMINAL -->
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-lang">GLSL / SHADER</span>
+          <button class="code-copy-btn" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').innerText); this.innerText='COPIED!'; setTimeout(()=>this.innerText='COPY', 2000)">COPY</button>
+        </div>
+        <pre><code><span class="token-comment">// Neon 3D 极光波浪着色器片元着色器</span>
+<span class="token-keyword">precision</span> mediump float;
+<span class="token-keyword">uniform</span> float u_time;
+<span class="token-keyword">varying</span> vec2 v_uv;
+
+<span class="token-keyword">void</span> <span class="token-function">main</span>() {
+  vec3 col = <span class="token-function">vec3</span>(<span class="token-number">0.66</span>, <span class="token-number">0.33</span>, <span class="token-number">0.97</span>) * <span class="token-function">sin</span>(v_uv.x * <span class="token-number">6.28</span> + u_time);
+  gl_FragColor = <span class="token-function">vec4</span>(col, <span class="token-number">1.0</span>);
+}</code></pre>
+      </div>
       
       <h3>排版的三大基本原则</h3>
       <p>为了让 AI 生成的纯文本能立刻获得高级杂志般的质感，我们需要让系统自动处理以下细节：</p>
@@ -974,5 +1014,35 @@ footer { padding: 60px 0 80px; border-top: 1px solid var(--border); margin-top: 
     </div>
   </div>
 </footer>
+
+<!-- Mermaid.js 动态图表运行时 -->
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  const mermaidElements = document.querySelectorAll('.mermaid');
+  if (mermaidElements.length > 0) {
+    mermaidElements.forEach(el => {
+      el.textContent = el.textContent
+        .replace(/^\s*\/\/\s*MERMAID/i, '')
+        .replace(/^\s*\/\*[\s\S]*?\*\//, '')
+        .trim();
+    });
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'base',
+      themeVariables: {
+        darkMode: true,
+        background: '#0D0D11',
+        primaryColor: '#16121E',
+        primaryTextColor: '#FFFFFF',
+        primaryBorderColor: '#EC4899',
+        lineColor: '#A855F7',
+        secondaryColor: '#241434',
+        tertiaryColor: '#09080C',
+        fontFamily: '"Plus Jakarta Sans", -apple-system, sans-serif'
+      }
+    });
+  }
+</script>
+
 </body>
 </html>

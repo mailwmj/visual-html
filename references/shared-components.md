@@ -234,11 +234,14 @@
 
 ---
 
-## 13. Flowchart (流程图与系统架构 SVG 容器)
+## 13. Flowchart & Diagrams (流程图、系统架构与 Mermaid 图表引擎)
+
+本系统提供**原生纯矢量 SVG** 与 **Mermaid 动态图表引擎** 双轨架构，由 AI 根据长文本的复杂程度自主决策选用：
+
+### A. 方式一：原生纯矢量 SVG (适合 3~5 步简单线性流程，100% 离线零依赖)
 
 ```html
 <div class="flowchart">
-  <!-- 内部嵌入纯净响应式 SVG 流程图，支持节点 (rect/text) 与带箭头的连接线 (path/line + marker) -->
   <svg viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
@@ -251,7 +254,6 @@
       <text x="35" y="52" fill="currentColor" font-size="10" opacity="0.6">01 / INPUT</text>
       <text x="35" y="74" fill="currentColor" font-size="14" font-weight="700">输入节点</text>
     </g>
-    <!-- 连接线 -->
     <line x1="170" y1="60" x2="220" y2="60" stroke="currentColor" stroke-width="1.5" marker-end="url(#arrow)" opacity="0.4" />
     <!-- 节点 2 -->
     <g class="node">
@@ -259,7 +261,6 @@
       <text x="240" y="52" fill="currentColor" font-size="10" opacity="0.6">02 / PROCESS</text>
       <text x="240" y="74" fill="currentColor" font-size="14" font-weight="700">处理逻辑</text>
     </g>
-    <!-- 连接线 -->
     <line x1="375" y1="60" x2="425" y2="60" stroke="currentColor" stroke-width="1.5" marker-end="url(#arrow)" opacity="0.4" />
     <!-- 节点 3 (高亮态) -->
     <g class="node active">
@@ -267,7 +268,6 @@
       <text x="445" y="52" fill="currentColor" font-size="10">03 / CORE</text>
       <text x="445" y="74" fill="currentColor" font-size="14" font-weight="700">核心引擎</text>
     </g>
-    <!-- 连接线 -->
     <line x1="580" y1="60" x2="630" y2="60" stroke="currentColor" stroke-width="1.5" marker-end="url(#arrow)" opacity="0.4" />
     <!-- 节点 4 -->
     <g class="node">
@@ -279,13 +279,82 @@
 </div>
 ```
 
-- **语义场景**：将复杂的系统逻辑、工作流程、数据流水线或状态机渲染为清晰的矢量图表。
-- **组件结构**：负责包裹 SVG 的响应式外层容器（`.flowchart`），内含多节点与箭头连接线。
-- **渲染推荐**：
-  1. **首选纯 SVG 渲染（原生离线零依赖）**：自包含节点、文字与箭头，无任何外部 CDN 依赖，加载稳定迅速。
-     * 推荐 4 节点标准横向排版：`viewBox="0 0 800 120"`，节点宽 `150`，高 `70`，`y=25`，起始 `x=20`，步长 `205`（即第 $i$ 个节点 $x = 20 + i \times 205$），连接线为 $(x_i + 150, 60) \to (x_{i+1}, 60)$。
-  2. **可选 Mermaid.js 运行时**：若需客户端直接解析 Mermaid 文本，可在页面底部引入 ESM 脚本：
-     `<script type="module">import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs'; mermaid.initialize({ startOnLoad: true, theme: 'dark' });</script>` 并在容器内使用 `<pre class="mermaid">flowchart LR ...</pre>`。
+---
+
+### B. 方式二：Mermaid 动态图表引擎 (适合复杂分支拓扑、时序调用、状态机、类图与思维导图)
+
+```html
+<div class="flowchart mermaid-wrapper">
+  <pre class="mermaid">
+flowchart LR
+    A[01 / INPUT<br><b>原始输入</b>] --> B[02 / EXTRACT<br><b>AI 语义提取</b>]
+    B --> C{架构决策<br><b>Native SVG 或 Mermaid?</b>}
+    C -->|简单 3-5 步| D[纯矢量 SVG<br><b>零依赖秒开</b>]
+    C -->|复杂拓扑/时序| E[Mermaid 引擎<br><b>自动清洗与风格渲染</b>]
+    D --> F[成果交付]
+    E --> F
+  </pre>
+</div>
+```
+
+#### 1. 适用场景与支持图表类型：
+- **复杂流程图 (Flowchart)**：`flowchart LR`, `flowchart TD`，多分支判断、循环流转；
+- **时序交互图 (Sequence Diagram)**：`sequenceDiagram`，展示多服务、Agent 之间的请求响应与调用链；
+- **状态机图 (State Diagram)**：`stateDiagram-v2`，展示系统生命周期与状态转移；
+- **类图与数据模型 (Class / ER Diagram)**：`classDiagram` 或 `erDiagram`；
+- **思维导图与架构树 (Mindmap)**：`mindmap`；
+- **版本演进与分支 (Git Graph)**：`gitGraph`。
+
+#### 2. 页面底部必须注入的标准清洗与渲染脚本 (ESM 模版)：
+当页面包含 `.mermaid` 容器时，必须在 `</body>` 前引入以下自动化脚本：
+
+```html
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+  // 1. 语法容错清洗：自动剥离 // MERMAID, /* MERMAID */ 等非标准前缀注释
+  document.querySelectorAll('.mermaid').forEach(el => {
+    el.textContent = el.textContent
+      .replace(/^\s*\/\/\s*MERMAID/i, '')
+      .replace(/^\s*\/\*[\s\S]*?\*\//, '')
+      .trim();
+  });
+
+  // 2. 根据当前页面风格注入对应的 themeVariables（确保与风格包浑然一体）
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      /* 按照各风格包配置对应的色彩字典，例如 industrial-dark: */
+      darkMode: true,
+      background: '#0D1110',
+      primaryColor: '#131924',
+      primaryTextColor: '#F2F3EF',
+      primaryBorderColor: '#67E38B',
+      lineColor: '#67E38B',
+      secondaryColor: '#1B2433',
+      tertiaryColor: '#090C0B',
+      fontFamily: '"IBM Plex Mono", Consolas, monospace'
+    }
+  });
+</script>
+```
+
+#### 3. 11 款视觉风格专属 Mermaid `themeVariables` 字典对照表：
+
+| 风格 ID (`style_id`) | `darkMode` | `background` | `primaryColor` | `primaryTextColor` | `lineColor` | `primaryBorderColor` |
+|---|---|---|---|---|---|---|
+| **`industrial-dark`** | `true` | `#0D1110` | `#131924` | `#F2F3EF` | `#67E38B` | `#67E38B` |
+| **`soft-sky`** | `false` | `#FFFFFF` | `#EAF6FC` | `#2A3F54` | `#0284C7` | `#0284C7` |
+| **`obsidian-cyan`** | `true` | `#151D2A` | `#131924` | `#FFFFFF` | `#38BDF8` | `#38BDF8` |
+| **`play-tubular`** | `false` | `#FAF8F3` | `#FFFFFF` | `#111111` | `#0052FF` | `#0052FF` |
+| **`warm-craft`** | `false` | `#F7F4EC` | `#EDE8DC` | `#242724` | `#323D24` | `#323D24` |
+| **`neon-3d`** | `true` | `#0D0D11` | `#16121E` | `#FFFFFF` | `#A855F7` | `#EC4899` |
+| **`pixel-pop`** | `false` | `#FFFFFF` | `#FFF8D6` | `#000000` | `#000000` | `#000000` |
+| **`brutalist-acid`** | `false` | `#FFFFFF` | `#00E5CC` | `#000000` | `#000000` | `#FF4591` |
+| **`sunflower-bloom`** | `true` | `#1E3A5F` | `#2A455C` | `#F2EAE0` | `#FFC300` | `#FFC300` |
+| **`summer-dopamine`** | `true` | `rgba(15,23,42,0.85)` | `rgba(255,255,255,0.15)` | `#FFFFFF` | `#00E676` | `#FF66B2` |
+| **`soft-editorial-future`** | `true` | `#0C131F` | `#162032` | `#F8FAFC` | `#38BDF8` | `#38BDF8` |
 
 ---
 
@@ -416,3 +485,33 @@
 - **语义场景**：多轮需求访谈、AI Agent 人机协同推演、复杂系统阶段性决策审查与步骤答辩。
 - **组件结构**：轮次大卡片（`.round-card`）包含阶段标头、AI 前沿提问卡组（`.ai-questions-block`，内含问题项 `.q-item`、推荐方案便签 `.q-recom-note`、异步子代理排查条 `.q-subagent-note`）以及独立的用户拍板决策便签（`.user-decision-note`）。
 - **排版原则**：严禁使用通用即时聊天工具的生硬粗边框或廉价对话气泡；必须按照社论访谈录 / 手账便签卡片的典雅格式排版。
+
+---
+
+## 19. Code Block (多行代码块与终端窗口)
+
+```html
+<div class="code-block">
+  <div class="code-header">
+    <div class="code-dots">
+      <span></span><span></span><span></span>
+    </div>
+    <span class="code-lang">BASH / SHELL</span>
+    <button class="code-copy-btn" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').innerText); this.innerText='COPIED!'; setTimeout(()=>this.innerText='COPY', 2000)">COPY</button>
+  </div>
+  <pre><code><span class="token-comment"># 启动高可用推理集群并挂载模型权重</span>
+<span class="token-keyword">export</span> CLUSTER_ENV=production
+<span class="token-keyword">export</span> WORKER_THREADS=32
+
+<span class="token-function">curl</span> -fsSL https://engine.internal.net/install.sh | <span class="token-keyword">bash</span>
+systemctl enable --now worker-engine.service</code></pre>
+</div>
+```
+
+- **语义场景**：展示命令行终端指令、配置文件（YAML/JSON/TOML）、核心算法片段、API 接口调用及多行工程代码。
+- **组件结构**：
+  - 外部窗口容器（`.code-block`），内嵌顶栏标头（`.code-header`）与代码展示区（`pre` & `code`）。
+  - 顶栏标头包含：装饰控制圆点（`.code-dots`）、大写 Mono 语言指示徽标（`.code-lang`）以及轻量交互复制按钮（`.code-copy-btn`）。
+  - 语法标记支持标准语义 Token 类：`.token-comment`（注释）、`.token-keyword`（关键字/控制流）、`.token-string`（字符串）、`.token-function`（函数/指令名）、`.token-number`（数字/参数）、`.token-operator`（运算符）。
+- **优雅降级契约**：在 `.rich-text` 中直接出现的原生 `<pre><code>...</code></pre>` 同样由各风格 CSS 提供一体化的背景容器、等宽字体与平滑横向滚动兜底保护。
+

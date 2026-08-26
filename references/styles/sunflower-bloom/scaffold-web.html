@@ -54,6 +54,28 @@ section { position: relative; }
 .rich-text p { margin-bottom: 1.5em; }
 .rich-text strong { color: var(--text-hero); }
 .rich-text blockquote { padding: 20px 24px; background: var(--bg-surface); border-left: 4px solid var(--signal-yellow); margin: 30px 0; font-size: 1.1rem; color: var(--text-inverse); }
+.rich-text code { font-family: var(--font-mono); font-size: 0.9em; background: rgba(242, 234, 224, 0.15); border: 1px solid var(--border-color); padding: 2px 6px; border-radius: var(--border-radius); color: var(--signal-yellow); }
+
+/* 17. Code Block & Pre (Sunflower Terminal) */
+.code-block { background: #1E3A5F; border: 1px solid rgba(242, 234, 224, 0.25); border-radius: var(--border-radius); margin: 28px 0; overflow: hidden; }
+.code-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: rgba(18, 36, 60, 0.85); border-bottom: 1px solid rgba(242, 234, 224, 0.15); }
+.code-dots { display: flex; gap: 6px; }
+.code-dots span { width: 8px; height: 8px; border-radius: 50%; }
+.code-dots span:nth-child(1) { background: #FF5F56; }
+.code-dots span:nth-child(2) { background: var(--signal-yellow); }
+.code-dots span:nth-child(3) { background: #6B8E23; }
+.code-lang { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: var(--signal-yellow); text-transform: uppercase; }
+.code-copy-btn { font-family: var(--font-mono); font-size: 11px; padding: 3px 10px; background: rgba(255, 195, 0, 0.15); border: 1px solid rgba(255, 195, 0, 0.3); border-radius: var(--border-radius); color: var(--signal-yellow); cursor: pointer; transition: all 0.15s ease; }
+.code-copy-btn:hover { background: var(--signal-yellow); color: #1E3A5F; }
+.code-block pre, .rich-text pre { margin: 0; padding: 18px 20px; background: #1E3A5F; overflow-x: auto; font-family: var(--font-mono); font-size: 13.5px; line-height: 1.65; color: var(--text-hero); scrollbar-width: thin; scrollbar-color: var(--signal-yellow) transparent; }
+.rich-text pre { border: 1px solid rgba(242, 234, 224, 0.25); border-radius: var(--border-radius); margin: 24px 0; }
+.code-block pre code, .rich-text pre code { background: transparent; border: none; padding: 0; color: inherit; font-size: inherit; }
+.token-comment { color: var(--text-secondary); font-style: italic; }
+.token-keyword { color: var(--signal-yellow); font-weight: 700; }
+.token-string { color: #A3E635; }
+.token-function { color: #7DD3FC; }
+.token-number { color: #FCA5A5; }
+.token-operator { color: var(--text-hero); }
 
 /* 3. Tech Specs */
 .spec-row { display: flex; flex-wrap: wrap; gap: 40px; padding: 30px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); margin: 40px 0; }
@@ -147,6 +169,20 @@ footer { border-top: 1px solid var(--border-color); padding: 40px 0; font-family
 .flowchart .node text { fill: var(--text-inverse); }
 .flowchart .node.active rect { stroke: var(--signal-yellow); stroke-width: 3px; }
 .flowchart .node.active text { fill: #000; font-weight: bold; }
+.mermaid-wrapper pre.mermaid, .mermaid {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 auto !important;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.mermaid svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
 
 /* 14. References */
 .references { margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--border-color); }
@@ -205,6 +241,21 @@ footer { border-top: 1px solid var(--border-color); padding: 40px 0; font-family
       <p>这是标准的正文段落。支持 <strong>加粗</strong>、<em>斜体</em> 和 <code>内联代码</code> 排版。</p>
       <blockquote>这是引用名人名言或核心观点的块级引用（Blockquote），需要单独的视觉包裹。</blockquote>
       
+      <!-- 17 / CODE BLOCK & TERMINAL -->
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-lang">CONFIG / TOML</span>
+          <button class="code-copy-btn" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').innerText); this.innerText='COPIED!'; setTimeout(()=>this.innerText='COPY', 2000)">COPY</button>
+        </div>
+        <pre><code><span class="token-comment"># Sunflower Bloom 主题配置清单</span>
+[theme]
+name = <span class="token-string">"sunflower-bloom"</span>
+primary_color = <span class="token-string">"#FFC300"</span>
+growth_index = <span class="token-number">98.5</span>
+active = <span class="token-keyword">true</span></code></pre>
+      </div>
+
       <div class="spec-row">
         <div class="spec"><div class="val">60×95<em>mm</em></div><div class="unit">SIZE</div></div>
         <div class="spec"><div class="val">500<em>mah</em></div><div class="unit">BATTERY</div></div>
@@ -426,6 +477,35 @@ footer { border-top: 1px solid var(--border-color); padding: 40px 0; font-family
     </div>
   </div>
 </footer>
+
+<!-- Mermaid.js 动态图表运行时 -->
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  const mermaidElements = document.querySelectorAll('.mermaid');
+  if (mermaidElements.length > 0) {
+    mermaidElements.forEach(el => {
+      el.textContent = el.textContent
+        .replace(/^\s*\/\/\s*MERMAID/i, '')
+        .replace(/^\s*\/\*[\s\S]*?\*\//, '')
+        .trim();
+    });
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'base',
+      themeVariables: {
+        darkMode: true,
+        background: '#1E3A5F',
+        primaryColor: '#2A455C',
+        primaryTextColor: '#F2EAE0',
+        primaryBorderColor: '#FFC300',
+        lineColor: '#FFC300',
+        secondaryColor: '#345A80',
+        tertiaryColor: '#162C46',
+        fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
+      }
+    });
+  }
+</script>
 
 </body>
 </html>

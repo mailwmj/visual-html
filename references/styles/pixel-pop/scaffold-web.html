@@ -611,6 +611,21 @@
     .flowchart svg .node.active rect { fill: var(--c-green); }
     .flowchart svg line { stroke: var(--text-main); stroke-width: 4px; }
 
+    .mermaid-wrapper pre.mermaid, .mermaid {
+      background: transparent !important;
+      border: none !important;
+      padding: 0 !important;
+      margin: 0 auto !important;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    .mermaid svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
     /* 14. References */
     .references {
       background: var(--surface-card);
@@ -671,6 +686,110 @@
       background: #eafaf0;
       border-radius: 0 8px 8px 0;
     }
+    .rich-text code {
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+      background: #fdf3d0;
+      border: 1.5px solid #000;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #000;
+      font-weight: 600;
+    }
+
+    /* 17. Code Block & Pre (Pixel Pop Retro Terminal) */
+    .code-block {
+      background: #111424;
+      border: var(--pop-border);
+      border-radius: 10px;
+      box-shadow: var(--pop-shadow-md);
+      margin: 24px 0;
+      overflow: hidden;
+    }
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 14px;
+      background: #1F2438;
+      border-bottom: 2px solid #000;
+    }
+    .code-dots {
+      display: flex;
+      gap: 6px;
+    }
+    .code-dots span {
+      width: 10px;
+      height: 10px;
+      border: 1.5px solid #000;
+      border-radius: 2px;
+    }
+    .code-dots span:nth-child(1) { background: var(--c-pink); }
+    .code-dots span:nth-child(2) { background: var(--c-yellow); }
+    .code-dots span:nth-child(3) { background: var(--c-green); }
+    .code-lang {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      color: var(--c-yellow);
+      background: #000;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .code-copy-btn {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      background: var(--c-yellow);
+      border: 1.5px solid #000;
+      border-radius: 4px;
+      color: #000;
+      cursor: pointer;
+      box-shadow: 2px 2px 0 #000;
+      transition: transform 0.1s ease;
+    }
+    .code-copy-btn:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 3px 3px 0 #000;
+    }
+    .code-copy-btn:active {
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0 #000;
+    }
+    .code-block pre, .rich-text pre {
+      margin: 0;
+      padding: 16px 18px;
+      background: #111424;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: #FFFFFF;
+      scrollbar-width: thin;
+      scrollbar-color: var(--c-yellow) transparent;
+    }
+    .rich-text pre {
+      border: var(--pop-border);
+      border-radius: 8px;
+      box-shadow: var(--pop-shadow-sm);
+      margin: 20px 0;
+    }
+    .code-block pre code, .rich-text pre code {
+      background: transparent;
+      border: none;
+      padding: 0;
+      color: inherit;
+      font-size: inherit;
+    }
+    .token-comment { color: #6C7A9C; font-style: italic; }
+    .token-keyword { color: var(--c-pink); font-weight: 700; }
+    .token-string { color: var(--c-yellow); }
+    .token-function { color: var(--c-green); }
+    .token-number { color: #38BDF8; }
+    .token-operator { color: #FFF; }
 
     /* 16. FAQ */
     .faq {
@@ -843,7 +962,26 @@
     <div class="references"><h3>REFERENCES / 参考文献</h3><ol><li id="ref-1">Houkago Graphic System & Pixel Pop Visual Guidelines <a href="#ref-1">↩</a></li></ol></div>
 
     <!-- 15. Rich Text -->
-    <div class="rich-text"><h3>结构化正文标题</h3><p>这是标准的正文模块容器。长页面中依然可以保持清晰的层级与极高的文字可读性。</p><blockquote>引用文段会呈现鲜明的绿色蜡笔侧边栏强调效果，内部文字清晰锋利。</blockquote></div>
+    <div class="rich-text">
+      <h3>结构化正文标题</h3>
+      <p>这是标准的正文模块容器。长页面中依然可以保持清晰的层级与极高的文字可读性。</p>
+      <blockquote>引用文段会呈现鲜明的绿色蜡笔侧边栏强调效果，内部文字清晰锋利。</blockquote>
+      
+      <!-- 17. Code Block & Retro Terminal -->
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-lang">LUA / RETRO GAME</span>
+          <button class="code-copy-btn" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').innerText); this.innerText='COPIED!'; setTimeout(()=>this.innerText='COPY', 2000)">COPY</button>
+        </div>
+        <pre><code><span class="token-comment">-- Pixel Pop 角色精灵跳跃状态机</span>
+<span class="token-keyword">function</span> <span class="token-function">player_jump</span>(self)
+    self.vy = -<span class="token-number">8.5</span>
+    self.state = <span class="token-string">"jumping"</span>
+    <span class="token-function">play_sound</span>(<span class="token-string">"sfx_jump_pop"</span>)
+<span class="token-keyword">end</span></code></pre>
+      </div>
+    </div>
 
     <!-- 16. FAQ -->
     <div class="faq">
@@ -854,5 +992,34 @@
   <footer>
     <div class="meta-foot"><span>HOUKAGO SYSTEM</span><span>PIXEL POP V2</span><span>READABILITY OPTIMIZED</span></div>
   </footer>
+
+  <!-- Mermaid.js 动态图表运行时 -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    const mermaidElements = document.querySelectorAll('.mermaid');
+    if (mermaidElements.length > 0) {
+      mermaidElements.forEach(el => {
+        el.textContent = el.textContent
+          .replace(/^\s*\/\/\s*MERMAID/i, '')
+          .replace(/^\s*\/\*[\s\S]*?\*\//, '')
+          .trim();
+      });
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: 'base',
+        themeVariables: {
+          darkMode: false,
+          background: '#FFFFFF',
+          primaryColor: '#FFF8D6',
+          primaryTextColor: '#000000',
+          primaryBorderColor: '#000000',
+          lineColor: '#000000',
+          secondaryColor: '#E6FAF6',
+          tertiaryColor: '#FFE5EC',
+          fontFamily: '"SF Pro Text", "Helvetica Neue", sans-serif'
+        }
+      });
+    }
+  </script>
 </body>
 </html>
