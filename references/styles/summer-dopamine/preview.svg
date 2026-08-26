@@ -47,7 +47,7 @@
 
   <!-- Tier 2: Header Title (y: 44..60, baseline: 58) -->
   <g transform="translate(18, 58)">
-    <text class="sans" font-size="16" font-weight="900" fill="#FFFFFF" x="0" y="0">多巴胺夏日风</text>
+    <text class="sans" font-size="16" font-weight="900" fill="#FFFFFF" x="0" y="0">夏日多巴胺风</text>
     <text class="mono" font-size="9" font-weight="700" fill="rgba(255, 255, 255, 0.9)" x="110" y="-1">SUMMER DOPAMINE</text>
   </g>
 

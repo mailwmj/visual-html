@@ -32,7 +32,7 @@
 
   <!-- Tier 2: Title (y: 44..60, baseline: 58) -->
   <g transform="translate(18, 58)">
-    <text class="sans" font-size="16" font-weight="700" fill="#F2F3EF" x="0" y="0">暗色工业档案风</text>
+    <text class="sans" font-size="16" font-weight="700" fill="#F2F3EF" x="0" y="0">暗黑极客工业风</text>
     <text class="mono" font-size="9" font-weight="500" fill="#6F7672" x="125" y="-1">INDUSTRIAL DARK</text>
   </g>
 

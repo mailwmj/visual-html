@@ -1,4 +1,4 @@
-# Play Tubular / 玩味工程彩管风 — Design Tokens & Style Specification
+# Play Tubular (玩味极客彩管风) — Design 规范 & 视觉契约
 
 > **Style ID**: `play-tubular`  
 > **显示名称**：玩味工程彩管风 / 活力半调彩管 (Play Tubular / Play Engineering)  

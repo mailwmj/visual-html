@@ -1,4 +1,4 @@
-# Warm Craft / 暖纸手作与温润社论 — Design Tokens & Style Specification
+# Warm Craft (温润纸感手札风) — Design 规范 & 视觉契约
 
 > **Style ID**: `warm-craft`  
 > **显示名称**：暖纸手作/温润社论风 (Warm Craft Editorial)  

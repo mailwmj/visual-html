@@ -1,4 +1,4 @@
-# 黑曜霓蓝风 (Obsidian Cyan) — 设计规范与文本转换 Token
+# Obsidian Cyan (黑曜霓蓝展厅风) — Design 规范 & 视觉契约
 
 > **风格标识 (Style ID)**: `obsidian-cyan`  
 > **显示名称**：黑曜霓蓝展示风 / Obsidian Cyan Showcase  

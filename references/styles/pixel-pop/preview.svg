@@ -27,7 +27,7 @@
 
   <!-- Tier 2: Title (y: 44..60, baseline: 58) -->
   <g transform="translate(24, 58)">
-    <text class="sans" font-size="15" font-weight="900" fill="#111111" x="0" y="0">手绘像素波普风</text>
+    <text class="sans" font-size="15" font-weight="900" fill="#111111" x="0" y="0">日系像素波普风</text>
     <text class="sans" font-size="9" font-weight="800" fill="#0b45f3" x="120" y="-1">PIXEL POP</text>
   </g>
 

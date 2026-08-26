@@ -1,4 +1,4 @@
-# Soft Sky / 柔空浅蓝 — Design Tokens & Style Specification
+# Soft Sky (清透空灵浅蓝风) — Design 规范 & 视觉契约
 
 > **Style ID**: `soft-sky`  
 > **显示名称**：柔空浅蓝风 / Soft Sky Editorial  

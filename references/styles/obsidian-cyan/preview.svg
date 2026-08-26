@@ -35,8 +35,8 @@
 
   <!-- Tier 2: Title (y: 44..60, baseline: 58) -->
   <g transform="translate(18, 58)">
-    <text class="sans" font-size="16" font-weight="800" fill="#FFFFFF" x="0" y="0">黑曜霓蓝展示风</text>
-    <text class="mono" font-size="9" font-weight="500" fill="#64748B" x="128" y="-1">OBSIDIAN CYAN SHOWCASE</text>
+    <text class="sans" font-size="16" font-weight="800" fill="#FFFFFF" x="0" y="0">黑曜霓蓝展厅风</text>
+    <text class="mono" font-size="9" font-weight="500" fill="#64748B" x="128" y="-1">OBSIDIAN CYAN</text>
   </g>
 
   <!-- Tier 3: Main Card (y: 72..192, height: 120) -->

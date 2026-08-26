@@ -1,4 +1,4 @@
-# Visual HTML Style Tokens: Sunflower Bloom
+# Sunflower Bloom (向日葵暖阳风) — Design 规范 & 视觉契约
 
 ## 1. 设计理念与特征 (Design Concept & Features)
 - **风格名称**：向日葵生机风 (Sunflower Bloom)

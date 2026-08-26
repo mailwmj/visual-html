@@ -1,4 +1,4 @@
-# Summer Dopamine / 汽水镇的夏天 — Design Tokens & Style Specification
+# Summer Dopamine (夏日多巴胺风) — Design 规范 & 视觉契约
 
 > **Style ID**: `summer-dopamine`
 > **显示名称**：多巴胺夏日风 / Summer Dopamine

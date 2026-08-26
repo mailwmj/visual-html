@@ -2,11 +2,11 @@
 name: visual-html
 version: 3.0
 description: >
-  模块化视觉设计与排版系统，支持多种可插拔设计风格（如暗色工业档案风、柔空浅蓝风、黑曜霓蓝展示风、玩味工程彩管风等），用于生成高质量、高结构化、高辨识度的 Web 页面与 16:9 PPT 幻灯片。
+  模块化视觉设计与排版系统，支持多种可插拔设计风格（如暗黑极客工业风、清透空灵浅蓝风、黑曜霓蓝展厅风、玩味极客彩管风等），用于生成高质量、高结构化、高辨识度的 Web 页面与 16:9 PPT 幻灯片。
   触发场景与关键词：
-  1) 风格与视觉词："技术编辑风"、"暗色技术风"、"工业技术风"、"技术档案"、"硬件介绍页"、"产品介绍页"、"Technical Editorial"、"工业风落地页"、"工程文档风"、"浅蓝"、"柔空蓝"、"包装展示"、"生活方式"、"少女风"、"甜美科技"、"黑曜霓蓝"、"暗色展示"、"UI/UX展示"、"App展示"、"移动端展示"、"Case Study"、"Obsidian Cyan"、"霓虹3D"、"Neon 3D"、"潮流设计"、"视觉排版"、"HTML PPT"、"网页脚手架"、"手绘像素"、"像素波普"、"Pixel Pop"、"酸性粗野"、"Brutalist Acid"、"向日葵生机"、"Sunflower Bloom"、"多巴胺"、"夏日汽水"、"Summer Dopamine"、"暖纸手作"、"温润社论"、"Warm Craft"、"未来社论"、"Soft Editorial"、"玩味工程"、"立体彩管"、"彩带"、"半调网点"、"Halftone"、"Play Engineering"、"Play Tubular"、"管状渐变"。
+  1) 风格与视觉词："技术编辑风"、"暗色技术风"、"工业技术风"、"暗黑极客工业"、"极客工业"、"硬件介绍页"、"产品介绍页"、"Technical Editorial"、"工业风落地页"、"工程文档风"、"浅蓝"、"清透浅蓝"、"空灵浅蓝"、"包装展示"、"生活方式"、"黑曜霓蓝"、"黑曜展厅"、"暗色展示"、"UI/UX展示"、"App展示"、"移动端展示"、"Case Study"、"Obsidian Cyan"、"流体极光"、"暗紫流体极光"、"暗紫霓虹"、"Neon Aurora"、"潮流设计"、"视觉排版"、"HTML PPT"、"网页脚手架"、"日系像素"、"像素波普"、"Pixel Pop"、"先锋撞色"、"先锋海报"、"Brutalist Poster"、"向日葵暖阳"、"Sunflower Bloom"、"多巴胺"、"夏日多巴胺"、"Summer Dopamine"、"温润纸感"、"纸感手札"、"Warm Craft"、"极简未来展厅"、"未来展厅"、"Future Showroom"、"玩味极客"、"玩味彩管"、"立体彩管"、"半调网点"、"Halftone"、"Play Tubular"、"管状渐变"。
   2) 内容类型：产品落地页 / 硬件展示 / 技术白皮书 / 功能说明 / 流程展示 / 规格对比 / 16:9 演示文稿 / UI/UX 案例展示 / 创意技术分享。
-  流程规范：采用渐进式加载（Progressive Disclosure）。激活后先根据内容分析意图、向用户建议或让用户确认目标风格（Style Pack）与媒介形式（Web / PPT），确认后按需精准读取对应风格的 Design Tokens 与脚手架进行代码生成与质检。
+  流程规范：采用渐进式加载（Progressive Disclosure）。激活后先根据内容分析意图、向用户建议或让用户确认目标风格（Style Pack）与媒介形式（Web / PPT），确认后按需精准读取对应风格的 Design 规范（`design.md`）与脚手架进行代码生成与质检。
 ---
 
 # Visual HTML — 模块化视觉设计与长文本排版系统
@@ -19,22 +19,22 @@ description: >
 
 ## 1. 风格注册表 (Style Registry)
 
-当前系统内置的风格包列表。每种风格均包含独立的 `tokens.md`、`scaffold-web.html`、`scaffold-ppt.html` 与微缩视觉名片 `preview.svg`：
+当前系统内置的风格包列表。每种风格均包含独立的 `design.md`、`scaffold-web.html`、`scaffold-ppt.html`、矢量源文件 `preview.svg`，以及供对话直接渲染的微缩视觉名片 `preview.png`：
 > 🎨 **全量画廊**：可直接在浏览器中打开 [style-gallery.html](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/style-gallery.html) 一站式对比与复制所有 11 种风格。
 
 | Style ID | 风格名称 | 核心视觉特征 | 推荐场景与关键词 | 微缩预览与风格包 |
 |---|---|---|---|---|
-| **`industrial-dark`** | **暗色工业档案风**<br>(Industrial Dark) | 近黑背景 (`#090C0B`) + CAD 极淡网格 + 0–2px 硬边模块 + 信号绿 (`#67E38B`) + 紫色第二通道 | 硬件参数页、产品官网、工程文档、技术说明、极客展示、系统架构 | [预览名片](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/styles/industrial-dark/preview.svg)<br>`references/styles/industrial-dark/` |
-| **`soft-sky`** | **柔空浅蓝风**<br>(Soft Sky) | 浅天蓝渐变背景 + 半透明白色卡片 + 8–16px 柔和圆角 + 同色系高阶蔚蓝 (`#0284C7`) 强调通道 | 包装展示、生活方式产品、消费级硬件、手账/文具、清新雅致向技术页 | [预览名片](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/styles/soft-sky/preview.svg)<br>`references/styles/soft-sky/` |
-| **`obsidian-cyan`** | **黑曜霓蓝展示风**<br>(Obsidian Cyan) | 黑曜近黑底色 (`#0B0E14`) + 顶部冷蓝极光 + 悬浮设备模型 + 电光霓蓝 (`#38BDF8`) 信号与标注线 (Callout Pins) + 多步流程徽章 | UI/UX 案例集、移动端 App 展示、数字产品发布、前沿软件功能演示、高科技展厅 | [预览名片](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/styles/obsidian-cyan/preview.svg)<br>`references/styles/obsidian-cyan/` |
-| **`neon-3d`** | **霓虹创意3D风**<br>(Neon 3D Creative) | 深邃黑紫底色 + 流体极光光晕 (Fluid Aurora Wave) + 胶片颗粒噪点 (Film Grain) + 3D浮雕高光卡片 + 霓虹紫/洋红通道 (`#A855F7` / `#EC4899`) | 工具集合展示、创意应用、潮酷硬件、潮流设计工作室、流体极光落地页、Vaporwave 风格 | [预览名片](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/styles/neon-3d/preview.svg)<br>`references/styles/neon-3d/` |
-| **`pixel-pop`** | **手绘像素波普**<br>(Pixel Pop) | 青春亮蓝底色 (`#0055ff`) + 半调像素背景过渡 + 粗糙蜡笔涂鸦边缘与质感 + 悬浮像素碎片与图案 (Pixel Art) | 青春校园、创意活动、复古游戏、手账拼贴、动漫手绘风展示 | [预览名片](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/styles/pixel-pop/preview.svg)<br>`references/styles/pixel-pop/` |
-| **`brutalist-acid`** | **酸性粗野海报风**<br>(Brutalist Acid) | 纯白高对比度画布 + 亮粉几何色块 (`#FF4591`) + 荧光青色 (`#00E5CC`) 超大字号标题 + 无规则排版与负字距 | 艺术展览、独立出版物、实验性排版、先锋设计展示、Acid Graphic 风格 | [预览名片](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/styles/brutalist-acid/preview.svg)<br>`references/styles/brutalist-acid/` |
-| **`sunflower-bloom`** | **向日葵生机风**<br>(Sunflower Bloom) | 沉静纸质蓝背景 (`#4278A9`) + 米白奶油字 (`#F2EAE0`) + 向日葵明黄 (`#FFC300`) 高亮与强调色 + 粗大排版 | 产品海报、积极向上展示、生机活力传递、纸质文艺风格 | [预览名片](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/styles/sunflower-bloom/preview.svg)<br>`references/styles/sunflower-bloom/` |
-| **`summer-dopamine`** | **多巴胺夏日风**<br>(Summer Dopamine) | 高饱和渐变网格背景 + 毛玻璃大圆角卡片 + 纯白与发光元素点缀 | 夏日活动、创意产品、汽水风格、多巴胺设计、元气海报 | [预览名片](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/styles/summer-dopamine/preview.svg)<br>`references/styles/summer-dopamine/` |
-| **`warm-craft`** | **暖纸手作/温润社论风**<br>(Warm Craft Editorial) | 暖米纸质画布 (`#F7F4EC`) + 人文宋体大标题 (Editorial Serif) + 深橄榄绿行动通道 (`#323D24`) + 错落微倾粉彩贴纸 (`-2deg`~`+2deg`) + 手绘涂鸦 | 智能代理、知识沉淀、深度调研、SaaS 产品官网、人文科技、书籍出版物、温润工作流 | [预览名片](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/styles/warm-craft/preview.svg)<br>`references/styles/warm-craft/` |
-| **`soft-editorial-future`** | **温润社论未来风**<br>(Soft Editorial Future) | 偏冷质感画布 + 高光悬浮玻璃展柜 + 内部色彩温润晕开的 3D 柔光彩球散布（边缘柔和自然） | 高级展厅、视觉画廊、艺术展落地页、前沿科技、AI产品 | [预览名片](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/styles/soft-editorial-future/preview.svg)<br>`references/styles/soft-editorial-future/` |
-| **`play-tubular`** | **玩味工程彩管风**<br>(Play Tubular / Play Engineering) | 浅暖米白点阵画布 (`#FAF8F3`) + 粗圆鲜活 3D 渐变立体彩管/丝带环绕 + 球头末端与弯折处的 **半调网点 (Halftone Dot Matrix)** 光影 + 现代高对比度工程粗黑体 + 纯白大圆角弹簧动效卡片 | AI/LLM 创新展示、创意产品发布、工程技术白皮书、开发者大会、玩味科技落地页 | [预览名片](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/styles/play-tubular/preview.svg)<br>`references/styles/play-tubular/` |
+| **`industrial-dark`** | **暗黑极客工业风**<br>(Industrial Dark) | 近黑背景 (`#090C0B`) + CAD 极淡网格 + 0–2px 硬边模块 + 信号绿 (`#67E38B`) + 紫色第二通道 | 硬件参数页、产品官网、工程文档、技术说明、极客展示、系统架构 | [预览名片](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/styles/industrial-dark/preview.svg)<br>`references/styles/industrial-dark/` |
+| **`soft-sky`** | **清透空灵浅蓝风**<br>(Soft Sky) | 浅天蓝渐变背景 + 半透明白色卡片 + 8–16px 柔和圆角 + 同色系高阶蔚蓝 (`#0284C7`) 强调通道 | 包装展示、生活方式产品、消费级硬件、手账/文具、清新雅致向技术页 | [预览名片](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/styles/soft-sky/preview.svg)<br>`references/styles/soft-sky/` |
+| **`obsidian-cyan`** | **黑曜霓蓝展厅风**<br>(Obsidian Cyan) | 黑曜近黑底色 (`#0B0E14`) + 顶部冷蓝极光 + 悬浮设备模型 + 电光霓蓝 (`#38BDF8`) 信号与标注线 (Callout Pins) + 多步流程徽章 | UI/UX 案例集、移动端 App 展示、数字产品发布、前沿软件功能演示、高科技展厅 | [预览名片](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/styles/obsidian-cyan/preview.svg)<br>`references/styles/obsidian-cyan/` |
+| **`neon-3d`** | **暗紫流体极光风**<br>(Neon Aurora) | 深邃黑紫底色 + 流体极光光晕 (Fluid Aurora Wave) + 胶片颗粒噪点 (Film Grain) + 3D浮雕高光卡片 + 霓虹紫/洋红通道 (`#A855F7` / `#EC4899`) | 工具集合展示、创意应用、潮酷硬件、潮流设计工作室、流体极光落地页、蒸汽波质感 | [预览名片](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/styles/neon-3d/preview.svg)<br>`references/styles/neon-3d/` |
+| **`pixel-pop`** | **日系像素波普风**<br>(Pixel Pop) | 青春亮蓝底色 (`#0055ff`) + 浅奶油看板画布 + 粗黑边框与 5px 偏移硬投影 + 悬浮像素碎片与涂鸦 | 青春校园、创意活动、复古游戏、手账拼贴、动漫手绘风展示 | [预览名片](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/styles/pixel-pop/preview.svg)<br>`references/styles/pixel-pop/` |
+| **`brutalist-acid`** | **先锋撞色海报风**<br>(Brutalist Poster) | 纯白高对比度画布 + 亮粉几何色块 (`#FF4591`) + 荧光青色 (`#00E5CC`) 超大字号标题 + 破坏性排版与紧凑字距 | 艺术展览、独立出版物、实验性排版、先锋设计展示、海报视觉冲击 | [预览名片](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/styles/brutalist-acid/preview.svg)<br>`references/styles/brutalist-acid/` |
+| **`sunflower-bloom`** | **向日葵暖阳风**<br>(Sunflower Bloom) | 沉静纸质蓝背景 (`#4278A9`) + 米白奶油字 (`#F2EAE0`) + 向日葵明黄 (`#FFC300`) 高亮与强调色 + 粗大排版 | 产品海报、积极向上展示、生机活力传递、纸质文艺风格、团队文化 | [预览名片](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/styles/sunflower-bloom/preview.svg)<br>`references/styles/sunflower-bloom/` |
+| **`summer-dopamine`** | **夏日多巴胺风**<br>(Summer Dopamine) | 高饱和渐变网格背景 + 毛玻璃大圆角卡片 + 纯白与发光元素点缀 | 夏日活动、创意产品、汽水风格、多巴胺设计、元气海报 | [预览名片](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/styles/summer-dopamine/preview.svg)<br>`references/styles/summer-dopamine/` |
+| **`warm-craft`** | **温润纸感手札风**<br>(Warm Craft) | 暖米纸质画布 (`#F7F4EC`) + 人文宋体大标题 (Editorial Serif) + 深橄榄绿行动通道 (`#323D24`) + 错落微倾粉彩贴纸 (`-2deg`~`+2deg`) + 手绘涂鸦 | 智能代理、知识沉淀、深度调研、SaaS 产品官网、人文科技、书籍出版物、温润工作流 | [预览名片](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/styles/warm-craft/preview.svg)<br>`references/styles/warm-craft/` |
+| **`soft-editorial-future`** | **极简未来展厅风**<br>(Future Showroom) | 偏冷质感画布 + 高光悬浮玻璃展柜 + 内部色彩温润晕开的 3D 柔光彩球散布（边缘柔和自然） | 高级展厅、视觉画廊、艺术展落地页、前沿科技、AI产品、高端发布会 | [预览名片](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/styles/soft-editorial-future/preview.svg)<br>`references/styles/soft-editorial-future/` |
+| **`play-tubular`** | **玩味极客彩管风**<br>(Play Tubular) | 浅暖米白点阵画布 (`#FAF8F3`) + 粗圆鲜活 3D 渐变立体彩管/丝带环绕 + 球头末端与弯折处的 **半调网点 (Halftone Dot Matrix)** 光影 + 现代高对比度工程粗黑体 + 纯白大圆角弹簧动效卡片 | AI/LLM 创新展示、创意产品发布、工程技术白皮书、开发者大会、玩味科技落地页 | [预览名片](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/styles/play-tubular/preview.svg)<br>`references/styles/play-tubular/` |
 
 > 💡 **未来扩展**：新增风格只需在 `references/styles/<style_id>/` 目录下添加标准规范、脚手架与 `preview.svg`，并同步在 `style-gallery.html` 与本表中注册即可。
 
@@ -57,7 +57,7 @@ description: >
 
 ```mermaid
 flowchart LR
-    A["1. 意图分析与匹配"] --> B["2. 视觉卡片交互确认/建议风格"]
+    A["1. 意图分析与匹配"] --> B["2. 对话内嵌视觉预览并确认风格"]
     B --> C["3. 按需读取专属规范与模版"]
     C --> D["4. 结构化代码生成"]
     D --> E["5. 双层质量清单验收"]
@@ -74,35 +74,34 @@ flowchart LR
    - 提取形状特征（圆角大小、卡片阴影质感、3D或扁平）。
    - 提取排版特征（字重、留白、边框风格）。
    - **完成分析后，严格遵守“Clean Room Design”法则，不要继承旧模板，直接从 `references/_base-scaffold-web.html` 读取基座并在其上编写全新 CSS**，以防止硬编码污染。
-   - **智能推荐机制（输出 3～5 款设计风格）**：
-     - 当用户提供了长文或排版需求但未锁定风格，或者意图较为宽泛时，分析文本特征并挑选 **最契合的 3～5 套风格**。
-     - **方案 A：Artifacts 视觉面板（支持 Artifacts 的环境优先）**：
-       - 在支持 Artifacts 的 Agent 环境（如 Antigravity / Claude）中，优先创建专用的 **风格推荐 Artifact**（如 `style_recommendations.md` 或 HTML 视觉看板），利用独立 Webview 侧边栏原生高保真渲染目标风格的矢量名片与动效，规避聊天流沙箱限制。
-     - **方案 B：对话流结构化卡片（跨客户端通用兜底）**：
-       - 对话中同步输出「高可读性结构化设计卡片」，附带 1 句简明推荐理由：
-       ```markdown
-       ### 1. 玩味工程彩管风 (`play-tubular`)
-       - **视觉基因**：浅暖米白点阵画布 (`#FAF8F3`) + 3D 渐变立体彩管 + 半调网点 (Halftone) 光影 + 粗黑工程体
-       - 💡 **推荐理由**：适合 AI/LLM 架构与技术白皮书，3D彩管与半调网点极具创新活力。
+3. **智能推荐机制（输出 3～5 款设计风格）**：
+   - 当用户提供了长文或排版需求但未锁定风格，或者意图较为宽泛时，分析文本特征并挑选 **最契合的 3～5 套风格**。
+   - **对话内嵌视觉预览（强制）**：在同一条推荐回复中，用 Markdown 图片直接展示每个候选风格的 `preview.png`，然后再给出文字说明。用户必须能在对话流中看见实际色彩、构图和组件质感后再选择。
+     - 从当前 `SKILL.md` 所在目录解析每个候选的绝对路径：`references/styles/<style_id>/preview.png`。
+     - 使用绝对本地路径的 Markdown 图片语法，路径含空格时包裹在尖括号内：`![<style_id> 风格预览](</绝对路径/references/styles/<style_id>/preview.png>)`。
+     - **不得**改用 `preview.svg`、`file://` 链接、相对路径、纯文字卡片、Artifact 或浏览器画廊来替代该图片。画廊只能作为查看全部风格的补充入口。
+     - 仅当当前客户端明确无法显示本地 Markdown 图片时，才降级为文字卡片和画廊链接；需明确说明“当前客户端无法内嵌本地预览”，不能假称已经展示预览。
+   - **每项说明**：每张预览图下保留风格名称、`style_id`、一句视觉基因和一句推荐理由，便于用户依据预览与场景共同决策：
+     ```markdown
+     ### 1. 玩味极客彩管风 (`play-tubular`)
+     ![玩味极客彩管风预览](</绝对路径/references/styles/play-tubular/preview.png>)
+     - **视觉基因**：浅暖米白点阵画布 + 3D 渐变立体彩管 + 半调网点光影。
+     - **推荐理由**：适合 AI/LLM 架构与技术白皮书，兼顾工程感与活力。
 
-       ### 2. 暗色工业档案风 (`industrial-dark`)
-       - **视觉基因**：近黑背景 (`#090C0B`) + CAD 极淡网格 + 信号绿 (`#67E38B`) + 紫色通道 + 硬边模块
-       - 💡 **推荐理由**：适合硬核技术规格与系统参数展示，CAD冷峻极客质感。
-
-       ### 3. 暖纸手作/温润社论风 (`warm-craft`)
-       - **视觉基因**：暖米纸质画布 (`#F7F4EC`) + 人文宋体大标题 + 深橄榄绿行动通道 (`#323D24`) + 错落便签贴纸
-       - 💡 **推荐理由**：适合深度调研与知识沉淀，人文宋体与便签贴纸温润亲和。
-       ```
-     - **画廊全局入口**：在推荐卡片底部附带全局画廊入口，方便用户随时在浏览器中高保真预览全部 11 种风格的动态效果与配色：
-       > 🎨 **高保真画廊预览**：可在浏览器中打开 [全量风格画廊 (style-gallery.html)](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/style-gallery.html)
-     - **引导确认**：询问用户期望使用的风格名称/序号以及目标媒介形式（**Web 响应式网页** 还是 **16:9 PPT 幻灯片**）。
+     ### 2. 暗黑极客工业风 (`industrial-dark`)
+     ![暗黑极客工业风预览](</绝对路径/references/styles/industrial-dark/preview.png>)
+     - **视觉基因**：近黑背景 + CAD 网格 + 信号绿与紫色通道 + 硬边模块。
+     - **推荐理由**：适合硬核技术规格与系统参数展示。
+     ```
+   - **画廊补充入口**：在推荐内容末尾附带 [全量风格画廊 (style-gallery.html)](file:///Users/mir/Library/Mobile%20Documents/com~apple~CloudDocs/work/skill/visual-html/references/style-gallery.html)，供用户额外对比全部 11 种风格的完整动态效果与配色。
+   - **引导确认**：询问用户期望使用的风格名称/序号以及目标媒介形式（**Web 响应式网页** 还是 **16:9 PPT 幻灯片**）。
 
 
 ### 第二步：按需精准读取 (On-Demand Loading)
 
 确定风格与输出媒介后，调用 `view_file` 读取**且仅读取**目标风格的规范与脚手架，绝不把全部无关风格载入上下文：
 
-- **读取目标 Token 规范**：`references/styles/<style_id>/tokens.md`
+- **读取目标设计规范**：`references/styles/<style_id>/design.md`
 - **读取目标脚手架**：
   - Web 场景：`references/styles/<style_id>/scaffold-web.html`
   - PPT 场景：`references/styles/<style_id>/scaffold-ppt.html`
@@ -161,7 +160,7 @@ flowchart LR
 - [ ] **自包含单文件**：所有 CSS、SVG 图表与图标是否全部内联在单个 HTML 文件中，可本地离线双击打开？
 
 #### 风格专属质检项：
-- 执行从目标风格 `references/styles/<style_id>/tokens.md` 中读取的专属质量清单（如 Industrial Dark 的 0–2px 硬圆角校验、Soft Sky 的 8–16px 柔和圆角校验、Warm Craft 的宋体排版与无粗黑边便签回正校验、或 Play Tubular 的暖米白半调点阵底纹、3D 渐变彩管与半调网点光影质感校验）。
+- 执行从目标风格 `references/styles/<style_id>/design.md` 中读取的专属质量清单（如 Industrial Dark 的 0–2px 硬圆角校验、Soft Sky 的 8–16px 柔和圆角校验、Warm Craft 的宋体排版与无粗黑边便签回正校验、或 Play Tubular 的暖米白半调点阵底纹、3D 渐变彩管与半调网点光影质感校验）。
 
 ---
 

@@ -1,4 +1,4 @@
-# Technical Editorial Dark — Design Tokens & Style Specification
+# Industrial Dark (暗黑极客工业风) — Design 规范 & 视觉契约
 
 > **Style ID**: `industrial-dark`  
 > **显示名称**：暗色工业档案风 / Technical Editorial Dark  

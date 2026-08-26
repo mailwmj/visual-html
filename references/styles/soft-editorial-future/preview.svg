@@ -37,14 +37,14 @@
   <!-- Tier 1: Eyebrow (y: 12..30) -->
   <g transform="translate(18, 12)">
     <rect width="6" height="6" rx="3" fill="#0071E3" y="5"/>
-    <text class="mono" font-size="9" font-weight="700" fill="#0071E3" x="14" y="11" letter-spacing="1">SOFT FUTURE // 10</text>
-    <line x1="150" y1="8" x2="364" y2="8" stroke="rgba(0, 113, 227, 0.15)" stroke-width="1"/>
+    <text class="mono" font-size="9" font-weight="700" fill="#0071E3" x="14" y="11" letter-spacing="1">SHOWROOM // 10</text>
+    <line x1="140" y1="8" x2="364" y2="8" stroke="rgba(0, 113, 227, 0.15)" stroke-width="1"/>
   </g>
 
   <!-- Tier 2: Title (y: 44..60, baseline: 58) -->
   <g transform="translate(18, 58)">
-    <text class="sans" font-size="16" font-weight="800" fill="#111418" x="0" y="0">温润社论未来风</text>
-    <text class="mono" font-size="9" font-weight="600" fill="#8292A1" x="130" y="-1">EDITORIAL FUTURE</text>
+    <text class="sans" font-size="16" font-weight="800" fill="#111418" x="0" y="0">极简未来展厅风</text>
+    <text class="mono" font-size="9" font-weight="600" fill="#8292A1" x="130" y="-1">FUTURE SHOWROOM</text>
   </g>
 
   <!-- Tier 3: Main Card (y: 72..192, height: 120) -->

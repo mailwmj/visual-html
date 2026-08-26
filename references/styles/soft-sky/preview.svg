@@ -43,8 +43,8 @@
 
   <!-- Tier 2: Title (y: 44..60, baseline: 58) -->
   <g transform="translate(18, 58)">
-    <text class="sans" font-size="16" font-weight="800" fill="#1F3144" x="0" y="0">柔空浅蓝风</text>
-    <text class="mono" font-size="9" font-weight="600" fill="#748FAD" x="100" y="-1">SOFT SKY EDITORIAL</text>
+    <text class="sans" font-size="16" font-weight="800" fill="#1F3144" x="0" y="0">清透空灵浅蓝风</text>
+    <text class="mono" font-size="9" font-weight="600" fill="#748FAD" x="135" y="-1">SOFT SKY</text>
   </g>
 
   <!-- Tier 3: Main Card (y: 72..192, height: 120) -->

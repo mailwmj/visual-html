@@ -1,7 +1,7 @@
-# Soft Editorial Future (温润社论未来风) — Design Tokens & 视觉契约
+# Future Showroom (极简未来展厅风) — Design 规范 & 视觉契约
 
 > **Style ID**: `soft-editorial-future`  
-> **显示名称**：温润社论未来风 (Soft Editorial Future)  
+> **显示名称**：极简未来展厅风 (Future Showroom)  
 > **核心气质**：基于高级 Showroom 的现代玻璃拟态视觉系统，兼具人文社论的排版秩序与未来科技感。全站大量运用极致打磨的高光高透玻璃容器（Glassmorphism），搭配细腻的斜向渐变光泽、1px 纯白高光内阴影与多层弥散柔光。背景深层散布内部色彩温润晕开的 3D 柔光彩球（3D Soft Blooming Color Orbs），内部由核心向外层平滑自然渐变晕开，边缘柔和无生硬边线，在磨砂玻璃折射下呈现出空灵通透、温润典雅、毫无晕眩感的高级展厅质感。
 
 ---

@@ -19,8 +19,8 @@
 
   <!-- Tier 2: Title (y: 44..60, baseline: 58) -->
   <g transform="translate(18, 58)">
-    <text class="sans" font-size="18" font-weight="900" fill="#000000" letter-spacing="-0.5" x="0" y="0">酸性粗野海报风</text>
-    <text class="mono" font-size="10" font-weight="900" fill="#00E5CC" x="145" y="-2">SWISS PUNK</text>
+    <text class="sans" font-size="18" font-weight="900" fill="#000000" letter-spacing="-0.5" x="0" y="0">先锋撞色海报风</text>
+    <text class="mono" font-size="9" font-weight="900" fill="#00E5CC" x="145" y="-2">BRUTALIST POSTER</text>
   </g>
 
   <!-- Tier 3: Main Card (y: 72..192, height: 120) -->

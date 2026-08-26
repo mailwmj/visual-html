@@ -1,4 +1,4 @@
-# 霓虹创意3D风 (Neon 3D) — 设计规范与文本转换 Token
+# Neon Aurora (暗紫流体极光风) — Design 规范 & 视觉契约
 
 > **风格标识 (Style ID)**: `neon-3d`  
 > **显示名称**：霓虹创意3D风 / Neon 3D Creative  

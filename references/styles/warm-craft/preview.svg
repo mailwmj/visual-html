@@ -28,8 +28,8 @@
 
   <!-- Tier 2: Title (y: 44..60, baseline: 58) -->
   <g transform="translate(18, 58)">
-    <text class="serif" font-size="17" font-weight="800" fill="#1E231B" x="0" y="0">暖纸手作 / 温润社论风</text>
-    <text class="mono" font-size="8" font-weight="600" fill="#8E9685" x="175" y="-1">WARM CRAFT</text>
+    <text class="serif" font-size="17" font-weight="800" fill="#1E231B" x="0" y="0">温润纸感手札风</text>
+    <text class="mono" font-size="8" font-weight="600" fill="#8E9685" x="140" y="-1">WARM CRAFT</text>
   </g>
 
   <!-- Tier 3: Main Card (y: 72..192, height: 120) -->

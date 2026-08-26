@@ -24,7 +24,7 @@
 
   <!-- Tier 2: Title (y: 44..60, baseline: 58) -->
   <g transform="translate(18, 58)">
-    <text class="sans" font-size="16" font-weight="800" fill="#F2EAE0" x="0" y="0">向日葵生机风</text>
+    <text class="sans" font-size="16" font-weight="800" fill="#F2EAE0" x="0" y="0">向日葵暖阳风</text>
     <text class="mono" font-size="9" font-weight="600" fill="#FFC300" x="110" y="-1">SUNFLOWER BLOOM</text>
   </g>
 
