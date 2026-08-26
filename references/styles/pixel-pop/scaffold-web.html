@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pixel Pop Scaffold - Web</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pixel Pop (日系像素波普风) — Web Scaffold</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Varela+Round&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Varela+Round&display=swap');
-
     :root {
       /* Base Colors */
       --bg-base: #0b45f3;           /* 核心亮蓝底色 */
@@ -25,6 +26,7 @@
       
       /* Typography */
       --font-mono: 'Press Start 2P', monospace;
+      --font-code: 'JetBrains Mono', Consolas, monospace;
       --font-sans: 'Varela Round', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', sans-serif;
       
       /* Borders & Shadows */
@@ -34,30 +36,38 @@
       --pop-shadow-lg: 10px 10px 0 var(--text-main);
       --pop-shadow-md: 5px 5px 0 var(--text-main);
       --pop-shadow-sm: 3px 3px 0 var(--text-main);
+      
+      --radius: 20px;
+      --radius-sm: 12px;
+      --radius-pill: 100px;
+      --container: 1160px;
     }
 
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    p, h1, h2, h3, h4, h5, h6, li, td, th, span, div {
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
     
     body {
-      margin: 0;
-      padding: 0;
       background-color: var(--bg-base);
       color: var(--text-main);
       font-family: var(--font-sans);
       line-height: 1.7;
       position: relative;
+      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* GLOBAL FIXED BACKGROUND: Sunburst + Dots */
+    /* Layer 0: GLOBAL FIXED BACKGROUND (Sunburst Ray + Dots) */
     .global-bg {
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
       z-index: -2;
       pointer-events: none;
-      /* The Sunburst */
       background: conic-gradient(
         from 180deg at 50% 50%,
         rgba(67, 194, 240, 0.9) 0deg 20deg, transparent 20deg 35deg,
@@ -66,7 +76,6 @@
         rgba(255, 222, 0, 0.9) 95deg 110deg, transparent 110deg 125deg,
         rgba(67, 194, 240, 0.9) 125deg 140deg, transparent 140deg 155deg,
         rgba(247, 106, 159, 0.9) 155deg 170deg, transparent 170deg 180deg,
-        /* mirror for the other half */
         transparent 180deg 190deg, rgba(247, 106, 159, 0.9) 190deg 205deg,
         transparent 205deg 220deg, rgba(67, 194, 240, 0.9) 220deg 235deg,
         transparent 235deg 250deg, rgba(255, 222, 0, 0.9) 250deg 265deg,
@@ -76,7 +85,6 @@
       );
     }
     
-    /* Dots overlay on top of the sunburst */
     .global-dots {
       position: fixed;
       top: 0; left: 0;
@@ -86,788 +94,675 @@
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Ccircle cx='20' cy='20' r='3' fill='%23ffffff' opacity='0.7'/%3E%3Ccircle cx='80' cy='50' r='4' fill='%2343c2f0' opacity='0.7'/%3E%3Ccircle cx='40' cy='90' r='2' fill='%23ffde00' opacity='0.7'/%3E%3Ccircle cx='100' cy='100' r='3' fill='%23ffffff' opacity='0.5'/%3E%3C/svg%3E");
     }
 
-    /* SVG Filter Classes (STRICTLY FOR DECORATIVE ACCENTS ONLY) */
     .crayon-effect { filter: url(#crayon-filter); }
 
-    /* Fixed Floating Decorators */
     .decorator { position: fixed; pointer-events: none; z-index: 0; }
     .dec-1 { top: 18%; left: 4%; opacity: 0.85; }
     .dec-2 { top: 55%; right: 4%; opacity: 0.85; }
     .dec-3 { bottom: 12%; left: 6%; opacity: 0.85; }
     
-    /* 1. Section Eyebrow */
-    .eyebrow {
-      display: inline-flex; align-items: center; gap: 10px;
-      background-color: var(--c-yellow);
-      padding: 6px 14px;
-      border: var(--pop-border);
-      border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
-      font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase;
-      margin-bottom: 20px; transform: rotate(-2deg);
-      box-shadow: var(--pop-shadow-sm);
-      position: relative; z-index: 2;
-    }
-    .eyebrow .diamond { width: 10px; height: 10px; background-color: var(--c-pink); display: inline-block; }
-
-    /* HERO SECTION (Floating atop the vibrant sunburst) */
+    /* HERO SECTION */
     .hero-wrapper {
       position: relative;
       width: 100%;
-      min-height: 70vh;
+      min-height: 52vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      padding: 72px 20px 40px;
       text-align: center;
-      padding: 80px 20px 60px 20px;
+      z-index: 2;
     }
 
-    /* 2. Typography Scale */
-    .hero-title {
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      font-size: clamp(3rem, 8vw, 5.2rem);
-      font-weight: 900;
-      text-transform: uppercase;
-      line-height: 1.1;
-      margin: 0 0 24px 0;
+    /* ---- 01. Eyebrow ---- */
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      background-color: var(--c-yellow);
+      padding: 6px 16px;
+      border: var(--pop-border);
+      border-radius: var(--radius-pill);
+      font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase;
+      margin-bottom: 24px; transform: rotate(-2deg);
+      box-shadow: var(--pop-shadow-sm);
+    }
+    .eyebrow .diamond { width: 10px; height: 10px; background-color: var(--c-pink); display: inline-block; border-radius: 2px; }
+    .eyebrow .line { display: none; }
+
+    /* ---- 02. Typography Scale ---- */
+    h1.hero {
+      font-family: var(--font-mono);
+      font-size: clamp(32px, 5vw, 64px);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
       color: var(--text-light);
-      text-shadow: 4px 4px 0px var(--bg-base), 8px 8px 0 var(--c-green), 12px 12px 0 var(--c-pink);
-      letter-spacing: 2px;
-      position: relative;
-      z-index: 10;
+      margin-bottom: 24px;
+      text-shadow: 4px 4px 0 var(--text-main), 8px 8px 0 rgba(0,0,0,0.3);
     }
-    
-    .lead {
-      font-size: 1.2rem;
-      font-weight: 700;
-      background: var(--surface-board);
-      color: var(--text-main);
-      padding: 24px 30px;
-      border: var(--pop-border-thick);
-      border-radius: 12px;
-      margin-bottom: 30px;
-      position: relative;
-      z-index: 10;
-      max-width: 680px;
-      box-shadow: var(--pop-shadow-lg);
+
+    p.lead {
+      font-size: clamp(16px, 1.8vw, 20px);
+      color: #FFFFFF;
+      max-width: 780px;
+      margin: 0 auto;
       line-height: 1.7;
+      text-shadow: 2px 2px 0 var(--text-main);
     }
-    
-    /* =========================================
-       MAIN CONTENT CONTAINER (整体背景看板)
-       为正文所有模块提供统一的高清晰度衬底，隔绝底部高频几何背景干扰
-       ========================================= */
-    .container {
-      max-width: 960px;
-      margin: 0 auto 100px auto;
-      padding: 50px 40px;
+
+    /* Layer 1: MAIN CONTAINER (浅奶油背景整体看板画布) */
+    main.container {
+      max-width: var(--container);
+      margin: 0 auto 64px auto;
       background-color: var(--surface-board);
       border: var(--pop-border-thick);
-      border-radius: 20px;
-      box-shadow: 14px 14px 0 var(--text-main);
+      border-radius: 32px;
+      box-shadow: var(--pop-shadow-lg);
+      padding: 56px 48px;
       position: relative;
-      z-index: 10;
+      z-index: 2;
     }
 
-    /* 顶部装饰便签条 */
-    .container::before {
-      content: '★ POP ARCHIVE // MAIN CANVAS ★';
-      position: absolute;
-      top: -18px;
-      left: 36px;
-      background: var(--c-yellow);
-      color: var(--text-main);
+    section { padding: 48px 0; border-bottom: 2px dashed rgba(17, 17, 17, 0.18); }
+    section:last-of-type { border-bottom: none; }
+    .section-head { margin-bottom: 32px; }
+
+    h2.section-title {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
-      font-weight: bold;
-      padding: 5px 14px;
-      border: var(--pop-border);
-      border-radius: 4px;
-      transform: rotate(-1.5deg);
-      box-shadow: var(--pop-shadow-sm);
-      z-index: 12;
-    }
-
-    .section-title {
-      font-family: var(--font-sans);
-      font-weight: 900;
-      font-size: 1.8rem;
-      margin: 0 0 35px 0;
-      color: var(--text-light);
-      background: var(--text-main);
-      padding: 8px 20px;
-      display: inline-flex;
-      align-items: center;
-      border-radius: 8px;
-      transform: rotate(-1deg);
-      box-shadow: 4px 4px 0 var(--c-pink);
-      line-height: 1.4;
-    }
-
-    /* 3. Technical Spec Row */
-    .spec-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin-bottom: 35px;
-    }
-    .spec {
-      background: var(--c-green);
-      border: var(--pop-border);
-      border-radius: 12px;
-      box-shadow: var(--pop-shadow-md);
-      padding: 20px;
-      flex: 1 1 200px;
-      text-align: center;
+      font-size: clamp(20px, 2.8vw, 28px);
       color: var(--text-main);
-      position: relative;
-    }
-    .spec .val {
-      font-size: 2.4rem;
-      font-family: var(--font-mono);
-      font-weight: bold;
-      color: var(--text-light);
-      text-shadow: 2px 2px 0 var(--text-main);
-      line-height: 1.2;
-    }
-    .spec .unit {
-      font-size: 0.85rem;
-      font-family: var(--font-sans);
-      font-weight: 800;
-      margin-top: 10px;
-      background: var(--c-yellow);
-      padding: 4px 12px;
-      display: inline-block;
-      border: var(--pop-border-thin);
-      border-radius: 4px;
-      transform: rotate(-2deg);
-      box-shadow: 2px 2px 0 var(--text-main);
-    }
-
-    /* 4. Number Cards */
-    .cards-3 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 25px;
-      margin-bottom: 35px;
-    }
-    .num-card {
-      background: var(--surface-card);
-      border: var(--pop-border);
-      border-radius: 12px;
-      box-shadow: var(--pop-shadow-md);
-      padding: 26px;
-      position: relative;
-    }
-    .num-card h3 {
-      margin: 10px 0 8px 0;
-      font-size: 1.2rem;
-      font-weight: 800;
-      color: var(--text-main);
-    }
-    .num-card p {
-      margin: 0;
-      font-size: 0.95rem;
-      color: var(--text-muted);
-    }
-    .num-card .num {
-      position: absolute;
-      top: -14px; left: -12px;
-      background: var(--c-pink);
-      color: var(--text-light);
-      font-family: var(--font-mono);
-      font-size: 1.1rem;
-      padding: 6px 12px;
-      border: var(--pop-border-thin);
-      border-radius: 6px;
-      transform: rotate(-8deg);
-      box-shadow: var(--pop-shadow-sm);
-    }
-    .num-card.selected {
-      background: var(--surface-card-alt);
-      box-shadow: 6px 6px 0 var(--c-pink);
-    }
-    
-    /* 5. Feature Card & Media Frame */
-    .feat-grid { margin-bottom: 35px; }
-    .feat-card {
-      background: var(--surface-card);
-      border: var(--pop-border);
-      border-radius: 14px;
-      box-shadow: var(--pop-shadow-md);
-      padding: 28px;
-      position: relative;
-    }
-    .feat-card h3 {
-      margin: 0 0 10px 0;
-      font-size: 1.25rem;
-      font-weight: 800;
-    }
-    .feat-card p {
-      margin: 0;
-      font-size: 0.95rem;
-      color: var(--text-muted);
-    }
-    .feat-card .tag {
+      margin-bottom: 12px;
       display: inline-block;
       background: var(--c-cyan);
-      color: var(--text-main);
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      font-weight: bold;
-      padding: 4px 10px;
-      margin-bottom: 12px;
-      border: var(--pop-border-thin);
-      border-radius: 4px;
-      transform: rotate(-2deg);
-      box-shadow: 2px 2px 0 var(--text-main);
-    }
-    .feat-card .frame {
-      background: var(--c-pink);
-      border: var(--pop-border-thin);
-      border-radius: 8px;
-      height: 220px;
-      margin-top: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-light);
-      font-family: var(--font-mono);
-      font-size: 0.9rem;
-      background-image: repeating-linear-gradient(45deg, rgba(0,0,0,0.08) 0px, rgba(0,0,0,0.08) 10px, transparent 10px, transparent 20px);
-    }
-
-    /* 6. Process Steps */
-    .steps {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      margin-bottom: 35px;
-    }
-    .step {
-      display: flex;
-      gap: 20px;
-      background: var(--surface-card);
+      padding: 8px 18px;
       border: var(--pop-border);
-      border-radius: 12px;
-      box-shadow: var(--pop-shadow-md);
-      padding: 20px 24px;
-      align-items: center;
-      position: relative;
-    }
-    .step .idx {
-      font-family: var(--font-mono);
-      font-size: 1.4rem;
-      color: var(--c-green);
-      background: var(--text-main);
-      padding: 8px 14px;
-      border-radius: 6px;
-      transform: rotate(3deg);
-      box-shadow: 3px 3px 0 var(--c-yellow);
-      flex-shrink: 0;
-    }
-    .step h3 {
-      margin: 0 0 4px 0;
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: var(--text-main);
-    }
-    .step p {
-      margin: 0;
-      font-size: 0.95rem;
-      color: var(--text-muted);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--pop-shadow-sm);
+      transform: rotate(-1deg);
     }
 
-    /* 7. Comparison Table */
-    .cmp {
-      background: var(--surface-card);
-      border: var(--pop-border);
-      border-radius: 12px;
-      box-shadow: var(--pop-shadow-md);
-      margin-bottom: 35px;
-      overflow: hidden;
-    }
-    .cmp .row {
-      display: flex;
-      border-bottom: 2px solid var(--text-main);
-    }
-    .cmp .row:last-child { border-bottom: none; }
-    .cmp .cell {
-      flex: 1;
-      padding: 14px 18px;
-      border-right: 2px solid var(--text-main);
-      text-align: center;
-      font-weight: 700;
-      font-size: 0.95rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .cmp .cell:last-child { border-right: none; }
-    .cmp .head .cell {
-      background: var(--text-main);
-      color: var(--text-light);
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      padding: 12px 14px;
-    }
-    .cmp .selected-col { background: var(--surface-card-alt); }
-    .cmp .dot {
-      display: inline-block;
-      width: 14px; height: 14px;
-      background: var(--c-pink);
-      border-radius: 50%;
-      border: 2px solid var(--text-main);
-    }
-
-    /* 9. Admonitions */
-    .admonition {
-      background: var(--surface-card);
-      border: var(--pop-border);
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 35px;
-      position: relative;
-      box-shadow: 6px 6px 0 var(--c-pink);
-    }
-    .admonition.warning { box-shadow: 6px 6px 0 var(--c-yellow); }
-    .admonition.success { box-shadow: 6px 6px 0 var(--c-green); }
-    .admonition-title {
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-      color: var(--c-cyan);
-      background: var(--text-main);
-      display: inline-block;
-      padding: 5px 12px;
-      border-radius: 4px;
-      transform: rotate(-1.5deg);
-      box-shadow: 2px 2px 0 var(--c-pink);
-    }
-    .admonition p {
-      margin: 0;
-      font-size: 0.95rem;
-      color: var(--text-main);
-    }
-
-    /* 10. Timeline */
-    .timeline {
-      border-left: 3px dashed var(--text-main);
-      margin-left: 20px;
-      padding-left: 30px;
-      margin-bottom: 35px;
-    }
-    .timeline-item {
-      position: relative;
-      margin-bottom: 25px;
-      background: var(--surface-card);
-      border: var(--pop-border);
-      border-radius: 12px;
-      box-shadow: var(--pop-shadow-md);
-      padding: 20px 24px;
-    }
-    .timeline-marker {
-      position: absolute;
-      left: -75px; top: 16px;
-      background: var(--c-yellow);
-      color: var(--text-main);
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      padding: 5px 10px;
-      border: var(--pop-border-thin);
-      border-radius: 4px;
-      transform: rotate(-8deg);
-      box-shadow: 2px 2px 0 var(--text-main);
-    }
-    .timeline-content h3 {
-      margin: 0 0 6px 0;
-      font-size: 1.15rem;
-      font-weight: 800;
-    }
-    .timeline-content p {
-      margin: 0;
-      font-size: 0.95rem;
-      color: var(--text-muted);
-    }
-
-    /* 11. Pros & Cons */
-    .pros-cons {
-      display: flex;
-      gap: 24px;
-      margin-bottom: 35px;
-    }
-    @media (max-width: 640px) { .pros-cons { flex-direction: column; } }
-    .pro-card, .con-card {
-      flex: 1;
-      background: var(--surface-card);
-      border: var(--pop-border);
-      border-radius: 12px;
-      padding: 24px;
-      position: relative;
-    }
-    .pro-card { box-shadow: 6px 6px 0 var(--c-green); }
-    .con-card { box-shadow: 6px 6px 0 var(--c-pink); }
-    .pro-card .tag {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      background: var(--c-green);
-      color: var(--text-light);
-      padding: 5px 10px;
-      border: var(--pop-border-thin);
-      border-radius: 4px;
-      display: inline-block;
-      transform: rotate(-2deg);
-      margin-bottom: 14px;
-      box-shadow: 2px 2px 0 var(--text-main);
-    }
-    .con-card .tag {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      background: var(--c-pink);
-      color: var(--text-light);
-      padding: 5px 10px;
-      border: var(--pop-border-thin);
-      border-radius: 4px;
-      display: inline-block;
-      transform: rotate(2deg);
-      margin-bottom: 14px;
-      box-shadow: 2px 2px 0 var(--text-main);
-    }
-    .pros-cons ul { margin: 0; padding-left: 20px; }
-    .pros-cons li { margin-bottom: 8px; font-weight: 600; font-size: 0.95rem; }
-
-    /* 12. Stats Grid */
+    /* ---- 03. Stats Grid ---- */
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 20px;
-      margin-bottom: 35px;
+      margin-top: 36px;
     }
     .stat-card {
-      background: var(--text-main);
-      color: var(--text-light);
-      border: 3px solid var(--c-cyan);
-      border-radius: 12px;
-      box-shadow: 6px 6px 0 var(--c-pink);
-      padding: 24px 20px;
-      text-align: center;
-      position: relative;
+      background: var(--surface-card);
+      border: var(--pop-border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      box-shadow: var(--pop-shadow-md);
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--pop-shadow-lg);
     }
     .stat-val {
-      font-size: 3.2rem;
       font-family: var(--font-mono);
-      color: var(--c-green);
+      font-size: clamp(34px, 4vw, 48px);
+      font-weight: 700;
+      color: var(--text-main);
       line-height: 1;
+      margin-bottom: 8px;
     }
     .stat-val span {
-      font-size: 1.2rem;
-      color: var(--text-light);
-      margin-left: 2px;
+      font-size: 22px;
+      color: var(--c-pink);
+      margin-left: 4px;
     }
     .stat-label {
-      font-weight: 800;
-      font-size: 0.78rem;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
       text-transform: uppercase;
-      color: var(--text-main);
-      margin-top: 12px;
-      background: var(--c-yellow);
-      padding: 4px 12px;
-      display: inline-block;
-      transform: rotate(-2deg);
-      border: var(--pop-border-thin);
-      border-radius: 4px;
-      box-shadow: 2px 2px 0 #000;
+      margin-top: 10px;
     }
 
-    /* 13. Flowchart */
-    .flowchart {
+    /* ---- 04. Technical Spec Row ---- */
+    .spec-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .spec {
       background: var(--surface-card);
       border: var(--pop-border);
-      border-radius: 12px;
-      box-shadow: var(--pop-shadow-md);
-      padding: 30px 20px 20px 20px;
-      margin-bottom: 35px;
-      position: relative;
-    }
-    .flowchart::before {
-      content: 'FLOW // 流程拓扑';
-      position: absolute;
-      top: -14px; left: 20px;
-      background: var(--c-green);
-      color: var(--text-light);
-      border: var(--pop-border-thin);
-      border-radius: 4px;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      padding: 4px 10px;
-      transform: rotate(-3deg);
-      z-index: 2;
-      box-shadow: 2px 2px 0 var(--text-main);
-    }
-    .flowchart svg { width: 100%; height: auto; }
-    .flowchart svg text { font-family: var(--font-sans); font-weight: bold; }
-    .flowchart svg .node rect { fill: var(--c-yellow); stroke: var(--text-main); stroke-width: 3px; }
-    .flowchart svg .node.active rect { fill: var(--c-green); }
-    .flowchart svg line { stroke: var(--text-main); stroke-width: 4px; }
-
-    .mermaid-wrapper pre.mermaid, .mermaid {
-      background: transparent !important;
-      border: none !important;
-      padding: 0 !important;
-      margin: 0 auto !important;
-      width: 100%;
+      border-radius: var(--radius-sm);
+      padding: 20px 22px;
+      box-shadow: var(--pop-shadow-sm);
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      justify-content: space-between;
     }
-    .mermaid svg {
-      max-width: 100%;
-      height: auto;
-      display: block;
+    .spec .val {
+      font-family: var(--font-mono);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+    .spec .val em {
+      font-style: normal;
+      font-size: 13px;
+      color: var(--c-pink);
+      margin-left: 4px;
+    }
+    .spec .unit {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      text-transform: uppercase;
     }
 
-    /* 14. References */
-    .references {
-      background: var(--surface-card);
+    /* ---- 05. Admonitions ---- */
+    .admonition {
+      background: var(--surface-card-alt);
       border: var(--pop-border);
-      border-radius: 12px;
-      box-shadow: var(--pop-shadow-md);
-      padding: 26px 30px;
-      margin-bottom: 35px;
+      border-left: 10px solid var(--c-pink);
+      border-radius: var(--radius-sm);
+      padding: 24px 28px;
+      margin: 28px 0;
+      box-shadow: var(--pop-shadow-sm);
     }
-    .references h3 {
+    .admonition.warning { border-left-color: var(--c-yellow); }
+    .admonition.info { border-left-color: var(--c-cyan); }
+    .admonition.tip { border-left-color: var(--c-green); }
+    .admonition-title {
       font-family: var(--font-mono);
-      font-size: 0.85rem;
-      color: var(--text-light);
-      background: var(--c-pink);
-      padding: 5px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-main);
       display: inline-block;
-      transform: rotate(-1.5deg);
-      margin: 0 0 15px 0;
+      background: #FFFFFF;
+      padding: 4px 10px;
       border: var(--pop-border-thin);
-      border-radius: 4px;
-      box-shadow: 2px 2px 0 var(--text-main);
+      border-radius: var(--radius-pill);
     }
-    .references ol { margin: 0; padding-left: 20px; }
-    .references li { margin-bottom: 6px; font-size: 0.95rem; }
-    
-    /* 15. Rich Text */
+    .admonition p { font-size: 15px; color: var(--text-muted); margin: 0; line-height: 1.6; }
+
+    /* ---- 06. Rich Text ---- */
     .rich-text {
       background: var(--surface-card);
       border: var(--pop-border);
-      border-radius: 12px;
-      box-shadow: var(--pop-shadow-md);
-      padding: 30px;
-      margin-bottom: 35px;
-      position: relative;
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      box-shadow: var(--pop-shadow-sm);
+      margin: 28px 0;
     }
-    .rich-text h3 {
-      font-family: var(--font-sans);
-      font-size: 1.4rem;
-      font-weight: 900;
-      color: var(--text-main);
-      border-bottom: 4px solid var(--c-yellow);
-      padding-bottom: 6px;
-      display: inline-block;
-      margin: 0 0 16px 0;
-    }
-    .rich-text p {
-      margin: 0 0 16px 0;
-      font-size: 1rem;
-      color: #222;
-      line-height: 1.75;
+    .rich-text p { font-size: 15.5px; line-height: 1.8; color: var(--text-main); margin-bottom: 18px; }
+    .rich-text h3 { font-size: 20px; font-weight: 700; color: var(--text-main); margin: 24px 0 12px; }
+    .rich-text h4 { font-size: 16px; font-weight: 700; color: var(--text-main); margin: 18px 0 8px; }
+    .rich-text ul, .rich-text ol { margin-bottom: 20px; padding-left: 24px; }
+    .rich-text li { margin-bottom: 6px; font-size: 15px; }
+    .rich-text strong { color: var(--text-main); font-weight: 700; }
+    .rich-text em { font-style: italic; color: var(--c-pink); font-weight: 700; }
+    .rich-text code {
+      font-family: var(--font-code);
+      font-size: 0.9em;
+      background: #fff0f5;
+      border: var(--pop-border-thin);
+      padding: 2px 8px;
+      border-radius: 6px;
+      color: var(--c-pink);
+      font-weight: 700;
     }
     .rich-text blockquote {
       border-left: 6px solid var(--c-green);
-      margin: 18px 0;
-      padding: 14px 20px;
-      font-size: 1.05rem;
-      font-weight: 600;
-      background: #eafaf0;
-      border-radius: 0 8px 8px 0;
-    }
-    .rich-text code {
-      font-family: var(--font-mono);
-      font-size: 0.9em;
-      background: #fdf3d0;
-      border: 1.5px solid #000;
-      padding: 2px 6px;
-      border-radius: 4px;
-      color: #000;
-      font-weight: 600;
+      background: var(--surface-card-alt);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 18px 22px;
+      margin: 24px 0;
+      font-size: 15.5px;
+      line-height: 1.7;
     }
 
-    /* 17. Code Block & Pre (Pixel Pop Retro Terminal) */
+    /* ---- 07. Code Block & Terminal ---- */
     .code-block {
-      background: #111424;
+      background: #111111;
       border: var(--pop-border);
-      border-radius: 10px;
-      box-shadow: var(--pop-shadow-md);
-      margin: 24px 0;
+      border-radius: var(--radius);
+      margin: 28px 0;
       overflow: hidden;
+      box-shadow: var(--pop-shadow-md);
     }
     .code-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 8px 14px;
-      background: #1F2438;
-      border-bottom: 2px solid #000;
+      padding: 12px 20px;
+      background: var(--c-yellow);
+      border-bottom: var(--pop-border);
     }
-    .code-dots {
-      display: flex;
-      gap: 6px;
-    }
+    .code-dots { display: flex; gap: 8px; }
     .code-dots span {
-      width: 10px;
-      height: 10px;
-      border: 1.5px solid #000;
-      border-radius: 2px;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      border: 2px solid #111;
     }
     .code-dots span:nth-child(1) { background: var(--c-pink); }
     .code-dots span:nth-child(2) { background: var(--c-yellow); }
     .code-dots span:nth-child(3) { background: var(--c-green); }
     .code-lang {
       font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: 0.06em;
-      color: var(--c-yellow);
-      background: #000;
-      padding: 2px 8px;
-      border-radius: 4px;
-      text-transform: uppercase;
+      font-size: 10px;
+      font-weight: 700;
+      color: #111111;
     }
     .code-copy-btn {
       font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 700;
-      padding: 3px 10px;
-      background: var(--c-yellow);
-      border: 1.5px solid #000;
-      border-radius: 4px;
-      color: #000;
+      font-size: 10px;
+      padding: 4px 10px;
+      background: var(--c-cyan);
+      border: var(--pop-border-thin);
+      border-radius: var(--radius-pill);
+      color: #111111;
       cursor: pointer;
-      box-shadow: 2px 2px 0 #000;
-      transition: transform 0.1s ease;
+      font-weight: 700;
+      transition: all 0.15s ease;
     }
     .code-copy-btn:hover {
-      transform: translate(-1px, -1px);
-      box-shadow: 3px 3px 0 #000;
+      background: var(--c-pink);
+      color: #FFFFFF;
+      transform: translateY(-2px);
     }
-    .code-copy-btn:active {
-      transform: translate(1px, 1px);
-      box-shadow: 1px 1px 0 #000;
-    }
-    .code-block pre, .rich-text pre {
+    .code-block pre {
       margin: 0;
-      padding: 16px 18px;
-      background: #111424;
+      padding: 20px 24px;
+      background: #111111;
       overflow-x: auto;
-      font-family: var(--font-mono);
-      font-size: 13.5px;
+      font-family: var(--font-code);
+      font-size: 14px;
       line-height: 1.65;
       color: #FFFFFF;
-      scrollbar-width: thin;
-      scrollbar-color: var(--c-yellow) transparent;
     }
-    .rich-text pre {
-      border: var(--pop-border);
-      border-radius: 8px;
-      box-shadow: var(--pop-shadow-sm);
-      margin: 20px 0;
-    }
-    .code-block pre code, .rich-text pre code {
-      background: transparent;
-      border: none;
-      padding: 0;
-      color: inherit;
-      font-size: inherit;
-    }
-    .token-comment { color: #6C7A9C; font-style: italic; }
+    .token-comment { color: #888888; font-style: italic; }
     .token-keyword { color: var(--c-pink); font-weight: 700; }
     .token-string { color: var(--c-yellow); }
-    .token-function { color: var(--c-green); }
-    .token-number { color: #38BDF8; }
-    .token-operator { color: #FFF; }
+    .token-function { color: var(--c-cyan); }
+    .token-number { color: var(--c-green); }
 
-    /* 16. FAQ */
-    .faq {
+    /* ---- 08. Number Cards ---- */
+    .cards-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin: 32px 0;
+    }
+    .num-card {
       background: var(--surface-card);
       border: var(--pop-border);
-      border-radius: 12px;
+      border-radius: var(--radius);
+      padding: 32px 26px;
       box-shadow: var(--pop-shadow-md);
-      padding: 30px;
-      margin-bottom: 35px;
-    }
-    .faq-item {
-      border-bottom: 2px dashed #ddd;
-      padding-bottom: 18px;
-      margin-bottom: 18px;
-    }
-    .faq-item:last-child {
-      border-bottom: none;
-      margin-bottom: 0;
-      padding-bottom: 0;
-    }
-    .faq-item .q {
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: var(--text-main);
-      margin-bottom: 8px;
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.25s;
       display: flex;
-      gap: 10px;
-      align-items: center;
+      flex-direction: column;
+      height: 100%;
     }
-    .faq-item .q::before {
-      content: 'Q';
+    .num-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: var(--pop-shadow-lg);
+    }
+    .num-card .num {
       font-family: var(--font-mono);
-      background: var(--c-yellow);
-      padding: 3px 8px;
-      border: var(--pop-border-thin);
-      border-radius: 4px;
-      color: var(--text-main);
-      font-size: 0.85rem;
-      box-shadow: 2px 2px 0 var(--text-main);
+      font-size: 32px;
+      color: var(--c-pink);
+      margin-bottom: 12px;
+      text-shadow: 2px 2px 0 var(--text-main);
     }
-    .faq-item .a {
-      font-size: 0.95rem;
+    .num-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text-main);
+    }
+    .num-card p {
+      font-size: 15px;
+      line-height: 1.65;
       color: var(--text-muted);
-      padding-left: 32px;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+    .num-card .tag {
+      align-self: flex-start;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      background: var(--c-yellow);
+      border: var(--pop-border-thin);
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+    }
+    .num-card.selected {
+      background: var(--surface-card-alt);
+      border-color: var(--text-main);
+      transform: translateY(-4px);
+    }
+    .num-card.selected .tag {
+      background: var(--c-green);
+      color: var(--text-main);
     }
 
-    /* 8. Metadata Footer */
-    footer { 
-      position: relative;
-      color: var(--text-light); 
-      padding: 40px 20px 60px 20px; 
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      text-align: center; 
+    /* ---- 09. Feature Card & Media Frame ---- */
+    .feat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin: 32px 0;
     }
-    .meta-foot {
+    .feat-card {
+      background: var(--surface-card);
+      border: var(--pop-border);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--pop-shadow-md);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .feat-card .tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-main);
+      background: var(--c-pink);
+      border: var(--pop-border-thin);
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      align-self: flex-start;
+      margin-bottom: 14px;
+    }
+    .feat-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+    .feat-card p {
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0 0 16px 0;
+      padding: 2px 2px 6px 2px;
+    }
+    .tab {
+      padding: 6px 14px;
+      background: var(--surface-card);
+      border: var(--pop-border-thin);
+      border-radius: var(--radius-pill);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      cursor: pointer;
+      font-weight: 700;
+      box-shadow: var(--pop-shadow-sm);
+      transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+    }
+    .tab.active {
+      background: var(--c-yellow);
+      transform: translateY(-2px);
+      box-shadow: var(--pop-shadow-md);
+    }
+    .tab:hover:not(.active) {
+      background: var(--surface-card-alt);
+      transform: translateY(-2px);
+      box-shadow: var(--pop-shadow-sm);
+    }
+    .feat-img-frame, .hero-img-frame {
+      width: 100%;
+      min-height: 160px;
+      background: #FFFFFF;
+      border: var(--pop-border);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 0;
+      box-shadow: inset 2px 2px 0 rgba(0,0,0,0.05);
+    }
+
+    /* ---- 10. Mermaid / Flowchart & Diagrams ---- */
+    .mermaid-wrapper {
+      background: var(--surface-card);
+      border: var(--pop-border);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--pop-shadow-md);
+      margin: 32px 0;
+      overflow-x: auto;
+    }
+    .mermaid-wrapper pre.mermaid, .mermaid {
       display: flex;
       justify-content: center;
-      gap: 16px;
-      flex-wrap: wrap;
-      position: relative;
-      z-index: 10;
+      background: transparent !important;
+      font-family: var(--font-code) !important;
     }
+
+    /* ---- 11. Process Steps ---- */
+    .steps { display: flex; flex-direction: column; gap: 18px; margin: 32px 0; }
+    .step {
+      display: flex; gap: 20px; align-items: flex-start;
+      background: var(--surface-card);
+      border: var(--pop-border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      box-shadow: var(--pop-shadow-sm);
+    }
+    .step .idx {
+      width: 48px; height: 48px;
+      background: var(--c-yellow);
+      border: var(--pop-border);
+      border-radius: 12px;
+      font-family: var(--font-mono); font-size: 18px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 3px 3px 0 var(--text-main);
+      flex-shrink: 0;
+    }
+    .step h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .step p { font-size: 14.5px; color: var(--text-muted); }
+
+    /* ---- 12. Timeline ---- */
+    .timeline { position: relative; padding-left: 36px; margin: 32px 0; }
+    .timeline::before {
+      content: ""; position: absolute; left: 12px; top: 0; bottom: 0;
+      width: 4px; background: var(--text-main);
+    }
+    .timeline-item { position: relative; margin-bottom: 32px; }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-marker {
+      position: absolute; left: -36px; top: 0;
+      width: 28px; height: 28px; background: var(--c-pink);
+      border: var(--pop-border-thin); border-radius: 50%;
+      box-shadow: 2px 2px 0 var(--text-main);
+    }
+    .timeline-content {
+      background: var(--surface-card); border: var(--pop-border);
+      border-radius: var(--radius-sm); padding: 20px 24px;
+      box-shadow: var(--pop-shadow-sm);
+    }
+    .timeline-content h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .timeline-content p { font-size: 14.5px; color: var(--text-muted); }
+
+    /* ---- 13. Comparison Table ---- */
+    .cmp-matrix-wrapper {
+      overflow-x: auto; margin: 32px 0;
+      border: var(--pop-border); border-radius: var(--radius);
+      box-shadow: var(--pop-shadow-md); background: var(--surface-card);
+    }
+    .cmp-matrix { width: 100%; min-width: 600px; border-collapse: collapse; }
+    .cmp-matrix tr { border-bottom: var(--pop-border-thin); }
+    .cmp-matrix tr:last-child { border-bottom: none; }
+    .cmp-matrix th, .cmp-matrix td { padding: 18px 22px; text-align: left; font-size: 15px; }
+    .cmp-matrix thead th {
+      background: var(--c-yellow);
+      font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+      border-bottom: var(--pop-border);
+    }
+    .cmp-matrix .highlight-col { background: var(--surface-card-alt); font-weight: 700; }
+    .cmp-matrix thead th.highlight-col { background: var(--c-green); }
+
+    /* ---- 14. Pros & Cons ---- */
+    .pros-cons { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin: 32px 0; }
+    .pro-card {
+      background: #eaffea; border: var(--pop-border); border-radius: var(--radius);
+      padding: 28px; box-shadow: var(--pop-shadow-sm);
+      display: flex; flex-direction: column; height: 100%;
+    }
+    .con-card {
+      background: #ffeaea; border: var(--pop-border); border-radius: var(--radius);
+      padding: 28px; box-shadow: var(--pop-shadow-sm);
+      display: flex; flex-direction: column; height: 100%;
+    }
+    .pro-card .tag {
+      font-family: var(--font-mono); font-size: 11px; background: var(--c-green);
+      border: var(--pop-border-thin); padding: 4px 10px; border-radius: var(--radius-pill); display: inline-block; margin-bottom: 16px;
+      align-self: flex-start;
+    }
+    .con-card .tag {
+      font-family: var(--font-mono); font-size: 11px; background: var(--c-pink);
+      border: var(--pop-border-thin); padding: 4px 10px; border-radius: var(--radius-pill); display: inline-block; margin-bottom: 16px;
+      align-self: flex-start;
+    }
+    .pros-cons ul { list-style: none; flex-grow: 1; }
+    .pros-cons li { font-size: 15px; margin-bottom: 8px; position: relative; padding-left: 22px; }
+    .pro-card li::before { content: "★"; position: absolute; left: 0; color: var(--c-green); }
+    .con-card li::before { content: "✖"; position: absolute; left: 0; color: var(--c-pink); }
+
+    /* ---- 15. Editorial Interview & Dialogue Rounds ---- */
+    .interview-rounds { display: flex; flex-direction: column; gap: 24px; margin: 32px 0; }
+    .round-card {
+      background: var(--surface-card);
+      border: var(--pop-border);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--pop-shadow-md);
+    }
+    .round-header {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px; margin-bottom: 20px;
+      padding-bottom: 14px; border-bottom: var(--pop-border-thin);
+    }
+    .round-badge {
+      font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+      background: var(--c-yellow); border: var(--pop-border-thin);
+      padding: 4px 12px; border-radius: var(--radius-pill);
+    }
+    .round-status {
+      font-family: var(--font-mono); font-size: 10px; font-weight: 700;
+      color: var(--text-muted); text-transform: uppercase;
+    }
+    .ai-questions-block {
+      background: var(--surface-card-alt);
+      border: var(--pop-border-thin);
+      border-radius: var(--radius-sm);
+      padding: 20px; margin-bottom: 16px;
+    }
+    .ai-block-head {
+      display: flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+      color: var(--text-main); margin-bottom: 14px;
+    }
+    .ai-block-head .dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--c-cyan); border: 2px solid #111;
+    }
+    .q-deck { display: flex; flex-direction: column; gap: 12px; }
+    .q-item {
+      background: #FFFFFF; border: var(--pop-border-thin);
+      border-radius: var(--radius-sm); padding: 16px;
+    }
+    .q-badge {
+      display: inline-block; font-family: var(--font-mono); font-size: 10px;
+      background: var(--c-pink); color: #FFF; padding: 2px 8px;
+      border-radius: var(--radius-pill); margin-bottom: 8px;
+    }
+    .q-title { font-size: 15px; font-weight: 700; color: var(--text-main); margin-bottom: 8px; }
+    .q-recom-note, .q-subagent-note {
+      font-size: 13.5px; line-height: 1.55; color: var(--text-muted);
+      background: #fafafa; border-left: 4px solid var(--c-cyan);
+      padding: 8px 12px; border-radius: 0 8px 8px 0; margin-top: 6px;
+    }
+    .q-recom-note strong, .q-subagent-note strong {
+      color: var(--text-main); display: block; margin-bottom: 2px;
+    }
+    .user-decision-note {
+      background: #eaffea; border: var(--pop-border-thin);
+      border-radius: var(--radius-sm); padding: 18px 20px;
+      box-shadow: var(--pop-shadow-sm);
+    }
+    .user-decision-head {
+      display: flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+      color: #008f44; margin-bottom: 8px;
+    }
+    .check-badge {
+      width: 18px; height: 18px; border-radius: 50%; background: var(--c-green);
+      color: #111; display: inline-flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 900; border: 2px solid #111;
+    }
+    .user-decision-text { font-size: 14.5px; color: var(--text-main); font-weight: 700; line-height: 1.6; }
+
+    /* ---- 16. FAQ ---- */
+    .faq { display: flex; flex-direction: column; gap: 14px; margin: 28px 0; }
+    .faq-item {
+      background: var(--surface-card); border: var(--pop-border); border-radius: var(--radius-sm);
+      padding: 20px 24px; box-shadow: var(--pop-shadow-sm);
+    }
+    .faq-item .q { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .faq-item .a { font-size: 14.5px; color: var(--text-muted); line-height: 1.65; }
+
+    /* ---- 17. References ---- */
+    .references {
+      margin-top: 32px; border-top: 2px dashed rgba(17,17,17,0.2);
+      padding-top: 24px; font-size: 13.5px; line-height: 1.6;
+    }
+    .references h3 {
+      font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em;
+      color: var(--text-main); margin-bottom: 14px; text-transform: uppercase;
+    }
+    .references ol { padding-left: 20px; color: var(--text-muted); }
+    .references li { margin-bottom: 6px; }
+    .references a { color: var(--c-pink); text-decoration: none; font-weight: 700; }
+    .references a:hover { text-decoration: underline; }
+
+    /* ---- 18. Metadata Footer ---- */
+    footer {
+      padding: 32px 20px 48px; text-align: center;
+      font-family: var(--font-mono); font-size: 11px;
+    }
+    .meta-foot { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
     .meta-foot span {
-      background: var(--text-main);
-      padding: 6px 12px;
-      border: 2px solid var(--text-light);
-      border-radius: 4px;
-      box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+      background: var(--text-main); color: #FFFFFF;
+      padding: 6px 14px; border: 2px solid #FFFFFF; border-radius: 6px;
+      box-shadow: 3px 3px 0 rgba(0,0,0,0.3); font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+      main.container { padding: 32px 18px; border-radius: 20px; }
+      .hero-wrapper { padding: 48px 16px 32px; }
+      .cards-3, .feat-grid, .pros-cons { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <!-- GLOBAL FIXED BACKGROUND: Sunburst Ray & Dots -->
+
+  <!-- Layer 0: GLOBAL FIXED BACKGROUND -->
   <div class="global-bg"></div>
   <div class="global-dots"></div>
 
-  <!-- SVG Filters for Crayon / Hand-drawn Accents (Applied strictly on decorators/lines) -->
+  <!-- SVG Crayon Filter -->
   <svg width="0" height="0" style="position:absolute;z-index:-1;">
     <filter id="crayon-filter">
       <feTurbulence type="fractalNoise" baseFrequency="0.4" numOctaves="3" result="noise" />
@@ -875,7 +770,7 @@
     </filter>
   </svg>
 
-  <!-- Fixed Floating Decorators (Hand-drawn / Crayon SVGs for pop vibe) -->
+  <!-- Decorators -->
   <svg class="decorator dec-1 crayon-effect" width="120" height="120" viewBox="0 0 100 100" style="stroke: var(--c-green); fill: none; stroke-width: 5; stroke-linecap: round;">
     <path d="M10,50 Q30,20 50,50 T90,50" />
   </svg>
@@ -886,111 +781,379 @@
     <path d="M20,80 L20,30 L50,30 L50,80 L80,80" />
   </svg>
 
-  <!-- HERO SECTION -->
-  <div class="hero-wrapper">
+  <!-- ============================================================
+       PHASE 1: 篇首概览与核心导读 (HERO & EXECUTIVE SUMMARY)
+       ============================================================ -->
+
+  <div class="hero-wrapper" id="section-hero">
+    <!-- 01 / SECTION EYEBROW -->
     <div class="eyebrow">
       <span class="diamond"></span>
-      <span>HOUKAGO VIBE</span>
+      <span>01 / EXECUTIVE SUMMARY</span>
       <span class="line"></span>
     </div>
 
-    <h1 class="hero-title">PIXEL POP<br>WEB SYSTEM</h1>
-    
-    <p class="lead">青春高饱和日系波普设计。顶部保留强烈的辐射光芒与像素点阵氛围，正文区域通过整体看板画布包裹，确保长文阅读的极致清晰与专注。</p>
+    <!-- 02 / TYPOGRAPHY SCALE (Hero & Lead) -->
+    <h1 class="hero">PIXEL POP<br>WEB SYSTEM</h1>
+    <p class="lead">青春高饱和日系波普设计。全屏放射渐变与像素点阵环绕，正文区域由浅奶油整体看板包裹，确保长文阅读极致清晰与视觉冲击力。</p>
   </div>
 
-  <!-- MAIN CONTENT CONTAINER: 整体背景看板 -->
+  <!-- Layer 1: MAIN CONTAINER BOARD -->
   <main class="container">
 
-    <h2 class="section-title">核心特色特性展示</h2>
-    
-    <!-- 3. Technical Spec Row -->
-    <div class="spec-row">
-      <div class="spec"><div class="val">100<em>%</em></div><div class="unit">READABILITY</div></div>
-      <div class="spec"><div class="val">8<em>bit</em></div><div class="unit">PIXEL SOUL</div></div>
-    </div>
+    <section class="hero-stats-section" id="section-summary">
+      <div class="section-head">
+        <h2 class="section-title">01 / 核心指标与规格</h2>
+      </div>
 
-    <!-- 4. Number Cards -->
-    <div class="cards-3">
-      <div class="num-card"><div class="num">01</div><h3>清晰可读的正文</h3><p>移除了正文容器上的位移滤镜，所有汉字与排版保持极致清晰、锐利的矢量渲染。</p></div>
-      <div class="num-card selected"><div class="num">02</div><h3>统一看板底色</h3><p>正文区域增加整体浅色背景看板，彻底隔绝背景放射线条的视觉抢焦。</p></div>
-    </div>
-    
-    <!-- 5. Feature Card & Media Frame -->
-    <div class="feat-grid">
-      <div class="feat-card"><div class="tag">// PLAY MODE</div><h3>特性标题</h3><p>特性的详细能力和用户体验描述，文字清晰可辨，排版层次分明。</p><div class="frame">MEDIA PLACEHOLDER</div></div>
-    </div>
+      <!-- 03 / STATS GRID -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-val">300<span>%</span></div>
+          <div class="stat-label">ANNUAL GROWTH / 年度增长</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">1.2<span>M</span></div>
+          <div class="stat-label">ACTIVE USERS / 活跃用户</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">0.5<span>ms</span></div>
+          <div class="stat-label">LATENCY / 平均延迟</div>
+        </div>
+      </div>
 
-    <!-- 6. Process Steps -->
-    <div class="steps">
-      <div class="step"><div class="idx">01</div><div><h3>意图解析与风格锁定</h3><p>精准提取核心主旨，匹配日系像素波普专属视觉脚手架。</p></div></div>
-      <div class="step"><div class="idx">02</div><div><h3>模块组装与分层渲染</h3><p>背景负责情绪氛围，主看板承载清晰正文，点缀元素呈现蜡笔手绘质感。</p></div></div>
-    </div>
+      <!-- 04 / TECHNICAL SPEC ROW -->
+      <div class="spec-row">
+        <div class="spec">
+          <div class="val">60×95<em>mm</em></div>
+          <div class="unit">SIZE / 尺寸规格</div>
+        </div>
+        <div class="spec">
+          <div class="val">500<em>mah</em></div>
+          <div class="unit">BATTERY / 电池容量</div>
+        </div>
+        <div class="spec">
+          <div class="val">USB-C</div>
+          <div class="unit">INTERFACE / 硬件接口</div>
+        </div>
+      </div>
+    </section>
 
-    <!-- 7. Comparison Table -->
-    <div class="cmp">
-      <div class="row head"><div class="cell">对比维度</div><div class="cell">无聊的页面</div><div class="cell selected-col">Pixel Pop 优化版</div></div>
-      <div class="row"><div class="cell">视觉冲击</div><div class="cell">低</div><div class="cell selected-col">极高</div></div>
-      <div class="row"><div class="cell">文字可读性</div><div class="cell">普通</div><div class="cell selected-col">极致清晰</div></div>
-    </div>
 
-    <!-- 9. Admonitions -->
-    <div class="admonition info"><div class="admonition-title">长文优化原则</div><p>背景负责大结构氛围，正文看板提供干净的阅读底色。蜡笔与涂鸦特效严格收敛在装饰线、贴纸与角标等点缀元素上，确保视觉个性与可读性兼得。</p></div>
+    <!-- ============================================================
+         PHASE 2: 核心论述、关键提醒与代码实操 (CONTEXT, NARRATIVE & CODE)
+         ============================================================ -->
 
-    <!-- 10. Timeline -->
-    <div class="timeline">
-      <div class="timeline-item"><div class="timeline-marker">2024</div><div class="timeline-content"><h3>立项与视觉探索</h3><p>完成青春日系波普风格的设计语言定义与组件原型设计。</p></div></div>
-    </div>
+    <section class="narrative-section" id="section-narrative">
+      <div class="section-head">
+        <div class="eyebrow">
+          <span class="diamond"></span>
+          <span>02 / CONTEXT & NARRATIVE</span>
+          <span class="line"></span>
+        </div>
+        <br>
+        <h2 class="section-title">02 / 核心论述与实操指南</h2>
+      </div>
 
-    <!-- 11. Pros & Cons -->
-    <div class="pros-cons">
-      <div class="pro-card"><div class="tag">PROS / 优势</div><ul><li>极强的青春活力与视觉记忆点</li><li>清晰舒适的长文阅读体验</li></ul></div>
-      <div class="con-card"><div class="tag">CONS / 劣势</div><ul><li>不适用于严肃性金融研报</li></ul></div>
-    </div>
+      <!-- 05 / ADMONITIONS -->
+      <div class="admonition info">
+        <div class="admonition-title">★ 核心结论 (INFO)</div>
+        <p>这是 AI 提取的关键结论高亮框，用于引起读者对核心发现或前置约束的重点关注。</p>
+      </div>
 
-    <!-- 12. Stats Grid -->
-    <div class="stats-grid">
-      <div class="stat-card"><div class="stat-val">300<span>%</span></div><div class="stat-label">ANNUAL GROWTH</div></div>
-    </div>
+      <!-- 06 / RICH TEXT -->
+      <div class="rich-text">
+        <p>这是标准的正文段落。支持 <strong>加粗强调</strong>、<em>斜体修饰</em> 以及 <code>内联代码 (Inline Code)</code> 等基础排版元素。</p>
+        <blockquote>这是引用名人名言或核心观点的块级引用（Blockquote），配有亮绿粗边框以强化观点权威性。</blockquote>
 
-    <!-- 13. Flowchart -->
-    <div class="flowchart">
-      <svg viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="currentColor" /></marker></defs><g class="node"><rect x="20" y="25" width="150" height="70" /><text x="35" y="52" fill="currentColor" font-size="10" opacity="0.6">01 / INPUT</text><text x="35" y="74" fill="currentColor" font-size="14" font-weight="700">输入节点</text></g><line x1="170" y1="60" x2="220" y2="60" marker-end="url(#arrow)" opacity="0.4" /><g class="node active"><rect x="225" y="25" width="150" height="70" /><text x="240" y="52" fill="currentColor" font-size="10" opacity="0.6">02 / CORE</text><text x="240" y="74" fill="currentColor" font-size="14" font-weight="700">核心逻辑</text></g></svg>
-    </div>
+        <h4>子章节核心要点列表</h4>
+        <ul>
+          <li>这是无序列表项目一：阐述核心架构原则与设计底线</li>
+          <li>这是无序列表项目二：说明多端自适应网格与排版规范</li>
+        </ul>
+      </div>
 
-    <!-- 14. References -->
-    <div class="references"><h3>REFERENCES / 参考文献</h3><ol><li id="ref-1">Houkago Graphic System & Pixel Pop Visual Guidelines <a href="#ref-1">↩</a></li></ol></div>
-
-    <!-- 15. Rich Text -->
-    <div class="rich-text">
-      <h3>结构化正文标题</h3>
-      <p>这是标准的正文模块容器。长页面中依然可以保持清晰的层级与极高的文字可读性。</p>
-      <blockquote>引用文段会呈现鲜明的绿色蜡笔侧边栏强调效果，内部文字清晰锋利。</blockquote>
-      
-      <!-- 17. Code Block & Retro Terminal -->
+      <!-- 07 / CODE BLOCK & TERMINAL -->
       <div class="code-block">
         <div class="code-header">
-          <div class="code-dots"><span></span><span></span><span></span></div>
-          <span class="code-lang">LUA / RETRO GAME</span>
+          <div class="code-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <span class="code-lang">BASH / SHELL</span>
           <button class="code-copy-btn" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').innerText); this.innerText='COPIED!'; setTimeout(()=>this.innerText='COPY', 2000)">COPY</button>
         </div>
-        <pre><code><span class="token-comment">-- Pixel Pop 角色精灵跳跃状态机</span>
-<span class="token-keyword">function</span> <span class="token-function">player_jump</span>(self)
-    self.vy = -<span class="token-number">8.5</span>
-    self.state = <span class="token-string">"jumping"</span>
-    <span class="token-function">play_sound</span>(<span class="token-string">"sfx_jump_pop"</span>)
-<span class="token-keyword">end</span></code></pre>
-      </div>
-    </div>
+        <pre><code><span class="token-comment"># 启动日系波普渲染节点</span>
+<span class="token-keyword">export</span> POP_ENV=production
+<span class="token-keyword">export</span> CLUSTER_PORT=8080
 
-    <!-- 16. FAQ -->
-    <div class="faq">
-      <div class="faq-item"><div class="q">背景还会抢夺正文焦点吗？</div><div class="a">不会。正文区域有统一的浅色看板包裹，文字排版纯净清晰，背景光芒自然退居为页面氛围。</div></div>
-    </div>
+<span class="token-function">curl</span> -fsSL https://get.pixel-pop.io | <span class="token-keyword">bash</span>
+systemctl enable --now pop-worker.service</code></pre>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         PHASE 3: 核心特性、架构与演进脉络 (DEEP DIVE, ARCHITECTURE & EVOLUTION)
+         ============================================================ -->
+
+    <section class="deep-dive-section" id="section-arch">
+      <div class="section-head">
+        <div class="eyebrow">
+          <span class="diamond"></span>
+          <span>03 / ARCHITECTURE & DEEP DIVE</span>
+          <span class="line"></span>
+        </div>
+        <br>
+        <h2 class="section-title">03 / 核心特性与架构脉络</h2>
+      </div>
+
+      <!-- 08 / NUMBER CARDS -->
+      <div class="cards-3">
+        <div class="num-card">
+          <div class="num">01</div>
+          <h3>清晰可读正文</h3>
+          <p>移除了正文容器上的位移滤镜，排版保持极致锐利的矢量渲染与舒适阅读感。</p>
+          <div class="tag">BASE</div>
+        </div>
+        <div class="num-card selected">
+          <div class="num">02</div>
+          <h3>统一看板底色</h3>
+          <p>正文区域增加整体浅色背景看板，彻底隔绝背景放射线条的抢焦。</p>
+          <div class="tag">RECOMMENDED</div>
+        </div>
+        <div class="num-card">
+          <div class="num">03</div>
+          <h3>波普硬阴影</h3>
+          <p>纯黑实色 5px 偏移投影，充满复古电子游戏与波普青春冲击力。</p>
+          <div class="tag">POP SHADOW</div>
+        </div>
+      </div>
+
+      <!-- 09 / FEATURE CARD & MEDIA FRAME -->
+      <div class="feat-grid">
+        <div class="feat-card">
+          <div class="tag">// POP MODE</div>
+          <h3>日系像素波普画板</h3>
+          <p>特性的详细能力和用户体验描述，文字清晰可辨，排版层次分明。</p>
+          
+          <div class="tabs">
+            <div class="tab active">VIEW // 01</div>
+            <div class="tab">VIEW // 02</div>
+          </div>
+          <div class="feat-img-frame">MEDIA PLACEHOLDER FRAME (400×200)</div>
+        </div>
+        <div class="feat-card">
+          <div class="tag">// RETRO ARCADE</div>
+          <h3>街机像素渲染流水线</h3>
+          <p>8-bit 复古像素与现代矢量排版的有机结合，兼顾趣味性与生产力交付。</p>
+          
+          <div class="tabs">
+            <div class="tab active">SCHEMA</div>
+            <div class="tab">CODE</div>
+          </div>
+          <div class="feat-img-frame">VECTOR CANVAS FRAME (400×200)</div>
+        </div>
+      </div>
+
+      <!-- 10 / FLOWCHART & DIAGRAMS (MERMAID) -->
+      <div class="mermaid-wrapper">
+        <pre class="mermaid">
+graph LR
+    A["Raw Input<br/>原始需求文本"] --> B["Parser<br/>语义结构提炼"]
+    B --> C["Composer<br/>组件装配渲染"]
+    C --> D["Pixel Pop HTML<br/>离线单文件交付"]
+    
+    style A fill:#FFF8D6,stroke:#000000,stroke-width:2px
+    style B fill:#43C2F0,stroke:#000000,stroke-width:2px
+    style C fill:#FFDE00,stroke:#000000,stroke-width:2px
+    style D fill:#19D15E,stroke:#000000,stroke-width:2px
+        </pre>
+      </div>
+
+      <!-- 11 / PROCESS STEPS -->
+      <div class="steps">
+        <div class="step">
+          <div class="idx">01</div>
+          <div>
+            <h3>意图解析与风格锁定</h3>
+            <p>精准提取核心主旨，匹配日系像素波普专属视觉脚手架与色彩通道。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="idx">02</div>
+          <div>
+            <h3>模块组装与分层渲染</h3>
+            <p>背景负责情绪氛围，主看板承载清晰正文，点缀元素呈现蜡笔手绘质感。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 12 / TIMELINE -->
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h3>2024 · 视觉探索与原型设计</h3>
+            <p>完成青春日系波普风格的设计语言定义与核心组件原型构建。</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h3>2025 · 全组件规范标准化</h3>
+            <p>实现 18 项语义组件与 Mermaid 动态图表引擎的深度并网。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         PHASE 4: 深度推演、决策对比与利弊评估 (ANALYSIS & EVALUATION)
+         ============================================================ -->
+
+    <section class="evaluation-section" id="section-evaluation">
+      <div class="section-head">
+        <div class="eyebrow">
+          <span class="diamond"></span>
+          <span>04 / EVALUATION & DECISION</span>
+          <span class="line"></span>
+        </div>
+        <br>
+        <h2 class="section-title">04 / 深度推演与方案评估</h2>
+      </div>
+
+      <!-- 13 / COMPARISON TABLE -->
+      <div class="cmp-matrix-wrapper">
+        <table class="cmp-matrix">
+          <thead>
+            <tr>
+              <th>对比维度</th>
+              <th>普通页面方案</th>
+              <th class="highlight-col">Pixel Pop 优化版</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>视觉冲击力</strong></td>
+              <td>低，扁平灰白</td>
+              <td class="highlight-col">极高（Sunburst 放射线 + 粗黑硬阴影）</td>
+            </tr>
+            <tr>
+              <td><strong>长文阅读可读性</strong></td>
+              <td>普通</td>
+              <td class="highlight-col">极致清晰（独立奶油看板隔离）</td>
+            </tr>
+            <tr>
+              <td><strong>单文件离线交付</strong></td>
+              <td>需依赖复杂资产构建</td>
+              <td class="highlight-col">100% 单文件即开即用</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 14 / PROS & CONS -->
+      <div class="pros-cons">
+        <div class="pro-card">
+          <div class="tag">PROS / 优势清单</div>
+          <ul>
+            <li>极强的青春活力与独特的复古街机波普视觉记忆点</li>
+            <li>浅奶油独立大看板确保长篇文本舒适阅读体验</li>
+            <li>内置完整的 18 项语义化组件，表达力完备</li>
+          </ul>
+        </div>
+        <div class="con-card">
+          <div class="tag">CONS / 劣势与边界</div>
+          <ul>
+            <li>不适用于严肃金融或政府公文类报告</li>
+            <li>高饱和色彩通道需避免过度滥用</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 15 / EDITORIAL INTERVIEW & DIALOGUE ROUNDS -->
+      <div class="interview-rounds">
+        <div class="round-card">
+          <div class="round-header">
+            <span class="round-badge">ROUND 01 // 架构推演</span>
+            <span class="round-status">STATUS // READY TO SHIP</span>
+          </div>
+          
+          <div class="ai-questions-block">
+            <div class="ai-block-head">
+              <span class="dot"></span>
+              <span>AI 访谈助手 · 第 1 轮前沿提问</span>
+            </div>
+            <div class="q-deck">
+              <div class="q-item">
+                <div class="q-badge">Q1</div>
+                <div class="q-title">是否需要引入专属 Mermaid 主题配置？</div>
+                <div class="q-recom-note">
+                  <strong>✦ 推荐方案</strong>针对图表密集型长文，推荐注入专属 themeVariables 以保持视觉风格高度一致。
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="user-decision-note">
+            <div class="user-decision-head">
+              <span class="check-badge">✓</span>
+              <span>DECISION // 架构师拍板确认</span>
+            </div>
+            <div class="user-decision-text">“同意采用专属 themeVariables 注入方案，确保图表与风格包浑然一体。”</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         PHASE 5: 尾部答疑、引用出处与系统页脚 (FAQ, REFERENCES & FOOTER)
+         ============================================================ -->
+
+    <section class="faq-section" id="section-faq">
+      <div class="section-head">
+        <div class="eyebrow">
+          <span class="diamond"></span>
+          <span>05 / FAQ & REFERENCES</span>
+          <span class="line"></span>
+        </div>
+        <br>
+        <h2 class="section-title">05 / 常见问题与参考文献</h2>
+      </div>
+
+      <!-- 16 / FAQ / Q&A LIST -->
+      <div class="faq">
+        <div class="faq-item">
+          <div class="q">背景还会抢夺正文焦点吗？</div>
+          <div class="a">不会。正文区域有统一的浅色看板包裹，文字排版纯净清晰，背景光芒自然退居为页面氛围。</div>
+        </div>
+        <div class="faq-item">
+          <div class="q">是否支持单文件离线使用？</div>
+          <div class="a">支持。生成的 HTML 文件包含完整的内联样式与矢量图表，无需部署即可本地直接双击打开查看。</div>
+        </div>
+      </div>
+
+      <!-- 17 / REFERENCES -->
+      <div class="references">
+        <h3>REFERENCES // 参考文献</h3>
+        <ol>
+          <li id="ref-1">Tufte, E. R. (2001). <em>The Visual Display of Quantitative Information</em>. Graphics Press. <a href="#fnref-1">↩</a></li>
+          <li id="ref-2">Bringhurst, R. (2012). <em>The Elements of Typographic Style</em>. Hartley & Marks. <a href="#fnref-2">↩</a></li>
+        </ol>
+      </div>
+    </section>
+
   </main>
 
+  <!-- 18 / METADATA FOOTER -->
   <footer>
-    <div class="meta-foot"><span>HOUKAGO SYSTEM</span><span>PIXEL POP V2</span><span>READABILITY OPTIMIZED</span></div>
+    <div class="meta-foot">
+      <span>HOUKAGO SYSTEM</span>
+      <span>STYLE // PIXEL POP (日系像素波普风)</span>
+      <span>BUILD // FULL 18 COMPONENTS SKELETON</span>
+    </div>
   </footer>
 
   <!-- Mermaid.js 动态图表运行时 -->
@@ -1014,12 +1177,13 @@
           primaryTextColor: '#000000',
           primaryBorderColor: '#000000',
           lineColor: '#000000',
-          secondaryColor: '#E6FAF6',
-          tertiaryColor: '#FFE5EC',
-          fontFamily: '"SF Pro Text", "Helvetica Neue", sans-serif'
+          secondaryColor: '#FFDE00',
+          tertiaryColor: '#FFFFFF',
+          fontFamily: "'JetBrains Mono', Consolas, monospace"
         }
       });
     }
   </script>
+
 </body>
 </html>

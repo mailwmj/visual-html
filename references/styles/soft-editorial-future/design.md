@@ -1,44 +1,52 @@
-# Future Showroom (极简未来展厅风) — Design 规范 & 视觉契约
+# Soft Editorial Future (极简未来展厅风) — Design Language Reference
 
-> **Style ID**: `soft-editorial-future`  
-> **显示名称**：极简未来展厅风 (Future Showroom)  
-> **核心气质**：基于高级 Showroom 的现代玻璃拟态视觉系统，兼具人文社论的排版秩序与未来科技感。全站大量运用极致打磨的高光高透玻璃容器（Glassmorphism），搭配细腻的斜向渐变光泽、1px 纯白高光内阴影与多层弥散柔光。背景深层散布内部色彩温润晕开的 3D 柔光彩球（3D Soft Blooming Color Orbs），内部由核心向外层平滑自然渐变晕开，边缘柔和无生硬边线，在磨砂玻璃折射下呈现出空灵通透、温润典雅、毫无晕眩感的高级展厅质感。
+## 1. Visual Theme & Atmosphere
 
----
+Soft Editorial Future（极简未来展厅风 / Apple-Grade Showroom）将高级数字艺术展厅、前沿苹果发布会美学与极简社论排版升华为界面语言。全站以纯净通透的**浅灰蓝高光画板（`#EAEFF4` / `#F0F4F8`）**为画布基底，在全局固定视口层（`body::before`）注入 4 组大椭圆柔和弥散光晕，并在各章节穿插散布**3D 柔润晕染液体彩球（3D Soft Blooming Color Orbs）**，彻底告别沉闷压抑的暗黑夜景风。
 
-## 1. 核心设计理念 (Core Philosophy)
+界面的核心魅力在于**高光玻璃拟态展柜、3D 柔润液体彩球与通透纯粹的现代排版（Glassmorphism Showroom, Blooming Orbs & Pure Modernism）**：
 
-1. **高阶磨砂玻璃容器 (Refined Glassmorphism)**：
-   - 所有的卡片、面板与阅读区均采用 `backdrop-filter: blur(28px) saturate(180%)`，配合 `linear-gradient(135deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.46) 100%)`。
-   - 边缘带有 1px 的纯白高光内阴影与半透明外边框，营造真实厚度与水晶般的通透质感。
-2. **温润晕染柔光彩球 (3D Soft Blooming Color Orbs)**：
-   - 这是该风格的核心装饰符号，分布在 `hero`、`cards`、`steps`、`timeline`、`flowchart`、`faq` 等关键区块底层。
-   - 摒弃人工模糊滤镜，采用天然平滑的多段径向渐变（冰蓝 `#85C2FF`、蜜桃暖橙 `#FFBE8A`、薰衣草紫 `#D4C7FF`、薄荷春绿 `#9EE4B6`），从球体偏心核心向外层平滑晕开并过渡至纯白与画布底色，搭配内阴影纯白高光，呈现色彩在圆内自然晕开、边缘柔和无生硬描边线、完全不晕眩的 Showroom 展厅质感。
-3. **典雅克制的社论排版体系 (Editorial Typographic Hierarchy)**：
-   - 大标题采用紧凑优雅的现代几何无衬线与 Apple 字体栈（`"SF Pro Display"`, `"Inter"`, `"PingFang SC"`），大字号加粗配合微负字距（`letter-spacing: -0.02em ~ -0.03em`）。
-   - 正文采用舒适行距（1.65~1.8），深灰黑墨（`#111418` / `#4A5568`）主导，层级井然有序。
-4. **蔚蓝点睛信号色 (Apple Blue Accent)**：
-   - 核心高亮、选中态卡片、时间轴节点与步骤编号统一使用高纯度未来蔚蓝（`#0071E3`），搭配柔和的淡蓝光晕。
+1. **浅灰蓝高光环境背景（Layer 0: Ambient Light & 3D Blooming Orbs）**：
+   - 视口底层铺设 4 组柔和椭圆光晕（粉橙、青翠、淡蓝、柔紫），并在各 section 背景中散布 3D 晕染液体彩球。
+   - 彩球内部色彩天然平滑晕开，边缘柔和无生硬轮廓线，营造自然流淌的艺术展厅光影。
+2. **高透双层内发光毛玻璃卡片（Layer 2: Glassmorphism Showroom Cards）**：
+   - 玻璃卡片采用双层高光边框（`border: 1px solid rgba(255, 255, 255, 0.8)`）配合 28px 饱和度增强磨砂（`blur(28px) saturate(180%)`）与微内发光（`inset 0 1px 1px #fff`），在浅色背景上展现出晶莹剔透的高阶质感。
+3. **数码皇家蓝点睛通道（`#0071E3`）**：
+   - 核心聚焦项、推荐状态与重要指标使用高阶苹果蓝，形成 3%~5% 的克制点睛。
 
 ---
 
-## 2. 核心变量 (Design Tokens)
+## 2. Color Palette & Tokens
+
+### Core Interface Colors
+
+| Role | Value | Hex / RGBA | CSS Token | Usage |
+|---|---|---|---|---|
+| Canvas (Light Showroom) | `rgb(234, 239, 244)` | `#EAEFF4` | `--canvas-1` | 全局浅灰蓝高光画板底色 |
+| Canvas Surface (Subtle) | `rgb(240, 244, 248)` | `#F0F4F8` | `--canvas-2` | 局部高光微过渡底色 |
+| Glass Surface (Normal) | `rgba(255, 255, 255, 0.82)` | `linear-gradient(...)` | `--glass-bg` | 高透毛玻璃主卡片底色 |
+| Text (Deep Showroom Ink)| `rgb(17, 20, 24)` | `#111418` | `--ink-1` | 主标题、核心数据（深黑墨色） |
+| Text (Secondary Slate) | `rgb(74, 85, 104)` | `#4A5568` | `--ink-2` | 正文段落、导读副标题 |
+| Text (Muted Soft Blue) | `rgb(130, 146, 161)` | `#8292A1` | `--ink-3` | 占位符、注释、等宽元数据标签 |
+| Accent Blue (Apple Blue) | `rgb(0, 113, 227)` | `#0071E3` | `--accent-blue` | 核心聚焦通道、推荐态外框与高亮 |
+
+### CSS Design Tokens
 
 ```css
 :root {
-  /* Canvas & Surface Colors */
-  --canvas-1: #EAEFF4;           /* 偏冷浅灰底色，用于衬托白色玻璃容器 */
+  /* Canvas & Surface Colors (浅灰蓝高光展厅) */
+  --canvas-1: #EAEFF4;
   --canvas-2: #F0F4F8;
   --canvas-deep: #DDE5ED;
   
   /* Ink & Typography Colors */
-  --ink-1: #111418;              /* 主标题与重点文字 */
-  --ink-2: #4A5568;              /* 正文与副段落 */
-  --ink-3: #8292A1;              /* 辅助说明与 Mono 标签 */
+  --ink-1: #111418;
+  --ink-2: #4A5568;
+  --ink-3: #8292A1;
   --ink-muted: #9BAEC1;
 
-  /* Accent & Signal Palette */
-  --accent-blue: #0071E3;        /* 核心行动与高亮蔚蓝 */
+  /* Accent & Signal Colors */
+  --accent-blue: #0071E3;
   --accent-blue-soft: rgba(0, 113, 227, 0.08);
   --accent-blue-border: rgba(0, 113, 227, 0.35);
   
@@ -53,15 +61,6 @@
   --font-display: "SF Pro Display", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", "微软雅黑", sans-serif;
   --font-ui: "SF Pro Text", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", "微软雅黑", sans-serif;
   --font-mono: "IBM Plex Mono", "SF Mono", "JetBrains Mono", "Cascadia Code", Consolas, monospace;
-
-  /* Typography Scale */
-  --fs-hero: clamp(38px, 5.5vw, 68px);
-  --fs-display: clamp(28px, 3.8vw, 44px);
-  --fs-h1: 22px;
-  --fs-h2: 18px;
-  --fs-body-lg: 18px;
-  --fs-body: 15px;
-  --fs-caption: 13px;
 
   /* Glassmorphism Variables */
   --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.46) 100%);
@@ -85,22 +84,48 @@
 
 ---
 
-## 3. 16项完整组件视觉契约 (Component Visual Contracts)
+## 3. Mandatory Skeleton Contract (强制结构契约)
 
-1. **Section Eyebrow (`.eyebrow`)**: 胶囊状微型磨砂玻璃标签，内置 45° 旋转的蔚蓝菱形图标（`.diamond`）与等宽字距大写文本，附带极淡内发光和 1px 细线。
-2. **Typography Scale**: 标题字体采用 `-0.02em` 紧凑字距，大字号黑字主导；导读段落（`.lead`）居中舒展，行高 1.65。
-3. **Technical Spec Row (`.spec-row`, `.spec`)**: 嵌套于玻璃卡片内的次级玻璃小格（`rgba(255,255,255,0.55)`），大字号加粗数值配合 Mono 等宽小单位标签。
-4. **Number Cards (`.cards-3`, `.num-card`)**: 大圆角（24px）磨砂玻璃卡片。顶部包含底部带细腻分割线的超大蔚蓝数字序号，底部配备药丸状专属 Tag。选中态（`.selected`）触发蔚蓝高光描边、纯白底色微上浮与实心蔚蓝胶囊标签。
-5. **Feature Card & Frame (`.feat-grid`, `.feat-card`, `.frame`)**: 悬浮玻璃卡片，支持 `:hover` 轻微上浮；内部 `.frame` 具备精致内阴影与半透明设备边框。
-6. **Process Steps (`.steps`, `.step`)**: 步骤卡片独立包裹在磨砂玻璃容器中，数字序号巨大并带有下划分割线，说明文字排版精炼清晰。
-7. **Comparison Table (`.cmp-matrix-wrapper`, `.cmp`)**: 统一装载在无边框溢出的整块磨砂玻璃面板内。表头带有浅灰底色，数据行支持 `:hover` 高亮；高亮列（`.highlight-col` / `.selected-col`）呈现整列淡蓝微光与专属强调。支持圆点（`.dot`）与破折号（`.dash`）状态。
-8. **Metadata Footer (`footer`, `.meta-foot`)**: 双端对齐的等宽工业级元数据底栏，包含系统版本与文档标识。
-9. **Admonitions (`.admonition`)**: 统一采用纯白高透 Showroom 磨砂玻璃展柜容器，彻底告别突兀的彩色描边与生硬贴边竖条。标题前端嵌套 45° 旋转的精致发光菱形微徽标（`.diamond` 语义变体：蔚蓝/暖橙/春绿/绯红），与 `.eyebrow` 菱形徽标完美呼应，整体清透克制、典雅通透。
-10. **Timeline (`.timeline`, `.timeline-item`)**: 连续纵向渐变连接线，左侧右对齐年份 Mono 标记配合带光晕的空心节点圆点，右侧为独立悬浮磨砂玻璃内容卡片。
-11. **Pros & Cons (`.pros-cons`, `.pro-card`, `.con-card`)**: 统一采用纯白高透 Showroom 磨砂玻璃容器，告别彩色外边框与单调有色平涂底色。通过卡片内部精致克制的 Mono 药丸标签（`.tag`）与带柔和微底色的 `✓` / `✕` 圆形微徽章进行语义区分，与底层背景彩球折射完美共融。
-12. **Stats Grid (`.stats-grid`, `.stat-card`)**: 极简大气的玻璃数字面板，超大字体（48~76px）数字搭配蔚蓝单位与 Mono 大写指标标签。
-13. **Flowchart & Mermaid (`.flowchart`)**: 磨砂玻璃大展板，内部 SVG 流程图采用圆角卡片节点（12px 圆角）、现代浅灰细线与高亮蔚蓝激活节点。支持纯 SVG 与 Mermaid 引擎（`darkMode: true`, `background: '#0C131F'`, `primaryColor: '#162032'`, `lineColor: '#38BDF8'`, `primaryBorderColor: '#38BDF8'`）。
-14. **FAQ (`.faq`, `.faq-item`)**: 独立圆角玻璃条目，问题前置蔚蓝方块 `Q` 徽标，答案文字优雅缩进。
-15. **Rich Text (`.rich-text`)**: 正文承载于居中的大面积磨砂玻璃阅读板内，支持左侧蔚蓝边框的精致引用块（`blockquote`）与淡蓝代码高亮（`code`）。
-16. **References (`.references`)**: 底部收尾的磨砂文献面板，包含带下划线的大写 Mono 标题与规范序号列表。
-17. **Code Block (`.code-block`)**: 极简深岩磨砂玻璃展柜终端（`#0C131F` / `rgba(12, 19, 31, 0.94)`），配备三色微光圆点、电光蔚蓝（`#38BDF8`）Mono 语言 Badge 与未来极简 Token 语法高亮。
+生成任何 Soft Editorial Future 页面时，必须严格包含以下环境光晕层与柔光彩球规范，**严禁使用暗黑背景**：
+
+```css
+/* 全局浅灰蓝环境光晕 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -80px;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 650px 500px at 15% 15%, rgba(138, 196, 255, 0.25) 0%, transparent 65%),
+    radial-gradient(ellipse 600px 500px at 85% 20%, rgba(255, 208, 168, 0.20) 0%, transparent 65%),
+    radial-gradient(ellipse 700px 550px at 10% 65%, rgba(217, 210, 255, 0.18) 0%, transparent 65%),
+    radial-gradient(ellipse 650px 550px at 90% 85%, rgba(158, 228, 182, 0.18) 0%, transparent 65%),
+    linear-gradient(180deg, #EAEFF4 0%, #F0F4F8 50%, #DDE5ED 100%);
+  filter: blur(60px);
+}
+```
+
+---
+
+## 4. Do's and Don'ts
+
+### Do's (7 项金律)
+
+1. **Do 必须使用浅灰蓝高光画板（`#EAEFF4` / `#F0F4F8`）** — 保持苹果展厅级明亮通透。
+2. **Do 必须在卡片上应用双层内发光毛玻璃（`blur(28px) saturate(180%)` + `inset 0 1px 1px #fff`）** — 呈现剔透质感。
+3. **Do 背景穿插散布 3D 柔润液体彩球** — 内部色彩天然晕开，边缘平滑无生硬黑线。
+4. **Do 大标题使用现代无衬线粗体（字重 800，紧凑字距 `-0.03em`）** — 呈现极致前沿纯粹。
+5. **Do 正文字色使用高对比墨色（`#111418` / `#4A5568`）** — 确保完美的阅读可读性。
+6. **Do 使用数码皇家蓝（`#0071E3`）作为核心点睛通道**。
+7. **Do 保持圆角在 18px~24px 的优雅大圆角**。
+
+### Don'ts (7 项红线)
+
+1. **Don't 篡改为暗黑黑底背景（如 `#0C131F`）** — 必须保持浅灰蓝未来展厅明亮基调。
+2. **Don't 丢失毛玻璃的 `backdrop-filter` 与双层高光边框** — 否则退化为普通扁平灰色块。
+3. **Don't 使用生硬生涩的人工高斯模糊失焦点阵** — 保持 3D 彩球的自然柔光渐变。
+4. **Don't 使用沉闷肮脏的重黑阴影** — 阴影必须是浅蓝微透柔光（`rgba(18, 38, 63, 0.05)`）。
+5. **Don't 使用低对比度的浅灰文字** — 正文必须清晰深邃。
+6. **Don't 堆砌刺眼杂乱的多彩霓虹** — 强调色仅限苹果蓝与红黄绿三色语义信号。
+7. **Don't 使用生硬直角（0px）**。

@@ -1,36 +1,52 @@
-# Warm Craft (温润纸感手札风) — Design 规范 & 视觉契约
+# Warm Craft (温润纸感手札风) — Design Language Reference
 
-> **Style ID**: `warm-craft`  
-> **显示名称**：暖纸手作/温润社论风 (Warm Craft Editorial)  
-> **核心气质**：采用温润米白纸质画布、古典人文宋体大标题（Editorial Serif）、深橄榄绿核心行动通道、轻微错落微倾斜的多彩贴纸卡片（Pastel Sticker Cards，零生硬黑边）与灵动手绘涂鸦、高光划线及轻快弹性交互回弹（Elastic Hover Dynamics）。散发自然亲和、智序并存的温润匠心感，特别适合智能代理、知识沉淀、深度调研与人文科技型产品落地页。
+## 1. Visual Theme & Atmosphere
 
----
+Warm Craft 将书籍出版物的高级社论排版（Editorial Typography）与温润细腻的手作手账美学升华为界面语言。全站以带有棉纸温度的浅暖米白（`#F7F4EC` / `#FAF7F0`）为画布基底，在全局固定视口层（`body::before`）点缀 4 组柔和的有机暖色呼吸流光斑块（粉彩暖黄、抹茶绿、柔紫、暖橙），彻底告别生硬冷酷的纯白与冰冷灰。
 
-## 1. Design DNA & 核心原则
+界面的核心魅力在于**古典人文宋体、多彩粉彩便签与扇形对称微倾回弹动效（Editorial Serif, Pastel Stickers & Fan-Tilt Elastic Motion）**：
 
-1. **温润米白暖纸画布 (Warm Oatmeal Paper Canvas)**：
-   - 全局背景为带有细腻纸质温度的浅暖米白（`#F7F4EC` / `#FAF7F0`），绝不使用刺眼的纯冷白或冰冷灰。
-   - 背景点缀极淡的有机流体光晕斑块（暖黄 `#FFF5D6`、抹茶绿 `#EEF6DE`、柔紫 `#F0EEF8`），置于全局固定层 (`body::before`)，滚动时不产生任何断层。
-2. **古典人文宋体与多平台排版栈 (Editorial Serif + Native Songti SC)**：
-   - **大标题 (Hero & Section Titles)**：采用高阶人文衬线宋体（`"Newsreader"`, `"Playfair Display"`, `"Songti SC"`, `"STSong"`, `"Source Han Serif SC"`, `"Noto Serif SC"`, `"SimSun"`），字重 700–900，行高紧凑优雅（1.12–1.18），呈现出书籍出版物般的沉稳与智识美感。
-   - **正文与辅助信息**：采用高可读性现代无衬线字体（`"Inter"`, `"PingFang SC"`, `"HarmonyOS Sans SC"`, `"Microsoft YaHei"`, `"微软雅黑"`），保证小字号下的极佳辨识度。
-   - **参数、序号与 Eyebrow**：采用工整的 Mono 等宽字体。
-3. **多色粉彩贴纸（零生硬黑边）与扇形对称外展 (Pastel Sticker Notes & Symmetric Fan Tilts)**：
-   - 核心功能卡片与标签采用清新高雅的粉彩色谱（明黄 `#FEDB71`、暖橙 `#FFA963`、抹茶绿 `#B7D97A`、柔紫 `#AAB7F2`、晴空蓝 `#7CB6F8`）。
-   - **边框与阴影规范**：卡片采用极淡的同色系半透明边框或纯白高光微边（`border: 1px solid rgba(0, 0, 0, 0.04)` 或 `border: 1px solid rgba(255, 255, 255, 0.7)`），**绝对禁止在选中态使用生硬厚重的深色/黑色粗描边**。高亮态通过彩色柔光多层阴影与微上浮呈现。
-   - 卡片在排列时采用**扇形镜像对称外展微倾角**（如左卡 `rotate(-2deg) translateY(2px)`、中卡 `rotate(0deg)` 居中回正微浮、右卡 `rotate(2deg) translateY(2px)` 镜像对称），模拟书桌双手自然摊开 3 张手账便签的优美弧形张力，杜绝单边倾斜失衡。
-4. **轻快弹性动效与交互手感 (Elastic Motion & Hover Dynamics)**：
-   - 鼠标悬浮在便签卡片上时，卡片自动**回正角度（`rotate(0deg)`）**并配合**弹性曲线（`cubic-bezier(0.175, 0.885, 0.32, 1.275)`）**轻盈上浮（`translateY(-10px) scale(1.03)`），彩色弥散投影扩散，赋予页面如同从桌面捏起卡片般的愉悦触感。
-   - 选中卡片（`.selected`）在 `:hover` 时具备专属高升动效（`translateY(-14px) scale(1.05)`），确保交互反馈鲜明清晰。
-5. **文字效果与手绘划线 (Typography Effects & Marker Highlights)**：
-   - 支持马克笔半透明高光底纹（`.marker-highlight`，黄/橙/绿渐变），用于强调核心关键词。
-   - 大号古典开闭双引号（`“ ... ”`）装点 Blockquote 引言段落。
-6. **深橄榄绿核心行动色 (Deep Forest Olive Accent)**：
-   - 核心按钮、关键状态与重点聚焦使用深沉内敛的深橄榄森林绿（`#323D24` / `#2D3920`），与米白底色和粉彩贴纸形成极高雅的对比。
+1. **全局柔和流体光晕背景（`body::before`，纸质手札灵魂）**：
+   - 使用 4 组高透光晕（粉彩暖黄、抹茶绿、柔紫、暖橙），配合 `filter: blur(60px)`，使整个视口如同铺在洒满午后阳光的木质书桌上的棉纸。
+2. **古典人文宋体大标题**：
+   - 大标题采用高阶衬线宋体（`"Newsreader"`, `"Songti SC"`, `"Source Han Serif SC"`），字重 700~800，行高紧凑优雅，散发深厚智识感与出版物格调；正文切换为高可读性现代无衬线体。
+3. **多彩粉彩便签（零粗黑边框，温润透亮）**：
+   - 卡片采用高雅的粉彩色谱（明黄 `#FEDB71`、暖橙 `#FFA963`、抹茶绿 `#B7D97A`、柔紫 `#AAB7F2`、淡蓝 `#7CB6F8`），搭配纯白高光微边（`rgba(255, 255, 255, 0.8)`）与柔光投影，**绝对禁止使用粗黑边框与生硬阴影**。
+4. **扇形镜像对称外展与弹性回弹手感**：
+   - 多卡片排列采用双手自然摊开便签般的扇形对称倾角（左卡 `-2deg`、中卡 `0deg`、右卡 `+2deg`）；
+   - 鼠标悬浮时**自动回正角度（`rotate(0deg)`）并以弹性曲线（`cubic-bezier(0.175, 0.885, 0.32, 1.275)`）轻盈跃升（`translateY(-10px) scale(1.03)`）**，赋予界面如同捏起桌面便签般的愉悦手感。
 
 ---
 
-## 2. CSS Design Tokens
+## 2. Color Palette & Tokens
+
+### Core Interface Colors
+
+| Role | Value | Hex / RGBA | CSS Token | Usage |
+|---|---|---|---|---|
+| Background (Warm Paper) | `rgb(247, 244, 236)` | `#F7F4EC` | `--bg` | 全局浅暖米白画布底色 |
+| Background (Warm Surface) | `rgb(250, 247, 240)` | `#FAF7F0` | `--bg-warm` | 页面局部微高光底色 |
+| Background (Deep Paper) | `rgb(237, 231, 218)` | `#EDE7DA` | `--bg-deep` | 代码块/参数栏微深纸底色 |
+| Surface (White Card) | `rgb(255, 255, 255)` | `#FFFFFF` | `--surface-card` | 纯白主卡片底色 |
+| Surface (Paper Subtle) | `rgb(250, 248, 242)` | `#FAF8F2` | `--surface-card-subtle` | 问答提问底板、嵌套微卡片 |
+| Text (Forest Charcoal Ink) | `rgb(30, 35, 27)` | `#1E231B` | `--text-primary` | 宋体大标题、主正文（高对比墨色） |
+| Text (Olive Slate Gray) | `rgb(86, 94, 80)` | `#565E50` | `--text-secondary` | 导读段落、次级说明段落 |
+| Text (Muted Sand) | `rgb(142, 150, 133)` | `#8E9685` | `--text-muted` | 注释、页脚、等宽元数据标签 |
+| Border (Warm Subtle) | `rgba(50, 61, 36, 0.08)` | `rgba(50,61,36,.08)` | `--border` | 1px 柔和分割线、卡片微边框 |
+| Border (Strong / Focus) | `rgba(50, 61, 36, 0.16)` | `rgba(50,61,36,.16)` | `--border-strong` | 高对比线、活跃外轮廓 |
+
+### Pastel Sticker & Action Palette
+
+| Channel | Role | Value | Hex | Text Color | Usage Boundary |
+|---|---|---|---|---|---|
+| **Deep Forest Olive** | 深橄榄绿 (Primary Action) | `rgb(50, 61, 36)` | `#323D24` | `#FFFFFF` | 主行动通道、核心状态标头 (占 3–5%) |
+| **Pastel Yellow** | 明黄贴纸 (Sticky Card 1) | `rgb(254, 219, 113)` | `#FEDB71` | `#5A3E00` | 编号卡片 1、Info 便签、步骤序号 (占 3%) |
+| **Pastel Orange** | 暖橙贴纸 (Sticky Card 2 / Focus)| `rgb(255, 169, 99)` | `#FFA963` | `#542200` | 推荐卡片高光、Warning 便签 (占 3–5%) |
+| **Pastel Green** | 抹茶绿贴纸 (Sticky Card 3 / Success)| `rgb(183, 217, 122)`| `#B7D97A` | `#243D06` | 编号卡片 3、决策便签、Pros (占 3%) |
+| **Pastel Purple** | 柔紫贴纸 (Subagent Note) | `rgb(170, 183, 242)` | `#AAB7F2` | `#1B2966` | 异步子代理便签、辅助标签 (占 2%) |
+| **Pastel Coral** | 珊瑚粉便签 (Cons) | `rgb(252, 165, 152)` | `#FCA598` | `#631C12` | 缺点/约束/风险便签 (占 2%) |
+
+### CSS Design Tokens
 
 ```css
 :root {
@@ -45,40 +61,29 @@
   --surface-overlay: rgba(255, 255, 255, 0.85);
 
   /* 文字层 (深墨绿炭黑 / 暖灰 / 沙岩色) */
-  --text-primary: #1E231B;       /* 主标题与高对比度文字 */
-  --text-secondary: #565E50;     /* 正文与次要段落 */
-  --text-muted: #8E9685;         /* 占位符、辅助脚注与 Mono 标签 */
-  --text-inverse: #FFFFFF;       /* 深色按钮与深底文字 */
+  --text-primary: #1E231B;
+  --text-secondary: #565E50;
+  --text-muted: #8E9685;
+  --text-inverse: #FFFFFF;
 
   /* 核心主行动色 (深橄榄森林绿) */
   --signal-primary: #323D24;
   --signal-primary-hover: #242E18;
   --signal-primary-light: #EBF0E4;
 
-  /* 粉彩贴纸多色通道 (Pastel Sticker Palette) */
+  /* 粉彩贴纸多色通道 */
   --pastel-yellow: #FEDB71;
   --pastel-yellow-text: #5A3E00;
-  --pastel-yellow-border: rgba(236, 197, 85, 0.5);
-
   --pastel-orange: #FFA963;
   --pastel-orange-text: #542200;
-  --pastel-orange-border: rgba(232, 142, 68, 0.5);
-
   --pastel-green: #B7D97A;
   --pastel-green-text: #243D06;
-  --pastel-green-border: rgba(158, 194, 94, 0.5);
-
   --pastel-purple: #AAB7F2;
   --pastel-purple-text: #1B2966;
-  --pastel-purple-border: rgba(141, 157, 224, 0.5);
-
   --pastel-blue: #7CB6F8;
   --pastel-blue-text: #0B3363;
-  --pastel-blue-border: rgba(94, 156, 230, 0.5);
-
   --pastel-coral: #FCA598;
   --pastel-coral-text: #631C12;
-  --pastel-coral-border: rgba(229, 134, 119, 0.5);
 
   /* 边框与阴影 (无粗黑边，温润透亮) */
   --border: rgba(50, 61, 36, 0.08);
@@ -87,7 +92,7 @@
   --shadow-card-hover: 0 16px 36px rgba(45, 40, 25, 0.10), 0 3px 8px rgba(45, 40, 25, 0.04);
   --shadow-sticker: 0 8px 24px rgba(50, 45, 30, 0.07), 0 2px 6px rgba(50, 45, 30, 0.03);
 
-  /* 交互与缓动曲线 Tokens (Motion & Curves) */
+  /* 交互与缓动曲线 Tokens (手作弹性动效) */
   --ease-elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
   --duration-hover: 0.35s;
@@ -99,89 +104,299 @@
   --container: 1180px;
 
   /* 字体栈 (Editorial Serif + Clean Sans + Mono) */
-  --font-serif: "Newsreader", "Playfair Display", "Songti SC", "STSong", "Source Han Serif SC", "Noto Serif SC", "Noto Serif CJK SC", "SimSun", "STFangsong", "FangSong", "Georgia", serif;
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "HarmonyOS Sans SC", "Microsoft YaHei", "微软雅黑", sans-serif;
+  --font-serif: "Newsreader", "Playfair Display", "Songti SC", "STSong", "Source Han Serif SC", "Noto Serif SC", "SimSun", serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", "SFMono-Regular", Consolas, monospace;
 }
 ```
 
 ---
 
-## 3. 交互动效与手感规范 (Motion & Interactive Hover Dynamics)
+## 3. Mandatory Skeleton Contract (强制结构契约)
 
-| 组件 / 状态 | 默认静止态 (Rest State) | 悬浮微交互态 (`:hover`) | 交互手感设计意图 |
-|---|---|---|---|
-| **常规贴纸卡片 (`.num-card`)** | 扇形镜像微倾斜 (左 `rotate(-2deg) translateY(2px)` / 中 `rotate(0deg)` / 右 `rotate(2deg) translateY(2px)`)，低悬浮投影 | 角度平滑回正 (`rotate(0deg)`)，弹性上浮 `translateY(-10px) scale(1.03)`，阴影扩散，层级升至 `z-index: 10`，内部标签轻微浮起 | 模拟将书桌上自然铺开的便签纸轻轻捏起查看的手账质感 |
-| **选中/推荐卡片 (`.num-card.selected`)** | 居中回正上浮 `rotate(0deg) translateY(-6px) scale(1.01)`，高光白边与彩色柔光投影 | 进一步弹性跃升 `translateY(-14px) scale(1.05)`，强光晕扩散 `box-shadow: 0 26px 54px rgba(255, 169, 99, 0.42)`，层级升至 `z-index: 12` | 确保推荐卡片始终具备最高层级响应与视觉锚点，杜绝被其他卡片遮挡 |
-| **核心数据卡片 (`.stat-card`)** | 纯白卡片底座，柔和边框与微阴影 | 平滑上浮 `translateY(-4px)`，阴影深度加深 (`var(--shadow-card-hover)`) | 呈现稳定且沉着的参数反馈 |
-| **流程步骤卡片 (`.step`)** | 纵向规整排列，圆形彩色编号徽标 | 向右轻微平移 `translateX(6px)`，序号徽标微幅旋转放大 | 引导用户视线沿着工作流顺序向下探索 |
-| **常见问答条目 (`.faq-item`)** | 纯白圆角条目 | 微上浮 `translateY(-2px)`，边框微高光 | 提示可交互性 |
-| **超链接与引用文献** | 带有深橄榄绿下划线 | 下划线偏移增加，文字平滑变为暖橙色 (`var(--pastel-orange-text)`) | 温暖亲和的文本引导 |
+生成任何 Warm Craft 网页时，必须包含以下全局柔和流体光晕背景层，**严禁省略**：
 
----
-
-## 4. 18 项核心组件视觉契约 (Component Visual Contracts)
-
-依据全局规范 `shared-components.md`，以下 18 个标准组件在 `warm-craft` 风格下的具体呈现规则：
-
-1. **Section Eyebrow (区块索引标头)**:
-   - 采用深橄榄绿文字 + 暖橙色 45° 旋转菱形标（`.diamond`），搭配 Mono 大写等宽编号，右侧跟随一条淡暖灰 1px 细线（`--border-strong`）。
-2. **Typography Scale (基础文本层级与文字效果)**:
-   - `h1.hero`：采用 `--font-serif` 高阶宋体，大字号（38–64px），字重 800，行高紧凑优雅（1.15），支持使用 `.marker-highlight` 添加手绘马克笔黄色/橙色底纹高亮。
-   - `h2.section-title`：同样采用 `--font-serif`，字号 28–42px。
-   - `.lead`：采用 `--font-sans`，字号 17–20px，颜色为 `--text-secondary`，行高 1.68。
-3. **Technical Spec Row (规格参数栏)**:
-   - 纯白悬浮圆角卡片底座，内部划分为多列规格网格，中间以 1px `--border` 细线分割。数值 `.val` 采用深橄榄绿加粗 Serif 字体呈现，单位 `.unit` 采用全大写 Mono 字体。
-4. **Number Cards (编号卡片列 - 核心粉彩贴纸群，严禁粗黑描边，支持扇形对称与弹性回弹动效)**:
-   - 卡片采用粉彩贴纸色谱（黄、橙、绿依次分色），圆角 20px，排列采用扇形对称外展微倾角（左卡 `-2deg translateY(2px)`、中卡 `0deg`、右卡 `+2deg translateY(2px)`）。
-   - 编号 `.num` 采用大号 Mono 字体，卡片底部带有浅白底胶囊标签 `.tag`。
-   - **交互动效**：鼠标悬浮时回正角度（`rotate(0deg)`）并触发弹性上浮（`translateY(-10px) scale(1.03)`）。
-   - **选中与推荐态 `.selected`**：禁止使用黑色粗边框，采用高光白边（`border: 1px solid rgba(255, 255, 255, 0.7)`）与暖橙色弥散强投影，居中回正并微浮 `rotate(0deg) translateY(-6px) scale(1.01)`，Hover 时深度跃升至 `translateY(-14px)`。
-5. **Feature Card & Media Frame (特性卡片与媒体预览框)**:
-   - 纯白大圆角卡片，内嵌媒体占位框 `.frame`，使用浅暖米色底（`--surface-card-subtle`）搭配精致手绘虚线边框或微渐变阴影。
-6. **Process Steps (流程步骤)**:
-   - 步骤卡片依次错落排布，序号 `.idx` 使用粉彩圆形徽章包裹（如明黄/暖橙/抹茶绿），Hover 时右移 `translateX(6px)`。
-7. **Comparison Table (对比矩阵)**:
-   - 纯白大圆角全封闭卡片表格，表头使用浅暖米灰底色（`--bg-deep`），推荐列（`.highlight-col` 或 `.selected-col`）采用淡暖橙色背景高亮（`rgba(255, 169, 99, 0.12)`）与深橄榄色标点，温暖清晰。
-8. **Metadata Footer (技术页脚)**:
-   - 浅暖纸底色，顶部 1px 细线分隔，左右两端对齐，Mono 字体大写，字号 12px，颜色 `--text-muted`。
-9. **Admonitions (智能语义提示框)**:
-   - 模拟手账贴纸便签（Sticky Note），左侧带有 6px 粗暖色条（Info 为明黄色 `#FEDB71`、Warning 为暖橙色 `#FFA963`、Success 为抹茶绿 `#B7D97A`），整体带温润背景色与柔和内阴影。
-10. **Timeline (时间轴)**:
-    - 垂直连线为 2px 虚线，时间节点 `.timeline-marker` 为带有微倾角的彩色药丸徽标，右侧内容采用纯白圆角便签卡片。
-11. **Pros & Cons (优劣势红黑榜)**:
-    - 左右双卡片：Pros 优势卡片使用浅抹茶绿底（`#F2F7E8`）配深绿勾选符；Cons 劣势卡片使用浅蜜桃粉底（`#FCF1EE`）配柔和短横线。
-12. **Stats Grid (核心数据卡片)**:
-    - 采用纯白大圆角卡片，数字 `.stat-val` 使用大号 Serif 字体（48–64px），单位 `span` 自然上浮，下方配 Mono 风格说明标签。
-13. **Flowchart & Mermaid (流程图与系统架构)**:
-    - 纯白纸质大面板，深橄榄色线条（`#323D24`）与圆润节点。支持纯 SVG 与 Mermaid 引擎（`darkMode: false`, `background: '#F7F4EC'`, `primaryColor: '#EDE8DC'`, `lineColor: '#323D24'`），核心活跃节点使用暖橙或明黄背景填色。
-14. **References (参考文献与脚注)**:
-    - 纯白卡片包裹，有序列表项文字小巧精致，链接采用深橄榄绿下划线，悬浮时变暖橙色。
-15. **Rich Text (长文本正文模块)**:
-    - 纯白圆角大卡片，内部 `h3/h4` 采用 Serif 宋体，正文行高 1.8，引用 `blockquote` 左侧带 4px 深橄榄线条、大号引号装饰 `“` 与浅米色底衬。
-16. **FAQ / Q&A List (问答列表)**:
-    - 模块化纯白圆角折叠条目，问题 `.q` 采用 Serif 加粗排版与深橄榄色前缀符号 `Q`，答案 `.a` 使用温润无衬线正文。
-17. **Editorial Interview & Walkthrough Rounds (社论访谈录 / 轮次推演卡片)**:
-    - 纯白纸质大圆角底座（`.round-card`），顶部带有深橄榄色胶囊标头（`.round-badge`）与 Mono 状态指示。
-    - **提问卡区 (`.ai-questions-block`)**：采用浅米白纸底（`--surface-card-subtle`），序号为 Mono 方形印章（`.q-badge`），问题为 Serif 宋体加粗。
-    - **推荐答案便签 (`.q-recom-note`)**：采用淡暖橙底色（`#FFF8EE`）与微圆角贴纸，带有 `✦ 推荐方案` Mono 胶囊徽标，消除生硬左粗边。
-    - **异步子代理便签 (`.q-subagent-note`)**：采用淡柔紫底色（`#F3F1FB`），传递优雅的后台工程状态。
-    - **用户拍板决策便签 (`.user-decision-note`)**：采用淡抹茶绿底色（`#F2F7E8`）与圆圈对勾徽标（`✓ DECISION`），与上方 AI 提问形成清晰、温润、出版物级别的问答层次对撞。
-18. **Sticky Quick Nav (纯净无滚动条胶囊导航)**:
-    - 悬浮毛玻璃药丸（`.quick-nav`），配置 `scrollbar-width: none;` 与 `::-webkit-scrollbar { display: none; }` 隐藏原生滚动条轨道，居中自适应折行。
-19. **Code Block (多行代码块与终端窗口)**:
-    - 复古打字机炭灰深色底座（`#222522`），搭配温润粉彩（橙/黄/绿）控制圆点、淡明黄等宽语言 Badge 与温暖柔和的 Token 语法高亮，兼具出版物人文感与开发者严谨度。
+```css
+/* 全局固定流体光晕背景层 (4 组柔和呼吸流光) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -40px;
+  z-index: -1;
+  background: 
+    radial-gradient(circle at 12% 12%, rgba(254, 219, 113, 0.28) 0%, transparent 45%),
+    radial-gradient(circle at 88% 20%, rgba(183, 217, 122, 0.22) 0%, transparent 40%),
+    radial-gradient(circle at 18% 80%, rgba(170, 183, 242, 0.20) 0%, transparent 45%),
+    radial-gradient(circle at 82% 88%, rgba(255, 169, 99, 0.22) 0%, transparent 45%);
+  background-color: var(--bg);
+  filter: blur(60px);
+  pointer-events: none;
+}
+```
 
 ---
 
-## 5. 专属质量清单 (Warm Craft QA Checklist)
+## 4. Signature Component Patterns (核心特征组件规范)
 
-- [ ] 全局背景是否为自然温润的浅暖米白（`#F7F4EC` / `#FAF7F0`），避免冷白和生硬冷灰？
-- [ ] 主标题（Hero）与区块标题（Section Titles）是否严格采用原生 Songti / Serif 衬线体，字号大、行高紧凑优雅？
-- [ ] 卡片边框是否柔和通透，**彻底消除了粗重生硬的黑色/深色描边**？
-- [ ] 贴纸卡片是否具备**平滑回正 + 弹性上浮（`cubic-bezier(0.175, 0.885, 0.32, 1.275)`）**的生动手感？
-- [ ] 推荐态/选中态（`.selected`）在 `:hover` 时是否具备专属深度跃升动效（`translateY(-14px)`），且层级优先级最高？
-- [ ] 访谈/推演对话是否严格采用 **社论访谈录格式 (`.round-card`)**，杜绝通用即时通讯粗边气泡与生硬嵌套？
-- [ ] 悬浮快速目录 (`.quick-nav`) 是否彻底隐藏了原生灰色横向滚动条？
-- [ ] 是否具备手绘划线高亮（`.marker-highlight`）与典雅大引号等文字质感装饰？
-- [ ] 整体质感是否兼具书籍出版物的典雅智序与手作手账的灵动温度？
+### 1. Fan-Tilt Pastel Sticker Cards (扇形微倾粉彩便签卡片)
+
+```html
+<div class="cards-3">
+  <!-- 卡片 1: 粉彩明黄，微倾 -2deg -->
+  <div class="num-card" style="background: var(--pastel-yellow); transform: rotate(-2deg) translateY(2px);">
+    <div class="num" style="color: var(--pastel-yellow-text);">01</div>
+    <h3 style="color: var(--pastel-yellow-text);">知识流式分块沉淀</h3>
+    <p style="color: rgba(90, 62, 0, 0.88);">支持自适应分块与层级提炼，将长篇调研转化为清晰易读的结构化手札。</p>
+    <div class="tag" style="color: var(--pastel-yellow-text);">BASE NOTE</div>
+  </div>
+
+  <!-- 卡片 2: 粉彩暖橙推荐态，居中 0deg，带高能光晕 -->
+  <div class="num-card selected" style="background: var(--pastel-orange); transform: rotate(0deg) translateY(-6px) scale(1.01);">
+    <div class="num" style="color: var(--pastel-orange-text);">02</div>
+    <h3 style="color: var(--pastel-orange-text);">社论级排版引擎</h3>
+    <p style="color: rgba(84, 34, 0, 0.88);">结合人文宋体与双手自然摊开的扇形微倾角，悬浮自动回正跃起。</p>
+    <div class="tag" style="color: var(--pastel-orange-text); background: #FFFFFF;">RECOMMENDED</div>
+  </div>
+
+  <!-- 卡片 3: 粉彩抹茶绿，微倾 +2deg -->
+  <div class="num-card" style="background: var(--pastel-green); transform: rotate(2deg) translateY(2px);">
+    <div class="num" style="color: var(--pastel-green-text);">03</div>
+    <h3 style="color: var(--pastel-green-text);">双模态离线交付</h3>
+    <p style="color: rgba(36, 61, 6, 0.88);">单文件自包含 HTML，支持现代浏览器即开即看，告别繁琐部署。</p>
+    <div class="tag" style="color: var(--pastel-green-text);">OFFLINE READY</div>
+  </div>
+</div>
+```
+
+### 2. Admonitions with Sticky Paper Tones (手作便签提示框)
+
+```html
+<div class="admonition info">
+  <div class="admonition-title">核心结论 (INFO)</div>
+  <p>这是 AI 提取的关键结论便签，采用暖黄便签纸底色与加粗左便签条。</p>
+</div>
+```
+
+### 3. Timeline with Pill Capsule Markers (手作胶囊时间轴)
+
+```html
+<div class="timeline">
+  <div class="timeline-item">
+    <div class="timeline-marker">2024</div>
+    <div class="timeline-content">
+      <h3>立项与人文手札体系探索</h3>
+      <p>确定以纸质温润感与社论宋体为核心，完成首版手札系统构建。</p>
+    </div>
+  </div>
+</div>
+```
+
+### 4. Editorial Headings with Fluorescent Marker Highlights (人文宋体标题与荧光马克笔高亮)
+
+在 Warm Craft 风格中，**文章主标题（Hero Title / 封面大标题）必须包含荧光马克笔高亮（Marker Highlight）**，确立出版手札的核心视觉锚点；而**其他二级标题、小标题与正文段落保持克制，仅根据场景与关键结论按需添加**，严禁在所有标题上泛滥堆砌：
+
+```html
+<!-- 1. 文章主标题 (Hero Title)：必须包含 1~2 处核心关键词高亮 -->
+<h1 class="hero">温润纸感手札美学。<br>全组件<span class="marker-highlight">排版规范</span>预览集。</h1>
+
+<!-- 2. 二级标题 (Section Title)：默认保持纯净宋体，仅在关键结论/核心论点处按需选用 -->
+<h2 class="section-title">核心论述与参数栏</h2>
+<h2 class="section-title">手作便签卡片与提示框</h2>
+<!-- 遇到强烈结论或转折性命题时可适度点缀: -->
+<!-- <h2 class="section-title">三项核心支柱，构建<span class="marker-highlight-orange">复利体系</span></h2> -->
+
+<!-- 3. 正文段落 (Rich Text)：在重点段落中以 <strong> 局部高亮关键短语 -->
+<p>这是标准的正文段落。支持 <strong class="marker-highlight">荧光马克笔高亮</strong> 与 <code>内联代码</code> 等元素。</p>
+```
+
+```css
+/* 荧光马克笔高亮笔触 Tokens */
+.marker-highlight {
+  background: linear-gradient(180deg, transparent 52%, rgba(254, 219, 113, 0.75) 52%, rgba(254, 219, 113, 0.75) 94%, transparent 94%);
+  padding: 0 4px;
+  border-radius: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  display: inline;
+}
+.marker-highlight-orange {
+  background: linear-gradient(180deg, transparent 52%, rgba(255, 169, 99, 0.75) 52%, rgba(255, 169, 99, 0.75) 94%, transparent 94%);
+  padding: 0 4px;
+  border-radius: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  display: inline;
+}
+.marker-highlight-green {
+  background: linear-gradient(180deg, transparent 52%, rgba(183, 217, 122, 0.75) 52%, rgba(183, 217, 122, 0.75) 94%, transparent 94%);
+  padding: 0 4px;
+  border-radius: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  display: inline;
+}
+.marker-highlight-purple {
+  background: linear-gradient(180deg, transparent 52%, rgba(170, 183, 242, 0.75) 52%, rgba(170, 183, 242, 0.75) 94%, transparent 94%);
+  padding: 0 4px;
+  border-radius: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  display: inline;
+}
+.marker-highlight-coral {
+  background: linear-gradient(180deg, transparent 52%, rgba(252, 165, 152, 0.75) 52%, rgba(252, 165, 152, 0.75) 94%, transparent 94%);
+  padding: 0 4px;
+  border-radius: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  display: inline;
+}
+```
+
+### 5. High-Readability Code Block & Terminal (高可读性深墨绿深炭代码窗口)
+
+代码块采用高对比度深墨绿深炭色底（`#1F241C`），与暖米白页面形成明暗韵律反差，并配置粉彩三色 macOS 控制点与高饱和暖色语法高亮：
+
+```html
+<div class="code-block">
+  <div class="code-header">
+    <div class="code-dots"><span></span><span></span><span></span></div>
+    <span class="code-lang">PYTHON / KNOWLEDGE ENGINE</span>
+    <button class="code-copy-btn" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').innerText); this.innerText='COPIED!'; setTimeout(()=>this.innerText='COPY', 2000)">COPY</button>
+  </div>
+  <pre><code><span class="token-comment"># 初始化 Warm Craft 知识流式编排器</span>
+<span class="token-keyword">from</span> warm_craft <span class="token-keyword">import</span> EditorialStream, PaperBinder
+
+<span class="token-keyword">def</span> <span class="token-function">bind_knowledge_document</span>(doc_id: <span class="token-string">str</span>) -> PaperBinder:
+    binder = PaperBinder(paper_tone=<span class="token-string">"#F7F4EC"</span>, font_serif=<span class="token-string">"Newsreader"</span>)
+    <span class="token-keyword">return</span> binder.render_rich_editorial(doc_id)</code></pre>
+</div>
+```
+
+```css
+/* 代码块容器与头部 */
+.code-block {
+  background: #1F241C;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius);
+  margin: 28px 0;
+  overflow: hidden;
+  box-shadow: 0 10px 32px rgba(30, 35, 27, 0.14), 0 2px 6px rgba(30, 35, 27, 0.06);
+}
+.code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: #181C15;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.code-dots { display: flex; gap: 7px; }
+.code-dots span { width: 9px; height: 9px; border-radius: 50%; }
+.code-dots span:nth-child(1) { background: #FCA598; }
+.code-dots span:nth-child(2) { background: #FEDB71; }
+.code-dots span:nth-child(3) { background: #B7D97A; }
+.code-lang {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #E2DEC9;
+  text-transform: uppercase;
+}
+.code-copy-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-sm);
+  color: #E2DEC9;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.code-copy-btn:hover {
+  background: #F7F4EC;
+  color: #1E231B;
+  border-color: #F7F4EC;
+}
+
+/* 预格式化区域与语法高亮（高对比度 + 严格样式隔离） */
+.code-block pre, .rich-text > pre {
+  margin: 0;
+  padding: 22px 24px;
+  background: #1F241C;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: #F7F4EC;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+/* 必须清除 pre 内 code 的内联浅色背景，防止背景破碎 */
+.code-block pre code,
+.rich-text pre code,
+pre code {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  color: inherit !important;
+  font-size: inherit;
+  font-family: inherit;
+  box-shadow: none !important;
+  display: block;
+}
+.token-comment { color: #9AA593; font-style: italic; }
+.token-keyword { color: #FEDB71; font-weight: 700; }
+.token-string { color: #FFA963; }
+.token-function { color: #B7D97A; }
+.token-number { color: #7CB6F8; }
+.token-operator { color: #E2DEC9; }
+.token-variable, .token-property { color: #AAB7F2; }
+.token-type, .token-class { color: #FCA598; }
+
+/* 内联代码：严格限定在非 pre 作用域 */
+.rich-text :not(pre) > code,
+.rich-text p > code,
+.rich-text li > code,
+.rich-text blockquote > code,
+.rich-text td > code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--bg-deep);
+  color: var(--signal-primary);
+  padding: 2px 7px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  font-weight: 600;
+}
+```
+
+---
+
+## 5. Do's and Don'ts
+
+### Do's (8 项金律)
+
+1. **Do 在 `body::before` 中使用 4 组柔和呼吸流光（暖黄、抹茶绿、柔紫、暖橙）搭配 `blur(60px)`** — 奠定棉纸在阳光下的温润空间底色。
+2. **Do 在 3 张核心编号卡片上应用专属粉彩底色（明黄、暖橙、抹茶绿）** — 传递极具活力的手作手账感。
+3. **Do 对卡片应用双手自然摊开般的扇形微倾角（-2° / 0° / +2°）** — 鼠标悬浮时必须配置回正角度（`rotate(0deg)`）与弹性跃升动效。
+4. **Do 大标题使用高阶人文宋体（`"Newsreader"`, `"Songti SC"`，字重 700~800）** — 呈现出版级社论格调。
+5. **Do 在文章主标题（Hero Title / 封面大标题）中必须使用荧光马克笔高亮核心关键词，其他二级标题与正文保持克制按需选用** — 确立全篇视觉锚点并增强手作批注亲切感，杜绝泛滥堆砌。
+6. **Do 使用深橄榄绿（`#323D24`）作为核心主行动与状态标头颜色** — 保持沉稳雅致的书卷气息。
+7. **Do 保持阴影温润透亮（`rgba(45, 40, 25, 0.05)`）** — 杜绝死板黑影。
+8. **Do 确保代码块采用深墨绿深炭底色（`#1F241C`）与高对比度语法高亮 Token，并严格隔离内联代码与多行代码块样式（避免 `pre code` 继承内联标签底色导致背景破碎）**。
+
+### Don'ts (8 项红线)
+
+1. **Don't 将粉彩便签卡片漂白为单调的普通纯白卡片** — 必须保留明黄/暖橙/抹茶绿的个性化粉彩底色。
+2. **Don't 丢失卡片的扇形微倾角与悬浮回正跃升手感** — 缺少微倾角会导致手札风格严重退化。
+3. **Don't 使用生硬冷酷的纯黑或粗黑边框** — 边框必须是温润透明的浅色线（`rgba(50, 61, 36, 0.08)`）。
+4. **Don't 将背景流光删除并替换为冷酷点阵** — 必须保留 4 组流光呼吸层。
+5. **Don't 在大标题中使用生硬冰冷的黑体** — 必须保持人文宋体（Serif）的大标题。
+6. **Don't 使用生硬直角（0px）** — 卡片保持 20px 圆角，标签使用胶囊圆角。
+7. **Don't 使用高饱和荧光刺眼色彩** — 卡片色彩必须是温和低刺激的粉彩色系（Pastel Tones）。
+8. **Don't 让 `.rich-text code` 浅色内联样式污染多行 `<pre><code>` 代码块** — 严禁出现灰白底色碎块包裹深色代码块中语法文字的低对比度错误。

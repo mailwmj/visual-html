@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet" />
 <style>
 /* ============================================================
-   Play Tubular / 玩味工程彩管风 — Design Tokens & Styles
+   Play Tubular / 玩味极客彩管风 — Design Tokens & Styles
    ============================================================ */
 :root {
   /* 背景层：暖米白底色与点阵质感 */
@@ -25,14 +25,15 @@
   --text-inverse: #FFFFFF;       /* 深色按钮与反白文字 */
 
   /* 核心多停点能量渐变 (Vibrant Multi-Stop Gradients) */
-  --grad-blue-magenta: linear-gradient(135deg, #0052FF 0%, #7928CA 50%, #FF0080 100%);
+  --grad-blue-magenta: linear-gradient(135deg, #2563EB 0%, #7928CA 50%, #FF0080 100%);
   --grad-orange-gold: linear-gradient(135deg, #FF4500 0%, #FF8A00 50%, #FFD600 100%);
   --grad-emerald-cyan: linear-gradient(135deg, #00C853 0%, #00E5FF 100%);
   --grad-coral-purple: linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 50%, #C77DFF 100%);
   --grad-cobalt-lime: linear-gradient(135deg, #2563EB 0%, #06B6D4 50%, #84CC16 100%);
+  --grad-electric-flow: linear-gradient(135deg, #1D4ED8 0%, #5500FF 22%, #D000FF 48%, #FF0066 72%, #FF5500 88%, #FFD000 100%);
 
   /* 单一高饱和点睛色 */
-  --accent-blue: #0052FF;
+  --accent-blue: #2563EB;
   --accent-orange: #FF5500;
   --accent-yellow: #FFD600;
   --accent-green: #00C853;
@@ -42,15 +43,16 @@
   /* 边框与阴影 */
   --border: rgba(17, 17, 17, 0.08);
   --border-strong: rgba(17, 17, 17, 0.16);
-  --border-active: #0052FF;
+  --border-active: #2563EB;
   
   --shadow-card: 0 8px 24px rgba(17, 17, 17, 0.04), 0 1px 3px rgba(17, 17, 17, 0.02);
-  --shadow-card-hover: 0 16px 36px rgba(0, 82, 255, 0.12), 0 4px 12px rgba(255, 69, 0, 0.08);
-  --shadow-pop: 0 20px 48px rgba(0, 82, 255, 0.18), 0 6px 16px rgba(255, 0, 128, 0.10);
+  --shadow-card-hover: 0 16px 36px rgba(37, 99, 235, 0.12), 0 4px 12px rgba(255, 69, 0, 0.08);
+  --shadow-pop: 0 20px 48px rgba(37, 99, 235, 0.18), 0 6px 16px rgba(255, 0, 128, 0.10);
 
   /* 交互动效与缓动 (Spring Bounce Motion) */
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 0.25s;
   --duration-normal: 0.35s;
 
   /* 尺寸与圆角规范 */
@@ -244,8 +246,8 @@ h2.section-title {
 }
 
 .stat-card:nth-child(1) {
-  background: rgba(0, 82, 255, 0.025);
-  border-color: rgba(0, 82, 255, 0.16);
+  background: rgba(37, 99, 235, 0.025);
+  border-color: rgba(37, 99, 235, 0.16);
 }
 
 .stat-card:nth-child(2) {
@@ -264,8 +266,8 @@ h2.section-title {
 }
 
 .stat-card:nth-child(1):hover {
-  border-color: rgba(0, 82, 255, 0.38);
-  box-shadow: 0 16px 36px rgba(0, 82, 255, 0.12);
+  border-color: rgba(37, 99, 235, 0.38);
+  box-shadow: 0 16px 36px rgba(37, 99, 235, 0.12);
 }
 
 .stat-card:nth-child(2):hover {
@@ -354,8 +356,8 @@ h2.section-title {
   font-size: 13px;
   font-weight: 600;
   padding: 3px 8px;
-  background: var(--bg-subtle);
-  border: 1px solid var(--border);
+  background: rgba(37, 99, 235, 0.06);
+  border: 1px solid rgba(37, 99, 235, 0.16);
   border-radius: 6px;
   color: var(--accent-blue);
 }
@@ -372,7 +374,7 @@ h2.section-title {
 }
 .code-block:hover {
   transform: translateY(-3px);
-  box-shadow: 0 16px 36px rgba(0, 82, 255, 0.12);
+  box-shadow: 0 16px 36px rgba(37, 99, 235, 0.12);
 }
 .code-header {
   display: flex;
@@ -425,7 +427,7 @@ h2.section-title {
   background: var(--accent-blue);
   transform: scale(1.05);
 }
-.code-block pre, .rich-text pre {
+.code-block pre, .rich-text > pre {
   margin: 0;
   padding: 20px 22px;
   background: #18181B;
@@ -437,7 +439,13 @@ h2.section-title {
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
 }
-.rich-text pre {
+.code-block pre {
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+}
+.rich-text > pre {
   border: 1.5px solid var(--border);
   border-radius: var(--radius);
   margin: 24px 0;
@@ -506,11 +514,12 @@ h2.section-title {
 }
 
 .spec .val em {
-  font-size: 14px;
+  font-size: 13px;
   font-style: normal;
   font-family: var(--font-mono);
-  color: var(--accent-blue);
-  margin-left: 3px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-left: 4px;
 }
 
 .spec .unit {
@@ -548,6 +557,12 @@ h2.section-title {
 
 .admonition.info::before {
   background: var(--grad-blue-magenta);
+}
+.admonition.warning::before {
+  background: var(--grad-orange-gold);
+}
+.admonition.success::before {
+  background: var(--grad-emerald-cyan);
 }
 
 .admonition-title {
@@ -670,7 +685,7 @@ h2.section-title {
 
 .num-card.selected {
   border-color: var(--accent-blue);
-  box-shadow: 0 16px 40px rgba(0, 82, 255, 0.16), 0 2px 8px rgba(121, 40, 202, 0.12);
+  box-shadow: 0 16px 40px rgba(37, 99, 235, 0.16), 0 2px 8px rgba(121, 40, 202, 0.12);
   transform: translateY(-4px);
 }
 
@@ -678,7 +693,7 @@ h2.section-title {
   background: var(--grad-blue-magenta);
   color: var(--text-inverse);
   border-color: transparent;
-  box-shadow: 0 2px 8px rgba(0, 82, 255, 0.35);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.35);
 }
 
 .num-card.selected:hover {
@@ -687,7 +702,7 @@ h2.section-title {
 }
 
 /* ============================================================
-   5. Feature Card & Media Frame (特性卡片与媒体预览框)
+   7. Feature Card & Media Frame (特性卡片与媒体预览框)
    ============================================================ */
 .feat-grid {
   display: grid;
@@ -722,8 +737,8 @@ h2.section-title {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-blue);
-  background: rgba(0, 82, 255, 0.08);
+  color: var(--accent-blue);
+  background: rgba(37, 99, 235, 0.08);
   padding: 4px 10px;
   border-radius: var(--radius-pill);
   margin-bottom: 16px;
@@ -749,7 +764,7 @@ h2.section-title {
 .feat-card .frame {
   width: 100%;
   min-height: 160px;
-  background: var(--bg-primary);
+  background: var(--bg-subtle);
   border: 1.5px dashed var(--border-strong);
   border-radius: calc(var(--radius) - 6px);
   display: flex;
@@ -763,7 +778,7 @@ h2.section-title {
 }
 
 /* ============================================================
-   7. Comparison Table (对比矩阵 - 玩味工程卡片风格)
+   8. Comparison Table (对比矩阵 - 玩味工程卡片风格)
    ============================================================ */
 .cmp-matrix-wrapper {
   overflow-x: auto;
@@ -811,14 +826,14 @@ h2.section-title {
 
 /* 推荐列高亮 - 保持深黑清晰字阶与高阶质感 */
 .cmp-matrix .highlight-col {
-  background: rgba(0, 82, 255, 0.025);
+  background: rgba(37, 99, 235, 0.025);
   font-weight: 700;
   color: var(--text-primary);
   position: relative;
 }
 
 .cmp-matrix thead th.highlight-col {
-  background: rgba(0, 82, 255, 0.05);
+  background: rgba(37, 99, 235, 0.05);
   color: var(--text-primary);
 }
 
@@ -827,7 +842,7 @@ h2.section-title {
 }
 
 .cmp-matrix tbody tr:hover .highlight-col {
-  background-color: rgba(0, 82, 255, 0.045);
+  background-color: rgba(37, 99, 235, 0.045);
 }
 
 .cmp-tag-rec {
@@ -842,12 +857,12 @@ h2.section-title {
   background: var(--grad-blue-magenta);
   padding: 4px 12px;
   border-radius: var(--radius-pill);
-  box-shadow: 0 2px 8px rgba(0, 82, 255, 0.3);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
   margin-left: 10px;
 }
 
 /* ============================================================
-   8. Timeline (时间轴)
+   9. Timeline (时间轴)
    ============================================================ */
 .timeline {
   position: relative;
@@ -884,7 +899,7 @@ h2.section-title {
   border-radius: 50%;
   background: var(--bg-card);
   border: 3px solid var(--accent-blue);
-  box-shadow: 0 0 0 4px rgba(0, 82, 255, 0.15);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 800;
@@ -928,7 +943,7 @@ h2.section-title {
 }
 
 /* ============================================================
-   9. Pros & Cons (优劣对比卡片)
+   10. Pros & Cons (优劣对比卡片)
    ============================================================ */
 .pros-cons {
   display: grid;
@@ -1010,7 +1025,7 @@ h2.section-title {
 }
 
 /* ============================================================
-   10. Process Steps (流程步骤拆解)
+   11. Process Steps (流程步骤拆解)
    ============================================================ */
 .steps {
   display: flex;
@@ -1048,7 +1063,7 @@ h2.section-title {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 14px rgba(0, 82, 255, 0.3);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
   position: relative;
 }
 
@@ -1078,7 +1093,7 @@ h2.section-title {
 }
 
 /* ============================================================
-   11. Flowchart (流程图与系统架构 - 玩味工程胶囊卡片流)
+   12. Flowchart (流程图与系统架构 - 玩味工程胶囊卡片流)
    ============================================================ */
 .flowchart {
   background: var(--bg-card);
@@ -1094,18 +1109,6 @@ h2.section-title {
   min-width: 760px;
   height: auto;
   display: block;
-}
-
-.flowchart .fc-pipe {
-  stroke: var(--border-strong);
-  stroke-width: 3px;
-  stroke-linecap: round;
-}
-
-.flowchart .fc-pipe-active {
-  stroke: url(#fc-grad-pipe);
-  stroke-width: 4px;
-  stroke-linecap: round;
 }
 
 .mermaid-wrapper pre.mermaid, .mermaid {
@@ -1124,7 +1127,158 @@ h2.section-title {
 }
 
 /* ============================================================
-   12. FAQ (常见问题)
+   13. Editorial Interview & Dialogue Rounds (社论访谈录 / 交互推演)
+   ============================================================ */
+.interview-rounds {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.round-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  box-shadow: var(--shadow-card);
+}
+
+.round-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+  font-family: var(--font-mono);
+}
+
+.round-badge {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--accent-blue);
+  letter-spacing: 0.08em;
+}
+
+.round-status {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.ai-questions-block {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 22px 24px;
+  margin-bottom: 20px;
+}
+
+.ai-block-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--accent-blue);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.ai-block-head .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--grad-blue-magenta);
+}
+
+.q-deck {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.q-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 18px 20px;
+}
+
+.q-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent-magenta);
+  margin-bottom: 4px;
+}
+
+.q-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.q-recom-note {
+  background: rgba(37, 99, 235, 0.04);
+  border-left: 3px solid var(--accent-blue);
+  padding: 10px 14px;
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.q-recom-note strong {
+  color: var(--accent-blue);
+  font-family: var(--font-mono);
+  margin-right: 6px;
+}
+
+.user-decision-note {
+  background: rgba(0, 200, 83, 0.04);
+  border: 1.5px solid rgba(0, 200, 83, 0.2);
+  border-radius: var(--radius-sm);
+  padding: 20px 22px;
+}
+
+.user-decision-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent-green);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  font-weight: 800;
+}
+
+.user-decision-head .check-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background: var(--accent-green);
+  color: var(--text-inverse);
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.user-decision-text {
+  font-size: 14.5px;
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+/* ============================================================
+   14. FAQ (常见问题)
    ============================================================ */
 .faq {
   display: flex;
@@ -1180,7 +1334,7 @@ h2.section-title {
 }
 
 /* ============================================================
-   13. References (参考文献)
+   15. References (参考文献)
    ============================================================ */
 .references {
   background: var(--bg-card);
@@ -1222,7 +1376,7 @@ h2.section-title {
 }
 
 /* ============================================================
-   14. Metadata Footer (技术页脚)
+   16. Metadata Footer (技术页脚)
    ============================================================ */
 footer {
   margin-top: 48px;
@@ -1243,7 +1397,7 @@ footer {
 }
 
 /* ============================================================
-   15. 媒体查询响应式适配 (Responsive Adaptations)
+   17. 媒体查询响应式适配 (Responsive Adaptations)
    ============================================================ */
 @media (max-width: 768px) {
   .main-sheet { margin: 16px 12px 32px 12px; padding: 36px 20px; border-radius: 24px; }
@@ -1356,32 +1510,40 @@ footer {
 
 <main class="main-sheet">
 
+<!-- ============================================================
+     PHASE 1: 篇首概览与核心导读 (HERO & EXECUTIVE SUMMARY)
+     ============================================================ -->
+
 <section class="hero-section">
   <div class="wrap">
     <div class="eyebrow"><span class="diamond"></span><span>01 / EXECUTIVE SUMMARY</span><span class="line"></span></div>
-    <h1 class="hero">主标题 (Hero Title) 确保短小有力</h1>
-    <p class="lead">导读段落 (Lead Paragraph)：简明扼要地概括核心主旨。</p>
+    <h1 class="hero">玩味极客彩管风。<br>全组件工程规范预览集。</h1>
+    <p class="lead">导读段落 (Lead Paragraph)：暖米白点阵画布与 3D 渐变立体彩管回路交织，以一体化通体画板承托长文，呈现新潮玩味与工程严谨美感。</p>
     
     <div class="stats-grid">
-      <div class="stat-card"><div class="stat-val">300<span>%</span></div><div class="stat-label">ANNUAL GROWTH</div></div>
-      <div class="stat-card"><div class="stat-val">1.2<span>M</span></div><div class="stat-label">ACTIVE USERS</div></div>
-      <div class="stat-card"><div class="stat-val">0.5<span>ms</span></div><div class="stat-label">LATENCY</div></div>
+      <div class="stat-card"><div class="stat-val">300<span>%</span></div><div class="stat-label">ANNUAL GROWTH / 年度增长</div></div>
+      <div class="stat-card"><div class="stat-val">1.2<span>M</span></div><div class="stat-label">ACTIVE USERS / 活跃用户</div></div>
+      <div class="stat-card"><div class="stat-val">0.5<span>ms</span></div><div class="stat-label">LATENCY / 平均延迟</div></div>
     </div>
   </div>
 </section>
+
+<!-- ============================================================
+     PHASE 2: 核心论述、关键提醒与代码实操 (CONTEXT, NARRATIVE & CODE)
+     ============================================================ -->
 
 <section class="body-section">
   <div class="wrap">
     <div class="section-head left">
       <div class="eyebrow"><span class="diamond"></span><span>02 / ARTICLE BODY</span><span class="line"></span></div>
-      <h2 class="section-title">正文区块标题</h2>
+      <h2 class="section-title">核心论述与规格参数</h2>
     </div>
     
     <div class="rich-text">
-      <p>这是标准的正文段落。支持 <strong>加粗</strong>、<em>斜体</em> 和 <code>内联代码</code> 排版。</p>
-      <blockquote>这是引用名人名言或核心观点的块级引用（Blockquote），需要单独的视觉包裹。</blockquote>
+      <p>这是标准的正文段落。支持 <strong>加粗强调</strong>、<em>斜体修饰</em> 以及 <code>内联代码 (Inline Code)</code> 等基础排版元素。</p>
+      <blockquote>这是引用名人名言或核心观点的块级引用（Blockquote），采用橙金渐变药丸粗指示条与浅橙微透底色包裹。</blockquote>
       
-      <!-- 19 / CODE BLOCK & TERMINAL -->
+      <!-- 07 / CODE BLOCK & TERMINAL -->
       <div class="code-block">
         <div class="code-header">
           <div class="code-dots"><span></span><span></span><span></span></div>
@@ -1397,13 +1559,17 @@ footer {
       </div>
 
       <div class="spec-row">
-        <div class="spec"><div class="val">60×95<em>mm</em></div><div class="unit">SIZE</div></div>
-        <div class="spec"><div class="val">500<em>mah</em></div><div class="unit">BATTERY</div></div>
-        <div class="spec"><div class="val">USB-C</div><div class="unit">INTERFACE</div></div>
+        <div class="spec"><div class="val">60×95<em>mm</em></div><div class="unit">SIZE / 尺寸</div></div>
+        <div class="spec"><div class="val">500<em>mah</em></div><div class="unit">BATTERY / 电池</div></div>
+        <div class="spec"><div class="val">USB-C</div><div class="unit">INTERFACE / 接口</div></div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- ============================================================
+     PHASE 3: 核心特性、架构与演进脉络 (ARCHITECTURE & FEATURES)
+     ============================================================ -->
 
 <section class="cards-section">
   <div class="wrap">
@@ -1421,90 +1587,44 @@ footer {
       <div class="num-card">
         <div class="num">01</div>
         <h3>模块一核心功能</h3>
-        <p>详细描述说明。</p>
+        <p>详细描述说明模块的基础能力与运行逻辑。</p>
         <div class="tag">BASE</div>
       </div>
       <div class="num-card selected">
         <div class="num">02</div>
         <h3>推荐核心功能</h3>
-        <p>这是推荐项，需要第二状态通道的高亮显示（如发光或特殊边框）。</p>
+        <p>这是推荐项，采用数码皇家蓝高亮轮廓与多色渐变高能浮层。</p>
         <div class="tag">RECOMMENDED</div>
       </div>
       <div class="num-card">
         <div class="num">03</div>
         <h3>辅助功能扩展</h3>
-        <p>次要说明内容。</p>
+        <p>次要说明与配套扩展生态说明。</p>
         <div class="tag">OPTIONAL</div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="timeline-section">
+<section class="feat-section">
   <div class="wrap">
     <div class="section-head left">
-      <div class="eyebrow"><span class="diamond"></span><span>04 / COMPARISON & TIMELINE</span><span class="line"></span></div>
-      <h2 class="section-title">对比矩阵与时间轴</h2>
+      <div class="eyebrow"><span class="diamond"></span><span>04 / FEATURE SHOWCASE</span><span class="line"></span></div>
+      <h2 class="section-title">特性展台与媒体卡片</h2>
     </div>
 
-    <div class="cmp-matrix-wrapper">
-      <table class="cmp-matrix">
-        <thead>
-          <tr>
-            <th>对比维度</th>
-            <th>方案 A (基础架构)</th>
-            <th class="highlight-col">方案 B <span class="cmp-tag-rec">RECOMMENDED</span></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>核心能力与闭环</strong></td>
-            <td>基础支持，需手动处理流程</td>
-            <td class="highlight-col">完整智能化自动化闭环</td>
-          </tr>
-          <tr>
-            <td><strong>视觉呈现与质感</strong></td>
-            <td>普通平面排版，缺乏层次</td>
-            <td class="highlight-col">3D 能量彩管与半调点阵光影赋能</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="timeline-marker">2024</div>
-        <div class="timeline-content">
-          <h3>立项与核心架构</h3>
-          <p>核心目标设定，完成基础架构开发。</p>
-        </div>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="tag">// CORE ARCH</div>
+        <h3>软硬件一体化计算架构</h3>
+        <p>针对潮流玩具与创意硬件场景深度定制，支持多流并发与低延迟调度。</p>
+        <div class="frame">MEDIA PREVIEW FRAME / 媒体预览框</div>
       </div>
-      <div class="timeline-item">
-        <div class="timeline-marker">2026</div>
-        <div class="timeline-content">
-          <h3>全面演进</h3>
-          <p>进入全新阶段，实现智能化重构。</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="pros-cons-section">
-  <div class="wrap">
-    <div class="section-head left">
-      <div class="eyebrow"><span class="diamond"></span><span>05 / PROS & CONS</span><span class="line"></span></div>
-      <h2 class="section-title">优劣对比卡片</h2>
-    </div>
-
-    <div class="pros-cons">
-      <div class="pro-card">
-        <div class="tag">PROS / 优势</div>
-        <ul><li>架构极其稳定，扩展性强</li></ul>
-      </div>
-      <div class="con-card">
-        <div class="tag">CONS / 劣势</div>
-        <ul><li>初期学习曲线较陡峭</li></ul>
+      <div class="feat-card">
+        <div class="tag">// TUBULAR MODE</div>
+        <h3>渐变立体彩管展台</h3>
+        <p>结合 3D 渐变充气管道元素与点阵画板，呈现潮玩活泼的视觉体验。</p>
+        <div class="frame">MEDIA PREVIEW FRAME / 媒体预览框</div>
       </div>
     </div>
   </div>
@@ -1513,7 +1633,7 @@ footer {
 <section class="steps-section">
   <div class="wrap">
     <div class="section-head left">
-      <div class="eyebrow"><span class="diamond"></span><span>06 / PROCESS STEPS</span><span class="line"></span></div>
+      <div class="eyebrow"><span class="diamond"></span><span>05 / PROCESS STEPS</span><span class="line"></span></div>
       <h2 class="section-title">流程步骤拆解</h2>
     </div>
 
@@ -1546,7 +1666,7 @@ footer {
 <section class="flowchart-section">
   <div class="wrap">
     <div class="section-head left">
-      <div class="eyebrow"><span class="diamond"></span><span>07 / FLOWCHART</span><span class="line"></span></div>
+      <div class="eyebrow"><span class="diamond"></span><span>06 / FLOWCHART</span><span class="line"></span></div>
       <h2 class="section-title">系统架构与流程图</h2>
     </div>
 
@@ -1558,51 +1678,188 @@ footer {
           </marker>
         </defs>
 
-        <!-- 连接箭头线 (Lightweight Connectors) -->
         <line x1="183" y1="60" x2="225" y2="60" stroke="rgba(17,17,17,0.18)" stroke-width="1.5" marker-end="url(#fc-arrow)" />
         <line x1="393" y1="60" x2="435" y2="60" stroke="rgba(17,17,17,0.18)" stroke-width="1.5" marker-end="url(#fc-arrow)" />
         <line x1="603" y1="60" x2="645" y2="60" stroke="rgba(17,17,17,0.18)" stroke-width="1.5" marker-end="url(#fc-arrow)" />
 
-        <!-- 节点 01 -->
         <g>
           <rect x="15" y="18" width="168" height="84" rx="16" fill="#FAF9F6" stroke="rgba(17,17,17,0.08)" stroke-width="1.5" />
           <rect x="27" y="26" width="82" height="22" rx="11" fill="rgba(17,17,17,0.05)" />
-          <text x="68" y="41" text-anchor="middle" dominant-baseline="central" fill="#7E7E7A" font-family="var(--font-mono)" font-size="10" font-weight="700" letter-spacing="0.04em">01 / INPUT</text>
+          <text x="68" y="37" text-anchor="middle" dominant-baseline="central" fill="#7E7E7A" font-family="var(--font-mono)" font-size="10" font-weight="700" letter-spacing="0.04em">01 / INPUT</text>
           <text x="27" y="78" fill="#111111" font-family="var(--font-display)" font-size="14" font-weight="700">原始信息输入</text>
         </g>
 
-        <!-- 节点 02 -->
         <g>
           <rect x="225" y="18" width="168" height="84" rx="16" fill="#FAF9F6" stroke="rgba(17,17,17,0.08)" stroke-width="1.5" />
           <rect x="237" y="26" width="94" height="22" rx="11" fill="rgba(17,17,17,0.05)" />
-          <text x="284" y="41" text-anchor="middle" dominant-baseline="central" fill="#7E7E7A" font-family="var(--font-mono)" font-size="10" font-weight="700" letter-spacing="0.04em">02 / EXTRACT</text>
+          <text x="284" y="37" text-anchor="middle" dominant-baseline="central" fill="#7E7E7A" font-family="var(--font-mono)" font-size="10" font-weight="700" letter-spacing="0.04em">02 / EXTRACT</text>
           <text x="237" y="78" fill="#111111" font-family="var(--font-display)" font-size="14" font-weight="700">语义结构提炼</text>
         </g>
 
-        <!-- 节点 03 (轻量聚焦 - Refined Active Node) -->
         <g>
-          <rect x="435" y="18" width="168" height="84" rx="16" fill="rgba(0,82,255,0.025)" stroke="#0052FF" stroke-width="1.5" />
-          <rect x="447" y="26" width="90" height="22" rx="11" fill="rgba(0,82,255,0.08)" />
-          <text x="492" y="41" text-anchor="middle" dominant-baseline="central" fill="#0052FF" font-family="var(--font-mono)" font-size="10" font-weight="700" letter-spacing="0.04em">03 / RENDER</text>
+          <rect x="435" y="18" width="168" height="84" rx="16" fill="rgba(37,99,235,0.025)" stroke="#2563EB" stroke-width="1.5" />
+          <rect x="447" y="26" width="90" height="22" rx="11" fill="rgba(37,99,235,0.08)" />
+          <text x="492" y="37" text-anchor="middle" dominant-baseline="central" fill="#2563EB" font-family="var(--font-mono)" font-size="10" font-weight="700" letter-spacing="0.04em">03 / RENDER</text>
           <text x="447" y="78" fill="#111111" font-family="var(--font-display)" font-size="14" font-weight="800">组件渲染装配</text>
         </g>
 
-        <!-- 节点 04 -->
         <g>
           <rect x="645" y="18" width="168" height="84" rx="16" fill="#FAF9F6" stroke="rgba(17,17,17,0.08)" stroke-width="1.5" />
           <rect x="657" y="26" width="90" height="22" rx="11" fill="rgba(17,17,17,0.05)" />
-          <text x="702" y="41" text-anchor="middle" dominant-baseline="central" fill="#7E7E7A" font-family="var(--font-mono)" font-size="10" font-weight="700" letter-spacing="0.04em">04 / OUTPUT</text>
+          <text x="702" y="37" text-anchor="middle" dominant-baseline="central" fill="#7E7E7A" font-family="var(--font-mono)" font-size="10" font-weight="700" letter-spacing="0.04em">04 / OUTPUT</text>
           <text x="657" y="78" fill="#111111" font-family="var(--font-display)" font-size="14" font-weight="700">成果离线交付</text>
         </g>
       </svg>
     </div>
+
+    <div class="mermaid-wrapper" style="margin-top: 32px;">
+      <pre class="mermaid">
+graph LR
+    A["Raw Input<br/>原始信息输入"] --> B["Parser<br/>语义结构提炼"]
+    B --> C["Composer<br/>组件渲染装配"]
+    C --> D["Output<br/>成果离线交付"]
+
+    style A fill:#FFFFFF,stroke:#2563EB,stroke-width:2px
+    style B fill:#FFFFFF,stroke:#2563EB,stroke-width:2px
+    style C fill:#2563EB,stroke:#2563EB,stroke-width:2px,color:#FFFFFF
+    style D fill:#FFFFFF,stroke:#2563EB,stroke-width:2px
+      </pre>
+    </div>
   </div>
 </section>
+
+<!-- ============================================================
+     PHASE 4: 深度推演、决策对比与利弊评估 (DECISION & COMPARISON)
+     ============================================================ -->
+
+<section class="timeline-section">
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>07 / COMPARISON & TIMELINE</span><span class="line"></span></div>
+      <h2 class="section-title">对比矩阵与时间轴</h2>
+    </div>
+
+    <div class="cmp-matrix-wrapper">
+      <table class="cmp-matrix">
+        <thead>
+          <tr>
+            <th>对比维度</th>
+            <th>方案 A (基础架构)</th>
+            <th class="highlight-col">方案 B <span class="cmp-tag-rec">RECOMMENDED</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>核心能力与闭环</strong></td>
+            <td>基础支持，需手动处理流程</td>
+            <td class="highlight-col">完整智能化自动化闭环</td>
+          </tr>
+          <tr>
+            <td><strong>视觉呈现与质感</strong></td>
+            <td>普通平面排版，缺乏层次</td>
+            <td class="highlight-col">3D 能量彩管与半调点阵光影赋能</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-marker">2024</div>
+        <div class="timeline-content">
+          <h3>立项与核心架构</h3>
+          <p>核心目标设定，完成基础架构开发与首期验证。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-marker">2026</div>
+        <div class="timeline-content">
+          <h3>全面演进与智能化</h3>
+          <p>进入全新阶段，实现端到端智能化重构与高能落地。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pros-cons-section">
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>08 / PROS & CONS</span><span class="line"></span></div>
+      <h2 class="section-title">优劣对比卡片</h2>
+    </div>
+
+    <div class="pros-cons">
+      <div class="pro-card">
+        <div class="tag">PROS / 优势</div>
+        <ul>
+          <li>架构极其稳定，扩展性强</li>
+          <li>3D 渐变彩管与半调网点赋予强烈视觉辨识度</li>
+        </ul>
+      </div>
+      <div class="con-card">
+        <div class="tag">CONS / 劣势</div>
+        <ul>
+          <li>初期学习曲线较陡峭</li>
+          <li>对排版字阶与色彩张力把控要求高</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="interview-section">
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>09 / INTERVIEW ROUNDS</span><span class="line"></span></div>
+      <h2 class="section-title">社论访谈录 / 交互推演</h2>
+    </div>
+
+    <div class="interview-rounds">
+      <div class="round-card">
+        <div class="round-header">
+          <span class="round-badge">ROUND 01 // 架构路线推演</span>
+          <span class="round-status">COMPLETED</span>
+        </div>
+        
+        <div class="ai-questions-block">
+          <div class="ai-block-head">
+            <span class="dot"></span>
+            <span>SYSTEM AGENT PROPOSAL</span>
+          </div>
+          <div class="q-deck">
+            <div class="q-item">
+              <div class="q-badge">QUESTION A</div>
+              <div class="q-title">如何在大规模并发下保障端到端渲染稳定性？</div>
+              <div class="q-recom-note">
+                <strong>RECOMMENDED:</strong> 采用自适应流式分块加载，结合 GPU 飞地隔离防护。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="user-decision-note">
+          <div class="user-decision-head">
+            <span class="check-badge">✓</span>
+            <span>USER DECISION / 确认拍板</span>
+          </div>
+          <div class="user-decision-text">
+            “同意采纳分块流式方案，并在 Phase 2 启动硬件级 Enclave 安全飞地隔离。”
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PHASE 5: 尾部收敛、答疑与出处 (CONCLUSION & FOOTER)
+     ============================================================ -->
 
 <section class="faq-section">
   <div class="wrap">
     <div class="section-head left">
-      <div class="eyebrow"><span class="diamond"></span><span>08 / FAQ</span><span class="line"></span></div>
+      <div class="eyebrow"><span class="diamond"></span><span>10 / FAQ</span><span class="line"></span></div>
       <h2 class="section-title">常见问题</h2>
     </div>
 
@@ -1624,8 +1881,8 @@ footer {
     <div class="references">
       <h3>REFERENCES / 参考文献</h3>
       <ol>
-        <li id="ref-1">Tufte, E. R. (2001). <em>The Visual Display of Quantitative Information</em>. Graphics Press. <a href="#fnref-1">↩</a></li>
-        <li id="ref-2">Bringhurst, R. (2012). <em>The Elements of Typographic Style</em>. Hartley & Marks. <a href="#fnref-2">↩</a></li>
+        <li id="ref-1">Tufte, E. R. (2001). <em>The Visual Display of Quantitative Information</em>. Graphics Press. <a href="#ref-1">↩</a></li>
+        <li id="ref-2">Bringhurst, R. (2012). <em>The Elements of Typographic Style</em>. Hartley & Marks. <a href="#ref-2">↩</a></li>
       </ol>
     </div>
   </div>
@@ -1635,7 +1892,7 @@ footer {
   <div class="wrap">
     <div class="meta-foot">
       <span>VISUAL HTML // SYSTEM CORE</span>
-      <span>BUILD // CLEAN ROOM BASE SCAFFOLD</span>
+      <span>STYLE // PLAY TUBULAR (玩味极客彩管风)</span>
     </div>
   </div>
 </footer>
@@ -1661,8 +1918,8 @@ footer {
         background: '#FAF8F3',
         primaryColor: '#FFFFFF',
         primaryTextColor: '#111111',
-        primaryBorderColor: '#0052FF',
-        lineColor: '#0052FF',
+        primaryBorderColor: '#2563EB',
+        lineColor: '#2563EB',
         secondaryColor: '#FFF1EB',
         tertiaryColor: '#FAF8F3',
         fontFamily: '"Plus Jakarta Sans", -apple-system, sans-serif'

@@ -1,52 +1,39 @@
-# Obsidian Cyan (黑曜霓蓝展厅风) — Design 规范 & 视觉契约
+# Obsidian Cyan (黑曜霓蓝展厅风) — Design Language Reference
 
-> **风格标识 (Style ID)**: `obsidian-cyan`  
-> **显示名称**：黑曜霓蓝展示风 / Obsidian Cyan Showcase  
-> **核心使命**：**将长篇纯文本（如调研报告、方案白皮书、产品规划、技术总结、深度案例等）转换为结构清晰、高冲击力、极具科技与设计感的单文件 HTML 网页与 16:9 PPT 演示文稿。**  
-> **视觉气质**：深邃黑曜夜色底、微弱冷蓝极光氛围、电光霓蓝高亮通道、悬浮设备与信息解构框、发光标注点与圆形步骤徽章。
+## 1. Visual Theme & Atmosphere
 
----
+Obsidian Cyan 将顶级数字产品发布会与科技展厅的视觉冲击力融入长文本排版与演示系统。全站以深邃纯净的黑曜夜色（`#0B0E14` / `#07090E`）为底座，在全局固定视口层（`body::before`）渲染微弱内敛的电光冷蓝极光光晕（`rgba(56, 189, 248, 0.08~0.14)`），奠定沉浸、冷峻且极具未来感的数字展厅基调。
 
-## 1. 长文本转视觉排版映射法则 (Text-to-Visual Rules)
-
-当接收到长篇纯文本时，遵循以下映射规则将其重构为高质量的视觉块：
-
-| 原始长文本类型 | 转换目标视觉组件 | 结构与特征 |
-|---|---|---|
-| **文章主旨 / 执行摘要** | **Hero 标题 + Lead 导读** | 巨幅大字号标题（中文主动断句）+ 50~58 字符宽度导读段落 |
-| **顶部关键量化指标** | **Stats Grid (核心数据卡片)** | 深色毛玻璃封闭圆角卡片 + 电光霓蓝高光单位 (`span`) + 底部等宽标签 |
-| **文中硬件与细节参数** | **Spec Row (指标参数栏)** | 顶部 1px 电光蓝发光线 + 3~4 列等分 + 超大字号纯白数值 + 等宽灰阶单位 |
-| **发展史与时间顺序事件** | **Timeline (时间轴流)** | 左侧等宽年份（右对齐与 24px line-height 精准基线对齐）+ 居中霓蓝微发光圆点 + 右侧内容 |
-| **流程图与架构拓扑** | **Flowchart & Mermaid (流程与架构图)** | 黑曜深底响应式容器 (`#151D2A`) + 电光霓蓝主线条 (`#38BDF8`)。支持纯 SVG 与 Mermaid 引擎（`darkMode: true`, `lineColor: '#38BDF8'`） |
-| **3~4 个并列论点 / 核心能力** | **Cards-3 (三栏编号卡片)** | 深色半透明卡片、电光蓝超大等宽序号（`01`, `02`）、推荐项使用 `.selected` 霓蓝发光光晕 |
-| **核心结论 / 智能提示** | **Admonition (语义高亮提示框)** | 黑曜深色毛玻璃卡片 + 标题内嵌独立电光霓蓝/琥珀黄发光指示胶囊（零毛刺） + 顶部微内高光 |
-| **方案选型 / 优劣评估** | **Pros & Cons (红黑榜)** | 左右双分栏，黑曜微光双层毛玻璃卡片 + 霓蓝发光微圆点 + `+ / —` 赛博等宽列表符号 |
-| **操作指引 / 演进阶段 / 路线图** | **Step Flow (多步流程流)** | 实心电光蓝发光圆形徽章（`❶ ❷ ❸ ❹`）+ 递进式结构化卡片 |
-| **系统架构 / 界面与功能解构** | **Visual Breakdown & Callout** | 居中/侧边视觉预览框 + 电光蓝发光定位点（Callout Pin）+ 细折线指向说明 |
-| **方案矩阵 / 维度对比** | **Comparison Matrix (暗色对比矩阵)** | 纯边框暗色模块矩阵，推荐列带有电光蓝半透明底色与描边，点/短横表示支持度 |
-| **深度解答 / 常见疑问** | **FAQ (问答卡片组)** | 深色毛玻璃背景卡片，问题纯白加粗，答案柔和灰阶排版 |
-| **代码片段 / API 终端** | **Code Block (多行代码与终端)** | 黑曜深色毛玻璃终端卡片 + 电光霓蓝三点与语言 Badge + 霓虹语法 Token 高亮 |
-| **文档分类与出处** | **Top Meta & Footer** | 双端对齐的等宽大写元数据（项目名、类别、阅读时长、归档编号） |
+界面的核心魅力在于**高对比度的电光信号系统与悬浮解构美学**。深色毛玻璃卡片（`rgba(19, 25, 36, 0.78)` 配合 `blur(16px)`）悬浮于夜色中，通过电光霓蓝（`#38BDF8`）信号通道点亮关键焦点。独有的**发光定位点（Callout Pins）**、**细折线引出标注**与**醒目的实心电光蓝发光圆形步骤徽章（`❶ ❷ ❸ ❹`）**，将枯燥的长文本转化为极具可读性与观赏性的交互式架构展板。
 
 ---
 
-## 2. 设计 DNA 与色彩原则
+## 2. Color Palette & Roles
 
-1. **黑曜底色与视口环境冷光晕**：
-   - 背景色采用深邃纯净的近黑夜色（`--bg: #0B0E14` / `--bg-deep: #07090E`）。
-   - 必须在全局视口固定层（`body::before`）渲染微弱的电光蓝冷光晕（`rgba(56, 189, 248, 0.08~0.16)`），使长页面滚动时浑然一体，绝不在局部 `<section>` 重复堆叠刺眼光斑。
-2. **电光霓蓝高纯度聚焦通道**：
-   - 严格控制信号色占比在 3–6%，保持克制高级。
-   - **主信号色 电光青蓝 (`#38BDF8`)**：用于标头徽章、发光锚点、选中态卡片描边、步骤数字、关键指标。
-   - **辅信号色 深海电光蓝 (`#0EA5E9` / `#2563EB`)**：用于主操作按钮、重要胶囊背景。
-   - **高光与光晕 (`rgba(56, 189, 248, 0.25~0.35)`)**：用于卡片外发光与重要焦点浮层。
-3. **深色毛玻璃与精致圆角**：
-   - 卡片与模块采用深色半透明表面（`rgba(19, 25, 36, 0.78)`）配合 `backdrop-filter: blur(16px)`。
-   - 模块圆角为 14–18px，设备外框为 32–36px，药丸标签与步骤徽章为 999px（Pill / Circle）。
+### Core Interface Colors
 
----
+| Role | Value | Hex / RGBA | CSS Token / Source | Usage |
+|---|---|---|---|---|
+| Background (Canvas Base) | `rgb(11, 14, 20)` | `#0B0E14` | `--bg` | 全局黑曜画布底色 |
+| Background (Deep Pit) | `rgb(7, 9, 14)` | `#07090E` | `--bg-deep` | 凹陷面板、终端底座、输入框底色 |
+| Surface (Glass Card) | `rgba(19, 25, 36, 0.78)`| `rgba(19,25,36,.78)` | `--surface-glass` | 磨砂玻璃主卡片、阅读容器 |
+| Surface (Solid Card) | `rgb(21, 29, 42)` | `#151D2A` | `--surface-card` | 实体容器底色（阻断背景干扰） |
+| Text (Primary Pure) | `rgb(255, 255, 255)` | `#FFFFFF` | `--text-primary` | 大标题、核心数值、高亮重点正文 |
+| Text (Secondary Slate) | `rgb(148, 163, 184)` | `#94A3B8` | `--text-secondary` | 导读段落、正文说明、次要文本 |
+| Text (Muted Muted) | `rgb(82, 96, 113)` | `#526071` | `--text-muted` | 注释、分类标签、等宽元数据 |
+| Border (Default Subtle) | `rgba(255, 255, 255, 0.08)`| `rgba(255,255,255,.08)`| `--border` | 卡片常规边框、微弱分割线 |
+| Border (Glow Cyan) | `rgba(56, 189, 248, 0.45)` | `rgba(56,189,248,.45)`| `--border-strong` | 选中态卡片、高亮聚焦发光边框 |
 
-## 3. CSS Design Tokens 变量定义
+### Accent & Signal Palette
+
+| Channel | Role | Value | Hex / RGBA | Token | Usage Boundary |
+|---|---|---|---|---|---|
+| **Primary Signal** | 电光青蓝 (Electric Cyan) | `rgb(56, 189, 248)` | `#38BDF8` | `--signal-cyan` | 标头徽章、发光定位点、选中态描边、步骤徽章 (占 3–5%) |
+| **Secondary Signal** | 深海电光蓝 (Ocean Blue) | `rgb(14, 165, 233)` | `#0EA5E9` | `--signal-blue` | 主操作按钮、重要胶囊背景、次级高光 (占 2%) |
+| **Deep Accent** | 皇家深蓝 (Deep Blue) | `rgb(37, 99, 235)` | `#2563EB` | `--signal-blue-deep` | 渐变暗部过渡与深色按钮 |
+| **Cyan Glow** | 电光发光弥散 (Cyan Glow) | `rgba(56, 189, 248, 0.35)` | `rgba(56,189,248,.35)`| `--signal-glow` | 核心焦点外发光、悬浮光晕 |
+
+### CSS Design Tokens
 
 ```css
 :root {
@@ -97,21 +84,284 @@
   --space-9: 96px; --space-10: 128px;
 
   /* 字体栈 */
-  --font-display: "Inter", "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+  --font-display: "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", sans-serif;
   --font-mono: "JetBrains Mono", "IBM Plex Mono", "SFMono-Regular", monospace;
 }
 ```
 
+### Color Distribution Philosophy
+
+- **65% 黑曜基底** (`#0B0E14`, `#131924`)：营造深沉大气的专业科技展厅基调。
+- **20% 纯白与冷石板灰文字** (`#FFFFFF`, `#94A3B8`)：提供极致清澈的信息展示。
+- **10% 幽蓝边框与微光层** (`rgba(56,189,248,0.16)`)：勾勒组件物理轮廓。
+- **5% 高纯度电光青蓝** (`#38BDF8`)：作为核心信号通道，精准聚焦用户视线。
+
 ---
 
-## 4. 专属长文本生成质检清单 (Quality Checklist)
+## 3. Typography Rules
 
-在将纯文本转换生成为 HTML 后，逐项对照以下清单：
+### Font Stacks & Type System
 
-- [ ] **信息层级分明**：全文有且仅有一个 Hero 主标题（大字号 + 中文主动换行），各章节有专属的 Eyebrow 标头。
-- [ ] **拒绝纯文字堆砌**：长篇文字被合理提炼拆解为「卡片组、参数栏、聚焦卡片、流程流、对比矩阵」等富结构化组件。
-- [ ] **背景与色彩克制**：背景为 `#0B0E14` 黑曜底色，全局固定微弱冷蓝极光，无刺眼高饱和杂色（暖红、荧光黄等）。
-- [ ] **信号聚焦明确**：主信号严格统一为电光霓蓝（`#38BDF8`），高亮选中卡片（`.selected`）带有霓蓝微发光光晕。
-- [ ] **流程步骤辨识度高**：步骤演进带有醒目的圆形电光蓝数字徽标（`❶ ❷ ❸ ❹`）。
-- [ ] **等宽字体规范**：所有数据数值、时间、编号、分类标签、页脚元信息统一使用等宽字体（`--font-mono`）。
-- [ ] **响应式与单文件自包含**：所有样式与布局均自包含在单 HTML 文件内，在宽屏桌面端与移动端均能完美自适应排版。
+- **Display & Interface Text**: `--font-display` (`"Inter", "PingFang SC", "HarmonyOS Sans SC", sans-serif`)
+- **Code, Numbers, Timelines & Metadata**: `--font-mono` (`"JetBrains Mono", "IBM Plex Mono", "SFMono-Regular", monospace`)
+
+### Type Hierarchy Table
+
+| Element | Class / Tag | Size | Weight | Line Height | Letter Spacing | Font Family | Role |
+|---|---|---|---|---|---|---|---|
+| **Hero Headline** | `h1.hero` | 60px~80px | 800 | 1.02 (61~82px) | **-0.035em** | `--font-display` | 展厅主标题（极具科技冲击力） |
+| **Section Title** | `h2.section-title` | 32px~40px | 700 | 1.18 (38~47px) | **-0.02em** | `--font-display` | 章节二级大标题 |
+| **Card Title** | `h3`, `.card-title`| 18px~20px | 600 | 1.35 (24~27px) | -0.01em | `--font-display` | 模块/卡片核心标题 |
+| **Lead Paragraph** | `.lead` | 18px | 400 | 1.65 (29.7px) | normal | `--font-display` | 导读段落（50~58 字符宽度） |
+| **Body Text** | `p`, `.body` | 14px~15px | 400 | 1.68 (23~25px)| normal | `--font-display` | 正文阅读长文本 |
+| **Section Eyebrow**| `.eyebrow` | 12px~13px | 600 | 1.0 (12~13px) | **0.08em** | `--font-mono` | 章节大写索引标头（`◆ 01 / SHOWCASE`） |
+| **Stat Metric** | `.stat-val` | 48px~56px | 800 | 1.0 (48~56px) | -0.025em | `--font-display` | 核心量化指标超大数值 |
+| **Step Badge** | `.step-badge` | 14px | 700 | 1.0 (14px) | normal | `--font-mono` | 圆形电光蓝步骤徽章（`❶ ❷ ❸`） |
+| **Spec Unit / Tag**| `.unit`, `.tag` | 11px~12px | 500 | 1.2 (14px) | **0.05em** | `--font-mono` | 规格单位、等宽大写胶囊标签 |
+| **Code Snippet** | `code`, `pre` | 13px | 500 | 1.55 (20px) | normal | `--font-mono` | 终端代码与 API 参数高亮 |
+
+---
+
+## 4. Component Stylings & Interaction Matrix
+
+### Interactive State Matrix
+
+| Component / State | Default | Hover | Active / Pressed | Focus (Keyboard) | Disabled |
+|---|---|---|---|---|---|
+| **Glass Card (`.num-card`)** | Bg: `var(--surface-glass)`<br>Border: `1px solid var(--border)`<br>Shadow: `var(--shadow-card)` | Bg: `rgba(21, 29, 42, 0.9)`<br>Border: `1px solid var(--border-subtle)`<br>Shadow: `var(--shadow-card-hover)`<br>Transform: `translateY(-3px)` | Bg: `var(--surface-glass)`<br>Transform: `translateY(0)` | Box-Shadow: `0 0 0 2px #0B0E14, 0 0 0 4px #38BDF8` | Bg: `rgba(11, 14, 20, 0.4)`<br>Opacity: `0.45`<br>Border: `1px solid rgba(255,255,255,0.04)` |
+| **Selected Card (`.selected`)** | Bg: `rgba(21, 29, 42, 0.95)`<br>Border: `1px solid #38BDF8`<br>Shadow: `var(--shadow-card-selected)` | Bg: `#192333`<br>Transform: `translateY(-4px)`<br>Shadow: `0 20px 50px rgba(0,0,0,0.7), 0 0 36px rgba(56,189,248,0.35)` | Bg: `var(--surface-card)`<br>Transform: `none` | Box-Shadow: `0 0 0 2px #0B0E14, 0 0 0 4px #38BDF8` | - |
+| **Action Button (`.btn-primary`)** | Bg: `var(--accent-gradient)`<br>Text: `#FFFFFF`<br>Font: 600 Inter | Bg: `linear-gradient(135deg, #0EA5E9 0%, #0284C7 100%)`<br>Box-Shadow: `0 4px 20px rgba(56,189,248,0.4)` | Transform: `scale(0.98)` | Outline: `2px solid #38BDF8`<br>Outline-Offset: `2px` | Bg: `#1B2433`<br>Text: `#526071`<br>Cursor: `not-allowed` |
+| **Callout Pin (`.callout-pin`)** | Bg: `#38BDF8`<br>Box-Shadow: `0 0 12px #38BDF8` | Transform: `scale(1.25)`<br>Box-Shadow: `0 0 20px #38BDF8` | - | - | - |
+| **Form Input (`input`)** | Bg: `#07090E`<br>Border: `1px solid var(--border)`<br>Text: `#FFFFFF` | Border: `1px solid var(--border-subtle)` | - | Border: `1px solid #38BDF8`<br>Box-Shadow: `0 0 0 1px #38BDF8, 0 0 12px rgba(56,189,248,0.25)` | Bg: `#0B0E14`<br>Text: `#526071` |
+
+### Signature Patterns
+
+#### 1. Electric Neon Double-Ring Focus (霓蓝双环聚焦)
+```css
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #0B0E14, 0 0 0 4px var(--signal-cyan);
+  border-radius: 16px;
+}
+```
+
+#### 2. Callout Pin with Leader Line (设备解构定位点)
+```html
+<div class="callout-wrapper">
+  <div class="callout-pin"></div>
+  <div class="callout-line"></div>
+  <div class="callout-label">CORE NEURAL ENGINE</div>
+</div>
+```
+
+### Border Radius Scale
+
+| Token / Value | Usage |
+|---|---|
+| `8px` (`--radius-sm`) | 内部微卡片、代码块、输入框、小胶囊 |
+| `16px` (`--radius`) | 标准黑曜卡片、问答卡片、对比矩阵（核心默认值） |
+| `24px` (`--radius-lg`) | 外层大容器、展示展板 |
+| `36px` (`--radius-device`) | 悬浮设备模型（Mockup Frame）外壳 |
+| `999px` (`--radius-pill`) | 胶囊药丸标签、圆形步骤徽标（`size: 28px`） |
+
+---
+
+## 5. Layout & Spacing Principles
+
+### Spacing Scale (4px Base Grid)
+
+| Token | Value | Multiplier | Semantic Usage |
+|---|---|---|---|
+| `--space-1` | 4px | 1x | 微边距、指示点边距 |
+| `--space-2` | 8px | 2x | 标签内边距、紧凑垂直间隙 |
+| `--space-3` | 12px | 3x | 输入框内边距、卡片内微元素间距 |
+| `--space-4` | 16px | 4x | 标准栅格 Gap、移动端内边距 |
+| `--space-5` | 24px | 6x | 桌面端卡片内边距、组件间距 |
+| `--space-6` | 32px | 8x | 章节内部模块间距、统计栏间距 |
+| `--space-7` | 48px | 12x | 小章节垂直留白 |
+| `--space-8` | 64px | 16x | 标准章节间距 |
+| `--space-9` | 96px | 24x | Hero 区域上下呼吸间距 |
+| `--space-10` | 128px | 32x | 宽幅展示展板留白 |
+
+### Page Layout Dimension Tokens
+
+| Dimension | Value | Role |
+|---|---|---|
+| `--container` | `1220px` | 页面正文最大宽度（桌面端版心） |
+| Global Cyan Aurora | `fixed; inset: 0; z-index: -1` | `body::before` 视口固定层极光微光 |
+| Page Horizontal Margin | `24px` (桌面端) / `16px` (移动端) | 视口两侧安全外边距 |
+
+---
+
+## 6. Depth, Elevation & Motion
+
+### Multi-Layer Dark Glow Technique
+
+Obsidian Cyan 结合 **深色毛玻璃（`rgba(19, 25, 36, 0.78)`）**、**顶层微内高光（`inset 0 1px 0 rgba(255,255,255,0.06)`）** 与 **电光霓蓝外发光（`0 0 28px rgba(56, 189, 248, 0.26)`）** 建立深邃科技感：
+
+```css
+box-shadow: 0 16px 44px rgba(0, 0, 0, 0.6), 0 0 28px rgba(56, 189, 248, 0.26), inset 0 1px 0 rgba(56, 189, 248, 0.3);
+```
+
+### Shadow Elevation Scale
+
+| Level | Value | Role |
+|---|---|---|
+| **Base Glass** | `0 8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06)` | 默认卡片、规格面板 |
+| **Hover Float**| `0 14px 40px rgba(0, 0, 0, 0.55), 0 0 20px rgba(56, 189, 248, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.12)` | 卡片悬浮状态 |
+| **Selected Lift**| `0 16px 44px rgba(0, 0, 0, 0.6), 0 0 28px rgba(56, 189, 248, 0.26), inset 0 1px 0 rgba(56, 189, 248, 0.3)` | 推荐卡片高光浮层 |
+| **Device Mockup**| `0 24px 64px rgba(0, 0, 0, 0.75), 0 0 36px rgba(56, 189, 248, 0.14)` | 悬浮设备模型 |
+| **Modal / Dialog**| `0 32px 80px rgba(0, 0, 0, 0.9), 0 0 40px rgba(56, 189, 248, 0.2)` | 模态弹窗与大浮层 |
+
+### Motion Tokens
+
+```css
+--ease-swift: cubic-bezier(0.16, 1, 0.3, 1);
+--duration-fast: 0.2s;
+--duration-normal: 0.35s;
+```
+
+---
+
+## 7. Do's and Don'ts
+
+### Do's (7 项金律)
+
+1. **Do 使用视口全局固定冷蓝极光** — 极光必须置于 `body::before`，长页面滚动时浑然一体，绝不在 `<section>` 局部重复添加断层光斑。
+2. **Do 使用电光霓蓝（`#38BDF8`）作为唯一主信号色** — 确保科技聚焦通道纯净统一。
+3. **Do 在步骤流程中使用圆形霓蓝数字徽章（`❶ ❷ ❸`）** — 强化工作流与架构演进的辨识度。
+4. **Do 使用纯白（`#FFFFFF`）作为主标题与核心数字颜色** — 在黑曜底色上营造最高对比度的纯净质感。
+5. **Do 为设备模型与解构图配置发光定位点（Callout Pins）** — 增强软硬件架构解构的互动感。
+6. **Do 使用深色毛玻璃卡片（`blur(16px)`）搭配微内高光** — 营造悬浮展柜的晶莹厚度。
+7. **Do 在大标题中进行中文主动语义换行** — 保持 800 字重主标题的冲击力与呼吸节奏。
+
+### Don'ts (7 项红线)
+
+1. **Don't 引入刺眼的高饱和暖色杂色（如暖红、荧光黄）** — 保持纯粹深邃的黑曜冷蓝夜色。
+2. **Don't 让局部光斑产生刺眼的白内障眩光** — 极光不透明度严格控制在 8%~14% 之间。
+3. **Don't 使用生硬浅灰色实心卡片** — 卡片必须使用深色半透明表面（`rgba(19, 25, 36, 0.78)`）。
+4. **Don't 在对比矩阵中使用红绿杂色混搭** — 统一使用电光霓蓝高光列与微光圆点。
+5. **Don't 使用锐利直角（0px）作为常规卡片圆角** — 保持 14–18px 的现代科技圆角。
+6. **Don't 堆砌大量彩色 emoji** — 使用现代等宽字符、SVG 定位点与科技 Badge 替代。
+7. **Don't 在卡片悬浮时触发过度变形** — 保持平滑克制的微上浮（`translateY(-3px)`）与发光扩散。
+
+---
+
+## 8. Responsive Behavior & Breakpoints
+
+### Breakpoint Groups
+
+| Breakpoint | Range | Target Device | Layout Adaptation Rules |
+|---|---|---|---|
+| **Mobile** | `< 640px` | 手机端 | 页面边距 `16px`；Hero 字号 `36px~44px`；卡片组降为 1 列；设备解构框居中自适应；定位点标注折线转为纵向列表。 |
+| **Tablet** | `640px ~ 1024px` | iPad / 平板 | 页面边距 `24px`；Hero 字号 `48px~56px`；卡片组 2 列（推荐卡片自适应展开）；流程步骤保持紧凑横排。 |
+| **Desktop** | `1024px ~ 1400px`| 标准桌面显示器 | 启用完整 `1220px` 版心；Hero 字号 `60px~72px`；3 列卡片自适应排布；展现完整设备模型与标注引出线。 |
+| **Wide** | `> 1400px` | 4K / 超宽大屏 | 版心锁定 `1220px` 居中；全局黑曜冷蓝极光舒展全屏。 |
+
+---
+
+## 9. 核心特征组件拼装示范 (Signature Component Snippets)
+
+### Quick Reference Tokens
+
+```
+Background:        #0B0E14 (Canvas), #151D2A (Surface Card), #07090E (Deep Pit)
+Surface Glass:     rgba(19, 25, 36, 0.78) + backdrop-filter: blur(16px)
+Text primary:      #FFFFFF (Pure White)
+Text secondary:    #94A3B8 (Slate Gray)
+Text muted:        #526071
+Primary Signal:    #38BDF8 (Electric Cyan, Eyebrow, Callout Pin, Step Badges)
+Secondary Signal:  #0EA5E9 (Ocean Blue, CTA)
+Border:            rgba(255, 255, 255, 0.08) (Default), rgba(56, 189, 248, 0.45) (Glow)
+Radius:            16px (Cards), 36px (Device Mockup), 999px (Pill Tag)
+Fonts:             Display: Inter, PingFang SC (800 for Hero, 400 for Body)
+                   Mono: JetBrains Mono (500)
+```
+
+### 1. UI/UX Device Breakdown with Callout Pins (设备解构与发光标注点)
+
+```html
+<div class="showcase-breakdown">
+  <div class="mockup-frame">
+    <!-- 发光定位点与引出标注 -->
+    <div class="callout-wrapper" style="top: 25%; left: 35%;">
+      <div class="callout-pin"></div>
+      <div class="callout-line"></div>
+      <div class="callout-card">
+        <h5>NEURAL PIPELINE</h5>
+        <p>集成片上 32 核神经网络加速单元，端侧实时运行百亿大模型推理。</p>
+      </div>
+    </div>
+    
+    <div class="callout-wrapper" style="top: 65%; left: 60%;">
+      <div class="callout-pin"></div>
+      <div class="callout-line"></div>
+      <div class="callout-card">
+        <h5>ZERO-LATENCY BUS</h5>
+        <p>提供 800GB/s 超高带宽片间互联，消除多节点分布式状态同步瓶颈。</p>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+### 2. Step Flow with Cyan Circular Badges (电光蓝圆形徽章步骤流)
+
+```html
+<div class="steps">
+  <div class="step">
+    <div class="idx">❶</div>
+    <div class="step-content">
+      <h4>拓扑初始化与探活</h4>
+      <p>自动扫描接入集群的边缘计算节点，完成零信任密钥协商与全链路心跳检测。</p>
+    </div>
+  </div>
+  
+  <div class="step active">
+    <div class="idx">❷</div>
+    <div class="step-content">
+      <h4>动态状态快照注入</h4>
+      <p>依托极速分布式缓存完成内存镜像增量同步，无缝承接实时生产流量。</p>
+    </div>
+  </div>
+  
+  <div class="step">
+    <div class="idx">❸</div>
+    <div class="step-content">
+      <h4>智能流量切分收敛</h4>
+      <p>多目标优化器根据各节点算力水位与延迟热力图自适应分配请求负载。</p>
+    </div>
+  </div>
+</div>
+```
+
+### 3. Obsidian Dark Comparison Matrix (黑曜展厅对比矩阵)
+
+```html
+<div class="cmp cmp-matrix">
+  <div class="row head">
+    <div class="cell">核心特性与能力</div>
+    <div class="cell">社区开源版</div>
+    <div class="cell selected-col">ENTERPRISE PRO</div>
+    <div class="cell">私有化专有云</div>
+  </div>
+  <div class="row">
+    <div class="cell">端侧神经网络加速</div>
+    <div class="cell"><span class="dot"></span></div>
+    <div class="cell selected-col"><span class="dot cyan"></span></div>
+    <div class="cell"><span class="dot"></span></div>
+  </div>
+  <div class="row">
+    <div class="cell">跨区域零丢包状态同步</div>
+    <div class="cell"><span class="dash">—</span></div>
+    <div class="cell selected-col"><span class="dot cyan"></span></div>
+    <div class="cell"><span class="dot"></span></div>
+  </div>
+  <div class="row">
+    <div class="cell">7×24 专属架构师保障</div>
+    <div class="cell"><span class="dash">—</span></div>
+    <div class="cell selected-col"><span class="dot cyan"></span></div>
+    <div class="cell"><span class="dot"></span></div>
+  </div>
+</div>
+```

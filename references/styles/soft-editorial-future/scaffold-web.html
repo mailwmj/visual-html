@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Future Showroom (极简未来展厅风) — Visual HTML Scaffold</title>
+<title>Soft Editorial Future (极简未来展厅风) — Web Scaffold</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
 <style>
 /* =========================================================================
-   Soft Editorial Future (温润社论未来风) — Design System & Tokens
-   核心理念：高级 Showroom 玻璃拟态 (Glassmorphism) 与温润液滴光泽
+   Soft Editorial Future (极简未来展厅风) — Design System & Tokens
+   核心理念：高级 Showroom 浅灰蓝玻璃展厅 (Glassmorphism) 与 3D 柔润晕染液体彩球
    ========================================================================= */
 :root {
-  /* Canvas & Surface Colors */
+  /* Canvas & Surface Colors (浅灰蓝高光画板) */
   --canvas-1: #EAEFF4;
   --canvas-2: #F0F4F8;
   --canvas-deep: #DDE5ED;
@@ -42,15 +42,6 @@
   --font-ui: "SF Pro Text", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", "微软雅黑", sans-serif;
   --font-mono: "IBM Plex Mono", "SF Mono", "JetBrains Mono", "Cascadia Code", Consolas, monospace;
 
-  /* Typography Scale */
-  --fs-hero: clamp(38px, 5.5vw, 68px);
-  --fs-display: clamp(28px, 3.8vw, 44px);
-  --fs-h1: 22px;
-  --fs-h2: 18px;
-  --fs-body-lg: 18px;
-  --fs-body: 15px;
-  --fs-caption: 13px;
-
   /* Glassmorphism Variables */
   --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.46) 100%);
   --glass-bg-hover: linear-gradient(135deg, rgba(255, 255, 255, 0.90) 0%, rgba(255, 255, 255, 0.55) 100%);
@@ -70,9 +61,6 @@
   --radius-pill: 999px;
 }
 
-/* =========================================================================
-   Global & Ambient Fluid Canvas
-   ========================================================================= */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; scroll-behavior: smooth; }
 
@@ -86,7 +74,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Global Ambient Lighting */
+/* Layer 0: Global Ambient Lighting (全局环境光晕层) */
 body::before {
   content: "";
   position: fixed;
@@ -115,15 +103,6 @@ section {
   position: relative;
 }
 
-.hero-section {
-  min-height: 75vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 96px 0 64px;
-}
-
 /* 3D Soft Blooming Color Orbs (温润晕染液体彩球 — 内部色彩自然晕开，边缘柔和无生硬边线) */
 .hero-section::before, .hero-section::after,
 .cards-section::after,
@@ -136,7 +115,6 @@ section {
   border-radius: 50%;
   z-index: -1;
   pointer-events: none;
-  filter: none; /* 天然平滑渐变晕开，拒绝人工模糊失焦感 */
 }
 
 .hero-section::before {
@@ -198,46 +176,34 @@ section {
 /* =========================================================================
    Typography
    ========================================================================= */
-h1, h2, h3, h4 {
+h1.hero {
   font-family: var(--font-display);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-  color: var(--ink-1);
-}
-
-.hero {
-  font-size: var(--fs-hero);
-  margin-bottom: 20px;
+  font-size: clamp(38px, 5.5vw, 68px);
   font-weight: 800;
   letter-spacing: -0.03em;
-}
-
-.section-title {
-  font-size: var(--fs-display);
+  line-height: 1.1;
+  color: var(--ink-1);
   margin-bottom: 24px;
-  font-weight: 700;
 }
 
-.section-head {
-  margin-bottom: 36px;
+h2.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.8vw, 42px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink-1);
+  margin-bottom: 24px;
 }
+
+.section-head { margin-bottom: 36px; }
 .section-head.left { text-align: left; }
-.section-head.center { text-align: center; }
 
 .lead {
-  font-size: var(--fs-body-lg);
+  font-size: clamp(17px, 1.8vw, 20px);
   color: var(--ink-2);
-  line-height: 1.65;
-  max-width: 680px;
-  margin: 0 auto 48px auto;
-}
-
-.body {
-  font-size: var(--fs-body);
-  color: var(--ink-2);
-  line-height: 1.7;
-  margin-bottom: 16px;
+  line-height: 1.68;
+  max-width: 760px;
+  margin-bottom: 40px;
 }
 
 .eyebrow {
@@ -245,7 +211,7 @@ h1, h2, h3, h4 {
   align-items: center;
   gap: 10px;
   font-family: var(--font-mono);
-  font-size: var(--fs-caption);
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -260,134 +226,114 @@ h1, h2, h3, h4 {
   margin-bottom: 20px;
 }
 .eyebrow .diamond {
-  width: 6px;
-  height: 6px;
+  width: 7px; height: 7px; border-radius: 50%;
   background: var(--accent-blue);
-  border-radius: 1px;
-  transform: rotate(45deg);
-  box-shadow: 0 0 6px rgba(0, 113, 227, 0.4);
+  box-shadow: 0 0 8px rgba(0, 113, 227, 0.6);
 }
-.eyebrow .line {
-  display: inline-block;
-  width: 24px;
-  height: 1px;
-  background: rgba(0, 0, 0, 0.1);
-  margin-left: 4px;
-}
+.eyebrow .line { display: none; }
 
 /* =========================================================================
-   Glass Containers Base
-   ========================================================================= */
-.feat-card,
-.num-card,
-.step,
-.pro-card,
-.con-card,
-.stat-card,
-.rich-text,
-.flowchart,
-.references,
-.faq-item {
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
-  border-radius: var(--radius-lg);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
-}
-
-/* =========================================================================
-   Stats Grid
+   Components (Glassmorphism High-Gloss Cards)
    ========================================================================= */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 24px;
-  width: 100%;
+  margin-top: 36px;
 }
 .stat-card {
-  padding: 40px 28px;
-  text-align: center;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
+  padding: 36px 30px;
+  box-shadow: var(--glass-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .stat-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px);
+  background: var(--glass-bg-hover);
   box-shadow: var(--glass-shadow-hover);
 }
 .stat-val {
   font-family: var(--font-display);
-  font-size: clamp(48px, 6vw, 76px);
-  font-weight: 700;
-  line-height: 1;
+  font-size: clamp(48px, 4.5vw, 64px);
+  font-weight: 800;
   letter-spacing: -0.03em;
   color: var(--ink-1);
-  margin-bottom: 12px;
+  line-height: 1;
 }
 .stat-val span {
   font-size: 24px;
-  font-weight: 500;
+  font-family: var(--font-mono);
   color: var(--accent-blue);
   margin-left: 4px;
 }
 .stat-label {
   font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   color: var(--ink-3);
+  text-transform: uppercase;
+  margin-top: 12px;
 }
 
-/* =========================================================================
-   Rich Text & Spec Row
-   ========================================================================= */
 .rich-text {
-  padding: 44px 48px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
-  font-size: 16px;
-  line-height: 1.8;
-  color: var(--ink-2);
+  padding: 40px;
+  box-shadow: var(--glass-shadow);
 }
-.rich-text p { margin-bottom: 20px; }
-.rich-text strong { color: var(--ink-1); font-weight: 600; }
-.rich-text em { font-style: italic; color: var(--ink-1); }
+.rich-text p {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--ink-2);
+  margin-bottom: 20px;
+}
+.rich-text strong { color: var(--ink-1); font-weight: 700; }
 .rich-text code {
   font-family: var(--font-mono);
-  font-size: 14px;
-  background: rgba(0, 113, 227, 0.06);
-  color: var(--accent-blue);
+  font-size: 13.5px;
   padding: 3px 8px;
+  background: rgba(0, 113, 227, 0.06);
+  border: 1px solid rgba(0, 113, 227, 0.2);
   border-radius: 6px;
-  border: 1px solid rgba(0, 113, 227, 0.15);
+  color: var(--accent-blue);
+}
+.rich-text blockquote {
+  border-left: 4px solid var(--accent-blue);
+  background: rgba(255, 255, 255, 0.5);
+  padding: 22px 26px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 17px;
+  color: var(--ink-1);
+  margin: 28px 0;
 }
 
-/* ---- 17. Code Block & Pre (Soft Editorial Future Showroom Terminal) ---- */
+/* Code Block */
 .code-block {
-  background: #0C131F;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: var(--radius-md);
+  background: #111418;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
   margin: 28px 0;
   overflow: hidden;
-  box-shadow: 0 16px 40px -8px rgba(12, 19, 31, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
 }
 .code-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 18px;
-  background: rgba(22, 32, 50, 0.85);
+  padding: 12px 18px;
+  background: #1C2128;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
-.code-dots {
-  display: flex;
-  gap: 6px;
-}
-.code-dots span {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-}
+.code-dots { display: flex; gap: 7px; }
+.code-dots span { width: 9px; height: 9px; border-radius: 50%; }
 .code-dots span:nth-child(1) { background: #FF5F56; }
 .code-dots span:nth-child(2) { background: #FFBD2E; }
 .code-dots span:nth-child(3) { background: #27C93F; }
@@ -395,892 +341,611 @@ h1, h2, h3, h4 {
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.08em;
   color: #38BDF8;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 .code-copy-btn {
   font-family: var(--font-mono);
   font-size: 11px;
-  padding: 3px 12px;
+  font-weight: 700;
+  padding: 4px 12px;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: var(--radius-pill);
-  color: #94A3B8;
+  color: #CBD5E1;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.2s ease;
 }
-.code-copy-btn:hover {
-  color: #FFFFFF;
-  border-color: #38BDF8;
-  background: rgba(56, 189, 248, 0.15);
-}
-.code-block pre, .rich-text pre {
+.code-copy-btn:hover { background: var(--accent-blue); color: #FFFFFF; }
+.code-block pre, .rich-text > pre {
   margin: 0;
-  padding: 18px 22px;
-  background: #0C131F;
+  padding: 20px 22px;
+  background: #111418;
   overflow-x: auto;
   font-family: var(--font-mono);
   font-size: 13.5px;
   line-height: 1.65;
   color: #F8FAFC;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
 }
-.rich-text pre {
-  border: 1px solid rgba(0, 113, 227, 0.2);
-  border-radius: var(--radius-md);
-  margin: 24px 0;
-}
-.code-block pre code, .rich-text pre code {
-  background: transparent;
-  border: none;
-  padding: 0;
-  color: inherit;
-  font-size: inherit;
-}
+.rich-text > pre { border-radius: var(--radius-lg); margin: 24px 0; }
 .token-comment { color: #64748B; font-style: italic; }
-.token-keyword { color: #38BDF8; font-weight: 600; }
+.token-keyword { color: #38BDF8; font-weight: 700; }
 .token-string { color: #FDE047; }
 .token-function { color: #A78BFA; }
-.token-number { color: #34D399; }
-.token-operator { color: #94A3B8; }
-.rich-text blockquote {
-  margin: 28px 0;
-  padding: 20px 24px;
-  border-left: 4px solid var(--accent-blue);
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  font-style: italic;
-  color: var(--ink-1);
-  font-size: 17px;
-  line-height: 1.65;
-}
+.token-number { color: #4ADE80; }
+.token-operator { color: #CBD5E1; }
+
 .spec-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 16px;
   margin-top: 32px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 .spec {
-  background: rgba(255, 255, 255, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  border-radius: var(--radius-md);
-  padding: 20px 24px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
 }
 .spec .val {
   font-family: var(--font-display);
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--ink-1);
-  line-height: 1.2;
 }
 .spec .val em {
-  font-style: normal;
   font-family: var(--font-mono);
+  font-style: normal;
   font-size: 13px;
-  font-weight: 500;
-  color: var(--ink-3);
+  color: var(--accent-blue);
   margin-left: 4px;
 }
 .spec .unit {
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
   color: var(--ink-3);
+  text-transform: uppercase;
   margin-top: 6px;
 }
 
-/* =========================================================================
-   Admonitions (智能语义提示框 — 白玻璃展柜 + 蔚蓝/暖橙/春绿/绯红菱形徽标)
-   ========================================================================= */
-.admonition {
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
-  border-radius: var(--radius-lg);
-  padding: 28px 32px;
-  margin-bottom: 32px;
-  position: relative;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.admonition:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--glass-shadow-hover);
-}
-.admonition-title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 16px;
-  letter-spacing: -0.01em;
-  color: var(--ink-1);
-  margin-bottom: 8px;
-  line-height: 1.4;
-}
-.admonition-title::before {
-  content: "";
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  border-radius: 1.5px;
-  transform: rotate(45deg);
-  flex-shrink: 0;
-}
-.admonition.info .admonition-title::before {
-  background: var(--accent-blue);
-  box-shadow: 0 0 8px rgba(0, 113, 227, 0.45);
-}
-.admonition.warning .admonition-title::before {
-  background: var(--signal-warning);
-  box-shadow: 0 0 8px rgba(255, 149, 0, 0.45);
-}
-.admonition.success .admonition-title::before {
-  background: var(--signal-success);
-  box-shadow: 0 0 8px rgba(52, 199, 89, 0.45);
-}
-.admonition.error .admonition-title::before {
-  background: var(--signal-error);
-  box-shadow: 0 0 8px rgba(255, 59, 48, 0.45);
-}
-.admonition p {
-  font-size: 15px;
-  color: var(--ink-2);
-  line-height: 1.65;
-  margin: 0;
-}
-
-/* =========================================================================
-   Number Cards
-   ========================================================================= */
+/* Number Cards */
 .cards-3 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
 }
 .num-card {
-  padding: 36px 30px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 34px 28px;
+  box-shadow: var(--glass-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
   display: flex;
   flex-direction: column;
 }
 .num-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-8px);
+  background: var(--glass-bg-hover);
   box-shadow: var(--glass-shadow-hover);
 }
 .num-card .num {
-  font-family: var(--font-display);
-  font-size: 38px;
-  font-weight: 700;
+  font-family: var(--font-mono);
+  font-size: 36px;
+  font-weight: 800;
   color: var(--accent-blue);
-  line-height: 1;
-  margin-bottom: 16px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  margin-bottom: 14px;
 }
 .num-card h3 {
-  font-size: 20px;
+  font-family: var(--font-display);
+  font-size: 21px;
   font-weight: 700;
-  margin-bottom: 10px;
   color: var(--ink-1);
+  margin-bottom: 10px;
 }
 .num-card p {
   font-size: 15px;
-  color: var(--ink-2);
   line-height: 1.65;
+  color: var(--ink-2);
   flex-grow: 1;
+  margin-bottom: 22px;
 }
 .num-card .tag {
   align-self: flex-start;
-  margin-top: 20px;
-  display: inline-block;
   font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: var(--ink-2);
-  background: rgba(0, 0, 0, 0.04);
-  padding: 5px 12px;
+  font-weight: 700;
+  padding: 4px 12px;
   border-radius: var(--radius-pill);
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: var(--accent-blue-soft);
+  color: var(--accent-blue);
+  border: 1px solid var(--accent-blue-border);
+  text-transform: uppercase;
 }
 .num-card.selected {
   background: var(--glass-bg-selected);
-  border-color: var(--accent-blue-border);
+  border-color: var(--accent-blue);
   box-shadow: var(--glass-shadow-selected);
   transform: translateY(-4px);
 }
 .num-card.selected .tag {
   background: var(--accent-blue);
   color: #FFFFFF;
-  border-color: var(--accent-blue);
-  box-shadow: 0 4px 12px rgba(0, 113, 227, 0.25);
 }
 
-/* =========================================================================
-   Comparison Table & Matrix
-   ========================================================================= */
-.cmp-matrix-wrapper, .cmp {
+/* Feature Cards */
+.feat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  margin-bottom: 48px;
+}
+.feat-card {
   background: var(--glass-bg);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
   border-radius: var(--radius-lg);
-  overflow: hidden;
-  margin-bottom: 40px;
-}
-
-.cmp-matrix {
-  width: 100%;
-}
-
-.cmp-row, .cmp .row {
-  display: grid;
-  grid-template-columns: 2.2fr 1.2fr 1.4fr;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  align-items: stretch;
-  transition: background 0.18s ease;
-}
-
-.cmp-row:last-child, .cmp .row:last-child {
-  border-bottom: none;
-}
-
-.cmp-row:not(.header):hover, .cmp .row:not(.head):hover {
-  background: rgba(255, 255, 255, 0.5);
-}
-
-.cmp-row.header, .cmp .row.head {
-  background: rgba(255, 255, 255, 0.6);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--ink-2);
-  text-transform: uppercase;
-}
-
-.cmp-cell, .cmp .cell {
-  padding: 20px 24px;
-  display: flex;
-  align-items: center;
-  font-size: 15px;
-  color: var(--ink-2);
-}
-
-.cmp-cell:first-child, .cmp .cell:first-child {
-  font-weight: 600;
-  color: var(--ink-1);
-}
-
-.cmp-cell:not(:first-child), .cmp .cell:not(:first-child) {
-  justify-content: center;
-  text-align: center;
-  border-left: 1px solid rgba(0, 0, 0, 0.04);
-}
-
-/* Highlight Column - Integrated column style with subtle glass glow */
-.cmp-cell.highlight-col, .cmp .cell.selected-col, .cmp .cell.selected {
-  background: rgba(0, 113, 227, 0.06);
-  color: var(--accent-blue);
-  font-weight: 600;
-}
-
-.cmp-row.header .cmp-cell.highlight-col, .cmp .row.head .cell.selected-col {
-  background: rgba(0, 113, 227, 0.12);
-  color: var(--accent-blue);
-  font-weight: 700;
-}
-
-.cmp .dot {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--accent-blue);
-  box-shadow: 0 0 10px rgba(0, 113, 227, 0.4);
-}
-
-.cmp .dash {
-  color: var(--ink-3);
-  font-weight: 300;
-  font-size: 16px;
-}
-
-/* =========================================================================
-   Timeline
-   ========================================================================= */
-.timeline {
-  position: relative;
+  padding: 36px 32px;
+  box-shadow: var(--glass-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  margin-top: 16px;
-  padding-left: 0;
+}
+.feat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--glass-shadow-hover);
+}
+.feat-card .tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-blue);
+  background: var(--accent-blue-soft);
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 16px;
+  align-self: flex-start;
+}
+.feat-card h3 {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--ink-1);
+  margin-bottom: 12px;
+}
+.feat-card p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--ink-2);
+  margin-bottom: 24px;
+}
+.feat-card .frame {
+  width: 100%;
+  min-height: 160px;
+  background: rgba(255, 255, 255, 0.4);
+  border: 1.5px dashed rgba(0, 113, 227, 0.3);
+  border-radius: calc(var(--radius-lg) - 6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-3);
+  letter-spacing: 0.05em;
+  margin-top: auto;
 }
 
-/* Continuous connecting line */
+/* Comparison Matrix */
+.cmp-matrix-wrapper {
+  overflow-x: auto;
+  margin-bottom: 48px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--glass-shadow);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+.cmp-matrix {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: collapse;
+}
+.cmp-matrix tr { border-bottom: 1px solid rgba(0, 0, 0, 0.06); }
+.cmp-matrix tr:last-child { border-bottom: none; }
+.cmp-matrix th, .cmp-matrix td {
+  padding: 20px 24px;
+  font-size: 15px;
+  color: var(--ink-2);
+  text-align: left;
+}
+.cmp-matrix thead th {
+  background: rgba(255, 255, 255, 0.5);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+}
+.cmp-matrix .highlight-col {
+  background: rgba(0, 113, 227, 0.04);
+  color: var(--ink-1);
+  font-weight: 700;
+}
+.cmp-matrix thead th.highlight-col {
+  color: var(--accent-blue);
+  background: rgba(0, 113, 227, 0.08);
+}
+.cmp-tag-rec {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  color: #FFFFFF;
+  background: var(--accent-blue);
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  margin-left: 8px;
+}
+
+/* Timeline */
+.timeline {
+  position: relative;
+  padding-left: 36px;
+  margin-top: 36px;
+}
 .timeline::before {
   content: "";
   position: absolute;
-  left: 95px;
-  top: 32px;
-  bottom: 32px;
+  left: 11px;
+  top: 12px;
+  bottom: 12px;
   width: 2px;
-  background: linear-gradient(180deg, rgba(0, 113, 227, 0.4) 0%, rgba(0, 113, 227, 0.1) 100%);
-  z-index: 1;
+  background: linear-gradient(180deg, var(--accent-blue), rgba(0, 113, 227, 0.2));
+  border-radius: var(--radius-pill);
 }
-
 .timeline-item {
-  display: grid;
-  grid-template-columns: 95px 1fr;
-  gap: 32px;
-  align-items: flex-start;
   position: relative;
+  margin-bottom: 36px;
 }
-
+.timeline-item:last-child { margin-bottom: 0; }
 .timeline-marker {
-  font-family: var(--font-mono);
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: var(--accent-blue);
-  text-align: right;
-  padding-top: 22px;
-  padding-right: 18px;
-  position: relative;
-  line-height: 1;
-}
-
-/* Glowing Timeline Node */
-.timeline-marker::after {
-  content: "";
   position: absolute;
-  right: -6px;
-  top: 21px;
-  width: 12px;
-  height: 12px;
+  left: -36px;
+  top: 0;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   background: #FFFFFF;
-  border: 2.5px solid var(--accent-blue);
-  box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.18), 0 2px 8px rgba(0, 113, 227, 0.25);
-  z-index: 3;
+  border: 3px solid var(--accent-blue);
+  box-shadow: 0 0 12px rgba(0, 113, 227, 0.4);
 }
-
 .timeline-content {
   background: var(--glass-bg);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
   border-radius: var(--radius-md);
-  padding: 26px 30px;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+  padding: 24px 28px;
+  box-shadow: var(--glass-shadow);
+  transition: transform 0.3s ease;
 }
-
-.timeline-content:hover {
-  transform: translateX(4px);
-  box-shadow: var(--glass-shadow-hover);
-}
-
+.timeline-content:hover { transform: translateX(6px); }
 .timeline-content h3 {
   font-family: var(--font-display);
   font-size: 19px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--ink-1);
-  margin-bottom: 8px;
-  line-height: 1.3;
+  margin-bottom: 6px;
 }
-
 .timeline-content p {
   font-size: 15px;
   color: var(--ink-2);
-  line-height: 1.65;
-  margin: 0;
+  line-height: 1.6;
 }
 
-@media (max-width: 640px) {
-  .timeline::before {
-    left: 20px;
-  }
-  .timeline-item {
-    grid-template-columns: 1fr;
-    gap: 12px;
-    padding-left: 44px;
-  }
-  .timeline-marker {
-    text-align: left;
-    padding: 0;
-  }
-  .timeline-marker::after {
-    left: -29px;
-    right: auto;
-    top: 3px;
-  }
-}
-
-/* =========================================================================
-   Pros & Cons (优劣对比 — 统一纯白水晶磨砂玻璃 + 精致 Mono 胶囊 + 微徽章列表)
-   ========================================================================= */
-.pros-cons {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-}
-.pro-card, .con-card {
+/* Steps */
+.steps { display: flex; flex-direction: column; gap: 20px; }
+.step {
+  display: flex;
+  gap: 22px;
+  align-items: flex-start;
   background: var(--glass-bg);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
   border-radius: var(--radius-lg);
-  padding: 34px 30px;
-  position: relative;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.pro-card:hover, .con-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--glass-shadow-hover);
-}
-.pros-cons .tag {
-  display: inline-flex;
-  align-items: center;
-  font-family: var(--font-mono);
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 5px 14px;
-  border-radius: var(--radius-pill);
-  margin-bottom: 22px;
-}
-.pro-card .tag {
-  background: rgba(52, 199, 89, 0.08);
-  color: #1B873F;
-  border: 1px solid rgba(52, 199, 89, 0.2);
-}
-.con-card .tag {
-  background: rgba(255, 59, 48, 0.08);
-  color: #D70015;
-  border: 1px solid rgba(255, 59, 48, 0.2);
-}
-.pros-cons ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.pros-cons li {
-  font-size: 15px;
-  color: var(--ink-2);
-  line-height: 1.65;
-  position: relative;
-  padding-left: 28px;
-}
-.pro-card li::before {
-  content: "✓";
-  position: absolute;
-  left: 0;
-  top: 2px;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: rgba(52, 199, 89, 0.1);
-  border: 1px solid rgba(52, 199, 89, 0.22);
-  color: #1B873F;
-  font-weight: 700;
-  font-size: 10px;
-  font-family: var(--font-ui);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-.con-card li::before {
-  content: "✕";
-  position: absolute;
-  left: 0;
-  top: 2px;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: rgba(255, 59, 48, 0.08);
-  border: 1px solid rgba(255, 59, 48, 0.2);
-  color: #D70015;
-  font-weight: 700;
-  font-size: 9px;
-  font-family: var(--font-ui);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* =========================================================================
-   Process Steps
-   ========================================================================= */
-.steps {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px;
-}
-.step {
-  padding: 36px 30px;
-  display: flex;
-  flex-direction: column;
-}
-.step:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--glass-shadow-hover);
-}
-.step .idx {
-  font-family: var(--font-display);
-  font-size: 38px;
-  font-weight: 700;
-  color: var(--accent-blue);
-  line-height: 1;
-  margin-bottom: 16px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  display: inline-block;
-}
-.step h3 {
-  font-size: 19px;
-  font-weight: 700;
-  color: var(--ink-1);
-  margin-bottom: 8px;
-}
-.step p {
-  font-size: 14px;
-  color: var(--ink-2);
-  line-height: 1.65;
-  margin: 0;
-}
-
-/* =========================================================================
-   Flowchart
-   ========================================================================= */
-.flowchart {
-  padding: 56px 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow-x: auto;
-}
-.flowchart svg {
-  width: 100%;
-  max-width: 860px;
-  height: auto;
-}
-.flowchart svg .node rect {
-  fill: rgba(255, 255, 255, 0.85);
-  stroke: rgba(0, 0, 0, 0.12);
-  stroke-width: 1.5px;
-  rx: 12px;
-  transition: all 0.25s ease;
-}
-.flowchart svg .node:hover rect {
-  stroke: var(--accent-blue);
-  fill: #FFFFFF;
-}
-.flowchart svg .node text {
-  fill: var(--ink-1);
-  font-family: var(--font-ui);
-}
-.flowchart svg .node text[opacity="0.6"] {
-  fill: var(--ink-3);
-  opacity: 1;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.05em;
-}
-.flowchart svg .node.active rect {
-  stroke: var(--accent-blue);
-  stroke-width: 2.5px;
-  fill: rgba(235, 245, 255, 0.95);
-  filter: drop-shadow(0 8px 20px rgba(0, 113, 227, 0.2));
-}
-.flowchart svg .node.active text[font-weight="700"] {
-  fill: var(--accent-blue);
-}
-.flowchart svg line {
-  stroke: rgba(0, 0, 0, 0.18);
-  stroke-width: 2px;
-}
-.flowchart svg marker path {
-  fill: var(--ink-3);
-}
-
-.mermaid-wrapper pre.mermaid, .mermaid {
-  background: transparent !important;
-  border: none !important;
-  padding: 0 !important;
-  margin: 0 auto !important;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-.mermaid svg {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* =========================================================================
-   FAQ
-   ========================================================================= */
-.faq {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-.faq-item {
   padding: 26px 30px;
-  border-radius: var(--radius-md);
+  box-shadow: var(--glass-shadow);
+  transition: transform 0.3s ease;
 }
-.faq-item:hover {
-  box-shadow: var(--glass-shadow-hover);
-}
-.faq-item .q {
+.step:hover { transform: translateX(6px); }
+.step .idx {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background: var(--accent-blue);
+  color: #FFFFFF;
   font-family: var(--font-display);
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--ink-1);
-  margin-bottom: 8px;
+  font-size: 18px;
+  font-weight: 800;
   display: flex;
   align-items: center;
-  gap: 12px;
-}
-.faq-item .q::before {
-  content: "Q";
-  font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--accent-blue);
-  background: rgba(0, 113, 227, 0.08);
-  border: 1px solid rgba(0, 113, 227, 0.2);
-  width: 26px;
-  height: 26px;
-  border-radius: 8px;
-  display: inline-flex;
-  align-items: center;
   justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 113, 227, 0.3);
   flex-shrink: 0;
 }
-.faq-item .a {
-  font-size: 15px;
-  color: var(--ink-2);
-  line-height: 1.7;
-  padding-left: 38px;
-}
-
-/* =========================================================================
-   References & Footer
-   ========================================================================= */
-.references {
-  padding: 36px 40px;
-  border-radius: var(--radius-lg);
-}
-.references h3 {
-  font-family: var(--font-mono);
-  font-size: 13px;
+.step h3 {
+  font-family: var(--font-display);
+  font-size: 20px;
   font-weight: 700;
-  letter-spacing: 0.12em;
-  color: var(--ink-2);
-  text-transform: uppercase;
-  margin-bottom: 18px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  color: var(--ink-1);
+  margin-bottom: 6px;
 }
-.references ol {
-  padding-left: 20px;
-  font-size: 14px;
-  color: var(--ink-2);
-  line-height: 1.8;
-}
-.references li {
-  margin-bottom: 8px;
-}
-.references a {
-  color: var(--accent-blue);
-  text-decoration: none;
-  font-weight: 600;
-  margin-left: 4px;
-}
-.references a:hover {
-  text-decoration: underline;
-}
+.step p { font-size: 15px; line-height: 1.6; color: var(--ink-2); }
 
-footer {
-  padding: 48px 0 64px;
-  margin-top: 48px;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
+/* Flowchart */
+.flowchart {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 36px 32px;
+  box-shadow: var(--glass-shadow);
+  overflow-x: auto;
 }
-.meta-foot {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 16px;
+.flowchart svg { width: 100%; min-width: 760px; height: auto; display: block; }
+.mermaid-wrapper pre.mermaid, .mermaid {
+  background: transparent !important; border: none !important; padding: 0 !important;
+  margin: 0 auto !important; width: 100%; display: flex; justify-content: center;
+}
+.mermaid svg { max-width: 100%; height: auto; display: block; }
+
+/* Interview Rounds */
+.interview-rounds { display: flex; flex-direction: column; gap: 24px; }
+.round-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  box-shadow: var(--glass-shadow);
+}
+.round-header {
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06); padding-bottom: 16px; margin-bottom: 24px;
   font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  color: var(--ink-3);
-  text-transform: uppercase;
+}
+.round-badge { font-size: 12px; font-weight: 800; color: var(--accent-blue); letter-spacing: 0.08em; }
+.round-status { font-size: 11px; font-weight: 700; color: var(--ink-3); }
+.ai-questions-block {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  padding: 22px 24px; margin-bottom: 20px;
+}
+.ai-block-head {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 800;
+  color: var(--accent-blue); text-transform: uppercase; margin-bottom: 16px;
+}
+.ai-block-head .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-blue); }
+.q-deck { display: flex; flex-direction: column; gap: 14px; }
+.q-item {
+  background: #FFFFFF; border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm); padding: 18px 20px;
+}
+.q-badge { font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--accent-blue); margin-bottom: 4px; }
+.q-title { font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--ink-1); margin-bottom: 10px; }
+.q-recom-note {
+  background: rgba(0, 113, 227, 0.05); border-left: 3px solid var(--accent-blue);
+  padding: 10px 14px; font-size: 13.5px; color: var(--ink-2); line-height: 1.6;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.user-decision-note {
+  background: rgba(52, 199, 89, 0.06); border: 1.5px solid rgba(52, 199, 89, 0.3);
+  border-radius: var(--radius-sm); padding: 20px 22px;
+}
+.user-decision-head {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 11px; color: var(--signal-success);
+  text-transform: uppercase; margin-bottom: 8px; font-weight: 800;
+}
+.user-decision-head .check-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 18px; height: 18px; background: var(--signal-success); color: #FFFFFF;
+  border-radius: 50%; font-size: 11px; font-weight: 900;
+}
+.user-decision-text { font-size: 14.5px; color: var(--ink-1); line-height: 1.6; font-style: italic; }
+
+/* Pros Cons & Admonition */
+.pros-cons { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+.pro-card {
+  background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid rgba(52, 199, 89, 0.3); border-radius: var(--radius-lg); padding: 30px 26px; box-shadow: var(--glass-shadow);
+}
+.con-card {
+  background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid rgba(255, 59, 48, 0.3); border-radius: var(--radius-lg); padding: 30px 26px; box-shadow: var(--glass-shadow);
+}
+.pro-card .tag {
+  display: inline-block; font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--signal-success);
+  background: var(--signal-success-bg); padding: 5px 14px; border-radius: var(--radius-pill); margin-bottom: 18px;
+}
+.con-card .tag {
+  display: inline-block; font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--signal-error);
+  background: var(--signal-error-bg); padding: 5px 14px; border-radius: var(--radius-pill); margin-bottom: 18px;
+}
+.pros-cons ul { list-style: none; padding: 0; margin: 0; }
+.pros-cons li { position: relative; padding-left: 24px; font-size: 15px; color: var(--ink-2); margin-bottom: 12px; line-height: 1.6; }
+.pro-card li::before { content: "+"; position: absolute; left: 0; color: var(--signal-success); font-weight: 800; font-size: 16px; }
+.con-card li::before { content: "–"; position: absolute; left: 0; color: var(--signal-error); font-weight: 800; font-size: 16px; }
+
+.admonition {
+  background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border); border-left: 5px solid var(--accent-blue);
+  border-radius: var(--radius-md); padding: 24px 28px; box-shadow: var(--glass-shadow); margin-bottom: 32px;
+}
+.admonition-title { font-family: var(--font-display); font-size: 17px; font-weight: 700; color: var(--ink-1); margin-bottom: 8px; }
+.admonition p { font-size: 15px; color: var(--ink-2); line-height: 1.6; }
+
+/* FAQ, References & Footer */
+.faq { display: flex; flex-direction: column; gap: 16px; }
+.faq-item {
+  background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border); border-radius: var(--radius-md); padding: 24px 28px;
+  box-shadow: var(--glass-shadow); transition: transform 0.25s, border-color 0.25s;
+}
+.faq-item:hover { transform: translateY(-3px); border-color: var(--accent-blue); }
+.faq-item .q { font-family: var(--font-display); font-size: 17px; font-weight: 700; color: var(--ink-1); margin-bottom: 8px; }
+.faq-item .a { font-size: 15px; line-height: 1.6; color: var(--ink-2); }
+
+.references {
+  background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--glass-shadow);
+}
+.references h3 { font-family: var(--font-mono); font-size: 14px; font-weight: 800; color: var(--ink-1); margin-bottom: 16px; letter-spacing: 0.08em; text-transform: uppercase; }
+.references ol { padding-left: 20px; }
+.references li { font-size: 14px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.references a { color: var(--accent-blue); text-decoration: none; font-weight: 600; }
+.references a:hover { text-decoration: underline; }
+
+footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(0, 0, 0, 0.06); background: transparent; }
+.meta-foot { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--ink-3); letter-spacing: 0.08em; }
+
+@media (max-width: 768px) {
+  .wrap { padding: 32px 16px; }
+  section { padding: 36px 0; }
+  .rich-text { padding: 24px 20px; }
+  .step { flex-direction: column; gap: 16px; }
+  .meta-foot { flex-direction: column; gap: 8px; text-align: center; }
 }
 </style>
 </head>
 <body>
 
+<!-- PHASE 1: 篇首概览 -->
 <section class="hero-section">
   <div class="wrap">
     <div class="eyebrow"><span class="diamond"></span><span>01 / EXECUTIVE SUMMARY</span><span class="line"></span></div>
-    <h1 class="hero">主标题 (Hero Title) 确保短小有力</h1>
-    <p class="lead">导读段落 (Lead Paragraph)：简明扼要地概括核心主旨。</p>
+    <h1 class="hero">极简未来展厅美学。<br>全组件高光玻璃规范集。</h1>
+    <p class="lead">导读段落 (Lead Paragraph)：浅灰蓝高光画板与 3D 柔润液体彩球散布，搭配高透毛玻璃卡片与精致内发光，呈现前沿科技与艺术展厅的通透纯粹。</p>
     
     <div class="stats-grid">
-      <div class="stat-card"><div class="stat-val">300<span>%</span></div><div class="stat-label">ANNUAL GROWTH</div></div>
-      <div class="stat-card"><div class="stat-val">1.2<span>M</span></div><div class="stat-label">ACTIVE USERS</div></div>
-      <div class="stat-card"><div class="stat-val">0.5<span>ms</span></div><div class="stat-label">LATENCY</div></div>
+      <div class="stat-card"><div class="stat-val">99.8<span>%</span></div><div class="stat-label">TRANSPARENCY INDEX / 通透指数</div></div>
+      <div class="stat-card"><div class="stat-val">120<span>fps</span></div><div class="stat-label">SMOOTH GLASS DYNAMICS / 交互帧率</div></div>
+      <div class="stat-card"><div class="stat-val">0.1<span>ms</span></div><div class="stat-label">ULTRA-LOW LATENCY / 响应时延</div></div>
     </div>
   </div>
 </section>
 
+<!-- PHASE 2: 核心论述 -->
 <section class="body-section">
   <div class="wrap">
     <div class="section-head left">
       <div class="eyebrow"><span class="diamond"></span><span>02 / ARTICLE BODY</span><span class="line"></span></div>
-      <h2 class="section-title">正文区块标题</h2>
+      <h2 class="section-title">核心论述与参数栏</h2>
     </div>
     
     <div class="rich-text">
-      <p>这是标准的正文段落。支持 <strong>加粗</strong>、<em>斜体</em> 和 <code>内联代码</code> 排版。</p>
-      <blockquote>这是引用名人名言或核心观点的块级引用（Blockquote），需要单独的视觉包裹。</blockquote>
+      <p>这是标准的正文段落。支持 <strong>加粗强调</strong>、<em>斜体修饰</em> 以及 <code>内联代码 (Inline Code)</code> 等排版元素。</p>
+      <blockquote>“在光影与流体的交界处，极简未来展厅通过高透玻璃与温润液体彩球，将复杂系统转化为通透纯粹的视觉诗篇。”</blockquote>
       
-      <!-- 17 / CODE BLOCK & TERMINAL -->
       <div class="code-block">
         <div class="code-header">
           <div class="code-dots"><span></span><span></span><span></span></div>
-          <span class="code-lang">TYPESCRIPT / ARCHITECTURE</span>
+          <span class="code-lang">PYTHON / SHOWROOM RUNTIME</span>
           <button class="code-copy-btn" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').innerText); this.innerText='COPIED!'; setTimeout(()=>this.innerText='COPY', 2000)">COPY</button>
         </div>
-        <pre><code><span class="token-comment">// Soft Editorial Future 渲染管线微内核</span>
-<span class="token-keyword">export interface</span> <span class="token-function">ShowroomConfig</span> {
-  surfaceBlur: <span class="token-string">"28px"</span>;
-  accentHue: <span class="token-string">"#0071E3"</span>;
-  enableAmbientOrb: <span class="token-keyword">true</span>;
-}</code></pre>
+        <pre><code><span class="token-comment"># 启动高光未来展厅动态渲染引擎</span>
+<span class="token-keyword">from</span> showroom_engine <span class="token-keyword">import</span> GlassPipeline, BloomCluster
+
+<span class="token-keyword">async def</span> <span class="token-function">render_space</span>(scene_id: <span class="token-string">str</span>) -> <span class="token-string">dict</span>:
+    pipeline = GlassPipeline(blur=<span class="token-number">28</span>, saturate=<span class="token-number">1.8</span>)
+    <span class="token-keyword">return await</span> pipeline.illuminate(scene_id)</code></pre>
       </div>
 
       <div class="spec-row">
-        <div class="spec"><div class="val">60×95<em>mm</em></div><div class="unit">SIZE</div></div>
-        <div class="spec"><div class="val">500<em>mah</em></div><div class="unit">BATTERY</div></div>
-        <div class="spec"><div class="val">USB-C</div><div class="unit">INTERFACE</div></div>
+        <div class="spec"><div class="val">8K<em>超清</em></div><div class="unit">RESOLUTION / 分辨率</div></div>
+        <div class="spec"><div class="val">10<em>bit</em></div><div class="unit">COLOR DEPTH / 色彩深度</div></div>
+        <div class="spec"><div class="val">HDR</div><div class="unit">DYNAMIC RANGE / 动态范围</div></div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- PHASE 3: 核心特性与架构 -->
 <section class="cards-section">
   <div class="wrap">
     <div class="section-head left">
       <div class="eyebrow"><span class="diamond"></span><span>03 / ADMONITIONS & CARDS</span><span class="line"></span></div>
-      <h2 class="section-title">模块化卡片与提示框</h2>
+      <h2 class="section-title">高光玻璃卡片与提示框</h2>
     </div>
     
     <div class="admonition info">
       <div class="admonition-title">核心结论 (INFO)</div>
-      <p>这是 AI 提取的关键结论高亮框，用于引起读者注意。</p>
+      <p>这是 AI 提取的关键结论高亮框，用于引起读者对核心发现的重点关注。</p>
     </div>
 
     <div class="cards-3">
       <div class="num-card">
         <div class="num">01</div>
-        <h3>模块一核心功能</h3>
-        <p>详细描述说明。</p>
-        <div class="tag">BASE</div>
+        <h3>动态折射高光展柜</h3>
+        <p>基于物理真实感的菲涅尔反射与柔和投影，呈现极致通透感。</p>
+        <div class="tag">SHOWROOM BASE</div>
       </div>
       <div class="num-card selected">
         <div class="num">02</div>
-        <h3>推荐核心功能</h3>
-        <p>这是推荐项，需要第二状态通道的高亮显示（如发光或特殊边框）。</p>
+        <h3>未来流体光影矩阵</h3>
+        <p>苹果级设计语言，配备高透玻璃微边框与数码皇家蓝聚焦轮廓。</p>
         <div class="tag">RECOMMENDED</div>
       </div>
       <div class="num-card">
         <div class="num">03</div>
-        <h3>辅助功能扩展</h3>
-        <p>次要说明内容。</p>
-        <div class="tag">OPTIONAL</div>
+        <h3>自适应多端交付</h3>
+        <p>单文件自包含 HTML，零依赖畅享 60fps 丝滑玻璃拟态。</p>
+        <div class="tag">PURE OFFLINE</div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="timeline-section">
+<section class="feat-section">
   <div class="wrap">
     <div class="section-head left">
-      <div class="eyebrow"><span class="diamond"></span><span>04 / COMPARISON & TIMELINE</span><span class="line"></span></div>
-      <h2 class="section-title">对比矩阵与时间轴</h2>
+      <div class="eyebrow"><span class="diamond"></span><span>04 / FEATURE SHOWCASE</span><span class="line"></span></div>
+      <h2 class="section-title">特性展台与媒体卡片</h2>
     </div>
 
-    <!-- 注意：外层需配置 overflow-x: auto; 保证移动端体验 -->
-    <div class="cmp-matrix-wrapper">
-      <div class="cmp-matrix">
-        <div class="cmp-row header">
-          <div class="cmp-cell">对比维度</div>
-          <div class="cmp-cell">方案 A</div>
-          <div class="cmp-cell highlight-col">方案 B (推荐)</div>
-        </div>
-        <div class="cmp-row">
-          <div class="cmp-cell">核心能力与闭环</div>
-          <div class="cmp-cell">基础支持</div>
-          <div class="cmp-cell highlight-col">完整闭环</div>
-        </div>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="tag">// GLASSMORPHISM</div>
+        <h3>高阶玻璃拟态展厅</h3>
+        <p>采用双层高光边框与 28px 饱和度增强磨砂，在浅灰蓝画板上展现极致通透与未来感。</p>
+        <div class="frame">MEDIA PREVIEW FRAME / 媒体预览框</div>
       </div>
-    </div>
-
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="timeline-marker">2024</div>
-        <div class="timeline-content">
-          <h3>立项与核心架构</h3>
-          <p>核心目标设定，完成基础架构开发。</p>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-marker">2026</div>
-        <div class="timeline-content">
-          <h3>全面演进</h3>
-          <p>进入全新阶段，实现智能化重构。</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="pros-cons-section">
-  <div class="wrap">
-    <div class="section-head left">
-      <div class="eyebrow"><span class="diamond"></span><span>05 / PROS & CONS</span><span class="line"></span></div>
-      <h2 class="section-title">优劣对比卡片</h2>
-    </div>
-
-    <div class="pros-cons">
-      <div class="pro-card">
-        <div class="tag">PROS / 优势</div>
-        <ul><li>架构极其稳定，扩展性强</li></ul>
-      </div>
-      <div class="con-card">
-        <div class="tag">CONS / 劣势</div>
-        <ul><li>初期学习曲线较陡峭</li></ul>
+      <div class="feat-card">
+        <div class="tag">// LIQUID BLOOM</div>
+        <h3>3D 柔润液体彩球</h3>
+        <p>色彩在彩球内部自然晕开，边缘柔和无生硬边缘线，营造自然流淌的光影呼吸感。</p>
+        <div class="frame">MEDIA PREVIEW FRAME / 媒体预览框</div>
       </div>
     </div>
   </div>
@@ -1289,7 +954,7 @@ footer {
 <section class="steps-section">
   <div class="wrap">
     <div class="section-head left">
-      <div class="eyebrow"><span class="diamond"></span><span>06 / PROCESS STEPS</span><span class="line"></span></div>
+      <div class="eyebrow"><span class="diamond"></span><span>05 / PROCESS STEPS</span><span class="line"></span></div>
       <h2 class="section-title">流程步骤拆解</h2>
     </div>
 
@@ -1322,56 +987,196 @@ footer {
 <section class="flowchart-section">
   <div class="wrap">
     <div class="section-head left">
-      <div class="eyebrow"><span class="diamond"></span><span>07 / FLOWCHART</span><span class="line"></span></div>
+      <div class="eyebrow"><span class="diamond"></span><span>06 / FLOWCHART</span><span class="line"></span></div>
       <h2 class="section-title">系统架构与流程图</h2>
     </div>
 
     <div class="flowchart">
-      <svg viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 840 120" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <marker id="base-arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="currentColor" />
+          <marker id="fe-arrow" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path d="M 1 1.5 L 6 4 L 1 6.5 z" fill="#0071E3" />
           </marker>
         </defs>
-        <g class="node">
-          <rect x="20" y="25" width="150" height="70" rx="4" fill="none" stroke="currentColor" stroke-width="1.5" />
-          <text x="35" y="52" fill="currentColor" font-size="10" opacity="0.6">01 / INPUT</text>
-          <text x="35" y="74" fill="currentColor" font-size="14" font-weight="700">原始输入</text>
+
+        <line x1="183" y1="60" x2="225" y2="60" stroke="rgba(0,113,227,0.3)" stroke-width="1.5" marker-end="url(#fe-arrow)" />
+        <line x1="393" y1="60" x2="435" y2="60" stroke="rgba(0,113,227,0.3)" stroke-width="1.5" marker-end="url(#fe-arrow)" />
+        <line x1="603" y1="60" x2="645" y2="60" stroke="rgba(0,113,227,0.3)" stroke-width="1.5" marker-end="url(#fe-arrow)" />
+
+        <g>
+          <rect x="15" y="18" width="168" height="84" rx="16" fill="rgba(255,255,255,0.75)" stroke="rgba(255,255,255,0.9)" stroke-width="1.5" />
+          <text x="32" y="44" fill="#8292A1" font-family="var(--font-mono)" font-size="11" font-weight="700">01 / INPUT</text>
+          <text x="32" y="76" fill="#111418" font-family="var(--font-display)" font-size="15" font-weight="700">原始信息输入</text>
         </g>
-        <line x1="170" y1="60" x2="220" y2="60" stroke="currentColor" stroke-width="1.5" marker-end="url(#base-arrow)" opacity="0.4" />
-        <g class="node">
-          <rect x="225" y="25" width="150" height="70" rx="4" fill="none" stroke="currentColor" stroke-width="1.5" />
-          <text x="240" y="52" fill="currentColor" font-size="10" opacity="0.6">02 / EXTRACT</text>
-          <text x="240" y="74" fill="currentColor" font-size="14" font-weight="700">结构提炼</text>
+
+        <g>
+          <rect x="225" y="18" width="168" height="84" rx="16" fill="rgba(255,255,255,0.75)" stroke="rgba(255,255,255,0.9)" stroke-width="1.5" />
+          <text x="242" y="44" fill="#8292A1" font-family="var(--font-mono)" font-size="11" font-weight="700">02 / EXTRACT</text>
+          <text x="242" y="76" fill="#111418" font-family="var(--font-display)" font-size="15" font-weight="700">语义结构提炼</text>
         </g>
-        <line x1="375" y1="60" x2="425" y2="60" stroke="currentColor" stroke-width="1.5" marker-end="url(#base-arrow)" opacity="0.4" />
-        <g class="node active">
-          <rect x="430" y="25" width="150" height="70" rx="4" fill="none" stroke="currentColor" stroke-width="2" />
-          <text x="445" y="52" fill="currentColor" font-size="10">03 / RENDER</text>
-          <text x="445" y="74" fill="currentColor" font-size="14" font-weight="700">组件渲染</text>
+
+        <g>
+          <rect x="435" y="18" width="168" height="84" rx="16" fill="rgba(235,245,255,0.85)" stroke="#0071E3" stroke-width="1.5" />
+          <text x="452" y="44" fill="#0071E3" font-family="var(--font-mono)" font-size="11" font-weight="700">03 / RENDER</text>
+          <text x="452" y="76" fill="#111418" font-family="var(--font-display)" font-size="15" font-weight="800">展厅玻璃装配</text>
         </g>
-        <line x1="580" y1="60" x2="630" y2="60" stroke="currentColor" stroke-width="1.5" marker-end="url(#base-arrow)" opacity="0.4" />
-        <g class="node">
-          <rect x="635" y="25" width="145" height="70" rx="4" fill="none" stroke="currentColor" stroke-width="1.5" />
-          <text x="650" y="52" fill="currentColor" font-size="10" opacity="0.6">04 / OUTPUT</text>
-          <text x="650" y="74" fill="currentColor" font-size="14" font-weight="700">成果交付</text>
+
+        <g>
+          <rect x="645" y="18" width="168" height="84" rx="16" fill="rgba(255,255,255,0.75)" stroke="rgba(255,255,255,0.9)" stroke-width="1.5" />
+          <text x="662" y="44" fill="#8292A1" font-family="var(--font-mono)" font-size="11" font-weight="700">04 / OUTPUT</text>
+          <text x="662" y="76" fill="#111418" font-family="var(--font-display)" font-size="15" font-weight="700">成果离线交付</text>
         </g>
       </svg>
+    </div>
+
+    <div class="mermaid-wrapper" style="margin-top: 32px;">
+      <pre class="mermaid">
+graph LR
+    A["Raw Input<br/>原始信息输入"] --> B["Parser<br/>语义结构提炼"]
+    B --> C["Composer<br/>展厅玻璃装配"]
+    C --> D["Output<br/>成果离线交付"]
+
+    style A fill:rgba(255,255,255,0.75),stroke:#0071E3,stroke-width:1.5px
+    style B fill:rgba(255,255,255,0.75),stroke:#0071E3,stroke-width:1.5px
+    style C fill:#0071E3,stroke:#0071E3,stroke-width:1.5px,color:#FFFFFF
+    style D fill:rgba(255,255,255,0.75),stroke:#0071E3,stroke-width:1.5px
+      </pre>
     </div>
   </div>
 </section>
 
+<!-- PHASE 4: 决策对比 -->
+<section class="timeline-section">
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>07 / COMPARISON & TIMELINE</span><span class="line"></span></div>
+      <h2 class="section-title">对比矩阵与时间轴</h2>
+    </div>
+
+    <div class="cmp-matrix-wrapper">
+      <table class="cmp-matrix">
+        <thead>
+          <tr>
+            <th>对比维度</th>
+            <th>普通模版</th>
+            <th class="highlight-col">Soft Editorial Future <span class="cmp-tag-rec">RECOMMENDED</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>展厅质感与通透度</strong></td>
+            <td>普通平面无层次</td>
+            <td class="highlight-col">高光毛玻璃展厅 + 3D 柔润晕染彩球</td>
+          </tr>
+          <tr>
+            <td><strong>美学境界</strong></td>
+            <td>单调功能性页面</td>
+            <td class="highlight-col">苹果级前沿展厅，通透纯粹与工程严谨兼备</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-marker"></div>
+        <div class="timeline-content">
+          <h3>2024 · 极简未来展厅构想</h3>
+          <p>确立以浅灰蓝画板与柔光彩球为基底，打造高阶 Showroom 空间。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-marker"></div>
+        <div class="timeline-content">
+          <h3>2026 · 全面智能化演进</h3>
+          <p>实现长文自适应玻璃装配与高保真单文件交付。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pros-cons-section">
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>08 / PROS & CONS</span><span class="line"></span></div>
+      <h2 class="section-title">优劣对比卡片</h2>
+    </div>
+
+    <div class="pros-cons">
+      <div class="pro-card">
+        <div class="tag">PROS / 优势</div>
+        <ul>
+          <li>苹果级高级展厅视觉，纯粹通透、高档雅致</li>
+          <li>3D 液体彩球与毛玻璃光泽赋予极高艺术辨识度</li>
+        </ul>
+      </div>
+      <div class="con-card">
+        <div class="tag">CONS / 劣势</div>
+        <ul>
+          <li>对浏览器 backdrop-filter 支持要求高（现代浏览器均完美支持）</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="interview-section">
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>09 / INTERVIEW ROUNDS</span><span class="line"></span></div>
+      <h2 class="section-title">社论访谈录 / 交互推演</h2>
+    </div>
+
+    <div class="interview-rounds">
+      <div class="round-card">
+        <div class="round-header">
+          <span class="round-badge">ROUND 01 // 展厅空间渲染决策</span>
+          <span class="round-status">COMPLETED</span>
+        </div>
+        
+        <div class="ai-questions-block">
+          <div class="ai-block-head">
+            <span class="dot"></span>
+            <span>SYSTEM PROPOSAL</span>
+          </div>
+          <div class="q-deck">
+            <div class="q-item">
+              <div class="q-badge">PROPOSAL 01</div>
+              <div class="q-title">如何确保毛玻璃卡片在浅色背景上的高对比可读性？</div>
+              <div class="q-recom-note">
+                <strong>RECOMMENDED:</strong> 采用双层白色微内发光（inset 0 1px 1px #fff）配合 deep 墨色文字（#111418）。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="user-decision-note">
+          <div class="user-decision-head">
+            <span class="check-badge">✓</span>
+            <span>DECISION // 确认采纳</span>
+          </div>
+          <div class="user-decision-text">
+            “完全采纳浅灰蓝展厅与高透双层内发光玻璃方案。”
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 5: 尾部收敛 -->
 <section class="faq-section">
   <div class="wrap">
     <div class="section-head left">
-      <div class="eyebrow"><span class="diamond"></span><span>08 / FAQ</span><span class="line"></span></div>
+      <div class="eyebrow"><span class="diamond"></span><span>10 / FAQ</span><span class="line"></span></div>
       <h2 class="section-title">常见问题</h2>
     </div>
 
     <div class="faq">
       <div class="faq-item">
         <div class="q">如何切换不同的视觉风格包？</div>
-        <div class="a">在生成前指定 Style ID（如 industrial-dark, soft-sky 等），系统将自动加载对应风格的 Design Tokens 与样式规范。</div>
+        <div class="a">在生成前指定 Style ID（如 soft-editorial-future, play-tubular 等），系统将自动加载对应风格的 Design Tokens 与样式规范。</div>
       </div>
       <div class="faq-item">
         <div class="q">是否支持单文件离线使用？</div>
@@ -1386,8 +1191,8 @@ footer {
     <div class="references">
       <h3>REFERENCES / 参考文献</h3>
       <ol>
-        <li id="ref-1">Tufte, E. R. (2001). <em>The Visual Display of Quantitative Information</em>. Graphics Press. <a href="#fnref-1">↩</a></li>
-        <li id="ref-2">Bringhurst, R. (2012). <em>The Elements of Typographic Style</em>. Hartley & Marks. <a href="#fnref-2">↩</a></li>
+        <li id="ref-1">Tufte, E. R. (2001). <em>The Visual Display of Quantitative Information</em>. Graphics Press. <a href="#ref-1">↩</a></li>
+        <li id="ref-2">Bringhurst, R. (2012). <em>The Elements of Typographic Style</em>. Hartley & Marks. <a href="#ref-2">↩</a></li>
       </ol>
     </div>
   </div>
@@ -1397,7 +1202,7 @@ footer {
   <div class="wrap">
     <div class="meta-foot">
       <span>VISUAL HTML // SYSTEM CORE</span>
-      <span>BUILD // SOFT EDITORIAL FUTURE</span>
+      <span>STYLE // SOFT EDITORIAL FUTURE (极简未来展厅风)</span>
     </div>
   </div>
 </footer>
@@ -1417,15 +1222,15 @@ footer {
       startOnLoad: true,
       theme: 'base',
       themeVariables: {
-        darkMode: true,
-        background: '#0C131F',
-        primaryColor: '#162032',
-        primaryTextColor: '#F8FAFC',
-        primaryBorderColor: '#38BDF8',
-        lineColor: '#38BDF8',
-        secondaryColor: '#1E293B',
-        tertiaryColor: '#0F172A',
-        fontFamily: '"SF Pro Text", -apple-system, sans-serif'
+        darkMode: false,
+        background: '#EAEFF4',
+        primaryColor: '#FFFFFF',
+        primaryTextColor: '#111418',
+        primaryBorderColor: '#0071E3',
+        lineColor: '#0071E3',
+        secondaryColor: '#F0F4F8',
+        tertiaryColor: '#EAEFF4',
+        fontFamily: '"SF Pro Display", "Inter", sans-serif'
       }
     });
   }

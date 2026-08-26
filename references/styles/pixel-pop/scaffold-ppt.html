@@ -36,7 +36,12 @@
       --pop-shadow-sm: 3px 3px 0 var(--text-main);
     }
 
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    p, h1, h2, h3, h4, h5, h6, span, div {
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
     
     body {
       overflow: hidden;
@@ -168,6 +173,9 @@
       box-shadow: var(--pop-shadow-md);
       padding: 26px;
       position: relative;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
     .num-card h3 {
       margin: 12px 0 8px 0;
@@ -180,6 +188,7 @@
       font-size: 0.95rem;
       color: var(--text-muted);
       line-height: 1.6;
+      flex-grow: 1;
     }
     .num-card .num {
       position: absolute;

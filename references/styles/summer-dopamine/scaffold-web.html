@@ -3,83 +3,96 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Base Scaffold - Pure HTML Skeleton</title>
-<!-- 
-  CLEAN ROOM BASE SCAFFOLD (干净沙盒物理基座)
-  此文件不包含任何视觉层面的 CSS，仅提供最标准、全覆盖的 HTML 语义结构。
-  扩展新风格时，请直接读取此骨架，完全从零开始编写专属风格的 CSS 样式。
--->
+<title>Summer Dopamine (多巴胺盛夏流光风) — Web Scaffold</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+
 <style>
+/* ============================================================
+   Summer Dopamine (多巴胺盛夏流光风) — Design Tokens & Styles
+   核心理念：高明度高饱和流光渐变网格 + 白透毛玻璃大圆角卡片
+   ============================================================ */
 :root {
   --bg-gradient-1: #FF66B2;
   --bg-gradient-2: #0077FF;
   --bg-gradient-3: #00E676;
   --bg-gradient-4: #FFEA00;
   
-  --surface-1: rgba(255, 255, 255, 0.15);
-  --surface-2: rgba(255, 255, 255, 0.25);
-  --glass-blur: blur(24px) saturate(120%);
+  --surface-1: rgba(255, 255, 255, 0.22);
+  --surface-2: rgba(255, 255, 255, 0.35);
+  --surface-card: rgba(255, 255, 255, 0.90);
+  --surface-card-alt: rgba(255, 255, 255, 0.96);
+  --glass-blur: blur(28px) saturate(140%);
 
-  --text-primary: #FFFFFF;
-  --text-secondary: rgba(255, 255, 255, 0.85);
-  --text-muted: rgba(255, 255, 255, 0.65);
-  --text-inverse: #1F2937;
+  --text-primary: #111827;
+  --text-hero: #FFFFFF;
+  --text-secondary: #374151;
+  --text-muted: #6B7280;
+  --text-inverse: #FFFFFF;
 
-  --border: rgba(255, 255, 255, 0.3);
-  --border-strong: rgba(255, 255, 255, 0.6);
+  --border: rgba(255, 255, 255, 0.65);
+  --border-strong: rgba(255, 255, 255, 0.95);
 
   --signal-pink: #FF66B2;
   --signal-blue: #0077FF;
   --signal-green: #00E676;
-  --signal-yellow: #FFEA00;
+  --signal-yellow: #FFD600;
 
-  --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-  --shadow-glass-hover: 0 12px 40px 0 rgba(31, 38, 135, 0.25);
+  --shadow-glass: 0 16px 40px rgba(0, 50, 150, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+  --shadow-glass-hover: 0 24px 54px rgba(0, 50, 150, 0.2), inset 0 1px 2px rgba(255, 255, 255, 1);
 
   --radius: 24px;
-  --radius-sm: 16px;
-  --radius-pill: 100px;
+  --radius-sm: 14px;
+  --radius-pill: 999px;
   --container: 1180px;
 
-  --font-display: "Arial Rounded MT Bold", "Varela Round", "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", sans-serif;
-  --font-mono: "Fira Code", "JetBrains Mono", "SFMono-Regular", monospace;
+  --font-display: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", sans-serif;
+  --font-mono: "JetBrains Mono", Consolas, monospace;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; scroll-behavior: smooth; }
+
 body {
   font-family: var(--font-display);
   color: var(--text-primary);
-  line-height: 1.6;
-  background-color: #f0f0f0;
+  line-height: 1.65;
+  background-color: #0077FF;
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
 }
 
+/* Layer 0: 全局固定多巴胺高饱和流光渐变背景 */
 body::before {
   content: "";
   position: fixed;
-  inset: -60px; /* 向外延伸，隐藏 filter: blur 造成的屏幕边缘发白伪影 */
+  inset: -60px;
   z-index: -1;
   background: 
-    radial-gradient(circle at 10% 20%, var(--bg-gradient-1) 0%, transparent 60%),
-    radial-gradient(circle at 80% 10%, var(--bg-gradient-2) 0%, transparent 60%),
-    radial-gradient(circle at 20% 80%, var(--bg-gradient-3) 0%, transparent 60%),
-    radial-gradient(circle at 80% 90%, var(--bg-gradient-4) 0%, transparent 60%);
-  background-size: cover;
-  background-color: var(--bg-gradient-2);
-  filter: blur(40px) saturate(150%);
-  opacity: 0.9;
+    radial-gradient(circle at 10% 20%, var(--bg-gradient-1) 0%, transparent 55%),
+    radial-gradient(circle at 90% 15%, var(--bg-gradient-2) 0%, transparent 55%),
+    radial-gradient(circle at 15% 85%, var(--bg-gradient-3) 0%, transparent 55%),
+    radial-gradient(circle at 85% 90%, var(--bg-gradient-4) 0%, transparent 55%),
+    linear-gradient(135deg, #0077FF 0%, #FF66B2 100%);
+  filter: blur(50px) saturate(140%);
+  opacity: 0.95;
+  pointer-events: none;
 }
 
 .wrap {
   max-width: var(--container);
   margin: 0 auto;
-  padding: 40px 24px;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
 }
 
-section { padding: 80px 0; }
+section { padding: 52px 0; }
+.section-head { margin-bottom: 32px; }
 
+/* ---- 01. Eyebrow ---- */
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -88,700 +101,946 @@ section { padding: 80px 0; }
   background: var(--surface-1);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   border-radius: var(--radius-pill);
   font-family: var(--font-mono);
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: 0.08em;
   margin-bottom: 24px;
-  box-shadow: var(--shadow-glass);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 .eyebrow .diamond {
-  width: 8px;
-  height: 8px;
-  background: var(--signal-pink);
-  border-radius: 2px;
-  transform: rotate(45deg);
+  width: 10px; height: 10px;
+  background: var(--signal-yellow);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--signal-yellow);
 }
 .eyebrow .line { display: none; }
 
+/* ---- 02. Typography Scale ---- */
 h1.hero {
-  font-size: clamp(48px, 6vw, 80px);
+  font-size: clamp(38px, 6vw, 76px);
   font-weight: 900;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
   margin-bottom: 24px;
-  color: #FFFFFF; /* Hero uses white to contrast with vibrant background */
-  text-shadow: 0 4px 20px rgba(0,0,0,0.1); /* Keep slight shadow since it's white on gradient */
+  color: #FFFFFF;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
 }
 p.lead {
-  font-size: 20px;
-  color: var(--text-secondary);
-  max-width: 800px;
-  margin-bottom: 48px;
-}
-.section-title {
-  font-size: 40px;
-  font-weight: 800;
+  font-size: clamp(17px, 1.8vw, 21px);
+  color: rgba(255, 255, 255, 0.95);
+  max-width: 760px;
   margin-bottom: 40px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  font-weight: 500;
 }
-.section-head.left { text-align: left; }
+h2.section-title {
+  font-size: clamp(28px, 3.8vw, 42px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  margin-bottom: 24px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+}
 
-.spec-row {
-  display: flex;
-  flex-wrap: wrap;
+/* ---- 03. Stats Grid ---- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 24px;
-  background: var(--surface-1);
+  margin-top: 36px;
+}
+.stat-card {
+  background: var(--surface-card);
   backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--border);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1.5px solid var(--border);
   border-radius: var(--radius);
-  padding: 32px;
+  padding: 36px 30px;
   box-shadow: var(--shadow-glass);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+}
+.stat-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--shadow-glass-hover);
+}
+.stat-val {
+  font-size: clamp(44px, 4.5vw, 60px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: #0077FF;
+  line-height: 1;
+}
+.stat-val span {
+  font-size: 24px;
+  font-family: var(--font-mono);
+  color: var(--signal-pink);
+  margin-left: 4px;
+}
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-top: 12px;
+}
+
+/* ---- 04. Technical Spec Row ---- */
+.spec-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-top: 32px;
+  padding-top: 28px;
+  border-top: 1.5px dashed rgba(0, 0, 0, 0.1);
 }
 .spec {
-  flex: 1;
-  min-width: 150px;
-  border-right: 1px solid var(--border);
-  padding-right: 24px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
 }
-.spec:last-child { border-right: none; padding-right: 0; }
 .spec .val {
-  font-size: 32px;
-  font-weight: 800;
+  font-size: 24px;
+  font-weight: 900;
   color: var(--text-primary);
-  margin-bottom: 8px;
 }
 .spec .val em {
+  font-family: var(--font-mono);
   font-style: normal;
-  font-size: 16px;
-  color: var(--text-secondary);
+  font-size: 13px;
+  color: #0077FF;
   margin-left: 4px;
 }
 .spec .unit {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 11px;
+  font-weight: 700;
   color: var(--text-muted);
   text-transform: uppercase;
+  margin-top: 6px;
 }
 
-.cards-3 {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
-}
-.num-card {
-  background: var(--surface-1);
-  backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 32px;
-  box-shadow: var(--shadow-glass);
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
-.num-card:hover {
-  transform: translateY(-8px);
-  background: var(--surface-2);
-  border-color: var(--border-strong);
-}
-.num-card .num {
-  font-family: var(--font-mono);
-  font-size: 64px;
-  font-weight: 900;
-  color: rgba(0,0,0,0.1);
-  position: absolute;
-  top: -10px;
-  right: 10px;
-  line-height: 1;
-}
-.num-card h3 {
-  font-size: 24px;
-  font-weight: 800;
-  margin-bottom: 16px;
-  position: relative;
-}
-.num-card p {
-  color: var(--text-secondary);
-  position: relative;
-}
-.num-card .tag {
-  display: inline-block;
-  margin-top: 24px;
-  padding: 6px 12px;
-  background: rgba(0,0,0,0.05);
-  border-radius: var(--radius-pill);
-  font-size: 12px;
-  font-family: var(--font-mono);
-  font-weight: 700;
-}
-.num-card.selected {
-  background: var(--surface-2);
-  border: 2px solid var(--border-strong);
-  box-shadow: var(--shadow-glass);
-}
-.num-card.selected .tag {
-  background: var(--signal-blue);
-  color: #fff;
-}
-
-/* 特性卡片与媒体预览框 (Feature Card & Media Frame) */
-.feat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-bottom: 24px; }
-.feat-card {
-  background: var(--surface-1);
+/* ---- 05. Admonitions ---- */
+.admonition {
+  background: var(--surface-card);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 30px 28px;
+  border: 1.5px solid var(--border);
+  border-left: 6px solid var(--signal-yellow);
+  border-radius: var(--radius-sm);
+  padding: 24px 28px;
   box-shadow: var(--shadow-glass);
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-  display: flex;
-  flex-direction: column;
+  margin-bottom: 32px;
 }
-.feat-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--border-strong);
-  box-shadow: var(--shadow-glass-hover);
+.admonition.info { border-left-color: var(--signal-blue); }
+.admonition.warning { border-left-color: var(--signal-yellow); }
+.admonition.tip { border-left-color: var(--signal-green); }
+.admonition-title {
+  font-size: 16px; font-weight: 800; color: var(--text-primary); margin-bottom: 8px;
 }
-.feat-card .tag {
-  display: inline-flex;
-  align-items: center;
-  height: 26px;
-  padding: 0 10px;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-pill);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--signal-blue);
-  margin-bottom: 14px;
-  align-self: flex-start;
-}
-.feat-card h3 { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 10px; }
-.feat-card p { font-size: 15px; line-height: 1.65; color: var(--text-secondary); margin-bottom: 20px; }
-.feat-card .frame {
-  width: 100%;
-  min-height: 160px;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px dashed var(--border-strong);
-  border-radius: var(--radius-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--text-muted);
-  letter-spacing: 0.05em;
-  margin-top: auto;
-}
+.admonition p { font-size: 15px; color: var(--text-secondary); line-height: 1.6; margin: 0; }
 
-.admonition {
-  background: var(--surface-1);
-  backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--border);
-  border-left: 6px solid var(--signal-blue);
-  border-radius: var(--radius-sm);
-  padding: 24px;
-  margin-bottom: 24px;
-  box-shadow: var(--shadow-glass);
-}
-.admonition.info { border-left-color: var(--signal-blue); background: rgba(0, 119, 255, 0.1); }
-.admonition.warning { border-left-color: var(--signal-pink); background: rgba(255, 102, 178, 0.1); }
-.admonition-title { font-weight: 800; margin-bottom: 8px; font-size: 18px; }
-
-.cmp-matrix-wrapper { overflow-x: auto; padding-bottom: 16px; }
-.cmp-matrix { 
-  min-width: 600px; display: flex; flex-direction: column;
-  background: var(--surface-1); backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--border); border-radius: var(--radius);
-  box-shadow: var(--shadow-glass); overflow: hidden;
-}
-.cmp-row {
-  display: flex;
-  padding: 16px 24px;
-  border-bottom: 1px solid var(--border);
-}
-.cmp-row:last-child { border-bottom: none; }
-.cmp-row.header { background: rgba(255,255,255,0.2); font-weight: 800; border-bottom: 1px solid var(--border-strong); }
-.cmp-cell { flex: 1; display: flex; align-items: center; justify-content: center; text-align: center; }
-.cmp-cell:first-child { justify-content: flex-start; text-align: left; flex: 1.5; font-weight: 700; }
-.cmp-cell.highlight-col {
-  background: rgba(255,255,255,0.15);
-  border-radius: var(--radius-sm);
-  padding: 6px 16px;
-  margin: -6px 0;
-  font-weight: 900;
-  box-shadow: inset 0 0 10px rgba(255,255,255,0.2);
-}
-
-.timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  position: relative;
-  padding-left: 20px;
-}
-.timeline::before {
-  content: ''; position: absolute; top: 0; bottom: 0; left: 0;
-  width: 4px; background: var(--border-strong); border-radius: 2px;
-}
-.timeline-item { position: relative; padding-left: 32px; }
-.timeline-marker {
-  position: absolute; left: -48px; top: 0;
-  background: var(--signal-pink); color: #fff;
-  font-family: var(--font-mono); font-size: 14px; font-weight: 800;
-  padding: 6px 12px; border-radius: var(--radius-pill);
-  box-shadow: 0 4px 12px rgba(255, 102, 178, 0.4);
-}
-.timeline-content {
-  background: var(--surface-1); backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 24px; box-shadow: var(--shadow-glass);
-}
-.timeline-content h3 { margin-bottom: 8px; font-weight: 800; }
-
-.pros-cons { display: flex; gap: 24px; }
-.pro-card, .con-card {
-  flex: 1; background: var(--surface-1); backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 32px; box-shadow: var(--shadow-glass);
-}
-.pro-card { background: rgba(0, 230, 118, 0.1); border-color: rgba(0, 230, 118, 0.3); }
-.con-card { background: rgba(255, 102, 178, 0.1); border-color: rgba(255, 102, 178, 0.3); }
-.pro-card .tag, .con-card .tag {
-  display: inline-block; padding: 6px 16px; border-radius: var(--radius-pill);
-  font-family: var(--font-mono); font-weight: 800; margin-bottom: 24px;
-}
-.pro-card .tag { background: var(--signal-green); color: #000; }
-.con-card .tag { background: var(--signal-pink); color: #fff; }
-.pros-cons ul { list-style: none; padding: 0; }
-.pros-cons li { margin-bottom: 12px; position: relative; padding-left: 24px; }
-.pro-card li::before { content: '+'; position: absolute; left: 0; font-weight: 900; color: var(--signal-green); }
-.con-card li::before { content: '-'; position: absolute; left: 0; font-weight: 900; color: var(--signal-pink); }
-
-.steps { display: flex; flex-direction: column; gap: 24px; }
-.step {
-  display: flex; gap: 24px; background: var(--surface-1); backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 32px; box-shadow: var(--shadow-glass); align-items: flex-start;
-}
-.step .idx {
-  flex-shrink: 0; width: 64px; height: 64px;
-  background: rgba(255,255,255,0.2); color: var(--text-primary); border-radius: var(--radius-pill);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-mono); font-size: 24px; font-weight: 900;
-  box-shadow: inset 0 0 10px rgba(255,255,255,0.5);
-}
-.step h3 { font-size: 24px; font-weight: 800; margin-bottom: 8px; }
-
-.flowchart {
-  background: var(--surface-1); backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 40px; box-shadow: var(--shadow-glass); text-align: center;
-}
-.flowchart svg { width: 100%; max-width: 800px; color: #fff; }
-.flowchart .node rect { fill: var(--surface-2); stroke: var(--border-strong); rx: 16; }
-.flowchart .node.active rect { stroke: var(--signal-blue); stroke-width: 3; fill: rgba(0, 119, 255, 0.2); }
-.mermaid-wrapper pre.mermaid, .mermaid {
-  background: transparent !important;
-  border: none !important;
-  padding: 0 !important;
-  margin: 0 auto !important;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-.mermaid svg {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-.stats-grid { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 48px; }
-.stat-card {
-  flex: 1; min-width: 200px; background: var(--surface-1); backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--border); border-radius: var(--radius-pill);
-  padding: 32px; text-align: center; box-shadow: var(--shadow-glass);
-}
-.stat-val { font-size: 64px; font-weight: 900; line-height: 1; margin-bottom: 8px; }
-.stat-val span { font-size: 24px; color: var(--text-primary); opacity: 0.8; }
-.stat-label { font-family: var(--font-mono); font-size: 14px; font-weight: 700; color: var(--text-secondary); letter-spacing: 1px; }
-
+/* ---- 06. Rich Text ---- */
 .rich-text {
-  background: var(--surface-1); backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 40px; box-shadow: var(--shadow-glass);
-}
-.rich-text p { margin-bottom: 24px; font-size: 18px; }
-.rich-text h3, .rich-text h4 { margin: 40px 0 16px; font-weight: 800; }
-.rich-text blockquote {
-  border-left: 4px solid var(--signal-pink); padding: 16px 24px;
-  background: rgba(255, 102, 178, 0.1); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  font-size: 20px; font-style: italic; margin-bottom: 24px;
-}
-.rich-text code { background: var(--surface-2); padding: 4px 8px; border-radius: 6px; font-family: var(--font-mono); font-size: 14px; }
-
-/* ---- 17. Code Block & Pre (Summer Dopamine Frosted Terminal) ---- */
-.code-block {
-  background: rgba(15, 23, 42, 0.85);
+  background: var(--surface-card);
   backdrop-filter: var(--glass-blur);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: var(--radius-sm);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px;
+  box-shadow: var(--shadow-glass);
+}
+.rich-text p { font-size: 16px; line-height: 1.75; color: var(--text-secondary); margin-bottom: 20px; }
+.rich-text h3 { font-size: 22px; font-weight: 800; color: var(--text-primary); margin: 28px 0 12px; }
+.rich-text h4 { font-size: 17px; font-weight: 700; color: var(--text-primary); margin: 20px 0 8px; }
+.rich-text ul, .rich-text ol { margin-bottom: 20px; padding-left: 24px; }
+.rich-text li { margin-bottom: 6px; font-size: 15px; color: var(--text-secondary); }
+.rich-text strong { color: var(--text-primary); font-weight: 800; }
+.rich-text em { font-style: italic; color: var(--signal-pink); font-weight: 700; }
+.rich-text code {
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  padding: 3px 8px;
+  background: rgba(0, 119, 255, 0.08);
+  border: 1px solid rgba(0, 119, 255, 0.2);
+  border-radius: 6px;
+  color: #0077FF;
+  font-weight: 700;
+}
+.rich-text blockquote {
+  border-left: 5px solid var(--signal-pink);
+  background: rgba(255, 102, 178, 0.06);
+  padding: 22px 26px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 17px;
+  color: var(--text-primary);
   margin: 28px 0;
+}
+
+/* ---- 07. Code Block & Terminal ---- */
+.code-block {
+  background: rgba(11, 19, 43, 0.92);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius);
+  margin: 32px 0;
   overflow: hidden;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow-glass);
 }
 .code-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 18px;
-  background: rgba(30, 41, 59, 0.75);
+  padding: 14px 22px;
+  background: rgba(255, 255, 255, 0.06);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
-.code-dots {
-  display: flex;
-  gap: 6px;
-}
+.code-dots { display: flex; gap: 8px; }
 .code-dots span {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
+  width: 12px; height: 12px; border-radius: 50%;
 }
-.code-dots span:nth-child(1) { background: var(--signal-pink); }
-.code-dots span:nth-child(2) { background: var(--signal-yellow); }
-.code-dots span:nth-child(3) { background: var(--signal-green); }
+.code-dots span:nth-child(1) { background: #FF5F56; }
+.code-dots span:nth-child(2) { background: #FFBD2E; }
+.code-dots span:nth-child(3) { background: #27C93F; }
 .code-lang {
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: var(--signal-yellow);
-  text-transform: uppercase;
+  color: var(--signal-green);
 }
 .code-copy-btn {
   font-family: var(--font-mono);
   font-size: 11px;
-  padding: 3px 12px;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 5px 12px;
+  background: var(--signal-blue);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: var(--radius-pill);
   color: #FFFFFF;
   cursor: pointer;
-  transition: all 0.15s ease;
+  font-weight: 700;
+  transition: all 0.2s ease;
 }
 .code-copy-btn:hover {
   background: var(--signal-pink);
-  border-color: var(--signal-pink);
-  box-shadow: 0 0 12px rgba(255, 102, 178, 0.5);
+  transform: translateY(-2px);
 }
-.code-block pre, .rich-text pre {
+.code-block pre {
   margin: 0;
-  padding: 18px 20px;
-  background: rgba(15, 23, 42, 0.85);
+  padding: 22px 24px;
+  background: transparent;
   overflow-x: auto;
   font-family: var(--font-mono);
-  font-size: 13.5px;
+  font-size: 14px;
   line-height: 1.65;
-  color: #FFFFFF;
-  scrollbar-width: thin;
-  scrollbar-color: var(--signal-pink) transparent;
-}
-.rich-text pre {
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  margin: 24px 0;
-}
-.code-block pre code, .rich-text pre code {
-  background: transparent;
-  border: none;
-  padding: 0;
-  color: inherit;
-  font-size: inherit;
+  color: #F8FAFC;
 }
 .token-comment { color: #94A3B8; font-style: italic; }
 .token-keyword { color: var(--signal-pink); font-weight: 700; }
 .token-string { color: var(--signal-yellow); }
 .token-function { color: var(--signal-green); }
-.token-number { color: #38BDF8; }
-.token-operator { color: #FFFFFF; }
+.token-number { color: #67E8F9; }
 
-.faq { display: flex; flex-direction: column; gap: 16px; }
+/* ---- 08. Number Cards ---- */
+.cards-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin: 32px 0;
+}
+.num-card {
+  background: var(--surface-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 34px 28px;
+  box-shadow: var(--shadow-glass);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+.num-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--shadow-glass-hover);
+}
+.num-card .num {
+  font-family: var(--font-mono);
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--signal-pink);
+  margin-bottom: 14px;
+}
+.num-card h3 {
+  font-size: 21px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+.num-card p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  flex-grow: 1;
+  margin-bottom: 22px;
+}
+.num-card .tag {
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  background: rgba(0, 119, 255, 0.1);
+  color: #0077FF;
+  border: 1px solid rgba(0, 119, 255, 0.25);
+  text-transform: uppercase;
+}
+.num-card.selected {
+  border-color: var(--signal-pink);
+  box-shadow: 0 20px 48px rgba(255, 102, 178, 0.35);
+  transform: translateY(-4px);
+}
+.num-card.selected .tag {
+  background: var(--signal-pink);
+  color: #FFFFFF;
+}
+
+/* ---- 09. Feature Card & Media Frame ---- */
+.feat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  margin: 32px 0;
+}
+.feat-card {
+  background: var(--surface-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 34px;
+  box-shadow: var(--shadow-glass);
+  display: flex;
+  flex-direction: column;
+}
+.feat-card .tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  color: #FFFFFF;
+  background: var(--signal-blue);
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  align-self: flex-start;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+.feat-card h3 { font-size: 21px; font-weight: 800; margin-bottom: 10px; }
+.feat-card p { font-size: 15px; color: var(--text-secondary); margin-bottom: 20px; }
+.feat-img-frame, .hero-img-frame {
+  width: 100%; min-height: 160px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--text-muted);
+  margin-top: auto;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
+}
+.tabs { display: flex; gap: 10px; margin: 20px 0 12px; overflow-x: auto; }
+.tab {
+  padding: 6px 16px; background: rgba(255,255,255,0.7); border: 1px solid var(--border);
+  border-radius: var(--radius-pill); font-family: var(--font-mono); font-size: 11px;
+  font-weight: 700; cursor: pointer; transition: all 0.2s;
+}
+.tab.active { background: var(--signal-blue); color: #FFF; box-shadow: 0 4px 12px rgba(0,119,255,0.3); }
+
+/* ---- 10. Mermaid / Flowchart & Diagrams ---- */
+.mermaid-wrapper {
+  background: var(--surface-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 34px;
+  box-shadow: var(--shadow-glass);
+  margin: 32px 0;
+  overflow-x: auto;
+}
+.mermaid-wrapper pre.mermaid, .mermaid {
+  display: flex;
+  justify-content: center;
+  background: transparent !important;
+  font-family: var(--font-mono) !important;
+}
+
+/* ---- 11. Process Steps ---- */
+.steps { display: flex; flex-direction: column; gap: 20px; margin: 32px 0; }
+.step {
+  display: flex; gap: 22px; align-items: flex-start;
+  background: var(--surface-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 26px 30px;
+  box-shadow: var(--shadow-glass);
+}
+.step .idx {
+  width: 50px; height: 50px;
+  background: linear-gradient(135deg, var(--signal-blue) 0%, var(--signal-pink) 100%);
+  border-radius: 16px;
+  color: #FFFFFF;
+  font-family: var(--font-mono); font-size: 20px; font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 18px rgba(0, 119, 255, 0.3);
+  flex-shrink: 0;
+}
+.step h3 { font-size: 19px; font-weight: 800; margin-bottom: 6px; }
+.step p { font-size: 15px; color: var(--text-secondary); }
+
+/* ---- 12. Timeline ---- */
+.timeline { position: relative; padding-left: 40px; margin: 32px 0; }
+.timeline::before {
+  content: ""; position: absolute; left: 14px; top: 0; bottom: 0;
+  width: 4px; background: rgba(255, 255, 255, 0.7);
+  border-radius: 2px;
+}
+.timeline-item { position: relative; margin-bottom: 32px; }
+.timeline-item:last-child { margin-bottom: 0; }
+.timeline-marker {
+  position: absolute; left: -40px; top: 0;
+  width: 32px; height: 32px; background: var(--signal-pink);
+  border: 3px solid #FFFFFF; border-radius: 50%;
+  box-shadow: 0 0 16px rgba(255, 102, 178, 0.6);
+}
+.timeline-content {
+  background: var(--surface-card); backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur); border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm); padding: 22px 26px;
+  box-shadow: var(--shadow-glass);
+}
+.timeline-content h3 { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
+.timeline-content p { font-size: 14.5px; color: var(--text-secondary); }
+
+/* ---- 13. Comparison Table ---- */
+.cmp-matrix-wrapper {
+  overflow-x: auto; margin: 32px 0;
+  border: 1.5px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow-glass); background: var(--surface-card);
+  backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+}
+.cmp-matrix { width: 100%; min-width: 600px; border-collapse: collapse; }
+.cmp-matrix tr { border-bottom: 1px solid rgba(0, 0, 0, 0.08); }
+.cmp-matrix tr:last-child { border-bottom: none; }
+.cmp-matrix th, .cmp-matrix td { padding: 18px 24px; text-align: left; font-size: 15px; }
+.cmp-matrix thead th {
+  background: rgba(0, 119, 255, 0.08);
+  font-family: var(--font-mono); font-size: 12px; font-weight: 800;
+  color: var(--text-primary);
+}
+.cmp-matrix .highlight-col { background: rgba(0, 230, 118, 0.1); font-weight: 700; }
+.cmp-matrix thead th.highlight-col { background: rgba(0, 230, 118, 0.2); }
+
+/* ---- 14. Pros & Cons ---- */
+.pros-cons { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin: 32px 0; }
+.pro-card {
+  background: var(--surface-card); border: 1.5px solid rgba(0, 230, 118, 0.5);
+  border-radius: var(--radius); padding: 30px 26px; box-shadow: var(--shadow-glass);
+}
+.con-card {
+  background: var(--surface-card); border: 1.5px solid rgba(255, 102, 178, 0.5);
+  border-radius: var(--radius); padding: 30px 26px; box-shadow: var(--shadow-glass);
+}
+.pro-card .tag {
+  display: inline-block; font-family: var(--font-mono); font-size: 11px; font-weight: 800;
+  text-transform: uppercase; color: #008f44; background: rgba(0, 230, 118, 0.2);
+  padding: 4px 12px; border-radius: var(--radius-pill); margin-bottom: 16px;
+}
+.con-card .tag {
+  display: inline-block; font-family: var(--font-mono); font-size: 11px; font-weight: 800;
+  text-transform: uppercase; color: #c4005e; background: rgba(255, 102, 178, 0.2);
+  padding: 4px 12px; border-radius: var(--radius-pill); margin-bottom: 16px;
+}
+.pros-cons ul { list-style: none; }
+.pros-cons li { position: relative; padding-left: 24px; font-size: 15px; color: var(--text-secondary); margin-bottom: 10px; }
+.pro-card li::before { content: "+"; position: absolute; left: 0; color: #008f44; font-weight: 900; font-size: 18px; }
+.con-card li::before { content: "–"; position: absolute; left: 0; color: #c4005e; font-weight: 900; font-size: 18px; }
+
+/* ---- 15. Editorial Interview & Dialogue Rounds ---- */
+.interview-rounds { display: flex; flex-direction: column; gap: 24px; margin: 32px 0; }
+.round-card {
+  background: var(--surface-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow: var(--shadow-glass);
+}
+.round-header {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 12px; margin-bottom: 20px;
+  padding-bottom: 14px; border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+.round-badge {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 800;
+  background: var(--signal-blue); color: #FFF;
+  padding: 5px 14px; border-radius: var(--radius-pill);
+  box-shadow: 0 4px 12px rgba(0,119,255,0.25);
+}
+.round-status {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 800;
+  color: var(--text-muted); text-transform: uppercase;
+}
+.ai-questions-block {
+  background: rgba(0, 119, 255, 0.04);
+  border: 1px solid rgba(0, 119, 255, 0.15);
+  border-radius: var(--radius-sm);
+  padding: 22px; margin-bottom: 20px;
+}
+.ai-block-head {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 800;
+  color: var(--text-primary); margin-bottom: 14px;
+}
+.ai-block-head .dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--signal-yellow); box-shadow: 0 0 8px var(--signal-yellow);
+}
+.q-deck { display: flex; flex-direction: column; gap: 14px; }
+.q-item {
+  background: #FFFFFF; border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 18px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+.q-badge {
+  display: inline-block; font-family: var(--font-mono); font-size: 10px; font-weight: 800;
+  background: var(--signal-pink); color: #FFF; padding: 3px 10px;
+  border-radius: var(--radius-pill); margin-bottom: 8px;
+}
+.q-title { font-size: 15.5px; font-weight: 800; color: var(--text-primary); margin-bottom: 8px; }
+.q-recom-note, .q-subagent-note {
+  font-size: 14px; line-height: 1.6; color: var(--text-secondary);
+  background: rgba(0, 230, 118, 0.06); border-left: 4px solid var(--signal-green);
+  padding: 10px 14px; border-radius: 0 8px 8px 0; margin-top: 8px;
+}
+.q-recom-note strong, .q-subagent-note strong {
+  color: #008f44; display: block; margin-bottom: 2px;
+}
+.user-decision-note {
+  background: rgba(0, 230, 118, 0.12); border: 1.5px solid rgba(0, 230, 118, 0.35);
+  border-radius: var(--radius-sm); padding: 20px 24px;
+}
+.user-decision-head {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 800;
+  color: #008f44; margin-bottom: 8px;
+}
+.check-badge {
+  width: 20px; height: 20px; border-radius: 50%; background: var(--signal-green);
+  color: #FFF; display: inline-flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 900;
+}
+.user-decision-text { font-size: 15px; color: var(--text-primary); font-weight: 700; line-height: 1.6; }
+
+/* ---- 16. FAQ ---- */
+.faq { display: flex; flex-direction: column; gap: 16px; margin: 32px 0; }
 .faq-item {
-  background: var(--surface-1); backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 24px 32px; box-shadow: var(--shadow-glass);
+  background: var(--surface-card); backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur); border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm); padding: 22px 26px; box-shadow: var(--shadow-glass);
 }
-.faq-item .q { font-size: 20px; font-weight: 800; margin-bottom: 8px; color: var(--text-primary); }
-.faq-item .a { color: var(--text-secondary); }
+.faq-item .q { font-size: 17px; font-weight: 800; color: var(--text-primary); margin-bottom: 8px; }
+.faq-item .a { font-size: 15px; color: var(--text-secondary); line-height: 1.65; }
 
+/* ---- 17. References ---- */
 .references {
-  background: var(--surface-1); backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 32px; box-shadow: var(--shadow-glass);
+  margin-top: 36px; border-top: 1.5px dashed rgba(255, 255, 255, 0.4);
+  padding-top: 28px; font-size: 14px; line-height: 1.6; color: #FFFFFF;
 }
-.references h3 { font-family: var(--font-mono); font-size: 16px; margin-bottom: 16px; color: var(--text-muted); }
-.references ol { padding-left: 20px; color: var(--text-secondary); }
-.references li { margin-bottom: 8px; }
-.references a { color: var(--signal-blue); text-decoration: none; font-weight: 700; }
+.references h3 {
+  font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.08em;
+  color: #FFFFFF; margin-bottom: 16px; text-transform: uppercase; font-weight: 800;
+}
+.references ol { padding-left: 20px; color: rgba(255, 255, 255, 0.9); }
+.references li { margin-bottom: 6px; }
+.references a { color: var(--signal-yellow); text-decoration: none; font-weight: 700; }
+.references a:hover { text-decoration: underline; }
 
-footer { text-align: center; padding: 60px 0; }
-.meta-foot {
-  display: inline-flex; gap: 24px; font-family: var(--font-mono); font-size: 12px;
-  color: var(--text-muted); text-transform: uppercase; background: var(--surface-1);
-  padding: 12px 32px; border-radius: var(--radius-pill); backdrop-filter: var(--glass-blur);
+/* ---- 18. Metadata Footer ---- */
+footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, 0.3); padding-bottom: 48px; }
+.meta-foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-family: var(--font-mono); font-size: 12px; font-weight: 800; color: #FFFFFF; letter-spacing: 0.08em; }
+
+@media (max-width: 768px) {
+  .wrap { padding: 0 16px; }
+  section { padding: 36px 0; }
+  .cards-3, .feat-grid, .pros-cons { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 
-<section class="hero-section">
+<!-- ============================================================
+     PHASE 1: 篇首概览与核心导读 (HERO & EXECUTIVE SUMMARY)
+     ============================================================ -->
+
+<section class="hero-section" id="section-hero">
   <div class="wrap">
-    <div class="eyebrow"><span class="diamond"></span><span>01 / EXECUTIVE SUMMARY</span><span class="line"></span></div>
-    <h1 class="hero">主标题 (Hero Title) 确保短小有力</h1>
-    <p class="lead">导读段落 (Lead Paragraph)：简明扼要地概括核心主旨。</p>
+    <!-- 01 / SECTION EYEBROW -->
+    <div class="eyebrow">
+      <span class="diamond"></span>
+      <span>01 / SUMMER VIBE</span>
+      <span class="line"></span>
+    </div>
+
+    <!-- 02 / TYPOGRAPHY SCALE (Hero & Lead) -->
+    <h1 class="hero">夏日多巴胺盛夏流光。<br>全组件高明度规范集。</h1>
+    <p class="lead">导读段落 (Lead Paragraph)：高明度高饱和流光渐变网格与白透毛玻璃大圆角卡片结合，充满阳光活力与清凉汽水般的愉悦体验。</p>
     
+    <!-- 03 / STATS GRID -->
     <div class="stats-grid">
-      <div class="stat-card"><div class="stat-val">300<span>%</span></div><div class="stat-label">ANNUAL GROWTH</div></div>
-      <div class="stat-card"><div class="stat-val">1.2<span>M</span></div><div class="stat-label">ACTIVE USERS</div></div>
-      <div class="stat-card"><div class="stat-val">0.5<span>ms</span></div><div class="stat-label">LATENCY</div></div>
-    </div>
-  </div>
-</section>
-
-<section class="body-section">
-  <div class="wrap">
-    <div class="section-head left">
-      <div class="eyebrow"><span class="diamond"></span><span>02 / ARTICLE BODY</span><span class="line"></span></div>
-      <h2 class="section-title">正文区块标题</h2>
-    </div>
-    
-    <div class="rich-text">
-      <p>这是标准的正文段落。支持 <strong>加粗</strong>、<em>斜体</em> 和 <code>内联代码</code> 排版。</p>
-      <blockquote>这是引用名人名言或核心观点的块级引用（Blockquote），需要单独的视觉包裹。</blockquote>
-      
-      <!-- 17 / CODE BLOCK & TERMINAL -->
-      <div class="code-block">
-        <div class="code-header">
-          <div class="code-dots"><span></span><span></span><span></span></div>
-          <span class="code-lang">CONFIG / JSON</span>
-          <button class="code-copy-btn" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').innerText); this.innerText='COPIED!'; setTimeout(()=>this.innerText='COPY', 2000)">COPY</button>
-        </div>
-        <pre><code>{
-  <span class="token-keyword">"style"</span>: <span class="token-string">"summer-dopamine"</span>,
-  <span class="token-keyword">"palette"</span>: [<span class="token-string">"#FF66B2"</span>, <span class="token-string">"#0077FF"</span>, <span class="token-string">"#00E676"</span>, <span class="token-string">"#FFEA00"</span>],
-  <span class="token-keyword">"frostedGlass"</span>: <span class="token-keyword">true</span>,
-  <span class="token-keyword">"blurRadius"</span>: <span class="token-number">24</span>
-}</code></pre>
+      <div class="stat-card">
+        <div class="stat-val">100<span>%</span></div>
+        <div class="stat-label">DOPAMINE ENERGY / 多巴胺能量</div>
       </div>
+      <div class="stat-card">
+        <div class="stat-val">300<span>%</span></div>
+        <div class="stat-label">GROWTH VITALITY / 增长活力</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">0.5<span>ms</span></div>
+        <div class="stat-label">LATENCY / 极速响应</div>
+      </div>
+    </div>
 
-      <div class="spec-row">
-        <div class="spec"><div class="val">60×95<em>mm</em></div><div class="unit">SIZE</div></div>
-        <div class="spec"><div class="val">500<em>mah</em></div><div class="unit">BATTERY</div></div>
-        <div class="spec"><div class="val">USB-C</div><div class="unit">INTERFACE</div></div>
+    <!-- 04 / TECHNICAL SPEC ROW -->
+    <div class="spec-row">
+      <div class="spec">
+        <div class="val">高饱和<em>色谱</em></div>
+        <div class="unit">VIBRANCY / 色彩张力</div>
+      </div>
+      <div class="spec">
+        <div class="val">28<em>px</em></div>
+        <div class="unit">BLUR GLASS / 毛玻璃模糊度</div>
+      </div>
+      <div class="spec">
+        <div class="val">盛夏风</div>
+        <div class="unit">SEASON / 季节感</div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="cards-section">
+
+<!-- ============================================================
+     PHASE 2: 核心论述、关键提醒与代码实操 (CONTEXT, NARRATIVE & CODE)
+     ============================================================ -->
+
+<section class="narrative-section" id="section-narrative">
   <div class="wrap">
-    <div class="section-head left">
-      <div class="eyebrow"><span class="diamond"></span><span>03 / ADMONITIONS & CARDS</span><span class="line"></span></div>
-      <h2 class="section-title">模块化卡片与提示框</h2>
+    <div class="section-head">
+      <div class="eyebrow">
+        <span class="diamond"></span>
+        <span>02 / CONTEXT & NARRATIVE</span>
+        <span class="line"></span>
+      </div>
+      <h2 class="section-title">02 / 核心论述与实操指南</h2>
     </div>
-    
+
+    <!-- 05 / ADMONITIONS -->
     <div class="admonition info">
-      <div class="admonition-title">核心结论 (INFO)</div>
-      <p>这是 AI 提取的关键结论高亮框，用于引起读者注意。</p>
+      <div class="admonition-title">★ 多巴胺设计原则 (INFO)</div>
+      <p>背景负责大面积色彩释放，卡片采用白透毛玻璃承托文字，确保长文阅读不刺眼且充满元气。</p>
     </div>
 
+    <!-- 06 / RICH TEXT -->
+    <div class="rich-text">
+      <p>这是标准的正文段落。支持 <strong>加粗强调</strong>、<em>斜体修饰</em> 以及 <code>内联代码 (Inline Code)</code> 等基础排版元素。</p>
+      <blockquote>夏日多巴胺风格通过高明度四色渐变与白透毛玻璃，将情绪张力拉满，兼顾出色的文字可读性。</blockquote>
+
+      <h4>子章节核心要点列表</h4>
+      <ul>
+        <li>这是无序列表项目一：阐述核心架构原则与设计底线</li>
+        <li>这是无序列表项目二：说明多端自适应网格与排版规范</li>
+      </ul>
+    </div>
+
+    <!-- 07 / CODE BLOCK & TERMINAL -->
+    <div class="code-block">
+      <div class="code-header">
+        <div class="code-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <span class="code-lang">BASH / SHELL</span>
+        <button class="code-copy-btn" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').innerText); this.innerText='COPIED!'; setTimeout(()=>this.innerText='COPY', 2000)">COPY</button>
+      </div>
+      <pre><code><span class="token-comment"># 启动多巴胺高饱和渲染节点</span>
+<span class="token-keyword">export</span> DOPAMINE_ENV=production
+<span class="token-keyword">export</span> CLUSTER_PORT=8080
+
+<span class="token-function">curl</span> -fsSL https://get.summer-dopamine.io | <span class="token-keyword">bash</span>
+systemctl enable --now dopamine-worker.service</code></pre>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PHASE 3: 核心特性、架构与演进脉络 (DEEP DIVE, ARCHITECTURE & EVOLUTION)
+     ============================================================ -->
+
+<section class="deep-dive-section" id="section-arch">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">
+        <span class="diamond"></span>
+        <span>03 / ARCHITECTURE & DEEP DIVE</span>
+        <span class="line"></span>
+      </div>
+      <h2 class="section-title">03 / 核心特性与架构脉络</h2>
+    </div>
+
+    <!-- 08 / NUMBER CARDS -->
     <div class="cards-3">
       <div class="num-card">
         <div class="num">01</div>
-        <h3>模块一核心功能</h3>
-        <p>详细描述说明。</p>
-        <div class="tag">BASE</div>
+        <h3>汽水清凉质感</h3>
+        <p>高透微光毛玻璃卡片，呈现夏日特饮般的清爽视觉与舒适阅读感。</p>
+        <div class="tag">FRESH</div>
       </div>
       <div class="num-card selected">
         <div class="num">02</div>
-        <h3>推荐核心功能</h3>
-        <p>这是推荐项，需要第二状态通道的高亮显示（如发光或特殊边框）。</p>
+        <h3>多巴胺能量泵</h3>
+        <p>粉/蓝/绿/黄四色光晕交融，悬浮跃起弹簧动效。</p>
         <div class="tag">RECOMMENDED</div>
       </div>
       <div class="num-card">
         <div class="num">03</div>
-        <h3>辅助功能扩展</h3>
-        <p>次要说明内容。</p>
-        <div class="tag">OPTIONAL</div>
+        <h3>离线高保真</h3>
+        <p>单文件自包含 HTML，即开即用，无需外部复杂依赖。</p>
+        <div class="tag">OFFLINE</div>
       </div>
     </div>
-  </div>
-</section>
 
-<section class="timeline-section">
-  <div class="wrap">
-    <div class="section-head left">
-      <div class="eyebrow"><span class="diamond"></span><span>04 / COMPARISON & TIMELINE</span><span class="line"></span></div>
-      <h2 class="section-title">对比矩阵与时间轴</h2>
-    </div>
-
-    <!-- 注意：外层需配置 overflow-x: auto; 保证移动端体验 -->
-    <div class="cmp-matrix-wrapper">
-      <div class="cmp-matrix">
-        <div class="cmp-row header">
-          <div class="cmp-cell">对比维度</div>
-          <div class="cmp-cell">方案 A</div>
-          <div class="cmp-cell highlight-col">方案 B (推荐)</div>
+    <!-- 09 / FEATURE CARD & MEDIA FRAME -->
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="tag">DOPAMINE ENGINE</div>
+        <h3>多巴胺流光展台</h3>
+        <p>特性的详细能力和用户体验描述，文字清晰可辨，排版层次分明。</p>
+        <div class="tabs">
+          <div class="tab active">PREVIEW</div>
+          <div class="tab">SCHEMA</div>
         </div>
-        <div class="cmp-row">
-          <div class="cmp-cell">核心能力与闭环</div>
-          <div class="cmp-cell">基础支持</div>
-          <div class="cmp-cell highlight-col">完整闭环</div>
+        <div class="feat-img-frame">MEDIA PLACEHOLDER FRAME (400×200)</div>
+      </div>
+      <div class="feat-card">
+        <div class="tag">GLASS ENGINE</div>
+        <h3>白透毛玻璃渲染</h3>
+        <p>高饱和渐变与白透卡片完美融合，确保视觉冲击与内容可读并重。</p>
+        <div class="tabs">
+          <div class="tab active">LIGHT</div>
+          <div class="tab">VIBRANT</div>
         </div>
+        <div class="feat-img-frame">GLASS CANVAS FRAME (400×200)</div>
       </div>
     </div>
 
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="timeline-marker">2024</div>
-        <div class="timeline-content">
-          <h3>立项与核心架构</h3>
-          <p>核心目标设定，完成基础架构开发。</p>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-marker">2026</div>
-        <div class="timeline-content">
-          <h3>全面演进</h3>
-          <p>进入全新阶段，实现智能化重构。</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="pros-cons-section">
-  <div class="wrap">
-    <div class="section-head left">
-      <div class="eyebrow"><span class="diamond"></span><span>05 / PROS & CONS</span><span class="line"></span></div>
-      <h2 class="section-title">优劣对比卡片</h2>
+    <!-- 10 / FLOWCHART & DIAGRAMS (MERMAID) -->
+    <div class="mermaid-wrapper">
+      <pre class="mermaid">
+graph LR
+    A["Raw Input<br/>多巴胺原始输入"] --> B["Parser<br/>流光渐变提取"]
+    B --> C["Composer<br/>毛玻璃组件装配"]
+    C --> D["Output<br/>夏日单文件交付"]
+    
+    style A fill:#FF66B2,stroke:#FFFFFF,stroke-width:2px,color:#FFFFFF
+    style B fill:#0077FF,stroke:#FFFFFF,stroke-width:2px,color:#FFFFFF
+    style C fill:#FFD600,stroke:#FFFFFF,stroke-width:2px,color:#000000
+    style D fill:#00E676,stroke:#FFFFFF,stroke-width:2px,color:#000000
+      </pre>
     </div>
 
-    <div class="pros-cons">
-      <div class="pro-card">
-        <div class="tag">PROS / 优势</div>
-        <ul><li>架构极其稳定，扩展性强</li></ul>
-      </div>
-      <div class="con-card">
-        <div class="tag">CONS / 劣势</div>
-        <ul><li>初期学习曲线较陡峭</li></ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="steps-section">
-  <div class="wrap">
-    <div class="section-head left">
-      <div class="eyebrow"><span class="diamond"></span><span>06 / PROCESS STEPS</span><span class="line"></span></div>
-      <h2 class="section-title">流程步骤拆解</h2>
-    </div>
-
+    <!-- 11 / PROCESS STEPS -->
     <div class="steps">
       <div class="step">
         <div class="idx">01</div>
         <div>
-          <h3>意图识别与解析</h3>
-          <p>分析用户输入的长篇文本与目标场景，提取关键信息与数据骨架。</p>
+          <h3>意图解析与多巴胺色谱锁定</h3>
+          <p>精准提取核心主旨，匹配高明度盛夏四色专属视觉脚手架与色彩通道。</p>
         </div>
       </div>
       <div class="step">
         <div class="idx">02</div>
         <div>
-          <h3>风格契约与装配</h3>
-          <p>加载目标风格的 Design Tokens 与专属视觉脚手架进行代码装配。</p>
+          <h3>毛玻璃组件装配与分层渲染</h3>
+          <p>环境层负责流光氛围释放，白透卡片承载高对比正文，形成层次分明的空间阅读场。</p>
         </div>
       </div>
-      <div class="step">
-        <div class="idx">03</div>
-        <div>
-          <h3>双层质检与交付</h3>
-          <p>通过通用质检与专属风格清单校验，输出生产就绪的单文件 HTML。</p>
+    </div>
+
+    <!-- 12 / TIMELINE -->
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-marker"></div>
+        <div class="timeline-content">
+          <h3>2024 · 视觉探索与原型设计</h3>
+          <p>完成夏日多巴胺风格的设计语言定义与核心毛玻璃组件原型构建。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-marker"></div>
+        <div class="timeline-content">
+          <h3>2025 · 全组件规范标准化</h3>
+          <p>实现 18 项语义组件与 Mermaid 动态图表引擎的深度并网。</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="flowchart-section">
+
+<!-- ============================================================
+     PHASE 4: 深度推演、决策对比与利弊评估 (ANALYSIS & EVALUATION)
+     ============================================================ -->
+
+<section class="evaluation-section" id="section-evaluation">
   <div class="wrap">
-    <div class="section-head left">
-      <div class="eyebrow"><span class="diamond"></span><span>07 / FLOWCHART</span><span class="line"></span></div>
-      <h2 class="section-title">系统架构与流程图</h2>
+    <div class="section-head">
+      <div class="eyebrow">
+        <span class="diamond"></span>
+        <span>04 / EVALUATION & DECISION</span>
+        <span class="line"></span>
+      </div>
+      <h2 class="section-title">04 / 深度推演与方案评估</h2>
     </div>
 
-    <div class="flowchart">
-      <svg viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <marker id="base-arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="currentColor" />
-          </marker>
-        </defs>
-        <g class="node">
-          <rect x="20" y="25" width="150" height="70" rx="4" fill="none" stroke="currentColor" stroke-width="1.5" />
-          <text x="35" y="52" fill="currentColor" font-size="10" opacity="0.6">01 / INPUT</text>
-          <text x="35" y="74" fill="currentColor" font-size="14" font-weight="700">原始输入</text>
-        </g>
-        <line x1="170" y1="60" x2="220" y2="60" stroke="currentColor" stroke-width="1.5" marker-end="url(#base-arrow)" opacity="0.4" />
-        <g class="node">
-          <rect x="225" y="25" width="150" height="70" rx="4" fill="none" stroke="currentColor" stroke-width="1.5" />
-          <text x="240" y="52" fill="currentColor" font-size="10" opacity="0.6">02 / EXTRACT</text>
-          <text x="240" y="74" fill="currentColor" font-size="14" font-weight="700">结构提炼</text>
-        </g>
-        <line x1="375" y1="60" x2="425" y2="60" stroke="currentColor" stroke-width="1.5" marker-end="url(#base-arrow)" opacity="0.4" />
-        <g class="node active">
-          <rect x="430" y="25" width="150" height="70" rx="4" fill="none" stroke="currentColor" stroke-width="2" />
-          <text x="445" y="52" fill="currentColor" font-size="10">03 / RENDER</text>
-          <text x="445" y="74" fill="currentColor" font-size="14" font-weight="700">组件渲染</text>
-        </g>
-        <line x1="580" y1="60" x2="630" y2="60" stroke="currentColor" stroke-width="1.5" marker-end="url(#base-arrow)" opacity="0.4" />
-        <g class="node">
-          <rect x="635" y="25" width="145" height="70" rx="4" fill="none" stroke="currentColor" stroke-width="1.5" />
-          <text x="650" y="52" fill="currentColor" font-size="10" opacity="0.6">04 / OUTPUT</text>
-          <text x="650" y="74" fill="currentColor" font-size="14" font-weight="700">成果交付</text>
-        </g>
-      </svg>
+    <!-- 13 / COMPARISON TABLE -->
+    <div class="cmp-matrix-wrapper">
+      <table class="cmp-matrix">
+        <thead>
+          <tr>
+            <th>对比维度</th>
+            <th>普通页面方案</th>
+            <th class="highlight-col">Summer Dopamine 优化版</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>视觉感染力</strong></td>
+            <td>平淡，缺乏情绪共鸣</td>
+            <td class="highlight-col">极高（四色多巴胺渐变 + 汽水般清爽感）</td>
+          </tr>
+          <tr>
+            <td><strong>长文阅读体验</strong></td>
+            <td>普通</td>
+            <td class="highlight-col">舒适清晰（高透微光毛玻璃卡片包裹）</td>
+          </tr>
+          <tr>
+            <td><strong>单文件离线交付</strong></td>
+            <td>需依赖外部静态资源</td>
+            <td class="highlight-col">100% 单文件即开即用</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 14 / PROS & CONS -->
+    <div class="pros-cons">
+      <div class="pro-card">
+        <div class="tag">PROS / 优势清单</div>
+        <ul>
+          <li>极强的视觉感染力与元气活力，情绪价值拉满</li>
+          <li>白透毛玻璃有效保护文字清晰度与对比度</li>
+          <li>内置完整的 18 项语义化组件，表达力完备</li>
+        </ul>
+      </div>
+      <div class="con-card">
+        <div class="tag">CONS / 劣势与边界</div>
+        <ul>
+          <li>不适用于严肃金融或工程白皮书类报告</li>
+          <li>高饱和背景需确保卡片背景不透明度足够</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 15 / EDITORIAL INTERVIEW & DIALOGUE ROUNDS -->
+    <div class="interview-rounds">
+      <div class="round-card">
+        <div class="round-header">
+          <span class="round-badge">ROUND 01 // 架构推演</span>
+          <span class="round-status">STATUS // READY TO SHIP</span>
+        </div>
+        
+        <div class="ai-questions-block">
+          <div class="ai-block-head">
+            <span class="dot"></span>
+            <span>AI 访谈助手 · 第 1 轮前沿提问</span>
+          </div>
+          <div class="q-deck">
+            <div class="q-item">
+              <div class="q-badge">Q1</div>
+              <div class="q-title">是否需要引入专属 Mermaid 主题配置？</div>
+              <div class="q-recom-note">
+                <strong>✦ 推荐方案</strong>针对图表密集型长文，推荐注入专属 themeVariables 以保持流光毛玻璃视觉一致性。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="user-decision-note">
+          <div class="user-decision-head">
+            <span class="check-badge">✓</span>
+            <span>DECISION // 架构师拍板确认</span>
+          </div>
+          <div class="user-decision-text">“同意采用专属 themeVariables 注入方案，确保图表与风格包浑然一体。”</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="faq-section">
+
+<!-- ============================================================
+     PHASE 5: 尾部答疑、引用出处与系统页脚 (FAQ, REFERENCES & FOOTER)
+     ============================================================ -->
+
+<section class="faq-section" id="section-faq">
   <div class="wrap">
-    <div class="section-head left">
-      <div class="eyebrow"><span class="diamond"></span><span>08 / FAQ</span><span class="line"></span></div>
-      <h2 class="section-title">常见问题</h2>
+    <div class="section-head">
+      <div class="eyebrow">
+        <span class="diamond"></span>
+        <span>05 / FAQ & REFERENCES</span>
+        <span class="line"></span>
+      </div>
+      <h2 class="section-title">05 / 常见问题与参考文献</h2>
     </div>
 
+    <!-- 16 / FAQ / Q&A LIST -->
     <div class="faq">
       <div class="faq-item">
-        <div class="q">如何切换不同的视觉风格包？</div>
-        <div class="a">在生成前指定 Style ID（如 industrial-dark, soft-sky 等），系统将自动加载对应风格的 Design Tokens 与样式规范。</div>
+        <div class="q">背景还会抢夺正文焦点吗？</div>
+        <div class="a">不会。正文区域有统一的白透毛玻璃大圆角卡片包裹，文字排版纯净清晰，背景光芒自然退居为页面氛围。</div>
       </div>
       <div class="faq-item">
         <div class="q">是否支持单文件离线使用？</div>
         <div class="a">支持。生成的 HTML 文件包含完整的内联样式与矢量图表，无需部署即可本地直接双击打开查看。</div>
       </div>
     </div>
-  </div>
-</section>
 
-<section class="references-section">
-  <div class="wrap">
+    <!-- 17 / REFERENCES -->
     <div class="references">
-      <h3>REFERENCES / 参考文献</h3>
+      <h3>REFERENCES // 参考文献</h3>
       <ol>
         <li id="ref-1">Tufte, E. R. (2001). <em>The Visual Display of Quantitative Information</em>. Graphics Press. <a href="#fnref-1">↩</a></li>
         <li id="ref-2">Bringhurst, R. (2012). <em>The Elements of Typographic Style</em>. Hartley & Marks. <a href="#fnref-2">↩</a></li>
@@ -790,11 +1049,13 @@ footer { text-align: center; padding: 60px 0; }
   </div>
 </section>
 
+<!-- 18 / METADATA FOOTER -->
 <footer>
   <div class="wrap">
     <div class="meta-foot">
-      <span>VISUAL HTML // SYSTEM CORE</span>
-      <span>BUILD // CLEAN ROOM BASE SCAFFOLD</span>
+      <span>SUMMER DOPAMINE SYSTEM</span>
+      <span>STYLE // SUMMER DOPAMINE (夏日多巴胺风)</span>
+      <span>BUILD // FULL 18 COMPONENTS SKELETON</span>
     </div>
   </div>
 </footer>
@@ -820,9 +1081,9 @@ footer { text-align: center; padding: 60px 0; }
         primaryTextColor: '#FFFFFF',
         primaryBorderColor: '#FF66B2',
         lineColor: '#00E676',
-        secondaryColor: 'rgba(0,119,255,0.25)',
-        tertiaryColor: 'rgba(255,234,0,0.15)',
-        fontFamily: '"Arial Rounded MT Bold", "Varela Round", sans-serif'
+        secondaryColor: '#FFD600',
+        tertiaryColor: 'rgba(255,255,255,0.08)',
+        fontFamily: '"Plus Jakarta Sans", "Inter", sans-serif'
       }
     });
   }

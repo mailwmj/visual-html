@@ -1,10 +1,43 @@
 # Visual HTML — 共享组件结构规范 (Shared Components)
 
 > **架构契约说明**
-> 本文件仅定义 AI 解析文本后应输出的 **语义化 DOM 结构** 以及 **各组件的适用场景**。
-> **严禁在本规范中包含任何视觉层面的定义**（如颜色、字号、列数、对齐方式、间距等）。所有的排版样式、响应式布局及视觉呈现，均交由各风格模板的 CSS 独立接管。
+> 本文件定义 AI 解析长篇文本后应输出的 **语义化 DOM 结构** 以及 **各组件的适用场景与自然叙事顺序**。
+> 组件顺序已按照**真实长篇出版物、技术白皮书与深度分析报告的正文自顶向下阅读流**编排。
+> **严禁在本规范中包含任何硬编码视觉层面的定义**（如颜色、字号、列数、对齐方式、间距等）。所有的排版样式、响应式布局及视觉呈现，均交由各风格模板的 CSS 独立接管。
 
 ---
+
+## 目录索引：标准正文 5 阶段叙事流 + 可选外挂组件
+
+- **Phase 1: 篇首概览与核心导读 (Hero & Executive Summary)**
+  - [1. Section Eyebrow (区块索引标头)](#1-section-eyebrow-区块索引标头)
+  - [2. Typography Scale (基础文本层级)](#2-typography-scale-基础文本层级)
+  - [3. Stats Grid (核心数据卡片)](#3-stats-grid-核心数据卡片)
+  - [4. Technical Spec Row (规格参数栏)](#4-technical-spec-row-规格参数栏)
+- **Phase 2: 核心论述、关键提醒与代码实操 (Context, Narrative & Callouts)**
+  - [5. Admonitions (智能语义提示框)](#5-admonitions-智能语义提示框)
+  - [6. Rich Text (长文本正文模块)](#6-rich-text-长文本正文模块)
+  - [7. Code Block (多行代码块与终端窗口)](#7-code-block-多行代码块与终端窗口)
+- **Phase 3: 核心特性、架构与演进脉络 (Deep Dive, Architecture & Evolution)**
+  - [8. Number Cards (编号卡片列)](#8-number-cards-编号卡片列)
+  - [9. Feature Card & Media Frame (特性卡片与媒体预览框)](#9-feature-card--media-frame-特性卡片与媒体预览框)
+  - [10. Flowchart & Diagrams (流程图、系统架构与 Mermaid 图表引擎)](#10-flowchart--diagrams-流程图系统架构与-mermaid-图表引擎)
+  - [11. Process Steps (流程步骤拆解)](#11-process-steps-流程步骤拆解)
+  - [12. Timeline (时间轴与演进里程碑)](#12-timeline-时间轴与演进里程碑)
+- **Phase 4: 深度推演、决策对比与利弊评估 (Analysis, Evaluation & Decision Making)**
+  - [13. Comparison Table (对比矩阵)](#13-comparison-table-对比矩阵)
+  - [14. Pros & Cons (优劣势红黑榜)](#14-pros--cons-优劣势红黑榜)
+  - [15. Editorial Interview & Dialogue Rounds (社论访谈录 / 交互推演轮次)](#15-editorial-interview--dialogue-rounds-社论访谈录--交互推演轮次)
+- **Phase 5: 尾部答疑、引用出处与系统页脚 (Conclusion, FAQ, References & Metadata Footer)**
+  - [16. FAQ / Q&A List (常见问题与问答列表)](#16-faq--qa-list-常见问题与问答列表)
+  - [17. References (参考文献与脚注)](#17-references-参考文献与脚注)
+  - [18. Metadata Footer (技术页脚与系统元数据)](#18-metadata-footer-技术页脚与系统元数据)
+- **Optional Enhancement: 可选外挂辅助增强 (默认不启用)**
+  - [19. Sticky Quick Nav & Progress Bar (悬浮目录与阅读进度条)](#19-sticky-quick-nav--progress-bar-悬浮目录与阅读进度条---可选外挂)
+
+---
+
+# Phase 1: 篇首概览与核心导读 (Hero & Executive Summary)
 
 ## 1. Section Eyebrow (区块索引标头)
 
@@ -39,7 +72,23 @@
 
 ---
 
-## 3. Technical Spec Row (规格参数栏)
+## 3. Stats Grid (核心数据卡片)
+
+```html
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-val">300<span>%</span></div>
+    <div class="stat-label">ANNUAL GROWTH</div>
+  </div>
+</div>
+```
+
+- **语义场景**：提炼商业报告、技术白皮书或执行摘要中的爆炸性宏观数据与 KPI。
+- **组件结构**：包含数值部分（支持分离的单位 `span`）与数据解释标签。
+
+---
+
+## 4. Technical Spec Row (规格参数栏)
 
 ```html
 <div class="spec-row">
@@ -59,7 +108,81 @@
 
 ---
 
-## 4. Number Cards (编号卡片列)
+# Phase 2: 核心论述、关键提醒与代码实操 (Context, Narrative & Callouts)
+
+## 5. Admonitions (智能语义提示框)
+
+```html
+<div class="admonition info">
+  <div class="admonition-title">核心结论</div>
+  <p>这是 AI 总结出的一段重要文字说明，用于结论高亮。</p>
+</div>
+<!-- 语义变体支持: .info, .warning, .success, .error -->
+```
+
+- **语义场景**：从长文中提取出的关键警告、总结性陈述或前置提醒。
+- **组件结构**：容器（附带语义分类标示类）、标题行与提示正文。
+
+---
+
+## 6. Rich Text (长文本正文模块)
+
+```html
+<div class="rich-text">
+  <h3>结构化正文标题</h3>
+  <p>这是标准的正文模块容器。遇到无法归类到上述高级组件（如时间轴、数据卡片等）的常规段落时，统一放入此容器中。</p>
+  
+  <p>在这个模块中，允许使用标准的 <strong>Markdown 内联语法</strong>，包括 <em>斜体</em>、<code>代码标识</code> 以及超链接。</p>
+  
+  <blockquote>
+    长篇大论中引用的原话、名人名言或强调段落，应转换为 Blockquote 结构。
+  </blockquote>
+  
+  <h4>子列表支持</h4>
+  <ul>
+    <li>这是无序列表项目一</li>
+    <li>这是无序列表项目二</li>
+  </ul>
+</div>
+```
+
+- **语义场景**：无法映射为特殊组件的大段常规 Markdown 文本。
+- **组件结构**：一个安全的沙盒容器，其内部支持标准的 HTML 文本元素（`h3`, `h4`, `p`, `ul`, `ol`, `blockquote`, `strong`, `em`, `code`, `a`）。
+
+---
+
+## 7. Code Block (多行代码块与终端窗口)
+
+```html
+<div class="code-block">
+  <div class="code-header">
+    <div class="code-dots">
+      <span></span><span></span><span></span>
+    </div>
+    <span class="code-lang">BASH / SHELL</span>
+    <button class="code-copy-btn" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').innerText); this.innerText='COPIED!'; setTimeout(()=>this.innerText='COPY', 2000)">COPY</button>
+  </div>
+  <pre><code><span class="token-comment"># 启动高可用推理集群并挂载模型权重</span>
+<span class="token-keyword">export</span> CLUSTER_ENV=production
+<span class="token-keyword">export</span> WORKER_THREADS=32
+
+<span class="token-function">curl</span> -fsSL https://engine.internal.net/install.sh | <span class="token-keyword">bash</span>
+systemctl enable --now worker-engine.service</code></pre>
+</div>
+```
+
+- **语义场景**：展示命令行终端指令、配置文件（YAML/JSON/TOML）、核心算法片段、API 接口调用及多行工程代码。
+- **组件结构**：
+  - 外部窗口容器（`.code-block`），内嵌顶栏标头（`.code-header`）与代码展示区（`pre` & `code`）。
+  - 顶栏标头包含：装饰控制圆点（`.code-dots`）、大写 Mono 语言指示徽标（`.code-lang`）以及轻量交互复制按钮（`.code-copy-btn`）。
+  - 语法标记支持标准语义 Token 类：`.token-comment`（注释）、`.token-keyword`（关键字/控制流）、`.token-string`（字符串）、`.token-function`（函数/指令名）、`.token-number`（数字/参数）、`.token-operator`（运算符）。
+- **优雅降级契约**：在 `.rich-text` 中直接出现的原生 `<pre><code>...</code></pre>` 同样由各风格 CSS 提供一体化的背景容器、等宽字体与平滑横向滚动兜底保护。
+
+---
+
+# Phase 3: 核心特性、架构与演进脉络 (Deep Dive, Architecture & Evolution)
+
+## 8. Number Cards (编号卡片列)
 
 ```html
 <div class="cards-3">
@@ -82,7 +205,7 @@
 
 ---
 
-## 5. Feature Card & Media Frame (特性卡片与媒体预览框)
+## 9. Feature Card & Media Frame (特性卡片与媒体预览框)
 
 ```html
 <div class="feat-grid">
@@ -100,141 +223,7 @@
 
 ---
 
-## 6. Process Steps (流程步骤)
-
-```html
-<div class="steps">
-  <div class="step">
-    <div class="idx">01</div>
-    <div>
-      <h3>步骤标题</h3>
-      <p>步骤对应的操作说明或细节描述。</p>
-    </div>
-  </div>
-</div>
-```
-
-- **语义场景**：用于说明系统的工作流、操作指南或按部就班的执行计划。
-- **组件结构**：包含序号容器与内容容器（含标题及描述）。
-
----
-
-## 7. Comparison Table (对比矩阵)
-
-```html
-<div class="cmp cmp-matrix">
-  <div class="row cmp-row head header">
-    <div class="cell cmp-cell">对比维度</div>
-    <div class="cell cmp-cell">方案 A</div>
-    <div class="cell cmp-cell selected-col highlight-col">方案 B (推荐)</div>
-  </div>
-  <div class="row cmp-row">
-    <div class="cell cmp-cell">调度能力</div>
-    <div class="cell cmp-cell"><span class="dot"></span> 基础支持</div>
-    <div class="cell cmp-cell selected-col highlight-col"><span class="dot"></span> 完整闭环</div>
-  </div>
-</div>
-```
-
-- **语义场景**：将文本中的多方案优劣对比、版本差异转化为矩阵化结构。
-- **组件结构**：包含表头行与数据行，使用标记类（`.dot`, `.dash` 等）或纯文本表示状态，支持列级的强调语义（`.selected-col` / `.highlight-col`）。兼容 `.cmp` 与 `.cmp-matrix` 两套主流命名。
-
----
-
-## 8. Metadata Footer (技术页脚)
-
-```html
-<footer>
-  <div class="wrap">
-    <div class="meta-foot">
-      <span>SYSTEM METADATA</span>
-      <span>BUILD VERSION</span>
-      <span>DOCUMENT TYPE</span>
-    </div>
-  </div>
-</footer>
-```
-
-- **语义场景**：页面底部，用于标注系统信息、生成时间和文档属性。
-
----
-
-## 9. Admonitions (智能语义提示框)
-
-```html
-<div class="admonition info">
-  <div class="admonition-title">核心结论</div>
-  <p>这是 AI 总结出的一段重要文字说明，用于结论高亮。</p>
-</div>
-<!-- 语义变体支持: .info, .warning, .success, .error -->
-```
-
-- **语义场景**：从长文中提取出的关键警告、总结性陈述或前置提醒。
-- **组件结构**：容器（附带语义分类标示类）、标题行与提示正文。
-
----
-
-## 10. Timeline (时间轴)
-
-```html
-<div class="timeline">
-  <div class="timeline-item">
-    <div class="timeline-marker">2023</div>
-    <div class="timeline-content">
-      <h3>立项阶段</h3>
-      <p>特定时间节点发生的核心事件描述。</p>
-    </div>
-  </div>
-</div>
-```
-
-- **语义场景**：遇到包含年份、日期或顺序发展史的长文时，自动转化为时间轴结构。
-- **组件结构**：包含时间节点标记（`.timeline-marker`）与该节点的详细内容区块。
-
----
-
-## 11. Pros & Cons (优劣势红黑榜)
-
-```html
-<div class="pros-cons">
-  <div class="pro-card">
-    <div class="tag">PROS / 优势</div>
-    <ul>
-      <li>正向特性与优势一</li>
-      <li>正向特性与优势二</li>
-    </ul>
-  </div>
-  <div class="con-card">
-    <div class="tag">CONS / 劣势</div>
-    <ul>
-      <li>负向特性与限制一</li>
-    </ul>
-  </div>
-</div>
-```
-
-- **语义场景**：分析报告中的双面评估、方案利弊拆解。
-- **组件结构**：正向容器（`.pro-card`）与负向容器（`.con-card`），内含标签及无序列表。
-
----
-
-## 12. Stats Grid (核心数据卡片)
-
-```html
-<div class="stats-grid">
-  <div class="stat-card">
-    <div class="stat-val">300<span>%</span></div>
-    <div class="stat-label">ANNUAL GROWTH</div>
-  </div>
-</div>
-```
-
-- **语义场景**：提炼商业报告或总结陈词中的爆炸性核心数据。
-- **组件结构**：包含数值部分（支持分离的单位 `span`）与数据解释标签。
-
----
-
-## 13. Flowchart & Diagrams (流程图、系统架构与 Mermaid 图表引擎)
+## 10. Flowchart & Diagrams (流程图、系统架构与 Mermaid 图表引擎)
 
 本系统提供**原生纯矢量 SVG** 与 **Mermaid 动态图表引擎** 双轨架构，由 AI 根据长文本的复杂程度自主决策选用：
 
@@ -347,7 +336,7 @@ flowchart LR
 | **`industrial-dark`** | `true` | `#0D1110` | `#131924` | `#F2F3EF` | `#67E38B` | `#67E38B` |
 | **`soft-sky`** | `false` | `#FFFFFF` | `#EAF6FC` | `#2A3F54` | `#0284C7` | `#0284C7` |
 | **`obsidian-cyan`** | `true` | `#151D2A` | `#131924` | `#FFFFFF` | `#38BDF8` | `#38BDF8` |
-| **`play-tubular`** | `false` | `#FAF8F3` | `#FFFFFF` | `#111111` | `#0052FF` | `#0052FF` |
+| **`play-tubular`** | `false` | `#FAF8F3` | `#FFFFFF` | `#111111` | `#2563EB` | `#2563EB` |
 | **`warm-craft`** | `false` | `#F7F4EC` | `#EDE8DC` | `#242724` | `#323D24` | `#323D24` |
 | **`neon-3d`** | `true` | `#0D0D11` | `#16121E` | `#FFFFFF` | `#A855F7` | `#EC4899` |
 | **`pixel-pop`** | `false` | `#FFFFFF` | `#FFF8D6` | `#000000` | `#000000` | `#000000` |
@@ -358,84 +347,94 @@ flowchart LR
 
 ---
 
-## 14. References (参考文献与脚注)
+## 11. Process Steps (流程步骤拆解)
 
 ```html
-<div class="references">
-  <h3>REFERENCES / 参考文献</h3>
-  <ol>
-    <li id="ref-1">文献名称或链接 <a href="#fnref-1">↩</a></li>
-  </ol>
-</div>
-```
-
-- **语义场景**：长文末尾的引用来源声明。
-- **组件结构**：带有锚点支持的有序列表。
-
----
-
-## 15. Rich Text (长文本正文模块)
-
-```html
-<div class="rich-text">
-  <h3>结构化正文标题</h3>
-  <p>这是标准的正文模块容器。遇到无法归类到上述高级组件（如时间轴、数据卡片等）的常规段落时，统一放入此容器中。</p>
-  
-  <p>在这个模块中，允许使用标准的 <strong>Markdown 内联语法</strong>，包括 <em>斜体</em>、<code>代码标识</code> 以及超链接。</p>
-  
-  <blockquote>
-    长篇大论中引用的原话、名人名言或强调段落，应转换为 Blockquote 结构。
-  </blockquote>
-  
-  <h4>子列表支持</h4>
-  <ul>
-    <li>这是无序列表项目一</li>
-    <li>这是无序列表项目二</li>
-  </ul>
-</div>
-```
-
-- **语义场景**：无法映射为特殊组件的大段常规 Markdown 文本。
-- **组件结构**：一个安全的沙盒容器，其内部支持标准的 HTML 文本元素（`h3`, `h4`, `p`, `ul`, `ol`, `blockquote`, `strong`, `em`, `code`, `a`）。
-
----
-
-## 16. FAQ / Q&A List (问答列表)
-
-```html
-<div class="faq">
-  <div class="faq-item">
-    <div class="q">核心问题内容？</div>
-    <div class="a">针对该问题的详细解答。</div>
+<div class="steps">
+  <div class="step">
+    <div class="idx">01</div>
+    <div>
+      <h3>步骤标题</h3>
+      <p>步骤对应的操作说明或细节描述。</p>
+    </div>
   </div>
 </div>
 ```
 
-- **语义场景**：采访记录、常见问题解答、文档末尾的疑难排解。
-- **组件结构**：问答对容器，分别包裹问题（`.q`）与答案（`.a`）。
+- **语义场景**：用于说明系统的工作流、操作指南或按部就班的执行计划。
+- **组件结构**：包含序号容器与内容容器（含标题及描述）。
 
 ---
 
-## 17. Sticky Quick Nav & Progress Bar (长文档悬浮目录与进度条 - 可选增强)
+## 12. Timeline (时间轴与演进里程碑)
 
 ```html
-<!-- 顶部阅读进度条 -->
-<div class="reading-progress" id="reading-progress"></div>
-
-<!-- 悬浮快捷目录 (适用于多章节长文，必须配置隐藏原生滚动条并支持自适应居中折行) -->
-<nav class="quick-nav">
-  <a href="#section-1">01 / 摘要</a>
-  <a href="#section-2">02 / 核心参数</a>
-  <a href="#section-3">03 / 系统架构</a>
-</nav>
+<div class="timeline">
+  <div class="timeline-item">
+    <div class="timeline-marker">2023</div>
+    <div class="timeline-content">
+      <h3>立项阶段</h3>
+      <p>特定时间节点发生的核心事件描述。</p>
+    </div>
+  </div>
+</div>
 ```
 
-- **语义场景**：当生成的 Web 页面包含 4 个以上大章节时，在顶部添加极简悬浮胶囊目录与平滑进度条，提升长文阅读的定位效率。
-- **排版契约**：必须隐藏浏览器原生横向滚动条（`scrollbar-width: none;` 及 `::-webkit-scrollbar { display: none; }`），容器必须居中自适应（`max-width: fit-content; margin: 0 auto;`），严禁在药丸下方出现灰色滚动条轨道。
+- **语义场景**：遇到包含年份、日期或顺序发展史的长文时，自动转化为时间轴结构。
+- **组件结构**：包含时间节点标记（`.timeline-marker`）与该节点的详细内容区块。
 
 ---
 
-## 18. Editorial Interview & Dialogue Rounds (社论访谈录 / 交互推演轮次)
+# Phase 4: 深度推演、决策对比与利弊评估 (Analysis, Evaluation & Decision Making)
+
+## 13. Comparison Table (对比矩阵)
+
+```html
+<div class="cmp cmp-matrix">
+  <div class="row cmp-row head header">
+    <div class="cell cmp-cell">对比维度</div>
+    <div class="cell cmp-cell">方案 A</div>
+    <div class="cell cmp-cell selected-col highlight-col">方案 B (推荐)</div>
+  </div>
+  <div class="row cmp-row">
+    <div class="cell cmp-cell">调度能力</div>
+    <div class="cell cmp-cell"><span class="dot"></span> 基础支持</div>
+    <div class="cell cmp-cell selected-col highlight-col"><span class="dot"></span> 完整闭环</div>
+  </div>
+</div>
+```
+
+- **语义场景**：将文本中的多方案优劣对比、版本差异转化为矩阵化结构。
+- **组件结构**：包含表头行与数据行，使用标记类（`.dot`, `.dash` 等）或纯文本表示状态，支持列级的强调语义（`.selected-col` / `.highlight-col`）。兼容 `.cmp` 与 `.cmp-matrix` 两套主流命名。
+
+---
+
+## 14. Pros & Cons (优劣势红黑榜)
+
+```html
+<div class="pros-cons">
+  <div class="pro-card">
+    <div class="tag">PROS / 优势</div>
+    <ul>
+      <li>正向特性与优势一</li>
+      <li>正向特性与优势二</li>
+    </ul>
+  </div>
+  <div class="con-card">
+    <div class="tag">CONS / 劣势</div>
+    <ul>
+      <li>负向特性与限制一</li>
+    </ul>
+  </div>
+</div>
+```
+
+- **语义场景**：分析报告中的双面评估、方案利弊拆解。
+- **组件结构**：正向容器（`.pro-card`）与负向容器（`.con-card`），内含标签及无序列表。
+
+---
+
+## 15. Editorial Interview & Dialogue Rounds (社论访谈录 / 交互推演轮次)
 
 ```html
 <div class="interview-rounds">
@@ -488,30 +487,79 @@ flowchart LR
 
 ---
 
-## 19. Code Block (多行代码块与终端窗口)
+# Phase 5: 尾部答疑、引用出处与系统页脚 (Conclusion, FAQ, References & Metadata Footer)
+
+## 16. FAQ / Q&A List (常见问题与问答列表)
 
 ```html
-<div class="code-block">
-  <div class="code-header">
-    <div class="code-dots">
-      <span></span><span></span><span></span>
-    </div>
-    <span class="code-lang">BASH / SHELL</span>
-    <button class="code-copy-btn" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').innerText); this.innerText='COPIED!'; setTimeout(()=>this.innerText='COPY', 2000)">COPY</button>
+<div class="faq">
+  <div class="faq-item">
+    <div class="q">核心问题内容？</div>
+    <div class="a">针对该问题的详细解答。</div>
   </div>
-  <pre><code><span class="token-comment"># 启动高可用推理集群并挂载模型权重</span>
-<span class="token-keyword">export</span> CLUSTER_ENV=production
-<span class="token-keyword">export</span> WORKER_THREADS=32
-
-<span class="token-function">curl</span> -fsSL https://engine.internal.net/install.sh | <span class="token-keyword">bash</span>
-systemctl enable --now worker-engine.service</code></pre>
 </div>
 ```
 
-- **语义场景**：展示命令行终端指令、配置文件（YAML/JSON/TOML）、核心算法片段、API 接口调用及多行工程代码。
-- **组件结构**：
-  - 外部窗口容器（`.code-block`），内嵌顶栏标头（`.code-header`）与代码展示区（`pre` & `code`）。
-  - 顶栏标头包含：装饰控制圆点（`.code-dots`）、大写 Mono 语言指示徽标（`.code-lang`）以及轻量交互复制按钮（`.code-copy-btn`）。
-  - 语法标记支持标准语义 Token 类：`.token-comment`（注释）、`.token-keyword`（关键字/控制流）、`.token-string`（字符串）、`.token-function`（函数/指令名）、`.token-number`（数字/参数）、`.token-operator`（运算符）。
-- **优雅降级契约**：在 `.rich-text` 中直接出现的原生 `<pre><code>...</code></pre>` 同样由各风格 CSS 提供一体化的背景容器、等宽字体与平滑横向滚动兜底保护。
+- **语义场景**：采访记录、常见问题解答、文档末尾的疑难排解。
+- **组件结构**：问答对容器，分别包裹问题（`.q`）与答案（`.a`）。
 
+---
+
+## 17. References (参考文献与脚注)
+
+```html
+<div class="references">
+  <h3>REFERENCES / 参考文献</h3>
+  <ol>
+    <li id="ref-1">文献名称或链接 <a href="#fnref-1">↩</a></li>
+  </ol>
+</div>
+```
+
+- **语义场景**：长文末尾的引用来源声明。
+- **组件结构**：带有锚点支持的有序列表。
+
+---
+
+## 18. Metadata Footer (技术页脚与系统元数据)
+
+```html
+<footer>
+  <div class="wrap">
+    <div class="meta-foot">
+      <span>SYSTEM METADATA</span>
+      <span>BUILD VERSION</span>
+      <span>DOCUMENT TYPE</span>
+    </div>
+  </div>
+</footer>
+```
+
+- **语义场景**：页面最底部，用于标注系统信息、生成时间和文档属性。
+
+---
+
+# Optional Enhancement: 可选外挂辅助增强 (默认不启用)
+
+## 19. Sticky Quick Nav & Progress Bar (悬浮目录与阅读进度条 - 可选外挂)
+
+```html
+<!-- 阅读进度条 (可选) -->
+<div class="reading-progress" id="reading-progress"></div>
+
+<!-- 快捷目录 (可选：形态与位置完全由 CSS 自由定义，支持顶部悬浮胶囊、左侧吸顶侧边栏、右侧浮动锚点等) -->
+<nav class="quick-nav">
+  <a href="#section-1">01 / 摘要</a>
+  <a href="#section-2">02 / 核心参数</a>
+  <a href="#section-3">03 / 系统架构</a>
+</nav>
+```
+
+- **契约规则**：
+  1. **默认不启用**：此组件为长文阅读辅助外挂，**常规页面默认不生成**。仅在文档篇幅极大（如 >4~5 个超长章节）且用户明确要求提供导航定位时才按需引入。
+  2. **布局位置自由无拘**：语义规范仅定义 `<nav class="quick-nav">` 容器，**严禁硬编码锁死在顶部**。各风格可根据版式自由将其布局为：
+     - **顶部吸顶胶囊条** (`position: sticky; top: ...`)
+     - **左侧固定大纲树** (`position: fixed; left: ...`)
+     - **右侧极简点阵锚点** (`position: fixed; right: ...`)
+     - **底部悬浮呼出卡**
+  3. **纯净排版契约**：无论置于何处，必须隐藏浏览器原生粗糙滚动条（`scrollbar-width: none;`），保持与风格包一体化的极简美感。

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NOTHING LIGHT — PPT Scaffold (16:9)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Doto:wght@600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   Nothing Design Light (Nothing 极简点阵亮白风) — PPT Scaffold (16:9)
+   画布 1280×720 @96dpi，安全边距 5–7%。复制任意 .slide 块即可。
+   ============================================================ */
+:root {
+  --bg: #FFFFFF;
+  --surface-1: #F6F6F6;
+  --surface-2: #EEEEEE;
+  --surface-track: #E2E2E2;
+  --text-display: #000000;
+  --text-primary: #1A1A1A;
+  --text-secondary: #555555;
+  --text-muted: #888888;
+  --border: #E5E5E5;
+  --border-strong: #CCCCCC;
+  --dot-grid: rgba(0, 0, 0, 0.08);
+  
+  --signal-coral: #D71921;
+  --signal-green: #16A34A;
+  --signal-amber: #D97706;
+  --signal-cyan: #0284C7;
+
+  --accent: var(--signal-coral);
+  --accent-subtle: rgba(215, 25, 33, 0.08);
+  --radius: 12px;
+  --radius-pill: 999px;
+  --font-dot: "Doto", "Space Mono", monospace;
+  --font-body: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "HarmonyOS Sans SC", sans-serif;
+  --font-mono: "Space Mono", "SFMono-Regular", Consolas, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #EAEAEA;
+  font-family: var(--font-body);
+  display: flex; flex-direction: column; align-items: center;
+  gap: 32px; padding: 40px 0;
+}
+
+/* ---- 单页 16:9 ---- */
+.slide {
+  position: relative;
+  width: min(92vw, 1160px); aspect-ratio: 16/9;
+  background-color: var(--bg);
+  background-image: radial-gradient(var(--dot-grid) 1px, transparent 1px);
+  background-size: 20px 20px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  padding: 5% 5.5%;
+  display: flex; flex-direction: column;
+}
+
+.slide .meta-foot {
+  position: absolute; left: 5.5%; bottom: 4%;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-muted);
+}
+.slide .slide-no {
+  position: absolute; right: 5.5%; bottom: 4%;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+/* ---- Eyebrow ---- */
+.eyebrow {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted);
+  margin-bottom: 16px;
+}
+.eyebrow .led-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--signal-coral); box-shadow: 0 0 6px rgba(215, 25, 33, 0.6);
+  flex: none;
+}
+.eyebrow .reticle { margin-left: auto; font-size: 10px; color: var(--text-muted); }
+
+/* ---- Typography ---- */
+h1.s {
+  font-family: var(--font-body);
+  font-size: clamp(34px, 4.8vw, 52px); font-weight: 700;
+  line-height: 1.05; letter-spacing: -0.03em; color: var(--text-display);
+}
+h1.s .dot-font { font-family: var(--font-dot); font-weight: 800; }
+h2.s {
+  font-size: clamp(24px, 3vw, 32px); font-weight: 700;
+  line-height: 1.1; letter-spacing: -0.02em; color: var(--text-display);
+}
+.lead-s {
+  font-size: clamp(15px, 1.6vw, 18px); font-weight: 300;
+  line-height: 1.6; color: var(--text-secondary); margin-top: 14px; max-width: 48ch;
+}
+.body-s { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+
+/* ============================================================
+   SLIDE 1: Cover / Keynote Statement
+   ============================================================ */
+.sl-statement .hero-wrap { margin-top: auto; margin-bottom: auto; }
+
+/* ============================================================
+   SLIDE 2: Stats & Key Metrics (3 Cards)
+   ============================================================ */
+.stats-ppt {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+  margin-top: auto; margin-bottom: auto;
+}
+.stats-ppt .st-card {
+  background: var(--surface-1); border: 1px solid var(--border);
+  padding: 20px; border-radius: var(--radius); display: flex; flex-direction: column; gap: 8px;
+}
+.stats-ppt .st-head {
+  font-family: var(--font-mono); font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted);
+  display: flex; justify-content: space-between;
+}
+.stats-ppt .st-val {
+  font-family: var(--font-dot); font-size: 40px; font-weight: 800; color: var(--text-display); line-height: 1;
+}
+.stats-ppt .st-val span { font-size: 18px; font-family: var(--font-mono); }
+.stats-ppt .st-lbl {
+  font-family: var(--font-mono); font-size: 10px; color: var(--text-secondary); text-transform: uppercase;
+}
+.stats-ppt .seg-meter { display: flex; gap: 3px; margin-top: 8px; }
+.stats-ppt .seg { flex: 1; height: 4px; background: var(--surface-track); border-radius: 1px; }
+.stats-ppt .seg.coral { background: var(--signal-coral); }
+.stats-ppt .seg.green { background: var(--signal-green); }
+.stats-ppt .seg.amber { background: var(--signal-amber); }
+.stats-ppt .seg.black { background: #000000; }
+
+/* ============================================================
+   SLIDE 3: 3-Column Architecture Pillars
+   ============================================================ */
+.col-3 {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+  margin-top: auto; margin-bottom: auto;
+}
+.col-3 .c {
+  background: var(--surface-1); border: 1px solid var(--border);
+  padding: 18px; border-radius: var(--radius); display: flex; flex-direction: column; gap: 8px;
+}
+.col-3 .c .n {
+  font-family: var(--font-dot); font-size: 26px; font-weight: 800; color: var(--text-muted);
+}
+.col-3 .c .tag {
+  display: inline-flex; align-items: center; height: 20px; padding: 0 8px;
+  border: 1px solid var(--border-strong); border-radius: var(--radius-pill);
+  font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--text-muted); align-self: flex-start;
+  background: var(--surface-2);
+}
+.col-3 .c h3 { font-size: 16px; font-weight: 600; color: var(--text-display); }
+.col-3 .c p { font-size: 12.5px; line-height: 1.5; color: var(--text-secondary); }
+.col-3 .c.selected { border-color: var(--signal-coral); background: var(--accent-subtle); }
+.col-3 .c.selected .n { color: var(--signal-coral); }
+.col-3 .c.selected .tag { border-color: var(--signal-coral); color: var(--signal-coral); }
+
+/* ============================================================
+   SLIDE 4: Comparison Matrix
+   ============================================================ */
+.cmp-ppt {
+  border: 1px solid var(--border); background: var(--surface-1);
+  border-radius: var(--radius); overflow: hidden; margin-top: auto; margin-bottom: auto;
+}
+.cmp-ppt .row {
+  display: grid; grid-template-columns: 1.4fr repeat(3, 1fr);
+  border-bottom: 1px solid var(--border);
+}
+.cmp-ppt .row:last-child { border-bottom: none; }
+.cmp-ppt .cell {
+  padding: 11px 14px; border-right: 1px solid var(--border);
+  font-size: 12px; color: var(--text-secondary); display: flex; align-items: center;
+}
+.cmp-ppt .cell:last-child { border-right: none; }
+.cmp-ppt .row.head .cell {
+  background: var(--surface-2); font-family: var(--font-mono);
+  font-size: 9.5px; font-weight: 700; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase;
+}
+.cmp-ppt .cell.coral-col {
+  background: rgba(215, 25, 33, 0.04); color: var(--text-display);
+  box-shadow: inset 2px 0 0 var(--signal-coral);
+}
+.cmp-ppt .row.head .cell.coral-col { color: var(--signal-coral); }
+.dot-ind { width: 7px; height: 7px; border-radius: 50%; background: var(--text-display); display: inline-block; }
+.dot-ind.coral { background: var(--signal-coral); }
+.dot-ind.green { background: var(--signal-green); }
+
+/* ---- Print Media for 16:9 PDF Export ---- */
+@media print {
+  @page { size: 16in 9in; margin: 0; }
+  body { background: none; display: block; padding: 0; gap: 0; margin: 0; }
+  .slide {
+    width: 100vw; height: 100vh; aspect-ratio: auto; margin: 0; border: none; border-radius: 0;
+    page-break-after: always; page-break-inside: avoid;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1: STATEMENT / COVER -->
+<div class="slide sl-statement">
+  <div class="eyebrow">
+    <span class="led-dot"></span>
+    <span>01 // TECHNICAL WHITE PAPER</span>
+    <span class="reticle">[ N-OS 3.0 // WHITE CERAMIC SPEC ]</span>
+  </div>
+  <div class="hero-wrap">
+    <h1 class="s">
+      NOTHING DESIGN LIGHT<br>
+      <span class="dot-font">SUBTRACT, DON'T ADD.</span>
+    </h1>
+    <p class="lead-s">
+      白瓷工业美学与瑞士排版秩序。以纯粹冷白为底，信号红、翡翠绿与琥珀金构筑长篇出版级技术报告。
+    </p>
+  </div>
+  <div class="meta-foot">CONFIDENTIAL // PRODUCT SPEC</div>
+  <div class="slide-no">01 / 04</div>
+</div>
+
+<!-- SLIDE 2: STATS & KEY METRICS -->
+<div class="slide">
+  <div class="eyebrow">
+    <span class="led-dot"></span>
+    <span>02 // KEY METRICS & BENCHMARK</span>
+  </div>
+  <h2 class="s">核心量化指标与基准</h2>
+  <div class="stats-ppt">
+    <div class="st-card">
+      <div class="st-head"><span>[ STAT // 01 ]</span><span style="color:var(--signal-coral);">CRITICAL</span></div>
+      <div class="st-val">99.8<span style="color:var(--signal-coral);">%</span></div>
+      <div class="st-lbl">BENCHMARK ACCURACY</div>
+      <div class="seg-meter">
+        <span class="seg coral"></span><span class="seg coral"></span><span class="seg coral"></span>
+        <span class="seg coral"></span><span class="seg black"></span><span class="seg"></span>
+      </div>
+    </div>
+    <div class="st-card">
+      <div class="st-head"><span>[ STAT // 02 ]</span><span style="color:var(--signal-amber);">BUFFER</span></div>
+      <div class="st-val">0.42<span style="color:var(--signal-amber);">ms</span></div>
+      <div class="st-lbl">PIPELINE LATENCY</div>
+      <div class="seg-meter">
+        <span class="seg amber"></span><span class="seg amber"></span><span class="seg black"></span>
+        <span class="seg"></span><span class="seg"></span><span class="seg"></span>
+      </div>
+    </div>
+    <div class="st-card">
+      <div class="st-head"><span>[ STAT // 03 ]</span><span style="color:var(--signal-green);">NOMINAL</span></div>
+      <div class="st-val">1.28<span style="color:var(--signal-green);">M</span></div>
+      <div class="st-lbl">ACTIVE CAPACITY</div>
+      <div class="seg-meter">
+        <span class="seg green"></span><span class="seg green"></span><span class="seg green"></span>
+        <span class="seg green"></span><span class="seg green"></span><span class="seg"></span>
+      </div>
+    </div>
+  </div>
+  <div class="meta-foot">BENCHMARK VERIFICATION // V3.0</div>
+  <div class="slide-no">02 / 04</div>
+</div>
+
+<!-- SLIDE 3: 3-COLUMN ARCHITECTURE -->
+<div class="slide">
+  <div class="eyebrow">
+    <span class="led-dot"></span>
+    <span>03 // ARCHITECTURE PILLARS</span>
+  </div>
+  <h2 class="s">三层架构与设计基因</h2>
+  <div class="col-3">
+    <div class="c">
+      <span class="n">01</span>
+      <span class="tag">TYPOGRAPHY</span>
+      <h3>Doto 点阵字系</h3>
+      <p>为重大技术指标与数据看板专设的 Variable Dot Matrix 字体，白底黑字呈现现代包豪斯印刷质感。</p>
+    </div>
+    <div class="c selected">
+      <span class="n">02</span>
+      <span class="tag">RECOMMENDED</span>
+      <h3>多通道功能色谱</h3>
+      <p>信号红（焦点/警告）、翡翠绿（安全/Pro）、琥珀金（分类），精准编码长文层级。</p>
+    </div>
+    <div class="c">
+      <span class="n">03</span>
+      <span class="tag">STRUCTURE</span>
+      <h3>18 项语义骨架</h3>
+      <p>严格对齐 5 阶段长文叙事流，分段式刻度条与硬边平面构建出版级质感。</p>
+    </div>
+  </div>
+  <div class="meta-foot">ARCHITECTURAL OVERVIEW</div>
+  <div class="slide-no">03 / 04</div>
+</div>
+
+<!-- SLIDE 4: COMPARISON MATRIX -->
+<div class="slide">
+  <div class="eyebrow">
+    <span class="led-dot"></span>
+    <span>04 // MATRIX COMPARISON</span>
+  </div>
+  <h2 class="s">方案多维对比矩阵</h2>
+  <div class="cmp-ppt">
+    <div class="row head">
+      <div class="cell">DESIGN AXIS</div>
+      <div class="cell coral-col">NOTHING LIGHT</div>
+      <div class="cell">NOTHING DARK</div>
+      <div class="cell">BRUTALIST</div>
+    </div>
+    <div class="row">
+      <div class="cell">Base Palette</div>
+      <div class="cell coral-col"><span class="dot-ind coral"></span>&nbsp;&nbsp;Ceramic #FFFFFF</div>
+      <div class="cell">OLED #000000</div>
+      <div class="cell">Paper #FFFFFF</div>
+    </div>
+    <div class="row">
+      <div class="cell">Telemetry Color</div>
+      <div class="cell coral-col"><span class="dot-ind coral"></span>&nbsp;&nbsp;Red / Green / Amber</div>
+      <div class="cell">Coral / Green / Amber</div>
+      <div class="cell">Pink / Cyan</div>
+    </div>
+    <div class="row">
+      <div class="cell">Component Skeleton</div>
+      <div class="cell coral-col"><span class="dot-ind green"></span>&nbsp;&nbsp;18 Semantic Units</div>
+      <div class="cell">18 Semantic Units</div>
+      <div class="cell">Poster Blocks</div>
+    </div>
+  </div>
+  <div class="meta-foot">DECISION MATRIX // FINAL</div>
+  <div class="slide-no">04 / 04</div>
+</div>
+
+</body>
+</html>

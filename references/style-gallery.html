@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Visual HTML — 11 套设计风格全量画廊 (Style Gallery)</title>
+  <title>Visual HTML — 13 套设计风格全量画廊 (Style Gallery)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
@@ -210,12 +210,11 @@
     }
 
     .card-actions {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
-      align-items: center;
     }
     .btn-copy {
-      flex: 1;
       font-family: "IBM Plex Mono", monospace;
       font-size: 12px;
       font-weight: 700;
@@ -241,6 +240,26 @@
       color: #FFFFFF;
       border-color: #10B981;
     }
+    .btn-use {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: var(--accent);
+      border: 1px solid var(--accent);
+      color: #0C0F14;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .btn-use:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .btn-use:disabled { cursor: default; opacity: 0.78; transform: none; }
+    .btn-use.sent { background: #10B981; border-color: #10B981; color: #FFFFFF; }
+    .btn-use.fallback { background: var(--surface-2); border-color: var(--border); color: var(--accent); }
     .btn-link {
       font-family: "IBM Plex Mono", monospace;
       font-size: 11px;
@@ -251,6 +270,7 @@
       border: 1px solid var(--border);
       color: var(--text-mut);
       text-decoration: none;
+      text-align: center;
       transition: all 0.2s ease;
     }
     .btn-link:hover {
@@ -295,12 +315,12 @@
         VISUAL HTML STYLE PACKS // 3.0
       </div>
       <h1>设计风格全量画廊</h1>
-      <p class="lead">已内置 11 套独立演进的可插拔设计系统。直观预览微缩卡片，点击即可一键复制 Style ID 并在对话中快速调用。</p>
+      <p class="lead">已内置 13 套独立演进的可插拔设计系统。先查看风格预览；点击“使用此风格”提交选择，Companion 会回传给 Agent，直接打开页面时则复制待发送文本。</p>
     </header>
 
     <!-- Filter Buttons -->
     <div class="filter-bar">
-      <button class="filter-btn active" data-filter="all">全部风格 (11)</button>
+      <button class="filter-btn active" data-filter="all">全部风格 (13)</button>
       <button class="filter-btn" data-filter="tech">硬核科技 / 参数展示</button>
       <button class="filter-btn" data-filter="pop">潮流创意 / 像素波普</button>
       <button class="filter-btn" data-filter="editorial">人文社论 / 智识工作流</button>
@@ -311,9 +331,9 @@
     <div class="gallery-grid" id="grid">
 
       <!-- 1. industrial-dark -->
-      <div class="style-card" data-category="tech">
+      <div class="style-card" data-style-id="industrial-dark" data-category="tech">
         <div class="card-preview">
-          <img src="styles/industrial-dark/preview.svg" alt="industrial-dark preview" loading="lazy">
+          <img src="styles/industrial-dark/preview.png" alt="industrial-dark preview" loading="lazy">
         </div>
         <div class="card-body">
           <div class="card-top">
@@ -327,16 +347,16 @@
           </div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyId('industrial-dark', this)"><span>📋</span> industrial-dark</button>
-            <a class="btn-link" href="styles/industrial-dark/scaffold-web.html" target="_blank">Web</a>
-            <a class="btn-link" href="styles/industrial-dark/scaffold-ppt.html" target="_blank">PPT</a>
+            <a class="btn-link" href="styles/industrial-dark/scaffold-web.html" target="_blank">网页示例</a>
+            <a class="btn-link" href="styles/industrial-dark/scaffold-ppt.html" target="_blank">PPT 示例</a>
           </div>
         </div>
       </div>
 
       <!-- 2. soft-sky -->
-      <div class="style-card" data-category="lifestyle">
+      <div class="style-card" data-style-id="soft-sky" data-category="lifestyle">
         <div class="card-preview">
-          <img src="styles/soft-sky/preview.svg" alt="soft-sky preview" loading="lazy">
+          <img src="styles/soft-sky/preview.png" alt="soft-sky preview" loading="lazy">
         </div>
         <div class="card-body">
           <div class="card-top">
@@ -350,16 +370,16 @@
           </div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyId('soft-sky', this)"><span>📋</span> soft-sky</button>
-            <a class="btn-link" href="styles/soft-sky/scaffold-web.html" target="_blank">Web</a>
-            <a class="btn-link" href="styles/soft-sky/scaffold-ppt.html" target="_blank">PPT</a>
+            <a class="btn-link" href="styles/soft-sky/scaffold-web.html" target="_blank">网页示例</a>
+            <a class="btn-link" href="styles/soft-sky/scaffold-ppt.html" target="_blank">PPT 示例</a>
           </div>
         </div>
       </div>
 
       <!-- 3. obsidian-cyan -->
-      <div class="style-card" data-category="tech">
+      <div class="style-card" data-style-id="obsidian-cyan" data-category="tech">
         <div class="card-preview">
-          <img src="styles/obsidian-cyan/preview.svg" alt="obsidian-cyan preview" loading="lazy">
+          <img src="styles/obsidian-cyan/preview.png" alt="obsidian-cyan preview" loading="lazy">
         </div>
         <div class="card-body">
           <div class="card-top">
@@ -373,16 +393,16 @@
           </div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyId('obsidian-cyan', this)"><span>📋</span> obsidian-cyan</button>
-            <a class="btn-link" href="styles/obsidian-cyan/scaffold-web.html" target="_blank">Web</a>
-            <a class="btn-link" href="styles/obsidian-cyan/scaffold-ppt.html" target="_blank">PPT</a>
+            <a class="btn-link" href="styles/obsidian-cyan/scaffold-web.html" target="_blank">网页示例</a>
+            <a class="btn-link" href="styles/obsidian-cyan/scaffold-ppt.html" target="_blank">PPT 示例</a>
           </div>
         </div>
       </div>
 
       <!-- 4. play-tubular -->
-      <div class="style-card" data-category="tech pop">
+      <div class="style-card" data-style-id="play-tubular" data-category="tech pop">
         <div class="card-preview">
-          <img src="styles/play-tubular/preview.svg" alt="play-tubular preview" loading="lazy">
+          <img src="styles/play-tubular/preview.png" alt="play-tubular preview" loading="lazy">
         </div>
         <div class="card-body">
           <div class="card-top">
@@ -396,16 +416,16 @@
           </div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyId('play-tubular', this)"><span>📋</span> play-tubular</button>
-            <a class="btn-link" href="styles/play-tubular/scaffold-web.html" target="_blank">Web</a>
-            <a class="btn-link" href="styles/play-tubular/scaffold-ppt.html" target="_blank">PPT</a>
+            <a class="btn-link" href="styles/play-tubular/scaffold-web.html" target="_blank">网页示例</a>
+            <a class="btn-link" href="styles/play-tubular/scaffold-ppt.html" target="_blank">PPT 示例</a>
           </div>
         </div>
       </div>
 
       <!-- 5. warm-craft -->
-      <div class="style-card" data-category="editorial">
+      <div class="style-card" data-style-id="warm-craft" data-category="editorial">
         <div class="card-preview">
-          <img src="styles/warm-craft/preview.svg" alt="warm-craft preview" loading="lazy">
+          <img src="styles/warm-craft/preview.png" alt="warm-craft preview" loading="lazy">
         </div>
         <div class="card-body">
           <div class="card-top">
@@ -419,16 +439,16 @@
           </div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyId('warm-craft', this)"><span>📋</span> warm-craft</button>
-            <a class="btn-link" href="styles/warm-craft/scaffold-web.html" target="_blank">Web</a>
-            <a class="btn-link" href="styles/warm-craft/scaffold-ppt.html" target="_blank">PPT</a>
+            <a class="btn-link" href="styles/warm-craft/scaffold-web.html" target="_blank">网页示例</a>
+            <a class="btn-link" href="styles/warm-craft/scaffold-ppt.html" target="_blank">PPT 示例</a>
           </div>
         </div>
       </div>
 
       <!-- 6. neon-3d -->
-      <div class="style-card" data-category="pop tech">
+      <div class="style-card" data-style-id="neon-3d" data-category="pop tech">
         <div class="card-preview">
-          <img src="styles/neon-3d/preview.svg" alt="neon-3d preview" loading="lazy">
+          <img src="styles/neon-3d/preview.png" alt="neon-3d preview" loading="lazy">
         </div>
         <div class="card-body">
           <div class="card-top">
@@ -442,16 +462,16 @@
           </div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyId('neon-3d', this)"><span>📋</span> neon-3d</button>
-            <a class="btn-link" href="styles/neon-3d/scaffold-web.html" target="_blank">Web</a>
-            <a class="btn-link" href="styles/neon-3d/scaffold-ppt.html" target="_blank">PPT</a>
+            <a class="btn-link" href="styles/neon-3d/scaffold-web.html" target="_blank">网页示例</a>
+            <a class="btn-link" href="styles/neon-3d/scaffold-ppt.html" target="_blank">PPT 示例</a>
           </div>
         </div>
       </div>
 
       <!-- 7. pixel-pop -->
-      <div class="style-card" data-category="pop">
+      <div class="style-card" data-style-id="pixel-pop" data-category="pop">
         <div class="card-preview">
-          <img src="styles/pixel-pop/preview.svg" alt="pixel-pop preview" loading="lazy">
+          <img src="styles/pixel-pop/preview.png" alt="pixel-pop preview" loading="lazy">
         </div>
         <div class="card-body">
           <div class="card-top">
@@ -465,16 +485,16 @@
           </div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyId('pixel-pop', this)"><span>📋</span> pixel-pop</button>
-            <a class="btn-link" href="styles/pixel-pop/scaffold-web.html" target="_blank">Web</a>
-            <a class="btn-link" href="styles/pixel-pop/scaffold-ppt.html" target="_blank">PPT</a>
+            <a class="btn-link" href="styles/pixel-pop/scaffold-web.html" target="_blank">网页示例</a>
+            <a class="btn-link" href="styles/pixel-pop/scaffold-ppt.html" target="_blank">PPT 示例</a>
           </div>
         </div>
       </div>
 
       <!-- 8. brutalist-acid -->
-      <div class="style-card" data-category="pop">
+      <div class="style-card" data-style-id="brutalist-acid" data-category="pop">
         <div class="card-preview">
-          <img src="styles/brutalist-acid/preview.svg" alt="brutalist-acid preview" loading="lazy">
+          <img src="styles/brutalist-acid/preview.png" alt="brutalist-acid preview" loading="lazy">
         </div>
         <div class="card-body">
           <div class="card-top">
@@ -488,16 +508,16 @@
           </div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyId('brutalist-acid', this)"><span>📋</span> brutalist-acid</button>
-            <a class="btn-link" href="styles/brutalist-acid/scaffold-web.html" target="_blank">Web</a>
-            <a class="btn-link" href="styles/brutalist-acid/scaffold-ppt.html" target="_blank">PPT</a>
+            <a class="btn-link" href="styles/brutalist-acid/scaffold-web.html" target="_blank">网页示例</a>
+            <a class="btn-link" href="styles/brutalist-acid/scaffold-ppt.html" target="_blank">PPT 示例</a>
           </div>
         </div>
       </div>
 
       <!-- 9. sunflower-bloom -->
-      <div class="style-card" data-category="lifestyle editorial">
+      <div class="style-card" data-style-id="sunflower-bloom" data-category="lifestyle editorial">
         <div class="card-preview">
-          <img src="styles/sunflower-bloom/preview.svg" alt="sunflower-bloom preview" loading="lazy">
+          <img src="styles/sunflower-bloom/preview.png" alt="sunflower-bloom preview" loading="lazy">
         </div>
         <div class="card-body">
           <div class="card-top">
@@ -511,16 +531,16 @@
           </div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyId('sunflower-bloom', this)"><span>📋</span> sunflower-bloom</button>
-            <a class="btn-link" href="styles/sunflower-bloom/scaffold-web.html" target="_blank">Web</a>
-            <a class="btn-link" href="styles/sunflower-bloom/scaffold-ppt.html" target="_blank">PPT</a>
+            <a class="btn-link" href="styles/sunflower-bloom/scaffold-web.html" target="_blank">网页示例</a>
+            <a class="btn-link" href="styles/sunflower-bloom/scaffold-ppt.html" target="_blank">PPT 示例</a>
           </div>
         </div>
       </div>
 
       <!-- 10. summer-dopamine -->
-      <div class="style-card" data-category="lifestyle pop">
+      <div class="style-card" data-style-id="summer-dopamine" data-category="lifestyle pop">
         <div class="card-preview">
-          <img src="styles/summer-dopamine/preview.svg" alt="summer-dopamine preview" loading="lazy">
+          <img src="styles/summer-dopamine/preview.png" alt="summer-dopamine preview" loading="lazy">
         </div>
         <div class="card-body">
           <div class="card-top">
@@ -534,16 +554,16 @@
           </div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyId('summer-dopamine', this)"><span>📋</span> summer-dopamine</button>
-            <a class="btn-link" href="styles/summer-dopamine/scaffold-web.html" target="_blank">Web</a>
-            <a class="btn-link" href="styles/summer-dopamine/scaffold-ppt.html" target="_blank">PPT</a>
+            <a class="btn-link" href="styles/summer-dopamine/scaffold-web.html" target="_blank">网页示例</a>
+            <a class="btn-link" href="styles/summer-dopamine/scaffold-ppt.html" target="_blank">PPT 示例</a>
           </div>
         </div>
       </div>
 
       <!-- 11. soft-editorial-future -->
-      <div class="style-card" data-category="editorial tech">
+      <div class="style-card" data-style-id="soft-editorial-future" data-category="editorial tech">
         <div class="card-preview">
-          <img src="styles/soft-editorial-future/preview.svg" alt="soft-editorial-future preview" loading="lazy">
+          <img src="styles/soft-editorial-future/preview.png" alt="soft-editorial-future preview" loading="lazy">
         </div>
         <div class="card-body">
           <div class="card-top">
@@ -557,8 +577,54 @@
           </div>
           <div class="card-actions">
             <button class="btn-copy" onclick="copyId('soft-editorial-future', this)"><span>📋</span> soft-editorial-future</button>
-            <a class="btn-link" href="styles/soft-editorial-future/scaffold-web.html" target="_blank">Web</a>
-            <a class="btn-link" href="styles/soft-editorial-future/scaffold-ppt.html" target="_blank">PPT</a>
+            <a class="btn-link" href="styles/soft-editorial-future/scaffold-web.html" target="_blank">网页示例</a>
+            <a class="btn-link" href="styles/soft-editorial-future/scaffold-ppt.html" target="_blank">PPT 示例</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 12. nothing-design-dark -->
+      <div class="style-card" data-style-id="nothing-design-dark" data-category="tech editorial">
+        <div class="card-preview">
+          <img src="styles/nothing-design-dark/preview.png" alt="nothing-design-dark preview" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <div class="style-name">Nothing 极简点阵暗黑风</div>
+            <span class="style-tag">DARK</span>
+          </div>
+          <p class="style-desc">OLED 纯黑底色与 24px 点阵网格，Doto 点阵字与 Space Grotesk 瑞士排版，珊瑚信号橙、翡翠绿与琥珀金多通道遥测色，18 项长文语义骨架与分段刻度条。</p>
+          <div class="style-meta">
+            <div class="meta-row"><span class="meta-lbl">适用场景:</span><span class="meta-val">硬件工业设计、前沿数码发布、技术规格书、深度研究白皮书、夜间沉浸报告</span></div>
+            <div class="meta-row"><span class="meta-lbl">核心特征:</span><span class="meta-val">OLED 纯黑 #000000 · Doto 点阵 · 珊瑚橙 #FF5722 · 翡翠绿 #22C55E · 18 语义组件</span></div>
+          </div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyId('nothing-design-dark', this)"><span>📋</span> nothing-design-dark</button>
+            <a class="btn-link" href="styles/nothing-design-dark/scaffold-web.html" target="_blank">网页示例</a>
+            <a class="btn-link" href="styles/nothing-design-dark/scaffold-ppt.html" target="_blank">PPT 示例</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 13. nothing-design-light -->
+      <div class="style-card" data-style-id="nothing-design-light" data-category="tech editorial">
+        <div class="card-preview">
+          <img src="styles/nothing-design-light/preview.png" alt="nothing-design-light preview" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <div class="style-name">Nothing 极简点阵亮白风</div>
+            <span class="style-tag">CERAMIC</span>
+          </div>
+          <p class="style-desc">白瓷冷白底色与浅灰点阵网格，Doto 点阵数码与高对比纯黑正文，信号红、翡翠绿与琥珀金功能遥测色，包豪斯现代印刷级长文排版。</p>
+          <div class="style-meta">
+            <div class="meta-row"><span class="meta-lbl">适用场景:</span><span class="meta-val">白瓷工业设计、白皮书、现代印刷质感报告、硬件参数发布、极简日间阅读</span></div>
+            <div class="meta-row"><span class="meta-lbl">核心特征:</span><span class="meta-val">陶瓷冷白 #FFFFFF · 纯黑正文 #1A1A1A · 信号红 #D71921 · 18 语义组件</span></div>
+          </div>
+          <div class="card-actions">
+            <button class="btn-copy" onclick="copyId('nothing-design-light', this)"><span>📋</span> nothing-design-light</button>
+            <a class="btn-link" href="styles/nothing-design-light/scaffold-web.html" target="_blank">网页示例</a>
+            <a class="btn-link" href="styles/nothing-design-light/scaffold-ppt.html" target="_blank">PPT 示例</a>
           </div>
         </div>
       </div>
@@ -570,8 +636,92 @@
   <div id="toast">已复制 Style ID: <span id="toast-text"></span></div>
 
   <script>
+    function selectionPrompt(styleId, styleName) {
+      return `我选择了视觉风格“${styleName}”（style_id: ${styleId}）。请继续确认我想制作成网页还是 PPT。`;
+    }
+
+    function showSelectionToast(message) {
+      const toast = document.getElementById('toast');
+      const toastText = document.getElementById('toast-text');
+      toastText.textContent = message;
+      toast.classList.add('show');
+      window.setTimeout(() => toast.classList.remove('show'), 2600);
+    }
+
+    async function copyText(text) {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      const copied = document.execCommand('copy');
+      textarea.remove();
+      if (!copied) throw new Error('当前浏览器禁止访问剪贴板');
+    }
+
+    async function sendStyleSelection(styleId, styleName, button) {
+      const prompt = selectionPrompt(styleId, styleName);
+      button.disabled = true;
+
+      try {
+        if (window.visualHtmlCompanion?.send) {
+          await window.visualHtmlCompanion.send({
+            type: 'style-selected',
+            styleId,
+            styleName,
+            prompt
+          });
+          button.classList.add('sent');
+          button.textContent = '✓ 已提交选择';
+          showSelectionToast(`${styleId} 已提交，返回对话继续`);
+          return;
+        }
+
+        if (window.openai?.sendFollowUpMessage) {
+          await window.openai.sendFollowUpMessage({ prompt, scrollToBottom: true });
+          button.classList.add('sent');
+          button.textContent = '✓ 已回到对话';
+          showSelectionToast(`${styleId} 已发送到对话`);
+          return;
+        }
+
+        await copyText(prompt);
+        button.classList.add('fallback');
+        button.textContent = '✓ 已复制选择';
+        showSelectionToast('当前页面没有对话宿主，已复制可粘贴的选择文本');
+      } catch (error) {
+        button.disabled = false;
+        showSelectionToast(error?.message || '发送风格选择失败');
+      }
+    }
+
+    function addUseButtons() {
+      document.querySelectorAll('.style-card').forEach(card => {
+        const actionBar = card.querySelector('.card-actions');
+        const copyButton = card.querySelector('.btn-copy');
+        if (!actionBar || !copyButton || actionBar.querySelector('.btn-use')) return;
+        const styleId = card.dataset.styleId;
+        const styleName = card.querySelector('.style-name')?.textContent.trim() || styleId;
+        if (!styleId) return;
+
+        const useButton = document.createElement('button');
+        useButton.type = 'button';
+        useButton.className = 'btn-use';
+        useButton.textContent = '使用此风格';
+        useButton.addEventListener('click', () => sendStyleSelection(styleId, styleName, useButton));
+        actionBar.prepend(useButton);
+      });
+    }
+
     function copyId(styleId, btn) {
-      navigator.clipboard.writeText(styleId).then(() => {
+      copyText(styleId).then(() => {
         const toast = document.getElementById('toast');
         const toastText = document.getElementById('toast-text');
         toastText.textContent = styleId;
@@ -586,8 +736,10 @@
           btn.classList.remove('copied');
           btn.innerHTML = originalText;
         }, 2000);
-      });
+      }).catch(error => showSelectionToast(error?.message || '复制 Style ID 失败'));
     }
+
+    addUseButtons();
 
     // Filter functionality
     document.querySelectorAll('.filter-btn').forEach(btn => {

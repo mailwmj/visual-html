@@ -8,6 +8,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400..800;1,6..72,400..800&family=Noto+Serif+SC:wght@500;600;700;900&display=swap" rel="stylesheet" />
 <style>
+/* ============================================================
+   Warm Craft (温润纸感手札风) — Design Tokens & Styles
+   ============================================================ */
 :root {
   /* 背景层：暖纸底色与柔和环境色 */
   --bg: #F7F4EC;
@@ -68,8 +71,8 @@
   --radius-pill: 100px;
   --container: 1180px;
 
-  /* 字体栈：优先原生系统 Songti 宋体 + 优雅 Serif，保证各平台文字显示极佳 */
-  --font-serif: "Newsreader", "Playfair Display", "Songti SC", "STSong", "Source Han Serif SC", "Noto Serif SC", "Noto Serif CJK SC", "SimSun", "STFangsong", "FangSong", "Georgia", serif;
+  /* 字体栈：优先原生系统 Songti 宋体 + 优雅 Serif */
+  --font-serif: "Newsreader", "Playfair Display", "Songti SC", "STSong", "Source Han Serif SC", "Noto Serif SC", "Noto Serif CJK SC", "SimSun", "Georgia", serif;
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "HarmonyOS Sans SC", "Microsoft YaHei", "微软雅黑", sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", "SFMono-Regular", Consolas, monospace;
 }
@@ -88,7 +91,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* 全局固定流体光晕背景层 */
+/* 全局固定流体光晕背景层 (4 组柔和呼吸流光) */
 body::before {
   content: "";
   position: fixed;
@@ -115,22 +118,47 @@ section {
 }
 
 /* ============================================================
-   文字效果拓展 (Typography Enhancements)
+   文字效果拓展 (Typography Enhancements & Marker Highlighters)
    ============================================================ */
 .marker-highlight {
-  background: linear-gradient(180deg, transparent 60%, rgba(254, 219, 113, 0.65) 60%);
+  background: linear-gradient(180deg, transparent 52%, rgba(254, 219, 113, 0.75) 52%, rgba(254, 219, 113, 0.75) 94%, transparent 94%);
   padding: 0 4px;
-  border-radius: 2px;
+  border-radius: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  display: inline;
 }
 .marker-highlight-orange {
-  background: linear-gradient(180deg, transparent 60%, rgba(255, 169, 99, 0.65) 60%);
+  background: linear-gradient(180deg, transparent 52%, rgba(255, 169, 99, 0.75) 52%, rgba(255, 169, 99, 0.75) 94%, transparent 94%);
   padding: 0 4px;
-  border-radius: 2px;
+  border-radius: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  display: inline;
 }
 .marker-highlight-green {
-  background: linear-gradient(180deg, transparent 60%, rgba(183, 217, 122, 0.65) 60%);
+  background: linear-gradient(180deg, transparent 52%, rgba(183, 217, 122, 0.75) 52%, rgba(183, 217, 122, 0.75) 94%, transparent 94%);
   padding: 0 4px;
-  border-radius: 2px;
+  border-radius: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  display: inline;
+}
+.marker-highlight-purple {
+  background: linear-gradient(180deg, transparent 52%, rgba(170, 183, 242, 0.75) 52%, rgba(170, 183, 242, 0.75) 94%, transparent 94%);
+  padding: 0 4px;
+  border-radius: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  display: inline;
+}
+.marker-highlight-coral {
+  background: linear-gradient(180deg, transparent 52%, rgba(252, 165, 152, 0.75) 52%, rgba(252, 165, 152, 0.75) 94%, transparent 94%);
+  padding: 0 4px;
+  border-radius: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  display: inline;
 }
 
 /* ============================================================
@@ -268,99 +296,20 @@ p.lead {
   font-style: italic;
   color: var(--text-primary);
 }
-.rich-text code {
+.rich-text :not(pre) > code,
+.rich-text p > code,
+.rich-text li > code,
+.rich-text blockquote > code,
+.rich-text td > code {
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 0.88em;
   background: var(--bg-deep);
   color: var(--signal-primary);
-  padding: 3px 8px;
+  padding: 2px 7px;
   border-radius: 6px;
   border: 1px solid var(--border);
+  font-weight: 600;
 }
-
-/* ---- Code Block & Pre (Warm Craft Vintage Terminal) ---- */
-.code-block {
-  background: #222522;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: var(--radius-sm);
-  margin: 28px 0;
-  overflow: hidden;
-  box-shadow: 0 8px 24px rgba(34, 37, 34, 0.15);
-}
-.code-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 16px;
-  background: #1B1E1B;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-.code-dots {
-  display: flex;
-  gap: 6px;
-}
-.code-dots span {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-}
-.code-dots span:nth-child(1) { background: var(--pastel-orange); }
-.code-dots span:nth-child(2) { background: var(--pastel-yellow); }
-.code-dots span:nth-child(3) { background: var(--pastel-green); }
-.code-lang {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--pastel-yellow);
-  text-transform: uppercase;
-}
-.code-copy-btn {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  padding: 3px 10px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 4px;
-  color: #B2B8B0;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-.code-copy-btn:hover {
-  color: #FFFFFF;
-  border-color: var(--pastel-yellow);
-  background: rgba(254, 219, 113, 0.15);
-}
-.code-block pre, .rich-text pre {
-  margin: 0;
-  padding: 18px 20px;
-  background: #222522;
-  overflow-x: auto;
-  font-family: var(--font-mono);
-  font-size: 13.5px;
-  line-height: 1.65;
-  color: #F7F4EC;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
-}
-.rich-text pre {
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  margin: 24px 0;
-}
-.code-block pre code, .rich-text pre code {
-  background: transparent;
-  border: none;
-  padding: 0;
-  color: inherit;
-  font-size: inherit;
-}
-.token-comment { color: #8A9288; font-style: italic; }
-.token-keyword { color: var(--pastel-green); font-weight: 700; }
-.token-string { color: var(--pastel-yellow); }
-.token-function { color: var(--pastel-orange); }
-.token-number { color: #8ED1FC; }
-.token-operator { color: #B2B8B0; }
 .rich-text blockquote {
   border-left: 4px solid var(--signal-primary);
   background: var(--surface-card-subtle);
@@ -422,6 +371,92 @@ p.lead {
   margin-top: 6px;
 }
 
+/* ---- Code Block & Terminal (Warm Craft Deep Forest Slate) ---- */
+.code-block {
+  background: #1F241C;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius);
+  margin: 28px 0;
+  overflow: hidden;
+  box-shadow: 0 10px 32px rgba(30, 35, 27, 0.14), 0 2px 6px rgba(30, 35, 27, 0.06);
+}
+.code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: #181C15;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.code-dots { display: flex; gap: 7px; }
+.code-dots span { width: 9px; height: 9px; border-radius: 50%; }
+.code-dots span:nth-child(1) { background: #FCA598; }
+.code-dots span:nth-child(2) { background: #FEDB71; }
+.code-dots span:nth-child(3) { background: #B7D97A; }
+.code-lang {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #E2DEC9;
+  text-transform: uppercase;
+}
+.code-copy-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-sm);
+  color: #E2DEC9;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.code-copy-btn:hover {
+  background: #F7F4EC;
+  color: #1E231B;
+  border-color: #F7F4EC;
+}
+.code-block pre, .rich-text > pre {
+  margin: 0;
+  padding: 22px 24px;
+  background: #1F241C;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: #F7F4EC;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+.code-block pre code,
+.rich-text pre code,
+pre code {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  color: inherit !important;
+  font-size: inherit;
+  font-family: inherit;
+  box-shadow: none !important;
+  display: block;
+}
+.rich-text > pre {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin: 24px 0;
+}
+.token-comment { color: #9AA593; font-style: italic; }
+.token-keyword { color: #FEDB71; font-weight: 700; }
+.token-string { color: #FFA963; }
+.token-function { color: #B7D97A; }
+.token-number { color: #7CB6F8; }
+.token-operator { color: #E2DEC9; }
+.token-variable, .token-property { color: #AAB7F2; }
+.token-type, .token-class { color: #FCA598; }
+
 /* ============================================================
    5. Admonitions (智能语义提示框 - 便签质感)
    ============================================================ */
@@ -470,7 +505,7 @@ p.lead {
 }
 
 /* ============================================================
-   6. Number Cards (编号卡片列 - 多彩贴纸与弹性回弹动效)
+   6. Number Cards (编号卡片列 - 多彩贴纸与扇形微倾回弹动效)
    ============================================================ */
 .cards-3 {
   display: grid;
@@ -592,7 +627,74 @@ p.lead {
 }
 
 /* ============================================================
-   7. Comparison Matrix (对比矩阵)
+   7. Feature Card & Media Frame (特性卡片与媒体预览框)
+   ============================================================ */
+.feat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  margin-bottom: 48px;
+}
+.feat-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 36px 32px;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.25s, box-shadow 0.25s;
+  display: flex;
+  flex-direction: column;
+}
+.feat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-card-hover);
+}
+.feat-card .tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--signal-primary);
+  background: var(--signal-primary-light);
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 16px;
+  align-self: flex-start;
+}
+.feat-card h3 {
+  font-family: var(--font-serif);
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+.feat-card p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+.feat-card .frame {
+  width: 100%;
+  min-height: 160px;
+  background: var(--surface-card-subtle);
+  border: 1.5px dashed var(--border-strong);
+  border-radius: calc(var(--radius) - 6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  margin-top: auto;
+}
+
+/* ============================================================
+   8. Comparison Matrix (对比矩阵)
    ============================================================ */
 .cmp-matrix-wrapper {
   overflow-x: auto;
@@ -606,49 +708,55 @@ p.lead {
   min-width: 600px;
   background: var(--surface-card);
   border-collapse: collapse;
-  display: table;
 }
-.cmp-row {
-  display: table-row;
+.cmp-matrix tr {
   border-bottom: 1px solid var(--border);
 }
-.cmp-row:last-child {
+.cmp-matrix tr:last-child {
   border-bottom: none;
 }
-.cmp-row.header {
-  background: var(--bg-deep);
-  font-family: var(--font-serif);
-  font-weight: 700;
-  font-size: 16px;
-  color: var(--text-primary);
-}
-.cmp-cell {
-  display: table-cell;
+.cmp-matrix th,
+.cmp-matrix td {
   padding: 18px 24px;
   vertical-align: middle;
   font-size: 15px;
   color: var(--text-secondary);
+  text-align: left;
 }
-.cmp-row.header .cmp-cell {
+.cmp-matrix thead th {
+  background: var(--bg-deep);
   color: var(--text-primary);
   font-family: var(--font-mono);
   font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  font-weight: 700;
 }
-.cmp-cell.highlight-col {
+.cmp-matrix .highlight-col {
   background: rgba(255, 169, 99, 0.12);
   color: var(--text-primary);
   font-weight: 600;
 }
-.cmp-row.header .cmp-cell.highlight-col {
+.cmp-matrix thead th.highlight-col {
   color: var(--pastel-orange-text);
   font-weight: 800;
   background: rgba(255, 169, 99, 0.22);
 }
+.cmp-tag-rec {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--pastel-orange-text);
+  background: var(--pastel-orange);
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  margin-left: 8px;
+}
 
 /* ============================================================
-   8. Timeline (时间轴 - 药丸徽标与便签)
+   9. Timeline (时间轴 - 药丸徽标与便签)
    ============================================================ */
 .timeline {
   position: relative;
@@ -717,7 +825,7 @@ p.lead {
 }
 
 /* ============================================================
-   9. Pros & Cons (优劣势红黑榜)
+   10. Pros & Cons (优劣势红黑榜)
    ============================================================ */
 .pros-cons {
   display: grid;
@@ -783,7 +891,8 @@ p.lead {
   left: 0;
   color: var(--pastel-green-text);
   font-weight: 800;
-  font-size: 16px;
+  font-size: 14px;
+  font-family: var(--font-mono);
 }
 .con-card li::before {
   content: "—";
@@ -795,7 +904,7 @@ p.lead {
 }
 
 /* ============================================================
-   10. Process Steps (流程步骤)
+   11. Process Steps (流程步骤)
    ============================================================ */
 .steps {
   display: flex;
@@ -849,57 +958,27 @@ p.lead {
 }
 .step p {
   font-size: 15px;
-  color: var(--text-secondary);
   line-height: 1.6;
+  color: var(--text-secondary);
 }
 
 /* ============================================================
-   11. Flowchart (流程图与系统架构)
+   12. Flowchart (流程图与系统架构)
    ============================================================ */
 .flowchart {
   background: var(--surface-card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 36px 28px;
+  padding: 36px 32px;
   box-shadow: var(--shadow-card);
   overflow-x: auto;
 }
 .flowchart svg {
   width: 100%;
-  min-width: 700px;
+  min-width: 760px;
   height: auto;
   display: block;
 }
-.flowchart svg text {
-  font-family: var(--font-sans);
-}
-.flowchart svg .node rect {
-  fill: #FAF8F2;
-  stroke: var(--signal-primary);
-  stroke-width: 1.5;
-  rx: 12;
-}
-.flowchart svg .node text {
-  fill: var(--text-primary);
-}
-.flowchart svg .node.active rect {
-  fill: #FFF2D6;
-  stroke: #E88E44;
-  stroke-width: 2;
-}
-.flowchart svg .node.active text {
-  fill: #612B00;
-  font-weight: 800;
-}
-.flowchart svg line {
-  stroke: var(--signal-primary);
-  stroke-dasharray: 4 2;
-  opacity: 0.6;
-}
-.flowchart svg marker path {
-  fill: var(--signal-primary);
-}
-
 .mermaid-wrapper pre.mermaid, .mermaid {
   background: transparent !important;
   border: none !important;
@@ -916,12 +995,146 @@ p.lead {
 }
 
 /* ============================================================
-   12. FAQ (常见问题列表)
+   13. Editorial Interview & Dialogue Rounds (社论访谈录)
+   ============================================================ */
+.interview-rounds {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.round-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  box-shadow: var(--shadow-card);
+}
+.round-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+  font-family: var(--font-mono);
+}
+.round-badge {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--signal-primary);
+  letter-spacing: 0.08em;
+}
+.round-status {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+.ai-questions-block {
+  background: var(--surface-card-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 22px 24px;
+  margin-bottom: 20px;
+}
+.ai-block-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--signal-primary);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.ai-block-head .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--pastel-orange);
+}
+.q-deck {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.q-item {
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 18px 20px;
+}
+.q-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--pastel-orange-text);
+  margin-bottom: 4px;
+}
+.q-title {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+.q-recom-note {
+  background: #FFF6EE;
+  border-left: 3px solid var(--pastel-orange);
+  padding: 10px 14px;
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.q-recom-note strong {
+  color: var(--pastel-orange-text);
+  font-family: var(--font-mono);
+  margin-right: 6px;
+}
+.user-decision-note {
+  background: #F4F9EA;
+  border: 1.5px solid rgba(183, 217, 122, 0.5);
+  border-radius: var(--radius-sm);
+  padding: 20px 22px;
+}
+.user-decision-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--pastel-green-text);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  font-weight: 800;
+}
+.user-decision-head .check-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background: var(--pastel-green);
+  color: var(--pastel-green-text);
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 900;
+}
+.user-decision-text {
+  font-size: 14.5px;
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* ============================================================
+   14. FAQ (常见问题)
    ============================================================ */
 .faq {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
 }
 .faq-item {
   background: var(--surface-card);
@@ -929,80 +1142,88 @@ p.lead {
   border-radius: var(--radius-sm);
   padding: 24px 28px;
   box-shadow: var(--shadow-card);
+  transition: transform 0.25s, border-color 0.25s;
+}
+.faq-item:hover {
+  transform: translateY(-3px);
+  border-color: var(--signal-primary);
 }
 .faq-item .q {
   font-family: var(--font-serif);
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 .faq-item .q::before {
   content: "Q";
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 800;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--pastel-yellow);
+  color: var(--pastel-yellow-text);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 26px;
-  height: 26px;
-  border-radius: 6px;
-  background: var(--signal-primary);
-  color: #FFFFFF;
-  font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 700;
-  flex-shrink: 0;
 }
 .faq-item .a {
   font-size: 15px;
+  line-height: 1.6;
   color: var(--text-secondary);
-  line-height: 1.65;
-  padding-left: 38px;
+  padding-left: 34px;
 }
 
 /* ============================================================
-   13. References (参考文献)
+   15. References (参考文献)
    ============================================================ */
 .references {
   background: var(--surface-card);
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 28px 32px;
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow: var(--shadow-card);
 }
 .references h3 {
   font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text-primary);
   margin-bottom: 16px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 .references ol {
   padding-left: 20px;
+}
+.references li {
   font-size: 14px;
-  color: var(--text-secondary);
   line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
 }
 .references a {
   color: var(--signal-primary);
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  text-decoration: none;
   font-weight: 600;
 }
 .references a:hover {
-  color: var(--pastel-orange-text);
+  text-decoration: underline;
 }
 
 /* ============================================================
-   14. Footer (技术页脚)
+   16. Metadata Footer (技术页脚)
    ============================================================ */
 footer {
+  margin-top: 48px;
+  padding-top: 24px;
   border-top: 1px solid var(--border);
-  padding: 36px 0;
-  margin-top: 64px;
-  background: var(--bg-warm);
+  background: transparent;
 }
 .meta-foot {
   display: flex;
@@ -1010,426 +1231,141 @@ footer {
   align-items: center;
   font-family: var(--font-mono);
   font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
   letter-spacing: 0.08em;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-/* Feature Card & Media Frame 兜底 */
-.feat-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 24px;
-}
-.feat-card {
-  background: var(--surface-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 28px;
-  box-shadow: var(--shadow-card);
-}
-.feat-card .frame {
-  aspect-ratio: 16/9;
-  background: var(--surface-card-subtle);
-  border: 1.5px dashed var(--border-strong);
-  border-radius: var(--radius-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-top: 20px;
 }
 
 /* ============================================================
-   15. Sticky Quick Nav (纯净无滚动条胶囊导航)
+   17. 媒体查询响应式适配 (Responsive)
    ============================================================ */
-.quick-nav {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 6px 10px;
-  padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-pill);
-  box-shadow: 0 8px 24px rgba(45, 40, 25, 0.06);
-  margin: 0 auto 36px auto;
-  position: sticky;
-  top: 14px;
-  z-index: 99;
-  max-width: fit-content;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-.quick-nav::-webkit-scrollbar {
-  display: none;
-}
-.quick-nav a {
-  font-family: var(--font-mono);
-  font-size: 11.5px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  text-decoration: none;
-  padding: 5px 12px;
-  border-radius: var(--radius-pill);
-  white-space: nowrap;
-  transition: all 0.2s ease;
-}
-.quick-nav a:hover {
-  background: var(--signal-primary);
-  color: #FFFFFF;
-}
-
-/* ============================================================
-   16. Editorial Interview & Rounds (社论访谈录 / 轮次推演卡片)
-   ============================================================ */
-.interview-rounds {
-  display: flex;
-  flex-direction: column;
-  gap: 36px;
-  margin: 32px 0;
-}
-.round-card {
-  background: var(--surface-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 36px 32px;
-  box-shadow: var(--shadow-card);
-  position: relative;
-  transition: box-shadow 0.25s ease;
-}
-.round-card:hover {
-  box-shadow: var(--shadow-card-hover);
-}
-.round-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px dashed var(--border-strong);
-  flex-wrap: wrap;
-  gap: 12px;
-}
-.round-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--signal-primary);
-  color: #FFFFFF;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 700;
-  padding: 6px 16px;
-  border-radius: var(--radius-pill);
-  letter-spacing: 0.08em;
-}
-.round-status {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--text-muted);
-  letter-spacing: 0.04em;
-}
-.round-body {
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-}
-.ai-questions-block {
-  background: var(--surface-card-subtle);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 24px 26px;
-}
-.ai-block-head {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--pastel-orange-text);
-  margin-bottom: 18px;
-}
-.ai-block-head .dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--pastel-orange);
-}
-.q-deck {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-.q-item {
-  position: relative;
-  padding-left: 36px;
-}
-.q-badge {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 24px;
-  height: 24px;
-  border-radius: 6px;
-  background: rgba(255, 169, 99, 0.25);
-  color: var(--pastel-orange-text);
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.q-title {
-  font-family: var(--font-serif);
-  font-size: 16.5px;
-  font-weight: 700;
-  color: var(--text-primary);
-  line-height: 1.45;
-  margin-bottom: 6px;
-}
-.q-recom-note {
-  background: #FFF8EE;
-  border: 1px solid rgba(232, 142, 68, 0.28);
-  border-radius: 8px;
-  padding: 10px 14px;
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--text-secondary);
-  margin-top: 6px;
-}
-.q-recom-note strong {
-  color: var(--pastel-orange-text);
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 700;
-  margin-right: 6px;
-}
-.q-subagent-note {
-  background: #F3F1FB;
-  border: 1px solid rgba(141, 157, 224, 0.35);
-  border-radius: 8px;
-  padding: 10px 14px;
-  font-size: 13.5px;
-  line-height: 1.6;
-  color: var(--pastel-purple-text);
-  font-family: var(--font-mono);
-  margin-top: 6px;
-}
-.q-subagent-note strong {
-  font-weight: 700;
-  color: var(--pastel-purple-text);
-}
-.user-decision-note {
-  background: #F2F7E8;
-  border: 1px solid rgba(183, 217, 122, 0.45);
-  border-radius: var(--radius-sm);
-  padding: 20px 24px;
-  box-shadow: 0 4px 14px rgba(36, 61, 6, 0.04);
-}
-.user-decision-head {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--pastel-green-text);
-  margin-bottom: 8px;
-}
-.user-decision-head .check-badge {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--pastel-green);
-  color: var(--pastel-green-text);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  font-weight: 800;
-}
-.user-decision-text {
-  font-family: var(--font-sans);
-  font-size: 15.5px;
-  font-weight: 600;
-  color: var(--text-primary);
-  line-height: 1.6;
-  padding-left: 26px;
-}
-
 @media (max-width: 768px) {
-  .wrap { padding: 32px 18px; }
-  section { padding: 40px 0; }
-  h1.hero { font-size: 34px; }
-  .section-title { font-size: 26px; }
-  .cards-3 { grid-template-columns: 1fr; }
+  .wrap { padding: 32px 16px; }
+  section { padding: 36px 0; }
+  .rich-text { padding: 24px 20px; }
   .num-card { transform: none !important; }
-  .timeline { padding-left: 20px; }
-  .timeline-marker { position: static; transform: none !important; margin-bottom: 12px; }
-  .timeline-content { margin-left: 0; }
-  .timeline::before { display: none; }
-  .meta-foot { flex-direction: column; align-items: flex-start; gap: 8px; }
-  .quick-nav { border-radius: var(--radius-sm); }
+  .step { flex-direction: column; gap: 16px; }
+  .meta-foot { flex-direction: column; gap: 8px; text-align: center; }
 }
 </style>
 </head>
 <body>
 
+<!-- ============================================================
+     PHASE 1: 篇首概览与核心导读 (HERO & EXECUTIVE SUMMARY)
+     ============================================================ -->
+
 <section class="hero-section">
   <div class="wrap">
     <div class="eyebrow"><span class="diamond"></span><span>01 / EXECUTIVE SUMMARY</span><span class="line"></span></div>
-    <h1 class="hero">让智能助手处理繁琐工作，<br>用得越多，<span class="marker-highlight">它就越出色</span></h1>
-    <p class="lead">一个在工作中持续学习的智能代理平台，让重复工作更快、输出质量持续提升、成本大幅下降，建立在已有经验之上的复利体系。</p>
+    <h1 class="hero">温润纸感手札美学。<br>全组件<span class="marker-highlight">排版规范</span>预览集。</h1>
+    <p class="lead">导读段落 (Lead Paragraph)：暖米纸质画布与人文宋体排版，辅以双手自然摊开的扇形多彩粉彩便签与弹性手作手感，呈现极具智识沉淀的书卷气韵。</p>
     
     <div class="stats-grid">
-      <div class="stat-card"><div class="stat-val">300<span>%</span></div><div class="stat-label">ANNUAL GROWTH</div></div>
-      <div class="stat-card"><div class="stat-val">1.2<span>M</span></div><div class="stat-label">ACTIVE USERS</div></div>
-      <div class="stat-card"><div class="stat-val">0.5<span>ms</span></div><div class="stat-label">LATENCY</div></div>
+      <div class="stat-card"><div class="stat-val">98.6<span>%</span></div><div class="stat-label">EDITORIAL READABILITY / 阅读沉浸度</div></div>
+      <div class="stat-card"><div class="stat-val">12<span>万字</span></div><div class="stat-label">KNOWLEDGE DEPTH / 知识沉淀体量</div></div>
+      <div class="stat-card"><div class="stat-val">0<span>冷冰</span></div><div class="stat-label">WARMTH INDEX / 手作纸质温润度</div></div>
     </div>
   </div>
 </section>
+
+<!-- ============================================================
+     PHASE 2: 核心论述、关键提醒与代码实操 (CONTEXT, NARRATIVE & CODE)
+     ============================================================ -->
 
 <section class="body-section">
   <div class="wrap">
     <div class="section-head left">
       <div class="eyebrow"><span class="diamond"></span><span>02 / ARTICLE BODY</span><span class="line"></span></div>
-      <h2 class="section-title">正文区块标题</h2>
+      <h2 class="section-title">核心论述与参数栏</h2>
     </div>
     
     <div class="rich-text">
-      <p>大多数 AI 工具每次交互都会完全重置，而 <strong>智能系统</strong> 则会 <span class="marker-highlight-orange">持续积累与沉淀</span>。随着使用频率增加，系统会自动建立针对特定工作流的 <em>领域认知模型</em>，支持直接调用 <code>system.run_service()</code> 自动化流水线。</p>
-      <blockquote>“越早开始构建，进化越快。你今天交付的每项任务，都会让明天的研究与自动化更省、更好。” —— 知识复利法则</blockquote>
+      <p>这是标准的正文段落。支持 <strong class="marker-highlight">荧光马克笔高亮</strong>、<em>宋体斜体修饰</em> 以及 <code>内联代码 (Inline Code)</code> 等排版元素。</p>
+      <blockquote>“好的设计不应当喧宾夺主，而是像一本精心装帧的书籍，用温润的纸质与考究的字阶让知识在静默中自然流淌。”</blockquote>
       
-      <!-- 19 / CODE BLOCK & TERMINAL -->
+      <!-- 07 / CODE BLOCK & TERMINAL -->
       <div class="code-block">
         <div class="code-header">
           <div class="code-dots"><span></span><span></span><span></span></div>
-          <span class="code-lang">PYTHON / AGENT WORKFLOW</span>
+          <span class="code-lang">PYTHON / KNOWLEDGE ENGINE</span>
           <button class="code-copy-btn" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').innerText); this.innerText='COPIED!'; setTimeout(()=>this.innerText='COPY', 2000)">COPY</button>
         </div>
-        <pre><code><span class="token-comment"># 运行温润社论风格的自动化调研工作流</span>
-<span class="token-keyword">from</span> warm_craft <span class="token-keyword">import</span> ResearchAgent, KnowledgeStore
+        <pre><code><span class="token-comment"># 初始化 Warm Craft 知识流式编排器</span>
+<span class="token-keyword">from</span> warm_craft <span class="token-keyword">import</span> EditorialStream, PaperBinder
 
-agent = ResearchAgent(editorial_tone=<span class="token-string">"humanist-serif"</span>)
-report = <span class="token-keyword">await</span> agent.synthesize(source=<span class="token-string">"market-analysis.pdf"</span>)
-KnowledgeStore.commit(report, tags=[<span class="token-string">"2026"</span>, <span class="token-string">"strategy"</span>])</code></pre>
+<span class="token-keyword">def</span> <span class="token-function">bind_knowledge_document</span>(doc_id: <span class="token-string">str</span>) -> PaperBinder:
+    binder = PaperBinder(paper_tone=<span class="token-string">"#F7F4EC"</span>, font_serif=<span class="token-string">"Newsreader"</span>)
+    <span class="token-keyword">return</span> binder.render_rich_editorial(doc_id)</code></pre>
       </div>
 
       <div class="spec-row">
-        <div class="spec"><div class="val">60×95<em>mm</em></div><div class="unit">SIZE</div></div>
-        <div class="spec"><div class="val">500<em>mah</em></div><div class="unit">BATTERY</div></div>
-        <div class="spec"><div class="val">USB-C</div><div class="unit">INTERFACE</div></div>
+        <div class="spec"><div class="val">140×210<em>mm</em></div><div class="unit">FORMAT / 开本规格</div></div>
+        <div class="spec"><div class="val">120<em>gsm</em></div><div class="unit">PAPER / 纯质棉纸</div></div>
+        <div class="spec"><div class="val">深橄榄绿</div><div class="unit">INK / 主题墨色</div></div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- ============================================================
+     PHASE 3: 核心特性、架构与演进脉络 (ARCHITECTURE & FEATURES)
+     ============================================================ -->
 
 <section class="cards-section">
   <div class="wrap">
     <div class="section-head left">
       <div class="eyebrow"><span class="diamond"></span><span>03 / ADMONITIONS & CARDS</span><span class="line"></span></div>
-      <h2 class="section-title">模块化卡片与提示框</h2>
+      <h2 class="section-title">手作便签卡片与提示框</h2>
     </div>
     
     <div class="admonition info">
       <div class="admonition-title">核心结论 (INFO)</div>
-      <p>这是 AI 提取的关键结论高亮框，用于引起读者注意。</p>
+      <p>这是 AI 提取的关键结论便签，用于引起读者对核心背景或前置约束的重点关注。</p>
     </div>
 
     <div class="cards-3">
       <div class="num-card">
         <div class="num">01</div>
-        <h3>自然语言任务委托</h3>
-        <p>用日常语言告诉智能助手要做什么。它会自主规划多步检索、提取网页数据并清洗生成结构化报告。</p>
-        <div class="tag">RUN ANY TASK</div>
+        <h3>知识流式分块沉淀</h3>
+        <p>支持自适应分块与层级提炼，将长篇调研转化为清晰易读的结构化手札。</p>
+        <div class="tag">BASE NOTE</div>
       </div>
       <div class="num-card selected">
         <div class="num">02</div>
-        <h3>深度协同内化经验</h3>
-        <p>在协同工作中学习你的指导偏好，包括错误修正、排版偏好与边界案例，内化为长期记忆。</p>
-        <div class="tag">WORKING WITH YOU</div>
+        <h3>社论级排版引擎</h3>
+        <p>结合人文宋体与双手自然摊开的扇形微倾角（-2° / 0° / +2°），悬浮自动回正跃起。</p>
+        <div class="tag">RECOMMENDED</div>
       </div>
       <div class="num-card">
         <div class="num">03</div>
-        <h3>资产沉淀一键复用</h3>
-        <p>将验证高效的工作流一键沉淀为可复用的微服务，免去重复编写提示词的繁琐操作。</p>
-        <div class="tag">REUSE AS SERVICE</div>
+        <h3>双模态离线交付</h3>
+        <p>单文件自包含 HTML，支持现代浏览器即开即看，告别繁琐部署。</p>
+        <div class="tag">OFFLINE READY</div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="timeline-section">
+<section class="feat-section">
   <div class="wrap">
     <div class="section-head left">
-      <div class="eyebrow"><span class="diamond"></span><span>04 / COMPARISON & TIMELINE</span><span class="line"></span></div>
-      <h2 class="section-title">对比矩阵与时间轴</h2>
+      <div class="eyebrow"><span class="diamond"></span><span>04 / FEATURE SHOWCASE</span><span class="line"></span></div>
+      <h2 class="section-title">特性展台与媒体卡片</h2>
     </div>
 
-    <!-- 注意：外层需配置 overflow-x: auto; 保证移动端体验 -->
-    <div class="cmp-matrix-wrapper">
-      <div class="cmp-matrix">
-        <div class="cmp-row header">
-          <div class="cmp-cell">对比维度</div>
-          <div class="cmp-cell">方案 A</div>
-          <div class="cmp-cell highlight-col">方案 B (推荐)</div>
-        </div>
-        <div class="cmp-row">
-          <div class="cmp-cell">核心能力与闭环</div>
-          <div class="cmp-cell">基础支持</div>
-          <div class="cmp-cell highlight-col">完整闭环</div>
-        </div>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="tag">// EDITORIAL CRAFT</div>
+        <h3>古典人文宋体字阶系统</h3>
+        <p>针对深度研报与出版级文档深度优化，字重优雅紧凑，兼具智识美感与阅读舒适度。</p>
+        <div class="frame">MEDIA PREVIEW FRAME / 媒体预览框</div>
       </div>
-    </div>
-
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="timeline-marker">2024</div>
-        <div class="timeline-content">
-          <h3>立项与核心架构</h3>
-          <p>核心目标设定，完成基础架构开发。</p>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-marker">2026</div>
-        <div class="timeline-content">
-          <h3>全面演进</h3>
-          <p>进入全新阶段，实现智能化重构。</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="pros-cons-section">
-  <div class="wrap">
-    <div class="section-head left">
-      <div class="eyebrow"><span class="diamond"></span><span>05 / PROS & CONS</span><span class="line"></span></div>
-      <h2 class="section-title">优劣对比卡片</h2>
-    </div>
-
-    <div class="pros-cons">
-      <div class="pro-card">
-        <div class="tag">PROS / 优势</div>
-        <ul><li>架构极其稳定，扩展性强</li></ul>
-      </div>
-      <div class="con-card">
-        <div class="tag">CONS / 劣势</div>
-        <ul><li>初期学习曲线较陡峭</li></ul>
+      <div class="feat-card">
+        <div class="tag">// STICKER MOTION</div>
+        <h3>手作粉彩便签回弹动效</h3>
+        <p>鼠标悬浮时以弹性曲线回正角度并轻盈上浮，提供如捏起桌面便签般的愉悦手感。</p>
+        <div class="frame">MEDIA PREVIEW FRAME / 媒体预览框</div>
       </div>
     </div>
   </div>
@@ -1438,7 +1374,7 @@ KnowledgeStore.commit(report, tags=[<span class="token-string">"2026"</span>, <s
 <section class="steps-section">
   <div class="wrap">
     <div class="section-head left">
-      <div class="eyebrow"><span class="diamond"></span><span>06 / PROCESS STEPS</span><span class="line"></span></div>
+      <div class="eyebrow"><span class="diamond"></span><span>05 / PROCESS STEPS</span><span class="line"></span></div>
       <h2 class="section-title">流程步骤拆解</h2>
     </div>
 
@@ -1471,41 +1407,140 @@ KnowledgeStore.commit(report, tags=[<span class="token-string">"2026"</span>, <s
 <section class="flowchart-section">
   <div class="wrap">
     <div class="section-head left">
-      <div class="eyebrow"><span class="diamond"></span><span>07 / FLOWCHART</span><span class="line"></span></div>
+      <div class="eyebrow"><span class="diamond"></span><span>06 / FLOWCHART</span><span class="line"></span></div>
       <h2 class="section-title">系统架构与流程图</h2>
     </div>
 
     <div class="flowchart">
-      <svg viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 840 120" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <marker id="base-arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="currentColor" />
+          <marker id="wc-arrow" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path d="M 1 1.5 L 6 4 L 1 6.5 z" fill="#323D24" />
           </marker>
         </defs>
-        <g class="node">
-          <rect x="20" y="25" width="150" height="70" rx="4" fill="none" stroke="currentColor" stroke-width="1.5" />
-          <text x="35" y="52" fill="currentColor" font-size="10" opacity="0.6">01 / INPUT</text>
-          <text x="35" y="74" fill="currentColor" font-size="14" font-weight="700">原始输入</text>
+
+        <line x1="183" y1="60" x2="225" y2="60" stroke="rgba(50,61,36,0.25)" stroke-width="1.5" marker-end="url(#wc-arrow)" />
+        <line x1="393" y1="60" x2="435" y2="60" stroke="rgba(50,61,36,0.25)" stroke-width="1.5" marker-end="url(#wc-arrow)" />
+        <line x1="603" y1="60" x2="645" y2="60" stroke="rgba(50,61,36,0.25)" stroke-width="1.5" marker-end="url(#wc-arrow)" />
+
+        <g>
+          <rect x="15" y="18" width="168" height="84" rx="14" fill="#FAF8F2" stroke="rgba(50,61,36,0.12)" stroke-width="1.5" />
+          <text x="32" y="44" fill="#8E9685" font-family="var(--font-mono)" font-size="11" font-weight="700">01 / INPUT</text>
+          <text x="32" y="76" fill="#1E231B" font-family="var(--font-serif)" font-size="15" font-weight="700">原始长文输入</text>
         </g>
-        <line x1="170" y1="60" x2="220" y2="60" stroke="currentColor" stroke-width="1.5" marker-end="url(#base-arrow)" opacity="0.4" />
-        <g class="node">
-          <rect x="225" y="25" width="150" height="70" rx="4" fill="none" stroke="currentColor" stroke-width="1.5" />
-          <text x="240" y="52" fill="currentColor" font-size="10" opacity="0.6">02 / EXTRACT</text>
-          <text x="240" y="74" fill="currentColor" font-size="14" font-weight="700">结构提炼</text>
+
+        <g>
+          <rect x="225" y="18" width="168" height="84" rx="14" fill="#FAF8F2" stroke="rgba(50,61,36,0.12)" stroke-width="1.5" />
+          <text x="242" y="44" fill="#8E9685" font-family="var(--font-mono)" font-size="11" font-weight="700">02 / EXTRACT</text>
+          <text x="242" y="76" fill="#1E231B" font-family="var(--font-serif)" font-size="15" font-weight="700">语义结构提炼</text>
         </g>
-        <line x1="375" y1="60" x2="425" y2="60" stroke="currentColor" stroke-width="1.5" marker-end="url(#base-arrow)" opacity="0.4" />
-        <g class="node active">
-          <rect x="430" y="25" width="150" height="70" rx="4" fill="none" stroke="currentColor" stroke-width="2" />
-          <text x="445" y="52" fill="currentColor" font-size="10">03 / RENDER</text>
-          <text x="445" y="74" fill="currentColor" font-size="14" font-weight="700">组件渲染</text>
+
+        <g>
+          <rect x="435" y="18" width="168" height="84" rx="14" fill="#FFF6EE" stroke="#FFA963" stroke-width="1.5" />
+          <text x="452" y="44" fill="#542200" font-family="var(--font-mono)" font-size="11" font-weight="700">03 / RENDER</text>
+          <text x="452" y="76" fill="#1E231B" font-family="var(--font-serif)" font-size="15" font-weight="700">手札组件装配</text>
         </g>
-        <line x1="580" y1="60" x2="630" y2="60" stroke="currentColor" stroke-width="1.5" marker-end="url(#base-arrow)" opacity="0.4" />
-        <g class="node">
-          <rect x="635" y="25" width="145" height="70" rx="4" fill="none" stroke="currentColor" stroke-width="1.5" />
-          <text x="650" y="52" fill="currentColor" font-size="10" opacity="0.6">04 / OUTPUT</text>
-          <text x="650" y="74" fill="currentColor" font-size="14" font-weight="700">成果交付</text>
+
+        <g>
+          <rect x="645" y="18" width="168" height="84" rx="14" fill="#FAF8F2" stroke="rgba(50,61,36,0.12)" stroke-width="1.5" />
+          <text x="662" y="44" fill="#8E9685" font-family="var(--font-mono)" font-size="11" font-weight="700">04 / OUTPUT</text>
+          <text x="662" y="76" fill="#1E231B" font-family="var(--font-serif)" font-size="15" font-weight="700">单文件交付</text>
         </g>
       </svg>
+    </div>
+
+    <div class="mermaid-wrapper" style="margin-top: 32px;">
+      <pre class="mermaid">
+graph LR
+    A["Raw Input<br/>原始长文输入"] --> B["Parser<br/>语义结构提炼"]
+    B --> C["Composer<br/>手札组件装配"]
+    C --> D["Output<br/>单文件交付"]
+
+    style A fill:#FAF8F2,stroke:#323D24,stroke-width:1.5px
+    style B fill:#FAF8F2,stroke:#323D24,stroke-width:1.5px
+    style C fill:#EDE8DC,stroke:#323D24,stroke-width:1.5px
+    style D fill:#FAF8F2,stroke:#323D24,stroke-width:1.5px
+      </pre>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PHASE 4: 深度推演、决策对比与利弊评估 (DECISION & COMPARISON)
+     ============================================================ -->
+
+<section class="timeline-section">
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>07 / COMPARISON & TIMELINE</span><span class="line"></span></div>
+      <h2 class="section-title">对比矩阵与时间轴</h2>
+    </div>
+
+    <div class="cmp-matrix-wrapper">
+      <table class="cmp-matrix">
+        <thead>
+          <tr>
+            <th>对比维度</th>
+            <th>普通排版模版</th>
+            <th class="highlight-col">Warm Craft 手札风 <span class="cmp-tag-rec">RECOMMENDED</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>阅读沉浸感</strong></td>
+            <td>生硬纯白刺眼，信息缺乏节奏</td>
+            <td class="highlight-col">暖米纸质底色搭配微流光，温润护眼</td>
+          </tr>
+          <tr>
+            <td><strong>排版格调</strong></td>
+            <td>单调系统无衬线体</td>
+            <td class="highlight-col">高阶人文宋体大标题 + 扇形粉彩便签</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-marker">2024</div>
+        <div class="timeline-content">
+          <h3>立项与人文手札体系探索</h3>
+          <p>确定以纸质温润感与社论宋体为核心，完成首版手札系统构建。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-marker">2026</div>
+        <div class="timeline-content">
+          <h3>全面演进与智能化赋能</h3>
+          <p>融入自适应粉彩便签与弹性动效，实现长文本深度结构化排版。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pros-cons-section">
+  <div class="wrap">
+    <div class="section-head left">
+      <div class="eyebrow"><span class="diamond"></span><span>08 / PROS & CONS</span><span class="line"></span></div>
+      <h2 class="section-title">优劣对比卡片</h2>
+    </div>
+
+    <div class="pros-cons">
+      <div class="pro-card">
+        <div class="tag">PROS / 优势</div>
+        <ul>
+          <li>纸质温润舒适，长文阅读沉浸感极强</li>
+          <li>粉彩便签与宋体排版具备极高的人文出版物格调</li>
+        </ul>
+      </div>
+      <div class="con-card">
+        <div class="tag">CONS / 劣势</div>
+        <ul>
+          <li>不适用于强荧光赛博朋克或极硬核工业场景</li>
+          <li>对字体加载与中文字阶微调有较高审美要求</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
@@ -1513,36 +1548,40 @@ KnowledgeStore.commit(report, tags=[<span class="token-string">"2026"</span>, <s
 <section class="interview-section">
   <div class="wrap">
     <div class="section-head left">
-      <div class="eyebrow"><span class="diamond"></span><span>08 / EDITORIAL INTERVIEW</span><span class="line"></span></div>
-      <h2 class="section-title">社论访谈录与轮次推演</h2>
+      <div class="eyebrow"><span class="diamond"></span><span>09 / INTERVIEW ROUNDS</span><span class="line"></span></div>
+      <h2 class="section-title">社论访谈录 / 交互推演</h2>
     </div>
 
     <div class="interview-rounds">
       <div class="round-card">
         <div class="round-header">
-          <span class="round-badge">ROUND 01 / 根决策与前沿启动</span>
+          <span class="round-badge">ROUND 01 // 根决策与前沿启动</span>
           <span class="round-status">STATUS // 根节点前置已定 · 启动前沿</span>
         </div>
-        <div class="round-body">
-          <div class="ai-questions-block">
-            <div class="ai-block-head"><span class="dot"></span><span>AI 访谈助手 · 前沿提问</span></div>
-            <div class="q-deck">
-              <div class="q-item">
-                <div class="q-badge">01</div>
-                <div class="q-title">核心业务规则或系统目标？</div>
-                <div class="q-recom-note"><strong>推荐方案</strong>根据系统历史指标与最佳实践推荐的基线配置。</div>
-              </div>
-              <div class="q-item">
-                <div class="q-badge">02</div>
-                <div class="q-title">底层架构与数据库支持情况？</div>
-                <div class="q-subagent-note"><strong>[ASYNC] 异步子代理排查中</strong>后台静默验证中，不阻塞主交互线程...</div>
+        
+        <div class="ai-questions-block">
+          <div class="ai-block-head">
+            <span class="dot"></span>
+            <span>AI 访谈助手 · 前沿提问</span>
+          </div>
+          <div class="q-deck">
+            <div class="q-item">
+              <div class="q-badge">01</div>
+              <div class="q-title">核心业务规则或系统目标？</div>
+              <div class="q-recom-note">
+                <strong>推荐方案:</strong> 根据系统历史指标与最佳实践推荐的基线配置。
               </div>
             </div>
           </div>
+        </div>
 
-          <div class="user-decision-note">
-            <div class="user-decision-head"><span class="check-badge">OK</span><span>DECISION // 你的拍板反馈</span></div>
-            <div class="user-decision-text">“同意推荐方案，并对第二项边界做出调整。”</div>
+        <div class="user-decision-note">
+          <div class="user-decision-head">
+            <span class="check-badge">✓</span>
+            <span>DECISION // 你的拍板反馈</span>
+          </div>
+          <div class="user-decision-text">
+            “同意推荐方案，并对第二项边界做出调整。”
           </div>
         </div>
       </div>
@@ -1550,17 +1589,21 @@ KnowledgeStore.commit(report, tags=[<span class="token-string">"2026"</span>, <s
   </div>
 </section>
 
+<!-- ============================================================
+     PHASE 5: 尾部收敛、答疑与出处 (CONCLUSION & FOOTER)
+     ============================================================ -->
+
 <section class="faq-section">
   <div class="wrap">
     <div class="section-head left">
-      <div class="eyebrow"><span class="diamond"></span><span>09 / FAQ</span><span class="line"></span></div>
+      <div class="eyebrow"><span class="diamond"></span><span>10 / FAQ</span><span class="line"></span></div>
       <h2 class="section-title">常见问题</h2>
     </div>
 
     <div class="faq">
       <div class="faq-item">
         <div class="q">如何切换不同的视觉风格包？</div>
-        <div class="a">在生成前指定 Style ID（如 industrial-dark, soft-sky 等），系统将自动加载对应风格的 Design Tokens 与样式规范。</div>
+        <div class="a">在生成前指定 Style ID（如 warm-craft, play-tubular 等），系统将自动加载对应风格的 Design Tokens 与样式规范。</div>
       </div>
       <div class="faq-item">
         <div class="q">是否支持单文件离线使用？</div>
@@ -1575,8 +1618,8 @@ KnowledgeStore.commit(report, tags=[<span class="token-string">"2026"</span>, <s
     <div class="references">
       <h3>REFERENCES / 参考文献</h3>
       <ol>
-        <li id="ref-1">Tufte, E. R. (2001). <em>The Visual Display of Quantitative Information</em>. Graphics Press. <a href="#fnref-1">↩</a></li>
-        <li id="ref-2">Bringhurst, R. (2012). <em>The Elements of Typographic Style</em>. Hartley & Marks. <a href="#fnref-2">↩</a></li>
+        <li id="ref-1">Tufte, E. R. (2001). <em>The Visual Display of Quantitative Information</em>. Graphics Press. <a href="#ref-1">↩</a></li>
+        <li id="ref-2">Bringhurst, R. (2012). <em>The Elements of Typographic Style</em>. Hartley & Marks. <a href="#ref-2">↩</a></li>
       </ol>
     </div>
   </div>
@@ -1586,7 +1629,7 @@ KnowledgeStore.commit(report, tags=[<span class="token-string">"2026"</span>, <s
   <div class="wrap">
     <div class="meta-foot">
       <span>VISUAL HTML // SYSTEM CORE</span>
-      <span>BUILD // CLEAN ROOM BASE SCAFFOLD</span>
+      <span>STYLE // WARM CRAFT (温润纸感手札风)</span>
     </div>
   </div>
 </footer>
@@ -1608,13 +1651,13 @@ KnowledgeStore.commit(report, tags=[<span class="token-string">"2026"</span>, <s
       themeVariables: {
         darkMode: false,
         background: '#F7F4EC',
-        primaryColor: '#EDE8DC',
-        primaryTextColor: '#242724',
+        primaryColor: '#FFFFFF',
+        primaryTextColor: '#1E231B',
         primaryBorderColor: '#323D24',
         lineColor: '#323D24',
-        secondaryColor: '#FAF8F2',
+        secondaryColor: '#FFFCEB',
         tertiaryColor: '#F7F4EC',
-        fontFamily: 'Georgia, "Songti SC", "SimSun", serif'
+        fontFamily: '"Newsreader", "Songti SC", serif'
       }
     });
   }

@@ -82,16 +82,46 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* 文字高亮标记与修饰效果 */
+/* 文字高亮标记与修饰效果 (Fluorescent Marker Highlighters) */
 .marker-highlight {
-  background: linear-gradient(180deg, transparent 60%, rgba(254, 219, 113, 0.65) 60%);
+  background: linear-gradient(180deg, transparent 52%, rgba(254, 219, 113, 0.75) 52%, rgba(254, 219, 113, 0.75) 94%, transparent 94%);
   padding: 0 4px;
-  border-radius: 2px;
+  border-radius: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  display: inline;
 }
 .marker-highlight-orange {
-  background: linear-gradient(180deg, transparent 60%, rgba(255, 169, 99, 0.65) 60%);
+  background: linear-gradient(180deg, transparent 52%, rgba(255, 169, 99, 0.75) 52%, rgba(255, 169, 99, 0.75) 94%, transparent 94%);
   padding: 0 4px;
-  border-radius: 2px;
+  border-radius: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  display: inline;
+}
+.marker-highlight-green {
+  background: linear-gradient(180deg, transparent 52%, rgba(183, 217, 122, 0.75) 52%, rgba(183, 217, 122, 0.75) 94%, transparent 94%);
+  padding: 0 4px;
+  border-radius: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  display: inline;
+}
+.marker-highlight-purple {
+  background: linear-gradient(180deg, transparent 52%, rgba(170, 183, 242, 0.75) 52%, rgba(170, 183, 242, 0.75) 94%, transparent 94%);
+  padding: 0 4px;
+  border-radius: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  display: inline;
+}
+.marker-highlight-coral {
+  background: linear-gradient(180deg, transparent 52%, rgba(252, 165, 152, 0.75) 52%, rgba(252, 165, 152, 0.75) 94%, transparent 94%);
+  padding: 0 4px;
+  border-radius: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  display: inline;
 }
 
 /* ---- 单页 16:9 画布 ---- */
