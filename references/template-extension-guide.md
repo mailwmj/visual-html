@@ -1,7 +1,7 @@
 # Visual HTML — 模板扩展与设计规范指南 (Template Extension Guide)
 
 > **核心哲学：双轨制设计架构（Dual-Track Design Architecture）**
-> 1. **统一的是信息语义骨架（Shared Semantic DNA）**：所有风格共享一套标准 5 阶段自然叙事流与 18 项标准语义组件（Hero, Stats, Admonition, Flowchart, Timeline, FAQ 等），确保长篇研报、白皮书与技术文档的信息结构高度严谨、可读性极强。
+> 1. **统一的是信息语义骨架（Shared Semantic DNA）**：所有风格共享一套标准 5 阶段自然叙事流与 18 个必选语义组件（Hero, Stats, Admonition, Flowchart, Timeline, FAQ 等）；Quick Nav/Progress 是可选增强，确保长篇研报、白皮书与技术文档的信息结构高度严谨、可读性极强。
 > 2. **强制具象化的是风格灵魂（Strict Concrete Visual Contracts）**：杜绝“过度抽象塌陷”。每种风格必须明确其专属的**空间纵深架构**、**环境背景层规则**、**材质色谱**与**强制结构契约**，绝不允许 AI 在生成时发生偷懒与机械降级。
 
 ---
@@ -43,7 +43,7 @@
 在 `references/styles/` 下创建以风格命名的子目录（小写中划线，如 `references/styles/cyber-bento/`）。该目录下必须包含：
 
 1. **`design.md`**：该风格的完整设计语言规范，必须严格遵循本文第 4 节的标准架构，包含不可剥离的 **“强制结构契约（Mandatory Skeleton Contract）”**。
-2. **`scaffold-web.html`**：该风格的 Web 单文件全组件脚手架，100% 具备空间架构与全套 18 项语义组件的高保真呈现。
+2. **`scaffold-web.html`**：该风格的 Web 单文件全组件脚手架，100% 具备空间架构与全套 18 个必选语义组件的高保真呈现。
 3. **`scaffold-ppt.html`**：该风格的 16:9 演示文稿脚手架。
 4. **`preview.svg`**：该风格专属的 `400×240` 严格 4 层隔离坐标系矢量源文件。
 5. **`preview.png`**：由 `preview.svg` 导出的 `800×480` 高清位图，用于对话卡片内嵌预览与画廊展示。
@@ -55,7 +55,7 @@
 创建新风格脚手架时，必须遵循以下铁律：
 
 1. **完整组件覆盖（契约底线）**：
-   - 必须完整覆盖 `references/shared-components.md` 中定义的 18 项标准语义组件（Phase 1 至 Phase 5），绝不允许在脚手架中删除任何组件。
+   - 必须完整覆盖 `references/shared-components.md` 中定义的 18 个必选语义组件（Phase 1 至 Phase 5），绝不允许在脚手架中删除任何组件；第 19 项 Quick Nav/Progress 仅按需启用。
 2. **明确声明空间架构**：
    - 若风格采用“浮动展台型”，必须在 `<body>` 顶部提供 Layer 0 背景代码，并包裹 Layer 1 画板；
    - 若风格采用“直铺沉浸型”或“瑞士杂志型”，必须在 CSS 中明确声明全景平铺规则与排版网格。
@@ -119,12 +119,29 @@
 └─────────────────────────────────────────────────────────────┘ (400, 240)
 ```
 
+### 🚫 Preview SVG 核心避坑红线 (Anti-Patterns)
+在绘制 `preview.svg` 时，严禁出现以下破坏视觉层级与导致渲染破损的常见失误：
+1. **严禁在圆角卡片顶部叠加热键矩形直条（No unclipped top accent bars）**：
+   - 严禁使用 `<rect x="0" y="0" width="364" height="2~3" ... />` 直接贴在 `rx > 0` 的圆角卡片顶端。
+   - **后果**：直角切圆角会导致两端突兀溢出，且顶条与内部内容之间留白过大，在视觉上极其容易被用户误认为是**未完成的进度条（Progress Bar）或悬浮滚动条**。
+   - **正确做法**：卡片质感依靠整体 `stroke` 边框、外层柔和 `filter` 投影或内缩的高光微线（如 `line x1="16" x2="348"`）呈现，保持卡片干净一体。
+2. **严禁标题基线与卡片顶部安全间距不足（Safe vertical clearance >= 12px）**：
+   - Tier 2 Title 基线（推荐 `y=56~58`）与 Tier 3 Card 起始（`y=72`）之间必须预留至少 12~16px 的净空。
+   - **后果**：间距不足时，中文字体渲染时的 Descender（下延笔画）会直接与卡片或其投影发生碰撞，导致标题文字底部被横向切掉一截。
+
 ### ⚡ 强制执行的自动化验证
 生成新风格的 `preview.svg` 后，导出 `800×480` 的 `preview.png`，并运行验证脚本：
 ```bash
 python3 references/scripts/validate_previews.py
 ```
-只有输出 `✅ [PASS]` 时，才允许并网注册。
+验证脚本已内置 AST 结构检查、坐标范围校验、标题与卡片安全间距检查、PNG 尺寸检查以及“圆角卡片未裁切顶条”反模式检测；注册前还必须运行 `python3 references/scripts/validate_registry.py`，只有两项都通过时才允许并网。
+
+### 离线资源契约
+
+- scaffold 可以保留在线字体和 Mermaid 增强，但不得把它们当作离线运行的必要条件。
+- 交付前运行 `python3 references/scripts/bundle_offline.py <input.html> -o <output.html>`，将本地图片/CSS 内联，并为 Mermaid 生成静态 SVG fallback。
+- 默认 hybrid 模式在线尝试完整字体和 Mermaid；`--strict` 模式移除外部增强，只保留系统字体和静态图表。
+- 默认使用系统字体 fallback；如需固定品牌字体，准备 JSON 字体映射并传入 `--font-map`，按需内置 WOFF/WOFF2 以控制包体大小。例如：`{"IBM Plex Mono":[{"path":"fonts/IBMPlexMono-Regular.woff2","weight":400}]}`。
 
 ---
 

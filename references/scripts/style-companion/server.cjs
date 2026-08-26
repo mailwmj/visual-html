@@ -9,6 +9,7 @@ const SESSION_DIR = path.resolve(process.env.VISUAL_HTML_SESSION_DIR || '.visual
 const STATE_DIR = path.join(SESSION_DIR, 'state');
 const GALLERY_FILE = path.resolve(process.env.VISUAL_HTML_GALLERY || path.join(__dirname, '../../style-gallery.html'));
 const ASSET_ROOT = path.dirname(GALLERY_FILE);
+const REGISTRY_FILE = path.resolve(process.env.VISUAL_HTML_REGISTRY || path.join(ASSET_ROOT, 'styles/registry.json'));
 const HOST = process.env.VISUAL_HTML_HOST || '127.0.0.1';
 const REQUESTED_PORT = Number(process.env.VISUAL_HTML_PORT || 0);
 const TOKEN = process.env.VISUAL_HTML_TOKEN || crypto.randomBytes(24).toString('hex');
@@ -19,6 +20,26 @@ const PID_FILE = path.join(STATE_DIR, 'server.pid');
 const COOKIE_NAME = 'visual-html-session';
 
 fs.mkdirSync(STATE_DIR, { recursive: true, mode: 0o700 });
+
+function loadStyleRegistry() {
+  const payload = JSON.parse(fs.readFileSync(REGISTRY_FILE, 'utf8'));
+  if (!payload || !Array.isArray(payload.styles) || payload.styles.length === 0) {
+    throw new Error(`Style registry is empty or invalid: ${REGISTRY_FILE}`);
+  }
+  const styles = new Map();
+  for (const style of payload.styles) {
+    if (!style || typeof style.id !== 'string' || typeof style.name !== 'string') {
+      throw new Error(`Style registry entry is invalid: ${REGISTRY_FILE}`);
+    }
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(style.id) || styles.has(style.id)) {
+      throw new Error(`Style registry contains an invalid or duplicate id: ${style.id}`);
+    }
+    styles.set(style.id, Object.freeze({ id: style.id, name: style.name }));
+  }
+  return styles;
+}
+
+const STYLE_REGISTRY = loadStyleRegistry();
 
 function safeEqual(left, right) {
   const a = Buffer.from(String(left || ''));
@@ -111,11 +132,15 @@ function validateEvent(value) {
     }
   }
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value.styleId)) throw new Error('invalid styleId');
+  const style = STYLE_REGISTRY.get(value.styleId);
+  if (!style) throw new Error(`unknown styleId: ${value.styleId}`);
+  if (value.styleName !== style.name) throw new Error(`styleName does not match registry for ${value.styleId}`);
+  if (!value.prompt.includes(value.styleId)) throw new Error('prompt must include styleId');
   return {
     type: value.type,
     choice: value.styleId,
     styleId: value.styleId,
-    styleName: value.styleName,
+    styleName: style.name,
     prompt: value.prompt,
     text: value.prompt,
     timestamp: Date.now()

@@ -1,0 +1,110 @@
+{
+  "version": 1,
+  "styles": [
+    {
+      "id": "industrial-dark",
+      "name": "暗黑极客工业风",
+      "englishName": "Industrial Dark",
+      "categories": ["tech"],
+      "dir": "industrial-dark"
+    },
+    {
+      "id": "soft-sky",
+      "name": "清透空灵浅蓝风",
+      "englishName": "Soft Sky",
+      "categories": ["lifestyle"],
+      "dir": "soft-sky"
+    },
+    {
+      "id": "obsidian-cyan",
+      "name": "黑曜霓蓝展厅风",
+      "englishName": "Obsidian Cyan",
+      "categories": ["tech"],
+      "dir": "obsidian-cyan"
+    },
+    {
+      "id": "play-tubular",
+      "name": "玩味极客彩管风",
+      "englishName": "Play Tubular",
+      "categories": ["tech", "pop"],
+      "dir": "play-tubular"
+    },
+    {
+      "id": "warm-craft",
+      "name": "温润纸感手札风",
+      "englishName": "Warm Craft",
+      "categories": ["editorial"],
+      "dir": "warm-craft"
+    },
+    {
+      "id": "neon-3d",
+      "name": "暗紫流体极光风",
+      "englishName": "Neon Aurora",
+      "categories": ["pop", "tech"],
+      "dir": "neon-3d"
+    },
+    {
+      "id": "pixel-pop",
+      "name": "日系像素波普风",
+      "englishName": "Pixel Pop",
+      "categories": ["pop"],
+      "dir": "pixel-pop"
+    },
+    {
+      "id": "brutalist-acid",
+      "name": "先锋撞色海报风",
+      "englishName": "Brutalist Poster",
+      "categories": ["pop"],
+      "dir": "brutalist-acid"
+    },
+    {
+      "id": "sunflower-bloom",
+      "name": "向日葵暖阳风",
+      "englishName": "Sunflower Bloom",
+      "categories": ["lifestyle", "editorial"],
+      "dir": "sunflower-bloom"
+    },
+    {
+      "id": "summer-dopamine",
+      "name": "夏日多巴胺风",
+      "englishName": "Summer Dopamine",
+      "categories": ["lifestyle", "pop"],
+      "dir": "summer-dopamine"
+    },
+    {
+      "id": "soft-editorial-future",
+      "name": "极简未来展厅风",
+      "englishName": "Future Showroom",
+      "categories": ["editorial", "tech"],
+      "dir": "soft-editorial-future"
+    },
+    {
+      "id": "nothing-design-dark",
+      "name": "Nothing 极简点阵暗黑风",
+      "englishName": "Nothing Monochrome Dark",
+      "categories": ["tech", "editorial"],
+      "dir": "nothing-design-dark"
+    },
+    {
+      "id": "nothing-design-light",
+      "name": "Nothing 极简点阵亮白风",
+      "englishName": "Nothing Monochrome Light",
+      "categories": ["tech", "editorial"],
+      "dir": "nothing-design-light"
+    },
+    {
+      "id": "pixel-crystal",
+      "name": "油画粉彩晶光风",
+      "englishName": "Pixel Crystal",
+      "categories": ["pop", "lifestyle", "editorial"],
+      "dir": "pixel-crystal"
+    },
+    {
+      "id": "ink-bamboo",
+      "name": "青绿水墨竹韵风",
+      "englishName": "Ink Bamboo",
+      "categories": ["editorial", "lifestyle"],
+      "dir": "ink-bamboo"
+    }
+  ]
+}

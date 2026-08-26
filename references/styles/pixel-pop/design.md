@@ -355,7 +355,7 @@ box-shadow: 3px 3px 0 var(--text-main);
 </div>
 ```
 
-### 5. Mermaid Diagram Injection (动态图表运行时)
+### 5. Mermaid Diagram Injection (在线增强与离线降级)
 
 ```html
 <div class="mermaid-wrapper">
@@ -373,3 +373,4 @@ graph LR
 </div>
 ```
 
+脚手架可以保留上述 Mermaid 源码供在线引擎增强；最终交付前运行 `references/scripts/bundle_offline.py`，由打包器生成静态 SVG fallback。完全断网交付使用 `--strict`，不能把 CDN 运行时当作必要条件。

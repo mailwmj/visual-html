@@ -225,7 +225,7 @@ systemctl enable --now worker-engine.service</code></pre>
 
 ## 10. Flowchart & Diagrams (流程图、系统架构与 Mermaid 图表引擎)
 
-本系统提供**原生纯矢量 SVG** 与 **Mermaid 动态图表引擎** 双轨架构，由 AI 根据长文本的复杂程度自主决策选用：
+本系统提供**原生纯矢量 SVG** 与 **Mermaid 在线增强/离线降级** 双轨架构，由 AI 根据长文本的复杂程度自主决策选用：
 
 ### A. 方式一：原生纯矢量 SVG (适合 3~5 步简单线性流程，100% 离线零依赖)
 
@@ -270,7 +270,7 @@ systemctl enable --now worker-engine.service</code></pre>
 
 ---
 
-### B. 方式二：Mermaid 动态图表引擎 (适合复杂分支拓扑、时序调用、状态机、类图与思维导图)
+### B. 方式二：Mermaid 在线增强与静态 SVG fallback (适合复杂分支拓扑、时序调用、状态机、类图与思维导图)
 
 ```html
 <div class="flowchart mermaid-wrapper">
@@ -294,42 +294,13 @@ flowchart LR
 - **思维导图与架构树 (Mindmap)**：`mindmap`；
 - **版本演进与分支 (Git Graph)**：`gitGraph`。
 
-#### 2. 页面底部必须注入的标准清洗与渲染脚本 (ESM 模版)：
-当页面包含 `.mermaid` 容器时，必须在 `</body>` 前引入以下自动化脚本：
+#### 2. 在线增强与离线降级契约：
+- scaffold 可以保留 Mermaid 源码和在线主题配置，在线时使用完整引擎。
+- 最终交付前必须运行 `python3 references/scripts/bundle_offline.py <input.html> -o <output.html>`。脚本会内联本地资源、生成静态 SVG fallback，并注入在线加载失败时的降级逻辑。
+- 完全断网或内网交付使用 `--strict`，移除外部字体和 Mermaid runtime，只保留静态 SVG 与系统字体栈。
+- 静态 fallback 必须包含可读文本和 `role="img"`/`aria-label`，不能只显示“图表加载失败”。
 
-```html
-<script type="module">
-  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-
-  // 1. 语法容错清洗：自动剥离 // MERMAID, /* MERMAID */ 等非标准前缀注释
-  document.querySelectorAll('.mermaid').forEach(el => {
-    el.textContent = el.textContent
-      .replace(/^\s*\/\/\s*MERMAID/i, '')
-      .replace(/^\s*\/\*[\s\S]*?\*\//, '')
-      .trim();
-  });
-
-  // 2. 根据当前页面风格注入对应的 themeVariables（确保与风格包浑然一体）
-  mermaid.initialize({
-    startOnLoad: true,
-    theme: 'base',
-    themeVariables: {
-      /* 按照各风格包配置对应的色彩字典，例如 industrial-dark: */
-      darkMode: true,
-      background: '#0D1110',
-      primaryColor: '#131924',
-      primaryTextColor: '#F2F3EF',
-      primaryBorderColor: '#67E38B',
-      lineColor: '#67E38B',
-      secondaryColor: '#1B2433',
-      tertiaryColor: '#090C0B',
-      fontFamily: '"IBM Plex Mono", Consolas, monospace'
-    }
-  });
-</script>
-```
-
-#### 3. 11 款视觉风格专属 Mermaid `themeVariables` 字典对照表：
+#### 3. 15 款视觉风格专属 Mermaid `themeVariables` 字典对照表：
 
 | 风格 ID (`style_id`) | `darkMode` | `background` | `primaryColor` | `primaryTextColor` | `lineColor` | `primaryBorderColor` |
 |---|---|---|---|---|---|---|
@@ -344,6 +315,10 @@ flowchart LR
 | **`sunflower-bloom`** | `true` | `#1E3A5F` | `#2A455C` | `#F2EAE0` | `#FFC300` | `#FFC300` |
 | **`summer-dopamine`** | `true` | `rgba(15,23,42,0.85)` | `rgba(255,255,255,0.15)` | `#FFFFFF` | `#00E676` | `#FF66B2` |
 | **`soft-editorial-future`** | `true` | `#0C131F` | `#162032` | `#F8FAFC` | `#38BDF8` | `#38BDF8` |
+| **`nothing-design-dark`** | `true` | `#000000` | `#111111` | `#F5F5F5` | `#FF5722` | `#FF5722` |
+| **`nothing-design-light`** | `false` | `#FFFFFF` | `#F5F5F5` | `#111111` | `#D71921` | `#D71921` |
+| **`pixel-crystal`** | `false` | `#FDF8F7` | `#FAF2F4` | `#3C2836` | `#D88CA8` | `#D88CA8` |
+| **`ink-bamboo`** | `false` | `#FAF8F3` | `#EAF2E6` | `#1C241B` | `#2B4E24` | `#5A8F43` |
 
 ---
 

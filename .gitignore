@@ -28,3 +28,8 @@ Thumbs.db
 
 # Temporary directories
 .firecrawl/
+.visual-html/
+
+# Python runtime caches
+__pycache__/
+*.py[cod]

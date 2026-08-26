@@ -51,7 +51,6 @@
   <!-- Tier 3: Main Card (y: 72..192, height: 120) -->
   <g transform="translate(18, 72)">
     <rect width="364" height="120" rx="16" fill="#FFFFFF" stroke="rgba(0, 0, 0, 0.06)" stroke-width="1" filter="url(#pt-card-shadow)"/>
-    <rect x="0" y="0" width="364" height="3" fill="url(#pt-tube-grad)" rx="1.5"/>
 
     <g transform="translate(18, 14)">
       <!-- Row 1: Tag Badge -->

@@ -108,7 +108,7 @@ MCP Apps 规范明确指出：View 在 sandboxed iframe 中运行，不能访问
 保留目前对话里的 PNG 候选预览，同时让“查看全部风格”指向同一个组件的详细视图：
 
 1. 用 MCP server 注册画廊 UI resource（例如 `ui://widget/style-gallery.html`），工具 descriptor 通过 `_meta.ui.resourceUri` 关联它；兼容 ChatGPT 的旧字段是 `_meta["openai/outputTemplate"]`。
-2. 组件初始以 inline/carousel 展示 3–5 个候选；“查看全部风格”请求 `ui/request-display-mode` 的 `fullscreen`，或在组件路由中进入完整 11 款画廊。
+2. 组件初始以 inline/carousel 展示 3–5 个候选；“查看全部风格”请求 `ui/request-display-mode` 的 `fullscreen`，或在组件路由中进入完整 15 款画廊。
 3. 每张卡片的“使用”按钮先写入本地组件状态，再发 `ui/message`：
 
    ```js

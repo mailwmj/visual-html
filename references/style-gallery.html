@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Visual HTML — 13 套设计风格全量画廊 (Style Gallery)</title>
+  <title>Visual HTML — 15 套设计风格全量画廊 (Style Gallery)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
@@ -113,8 +113,8 @@
     /* Grid */
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-      gap: 28px;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 24px;
     }
 
     /* Style Card */
@@ -152,97 +152,38 @@
       transform: scale(1.02);
     }
     .card-body {
-      padding: 24px;
-      flex: 1;
+      padding: 16px;
       display: flex;
       flex-direction: column;
     }
-    .card-top {
+    .style-label {
       display: flex;
+      align-items: baseline;
       justify-content: space-between;
-      align-items: flex-start;
+      gap: 12px;
       margin-bottom: 12px;
     }
     .style-name {
-      font-size: 18px;
-      font-weight: 800;
       color: var(--text-pri);
+      font-size: 16px;
+      font-weight: 800;
     }
-    .style-tag {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 6px;
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      color: var(--text-sec);
-    }
-    .style-desc {
-      color: var(--text-sec);
-      font-size: 13px;
-      line-height: 1.6;
-      margin-bottom: 18px;
-      flex: 1;
-    }
-    .style-meta {
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      border-radius: 8px;
-      padding: 10px 14px;
-      margin-bottom: 18px;
-      font-size: 12px;
-    }
-    .meta-row {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 4px;
-    }
-    .meta-row:last-child { margin-bottom: 0; }
-    .meta-lbl {
+    .style-id {
       color: var(--text-mut);
       font-family: "IBM Plex Mono", monospace;
-      font-size: 11px;
-      min-width: 60px;
-    }
-    .meta-val {
-      color: var(--text-pri);
+      font-size: 10px;
+      white-space: nowrap;
     }
 
     .card-actions {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-    }
-    .btn-copy {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 12px;
-      font-weight: 700;
-      padding: 10px 14px;
-      border-radius: 8px;
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      color: var(--accent);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-    }
-    .btn-copy:hover {
-      background: var(--accent);
-      color: #0C0F14;
-      border-color: var(--accent);
-    }
-    .btn-copy.copied {
-      background: #10B981;
-      color: #FFFFFF;
-      border-color: #10B981;
+      gap: 8px;
     }
     .btn-use {
+      grid-column: span 2;
       font-family: "IBM Plex Mono", monospace;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 700;
       padding: 10px 14px;
       border-radius: 8px;
@@ -264,18 +205,22 @@
       font-family: "IBM Plex Mono", monospace;
       font-size: 11px;
       font-weight: 600;
-      padding: 10px 12px;
+      padding: 8px 12px;
       border-radius: 8px;
-      background: transparent;
+      background: var(--surface-2);
       border: 1px solid var(--border);
-      color: var(--text-mut);
+      color: var(--text-sec);
       text-decoration: none;
       text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       transition: all 0.2s ease;
     }
     .btn-link:hover {
       color: var(--text-pri);
-      border-color: var(--text-sec);
+      border-color: var(--accent);
+      background: rgba(56, 189, 248, 0.08);
     }
 
     /* Toast */
@@ -315,12 +260,12 @@
         VISUAL HTML STYLE PACKS // 3.0
       </div>
       <h1>设计风格全量画廊</h1>
-      <p class="lead">已内置 13 套独立演进的可插拔设计系统。先查看风格预览；点击“使用此风格”提交选择，Companion 会回传给 Agent，直接打开页面时则复制待发送文本。</p>
+      <p class="lead">已内置 15 套独立演进的可插拔设计系统。先查看风格预览；点击“使用此风格”提交选择，Companion 会回传给 Agent，直接打开页面时则复制待发送文本。</p>
     </header>
 
     <!-- Filter Buttons -->
     <div class="filter-bar">
-      <button class="filter-btn active" data-filter="all">全部风格 (13)</button>
+      <button class="filter-btn active" data-filter="all">全部风格 (15)</button>
       <button class="filter-btn" data-filter="tech">硬核科技 / 参数展示</button>
       <button class="filter-btn" data-filter="pop">潮流创意 / 像素波普</button>
       <button class="filter-btn" data-filter="editorial">人文社论 / 智识工作流</button>
@@ -331,22 +276,13 @@
     <div class="gallery-grid" id="grid">
 
       <!-- 1. industrial-dark -->
-      <div class="style-card" data-style-id="industrial-dark" data-category="tech">
+      <div class="style-card" data-style-id="industrial-dark" data-style-name="暗黑极客工业风" data-category="tech">
         <div class="card-preview">
           <img src="styles/industrial-dark/preview.png" alt="industrial-dark preview" loading="lazy">
         </div>
         <div class="card-body">
-          <div class="card-top">
-            <div class="style-name">暗黑极客工业风</div>
-            <span class="style-tag">HARDWARE</span>
-          </div>
-          <p class="style-desc">近黑背景搭配 CAD 极淡标尺网格、0–2px 硬边模块与信号绿状态指示。冷静克制、高精度工科美学。</p>
-          <div class="style-meta">
-            <div class="meta-row"><span class="meta-lbl">适用场景:</span><span class="meta-val">硬件参数页、产品官网、系统架构、工程文档</span></div>
-            <div class="meta-row"><span class="meta-lbl">核心特征:</span><span class="meta-val">CAD网格 · 信号绿 #67E38B · 硬边框</span></div>
-          </div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyId('industrial-dark', this)"><span>📋</span> industrial-dark</button>
+            <button type="button" class="btn-use" onclick="sendStyleSelection('industrial-dark', '暗黑极客工业风', this)">使用此风格</button>
             <a class="btn-link" href="styles/industrial-dark/scaffold-web.html" target="_blank">网页示例</a>
             <a class="btn-link" href="styles/industrial-dark/scaffold-ppt.html" target="_blank">PPT 示例</a>
           </div>
@@ -354,22 +290,13 @@
       </div>
 
       <!-- 2. soft-sky -->
-      <div class="style-card" data-style-id="soft-sky" data-category="lifestyle">
+      <div class="style-card" data-style-id="soft-sky" data-style-name="清透空灵浅蓝风" data-category="lifestyle">
         <div class="card-preview">
           <img src="styles/soft-sky/preview.png" alt="soft-sky preview" loading="lazy">
         </div>
         <div class="card-body">
-          <div class="card-top">
-            <div class="style-name">清透空灵浅蓝风</div>
-            <span class="style-tag">LIFESTYLE</span>
-          </div>
-          <p class="style-desc">浅天蓝渐变与多重流体弥散极光，半透明白色毛玻璃卡片搭配 8–16px 柔和圆角与同色系高阶蔚蓝强调色。</p>
-          <div class="style-meta">
-            <div class="meta-row"><span class="meta-lbl">适用场景:</span><span class="meta-val">包装展示、生活方式产品、消费级硬件、手账文具</span></div>
-            <div class="meta-row"><span class="meta-lbl">核心特征:</span><span class="meta-val">极光弥散 · 毛玻璃 · 蔚蓝 #0284C7</span></div>
-          </div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyId('soft-sky', this)"><span>📋</span> soft-sky</button>
+            <button type="button" class="btn-use" onclick="sendStyleSelection('soft-sky', '清透空灵浅蓝风', this)">使用此风格</button>
             <a class="btn-link" href="styles/soft-sky/scaffold-web.html" target="_blank">网页示例</a>
             <a class="btn-link" href="styles/soft-sky/scaffold-ppt.html" target="_blank">PPT 示例</a>
           </div>
@@ -377,22 +304,13 @@
       </div>
 
       <!-- 3. obsidian-cyan -->
-      <div class="style-card" data-style-id="obsidian-cyan" data-category="tech">
+      <div class="style-card" data-style-id="obsidian-cyan" data-style-name="黑曜霓蓝展厅风" data-category="tech">
         <div class="card-preview">
           <img src="styles/obsidian-cyan/preview.png" alt="obsidian-cyan preview" loading="lazy">
         </div>
         <div class="card-body">
-          <div class="card-top">
-            <div class="style-name">黑曜霓蓝展厅风</div>
-            <span class="style-tag">SHOWCASE</span>
-          </div>
-          <p class="style-desc">黑曜近黑底色搭配顶部冷蓝极光、悬浮设备模型、电光霓蓝信号与标注线 (Callout Pins) 及多步流程徽章。</p>
-          <div class="style-meta">
-            <div class="meta-row"><span class="meta-lbl">适用场景:</span><span class="meta-val">UI/UX 案例集、移动端 App 展示、数字产品发布</span></div>
-            <div class="meta-row"><span class="meta-lbl">核心特征:</span><span class="meta-val">电光霓蓝 #38BDF8 · 发光引线 · 设备模型</span></div>
-          </div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyId('obsidian-cyan', this)"><span>📋</span> obsidian-cyan</button>
+            <button type="button" class="btn-use" onclick="sendStyleSelection('obsidian-cyan', '黑曜霓蓝展厅风', this)">使用此风格</button>
             <a class="btn-link" href="styles/obsidian-cyan/scaffold-web.html" target="_blank">网页示例</a>
             <a class="btn-link" href="styles/obsidian-cyan/scaffold-ppt.html" target="_blank">PPT 示例</a>
           </div>
@@ -400,22 +318,13 @@
       </div>
 
       <!-- 4. play-tubular -->
-      <div class="style-card" data-style-id="play-tubular" data-category="tech pop">
+      <div class="style-card" data-style-id="play-tubular" data-style-name="玩味极客彩管风" data-category="tech pop">
         <div class="card-preview">
           <img src="styles/play-tubular/preview.png" alt="play-tubular preview" loading="lazy">
         </div>
         <div class="card-body">
-          <div class="card-top">
-            <div class="style-name">玩味极客彩管风</div>
-            <span class="style-tag">AI & ENGINEERING</span>
-          </div>
-          <p class="style-desc">浅暖米白点阵画布，粗圆鲜活 3D 渐变立体彩管环绕，球头末端标志性半调网点 (Halftone) 光影与现代工程粗黑体。</p>
-          <div class="style-meta">
-            <div class="meta-row"><span class="meta-lbl">适用场景:</span><span class="meta-val">AI/LLM 创新展示、工程技术白皮书、开发者大会</span></div>
-            <div class="meta-row"><span class="meta-lbl">核心特征:</span><span class="meta-val">3D彩管 · 半调网点 · 弹簧动效 · 点阵画布</span></div>
-          </div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyId('play-tubular', this)"><span>📋</span> play-tubular</button>
+            <button type="button" class="btn-use" onclick="sendStyleSelection('play-tubular', '玩味极客彩管风', this)">使用此风格</button>
             <a class="btn-link" href="styles/play-tubular/scaffold-web.html" target="_blank">网页示例</a>
             <a class="btn-link" href="styles/play-tubular/scaffold-ppt.html" target="_blank">PPT 示例</a>
           </div>
@@ -423,22 +332,13 @@
       </div>
 
       <!-- 5. warm-craft -->
-      <div class="style-card" data-style-id="warm-craft" data-category="editorial">
+      <div class="style-card" data-style-id="warm-craft" data-style-name="温润纸感手札风" data-category="editorial">
         <div class="card-preview">
           <img src="styles/warm-craft/preview.png" alt="warm-craft preview" loading="lazy">
         </div>
         <div class="card-body">
-          <div class="card-top">
-            <div class="style-name">温润纸感手札风</div>
-            <span class="style-tag">EDITORIAL</span>
-          </div>
-          <p class="style-desc">温润米白暖纸底色，古典人文宋体大标题，深橄榄绿核心行动色，搭配错落微倾斜的粉彩便签贴纸（零生硬黑边）。</p>
-          <div class="style-meta">
-            <div class="meta-row"><span class="meta-lbl">适用场景:</span><span class="meta-val">智能代理、知识沉淀、深度调研、SaaS、人文科技</span></div>
-            <div class="meta-row"><span class="meta-lbl">核心特征:</span><span class="meta-val">人文宋体 · 扇形便签 · 橄榄绿 #323D24</span></div>
-          </div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyId('warm-craft', this)"><span>📋</span> warm-craft</button>
+            <button type="button" class="btn-use" onclick="sendStyleSelection('warm-craft', '温润纸感手札风', this)">使用此风格</button>
             <a class="btn-link" href="styles/warm-craft/scaffold-web.html" target="_blank">网页示例</a>
             <a class="btn-link" href="styles/warm-craft/scaffold-ppt.html" target="_blank">PPT 示例</a>
           </div>
@@ -446,22 +346,13 @@
       </div>
 
       <!-- 6. neon-3d -->
-      <div class="style-card" data-style-id="neon-3d" data-category="pop tech">
+      <div class="style-card" data-style-id="neon-3d" data-style-name="暗紫流体极光风" data-category="pop tech">
         <div class="card-preview">
           <img src="styles/neon-3d/preview.png" alt="neon-3d preview" loading="lazy">
         </div>
         <div class="card-body">
-          <div class="card-top">
-            <div class="style-name">暗紫流体极光风</div>
-            <span class="style-tag">AURORA</span>
-          </div>
-          <p class="style-desc">80%+ 纯黑中性底色，流体极光弧光晕，全站微粒胶片噪点与 3D 高光浮雕立体卡片，兼具潮流与深邃质感。</p>
-          <div class="style-meta">
-            <div class="meta-row"><span class="meta-lbl">适用场景:</span><span class="meta-val">工具集合展示、创意应用、潮酷硬件、潮流设计工作室</span></div>
-            <div class="meta-row"><span class="meta-lbl">核心特征:</span><span class="meta-val">纯黑底 · 胶片噪点 · 3D浮雕 · 霓虹紫 #A855F7</span></div>
-          </div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyId('neon-3d', this)"><span>📋</span> neon-3d</button>
+            <button type="button" class="btn-use" onclick="sendStyleSelection('neon-3d', '暗紫流体极光风', this)">使用此风格</button>
             <a class="btn-link" href="styles/neon-3d/scaffold-web.html" target="_blank">网页示例</a>
             <a class="btn-link" href="styles/neon-3d/scaffold-ppt.html" target="_blank">PPT 示例</a>
           </div>
@@ -469,22 +360,13 @@
       </div>
 
       <!-- 7. pixel-pop -->
-      <div class="style-card" data-style-id="pixel-pop" data-category="pop">
+      <div class="style-card" data-style-id="pixel-pop" data-style-name="日系像素波普风" data-category="pop">
         <div class="card-preview">
           <img src="styles/pixel-pop/preview.png" alt="pixel-pop preview" loading="lazy">
         </div>
         <div class="card-body">
-          <div class="card-top">
-            <div class="style-name">日系像素波普风</div>
-            <span class="style-tag">POPART</span>
-          </div>
-          <p class="style-desc">日系青春校园风，青春亮蓝底色 + 浅奶油看板画布，粗黑边框搭配 5px 偏移硬投影与像素贴纸涂鸦。</p>
-          <div class="style-meta">
-            <div class="meta-row"><span class="meta-lbl">适用场景:</span><span class="meta-val">青春校园、创意活动、复古游戏、手账拼贴、动漫展示</span></div>
-            <div class="meta-row"><span class="meta-lbl">核心特征:</span><span class="meta-val">奶油看板 · 亮蓝底 · 波普硬投影 · 像素贴纸</span></div>
-          </div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyId('pixel-pop', this)"><span>📋</span> pixel-pop</button>
+            <button type="button" class="btn-use" onclick="sendStyleSelection('pixel-pop', '日系像素波普风', this)">使用此风格</button>
             <a class="btn-link" href="styles/pixel-pop/scaffold-web.html" target="_blank">网页示例</a>
             <a class="btn-link" href="styles/pixel-pop/scaffold-ppt.html" target="_blank">PPT 示例</a>
           </div>
@@ -492,22 +374,13 @@
       </div>
 
       <!-- 8. brutalist-acid -->
-      <div class="style-card" data-style-id="brutalist-acid" data-category="pop">
+      <div class="style-card" data-style-id="brutalist-acid" data-style-name="先锋撞色海报风" data-category="pop">
         <div class="card-preview">
           <img src="styles/brutalist-acid/preview.png" alt="brutalist-acid preview" loading="lazy">
         </div>
         <div class="card-body">
-          <div class="card-top">
-            <div class="style-name">先锋撞色海报风</div>
-            <span class="style-tag">POSTER</span>
-          </div>
-          <p class="style-desc">纯白高对比画布，亮粉几何色块碰撞荧光青色超大字号标题，破坏性排版与紧凑字距，先锋艺术展张力。</p>
-          <div class="style-meta">
-            <div class="meta-row"><span class="meta-lbl">适用场景:</span><span class="meta-val">艺术展览、独立出版物、实验性排版、先锋设计展示</span></div>
-            <div class="meta-row"><span class="meta-lbl">核心特征:</span><span class="meta-val">粉青撞色 · 破坏性排版 · 荧光粉 #FF4591</span></div>
-          </div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyId('brutalist-acid', this)"><span>📋</span> brutalist-acid</button>
+            <button type="button" class="btn-use" onclick="sendStyleSelection('brutalist-acid', '先锋撞色海报风', this)">使用此风格</button>
             <a class="btn-link" href="styles/brutalist-acid/scaffold-web.html" target="_blank">网页示例</a>
             <a class="btn-link" href="styles/brutalist-acid/scaffold-ppt.html" target="_blank">PPT 示例</a>
           </div>
@@ -515,22 +388,13 @@
       </div>
 
       <!-- 9. sunflower-bloom -->
-      <div class="style-card" data-style-id="sunflower-bloom" data-category="lifestyle editorial">
+      <div class="style-card" data-style-id="sunflower-bloom" data-style-name="向日葵暖阳风" data-category="lifestyle editorial">
         <div class="card-preview">
           <img src="styles/sunflower-bloom/preview.png" alt="sunflower-bloom preview" loading="lazy">
         </div>
         <div class="card-body">
-          <div class="card-top">
-            <div class="style-name">向日葵暖阳风</div>
-            <span class="style-tag">VITALITY</span>
-          </div>
-          <p class="style-desc">沉静纸质蓝背景搭配米白奶油字与向日葵明黄高光，极具分量的大字号与紧凑排版，传递温暖向上生机。</p>
-          <div class="style-meta">
-            <div class="meta-row"><span class="meta-lbl">适用场景:</span><span class="meta-val">产品海报、积极向上展示、生机活力传递、纸质文艺、团队文化</span></div>
-            <div class="meta-row"><span class="meta-lbl">核心特征:</span><span class="meta-val">纸质蓝 #4578A6 · 向日葵黄 #FFC300 · 奶油字</span></div>
-          </div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyId('sunflower-bloom', this)"><span>📋</span> sunflower-bloom</button>
+            <button type="button" class="btn-use" onclick="sendStyleSelection('sunflower-bloom', '向日葵暖阳风', this)">使用此风格</button>
             <a class="btn-link" href="styles/sunflower-bloom/scaffold-web.html" target="_blank">网页示例</a>
             <a class="btn-link" href="styles/sunflower-bloom/scaffold-ppt.html" target="_blank">PPT 示例</a>
           </div>
@@ -538,22 +402,13 @@
       </div>
 
       <!-- 10. summer-dopamine -->
-      <div class="style-card" data-style-id="summer-dopamine" data-category="lifestyle pop">
+      <div class="style-card" data-style-id="summer-dopamine" data-style-name="夏日多巴胺风" data-category="lifestyle pop">
         <div class="card-preview">
           <img src="styles/summer-dopamine/preview.png" alt="summer-dopamine preview" loading="lazy">
         </div>
         <div class="card-body">
-          <div class="card-top">
-            <div class="style-name">夏日多巴胺风</div>
-            <span class="style-tag">DOPAMINE</span>
-          </div>
-          <p class="style-desc">高饱和粉蓝绿黄渐变网格背景，配合极致通透的磨砂毛玻璃大圆角卡片与纯白高光，元气清凉夏日感。</p>
-          <div class="style-meta">
-            <div class="meta-row"><span class="meta-lbl">适用场景:</span><span class="meta-val">夏日活动、创意产品、汽水风格、多巴胺设计、元气海报</span></div>
-            <div class="meta-row"><span class="meta-lbl">核心特征:</span><span class="meta-val">渐变网格 · 玻璃拟态 (Glassmorphism) · 24px大圆角</span></div>
-          </div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyId('summer-dopamine', this)"><span>📋</span> summer-dopamine</button>
+            <button type="button" class="btn-use" onclick="sendStyleSelection('summer-dopamine', '夏日多巴胺风', this)">使用此风格</button>
             <a class="btn-link" href="styles/summer-dopamine/scaffold-web.html" target="_blank">网页示例</a>
             <a class="btn-link" href="styles/summer-dopamine/scaffold-ppt.html" target="_blank">PPT 示例</a>
           </div>
@@ -561,22 +416,13 @@
       </div>
 
       <!-- 11. soft-editorial-future -->
-      <div class="style-card" data-style-id="soft-editorial-future" data-category="editorial tech">
+      <div class="style-card" data-style-id="soft-editorial-future" data-style-name="极简未来展厅风" data-category="editorial tech">
         <div class="card-preview">
           <img src="styles/soft-editorial-future/preview.png" alt="soft-editorial-future preview" loading="lazy">
         </div>
         <div class="card-body">
-          <div class="card-top">
-            <div class="style-name">极简未来展厅风</div>
-            <span class="style-tag">SHOWROOM</span>
-          </div>
-          <p class="style-desc">偏冷浅灰底色衬托悬浮高透玻璃展柜，背景散布 3D 彩色液体玻璃液滴辉光，兼具现代社论秩序与 Apple 级未来展厅质感。</p>
-          <div class="style-meta">
-            <div class="meta-row"><span class="meta-lbl">适用场景:</span><span class="meta-val">高级展厅、视觉画廊、艺术展落地页、前沿科技、AI产品</span></div>
-            <div class="meta-row"><span class="meta-lbl">核心特征:</span><span class="meta-val">3D液体玻璃液滴 · 展柜玻璃拟态 · 蔚蓝 #0071E3</span></div>
-          </div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyId('soft-editorial-future', this)"><span>📋</span> soft-editorial-future</button>
+            <button type="button" class="btn-use" onclick="sendStyleSelection('soft-editorial-future', '极简未来展厅风', this)">使用此风格</button>
             <a class="btn-link" href="styles/soft-editorial-future/scaffold-web.html" target="_blank">网页示例</a>
             <a class="btn-link" href="styles/soft-editorial-future/scaffold-ppt.html" target="_blank">PPT 示例</a>
           </div>
@@ -584,22 +430,13 @@
       </div>
 
       <!-- 12. nothing-design-dark -->
-      <div class="style-card" data-style-id="nothing-design-dark" data-category="tech editorial">
+      <div class="style-card" data-style-id="nothing-design-dark" data-style-name="Nothing 极简点阵暗黑风" data-category="tech editorial">
         <div class="card-preview">
           <img src="styles/nothing-design-dark/preview.png" alt="nothing-design-dark preview" loading="lazy">
         </div>
         <div class="card-body">
-          <div class="card-top">
-            <div class="style-name">Nothing 极简点阵暗黑风</div>
-            <span class="style-tag">DARK</span>
-          </div>
-          <p class="style-desc">OLED 纯黑底色与 24px 点阵网格，Doto 点阵字与 Space Grotesk 瑞士排版，珊瑚信号橙、翡翠绿与琥珀金多通道遥测色，18 项长文语义骨架与分段刻度条。</p>
-          <div class="style-meta">
-            <div class="meta-row"><span class="meta-lbl">适用场景:</span><span class="meta-val">硬件工业设计、前沿数码发布、技术规格书、深度研究白皮书、夜间沉浸报告</span></div>
-            <div class="meta-row"><span class="meta-lbl">核心特征:</span><span class="meta-val">OLED 纯黑 #000000 · Doto 点阵 · 珊瑚橙 #FF5722 · 翡翠绿 #22C55E · 18 语义组件</span></div>
-          </div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyId('nothing-design-dark', this)"><span>📋</span> nothing-design-dark</button>
+            <button type="button" class="btn-use" onclick="sendStyleSelection('nothing-design-dark', 'Nothing 极简点阵暗黑风', this)">使用此风格</button>
             <a class="btn-link" href="styles/nothing-design-dark/scaffold-web.html" target="_blank">网页示例</a>
             <a class="btn-link" href="styles/nothing-design-dark/scaffold-ppt.html" target="_blank">PPT 示例</a>
           </div>
@@ -607,24 +444,43 @@
       </div>
 
       <!-- 13. nothing-design-light -->
-      <div class="style-card" data-style-id="nothing-design-light" data-category="tech editorial">
+      <div class="style-card" data-style-id="nothing-design-light" data-style-name="Nothing 极简点阵亮白风" data-category="tech editorial">
         <div class="card-preview">
           <img src="styles/nothing-design-light/preview.png" alt="nothing-design-light preview" loading="lazy">
         </div>
         <div class="card-body">
-          <div class="card-top">
-            <div class="style-name">Nothing 极简点阵亮白风</div>
-            <span class="style-tag">CERAMIC</span>
-          </div>
-          <p class="style-desc">白瓷冷白底色与浅灰点阵网格，Doto 点阵数码与高对比纯黑正文，信号红、翡翠绿与琥珀金功能遥测色，包豪斯现代印刷级长文排版。</p>
-          <div class="style-meta">
-            <div class="meta-row"><span class="meta-lbl">适用场景:</span><span class="meta-val">白瓷工业设计、白皮书、现代印刷质感报告、硬件参数发布、极简日间阅读</span></div>
-            <div class="meta-row"><span class="meta-lbl">核心特征:</span><span class="meta-val">陶瓷冷白 #FFFFFF · 纯黑正文 #1A1A1A · 信号红 #D71921 · 18 语义组件</span></div>
-          </div>
           <div class="card-actions">
-            <button class="btn-copy" onclick="copyId('nothing-design-light', this)"><span>📋</span> nothing-design-light</button>
+            <button type="button" class="btn-use" onclick="sendStyleSelection('nothing-design-light', 'Nothing 极简点阵亮白风', this)">使用此风格</button>
             <a class="btn-link" href="styles/nothing-design-light/scaffold-web.html" target="_blank">网页示例</a>
             <a class="btn-link" href="styles/nothing-design-light/scaffold-ppt.html" target="_blank">PPT 示例</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 14. pixel-crystal -->
+      <div class="style-card" data-style-id="pixel-crystal" data-style-name="油画粉彩晶光风" data-category="pop lifestyle editorial">
+        <div class="card-preview">
+          <img src="styles/pixel-crystal/preview.png" alt="pixel-crystal preview" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div class="card-actions">
+            <button type="button" class="btn-use" onclick="sendStyleSelection('pixel-crystal', '油画粉彩晶光风', this)">使用此风格</button>
+            <a class="btn-link" href="styles/pixel-crystal/scaffold-web.html" target="_blank">网页示例</a>
+            <a class="btn-link" href="styles/pixel-crystal/scaffold-ppt.html" target="_blank">PPT 示例</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 15. ink-bamboo -->
+      <div class="style-card" data-style-id="ink-bamboo" data-style-name="青绿水墨竹韵风" data-category="editorial lifestyle">
+        <div class="card-preview">
+          <img src="styles/ink-bamboo/preview.png" alt="ink-bamboo preview" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div class="card-actions">
+            <button type="button" class="btn-use" onclick="sendStyleSelection('ink-bamboo', '青绿水墨竹韵风', this)">使用此风格</button>
+            <a class="btn-link" href="styles/ink-bamboo/scaffold-web.html" target="_blank">网页示例</a>
+            <a class="btn-link" href="styles/ink-bamboo/scaffold-ppt.html" target="_blank">PPT 示例</a>
           </div>
         </div>
       </div>
@@ -633,7 +489,7 @@
   </div>
 
   <!-- Toast Notification -->
-  <div id="toast">已复制 Style ID: <span id="toast-text"></span></div>
+  <div id="toast"><span id="toast-text"></span></div>
 
   <script>
     function selectionPrompt(styleId, styleName) {
@@ -680,7 +536,7 @@
           });
           button.classList.add('sent');
           button.textContent = '✓ 已提交选择';
-          showSelectionToast(`${styleId} 已提交，返回对话继续`);
+          showSelectionToast(`${styleName} 已提交，返回对话继续`);
           return;
         }
 
@@ -688,7 +544,7 @@
           await window.openai.sendFollowUpMessage({ prompt, scrollToBottom: true });
           button.classList.add('sent');
           button.textContent = '✓ 已回到对话';
-          showSelectionToast(`${styleId} 已发送到对话`);
+          showSelectionToast(`${styleName} 已发送到对话`);
           return;
         }
 
@@ -702,46 +558,22 @@
       }
     }
 
-    function addUseButtons() {
-      document.querySelectorAll('.style-card').forEach(card => {
-        const actionBar = card.querySelector('.card-actions');
-        const copyButton = card.querySelector('.btn-copy');
-        if (!actionBar || !copyButton || actionBar.querySelector('.btn-use')) return;
-        const styleId = card.dataset.styleId;
-        const styleName = card.querySelector('.style-name')?.textContent.trim() || styleId;
-        if (!styleId) return;
-
-        const useButton = document.createElement('button');
-        useButton.type = 'button';
-        useButton.className = 'btn-use';
-        useButton.textContent = '使用此风格';
-        useButton.addEventListener('click', () => sendStyleSelection(styleId, styleName, useButton));
-        actionBar.prepend(useButton);
-      });
-    }
-
-    function copyId(styleId, btn) {
-      copyText(styleId).then(() => {
-        const toast = document.getElementById('toast');
-        const toastText = document.getElementById('toast-text');
-        toastText.textContent = styleId;
-        toast.classList.add('show');
-        
-        const originalText = btn.innerHTML;
-        btn.classList.add('copied');
-        btn.innerHTML = '<span>✓</span> 已复制';
-        
-        setTimeout(() => {
-          toast.classList.remove('show');
-          btn.classList.remove('copied');
-          btn.innerHTML = originalText;
-        }, 2000);
-      }).catch(error => showSelectionToast(error?.message || '复制 Style ID 失败'));
-    }
-
-    addUseButtons();
-
     // Filter functionality
+    document.querySelectorAll('.style-card').forEach(card => {
+      const body = card.querySelector('.card-body');
+      if (!body) return;
+      const label = document.createElement('div');
+      label.className = 'style-label';
+      const name = document.createElement('span');
+      name.className = 'style-name';
+      name.textContent = card.getAttribute('data-style-name') || card.getAttribute('data-style-id') || '';
+      const id = document.createElement('span');
+      id.className = 'style-id';
+      id.textContent = card.getAttribute('data-style-id') || '';
+      label.append(name, id);
+      body.prepend(label);
+    });
+
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));

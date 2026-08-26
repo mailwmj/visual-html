@@ -42,7 +42,6 @@
   <!-- Tier 3: Main Card (y: 72..192, height: 120) -->
   <g transform="translate(18, 72)">
     <rect width="364" height="120" rx="12" fill="#131924" stroke="rgba(56, 189, 248, 0.22)" stroke-width="1"/>
-    <rect x="0" y="0" width="364" height="2" fill="url(#obs-card-glow)" rx="1"/>
 
     <!-- Left: Step Flow Badge (y: 16..46) -->
     <g transform="translate(18, 16)">
