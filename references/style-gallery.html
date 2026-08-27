@@ -92,8 +92,8 @@
     /* Grid */
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
     }
     .gallery-error {
       grid-column: 1 / -1;
@@ -140,7 +140,7 @@
       transform: scale(1.02);
     }
     .card-body {
-      padding: 14px 16px 16px;
+      padding: 12px 14px 14px;
       display: flex;
       flex-direction: column;
     }
@@ -156,7 +156,7 @@
       font-size: 13px;
       font-weight: 500;
       letter-spacing: 0.02em;
-      padding: 9px 16px;
+      padding: 8px 14px;
       border-radius: 8px;
       background: rgba(56, 189, 248, 0.08);
       border: 1px solid rgba(56, 189, 248, 0.24);
@@ -182,7 +182,7 @@
       font-family: var(--font-sans);
       font-size: 12px;
       font-weight: 400;
-      padding: 7px 12px;
+      padding: 7px 8px;
       border-radius: 8px;
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -354,13 +354,29 @@
       flex-shrink: 0;
     }
 
-    @media (max-width: 860px) {
-      .gallery-grid { grid-template-columns: 1fr; }
+    @media (max-width: 920px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
       body { padding: 32px 16px 72px; }
-      header { margin-bottom: 32px; }
+      header { margin-bottom: 28px; }
       .floating-actions { top: 12px; left: 12px; gap: 6px; }
       .action-btn { width: 32px; height: 32px; border-radius: 7px; }
       .toast-notify { top: 16px; font-size: 12px; padding: 7px 14px; }
+    }
+
+    @media (max-width: 520px) {
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+      body { padding: 24px 12px 64px; }
+      .filter-bar { gap: 8px; margin-bottom: 24px; }
+      .filter-btn { font-size: 12px; padding: 5px 12px; }
+      .card-body { padding: 12px 12px 14px; }
+      .card-actions { gap: 6px; }
+      .btn-link { font-size: 11.5px; padding: 6px 6px; }
     }
   </style>
 </head>
@@ -618,18 +634,6 @@
       "scenarios": "国企央企汇报、政务规划、数字化方案、战略发布会"
     },
     {
-      "id": "ink-calligraphy",
-      "name": "宣纸泼墨挥毫风",
-      "englishName": "Ink Calligraphy",
-      "categories": [
-        "editorial",
-        "lifestyle"
-      ],
-      "dir": "ink-calligraphy",
-      "visualTraits": "生宣暖底 + 飞溅墨星 + 苍劲行草 + 朱砂印章 + 墨分五色",
-      "scenarios": "中式传统文化、文人书画研报、艺术传记、东方美学"
-    },
-    {
       "id": "xuan-scroll",
       "name": "宣卷留白风",
       "englishName": "Xuan Scroll",
@@ -640,6 +644,18 @@
       "dir": "xuan-scroll",
       "visualTraits": "连续宣纸画布 + 有方向的中锋/侧锋笔线 + 留白章法 + 克制朱砂题跋",
       "scenarios": "长文研究、文化出版、东方美学、16:9 文人汇报"
+    },
+    {
+      "id": "scene-distillation-zine",
+      "name": "手作刊物风",
+      "englishName": "Scene Distillation Zine",
+      "categories": [
+        "editorial",
+        "lifestyle"
+      ],
+      "dir": "scene-distillation-zine",
+      "visualTraits": "棉纸暖底 + 孔版钴青蓝 + 撕纸纤维毛边 + 半调网点 + 打字机题记与古法朱砂印",
+      "scenarios": "独立刊物、摄影与艺术评论、深度调研手札、文化随笔、诗意汇报与设计白皮书"
     }
   ]
 };

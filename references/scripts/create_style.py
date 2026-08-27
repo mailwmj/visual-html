@@ -451,11 +451,11 @@ def main() -> int:
     target_style_dir = styles_root / style_id
     registry_path = styles_root / "registry.json"
 
-    base_web_path = references_dir / "_base-scaffold-web.html"
-    base_ppt_path = references_dir / "_base-scaffold-ppt.html"
+    base_web_path = references_dir / "web" / "base-scaffold.html"
+    base_ppt_path = references_dir / "ppt" / "base-scaffold.html"
 
     if not base_web_path.is_file() or not base_ppt_path.is_file():
-        print("❌ Error: base scaffold files (_base-scaffold-web.html or _base-scaffold-ppt.html) not found.", file=sys.stderr)
+        print("❌ Error: base scaffold files (web/base-scaffold.html or ppt/base-scaffold.html) not found.", file=sys.stderr)
         return 1
 
     if target_style_dir.exists() and not args.force:

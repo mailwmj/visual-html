@@ -403,7 +403,7 @@ mermaid.initialize({
     lineColor: "#0284C7",
     secondaryColor: "#EAF6FC",
     tertiaryColor: "#FFFFFF",
-    fontFamily: ""Nunito", -apple-system, sans-serif"
+    fontFamily: '"Nunito", -apple-system, sans-serif'
   }
 });
 ```

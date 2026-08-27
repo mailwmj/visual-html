@@ -7,7 +7,7 @@
 - 用户要求的最终结果是可复用风格包时进入本 route。图片、截图或 PPT/PPTX 是输入材料，不决定输出媒介。
 - 用户只要求当前 Web/PPT 参考某种视觉方向时，不进入本 route，使用对应 Generate route 的单次参考 profile。
 - 创建新风格时读取本文件；只有存在参考材料时再读取 `style-reference-extraction.md`。
-- Style Brief 获得确认或用户明确授权跳过确认后，读取 [`../shared-components.md`](../shared-components.md)、[`../_base-scaffold-web.html`](../_base-scaffold-web.html)、[`../_base-scaffold-ppt.html`](../_base-scaffold-ppt.html) 和共享 [`../ppt-output-contract.md`](../ppt-output-contract.md)。不得为了实现双媒介 scaffold 而加载另一个顶层 route authority。
+- Style Brief 获得确认或用户明确授权跳过确认后，读取 [`../shared-components.md`](../shared-components.md)、[`../web/base-scaffold.html`](../web/base-scaffold.html)、[`../ppt/base-scaffold.html`](../ppt/base-scaffold.html) 和共享 [`../ppt/output-contract.md`](../ppt/output-contract.md)。不得为了实现双媒介 scaffold 而加载另一个顶层 route authority。
 - 修改已有风格时，确认 `style_id` 后只额外读取该风格的 `design.md`、目标 scaffold 和直接相关资源，不读取其他风格实现来拼贴样式。
 
 默认参考模式是 `Inspiration`：目标是创造与参考材料属于同一视觉家族的独立设计系统，而非逐像素、逐页或逐构图复刻。只有用户明确要求高保真适配时才提高参考强度。
@@ -174,7 +174,7 @@ python3 references/scripts/create_style.py <style-id> --name "风格中文名" [
 
 1. **`design.md`**：该风格的完整设计语言规范，必须严格遵循本文第 4.4 节的标准架构，包含不可剥离的 **“风格自有布局契约（Style-Owned Layout Contract）”**。
 2. **`scaffold-web.html`**：该风格的 Web 单文件全组件脚手架，必须按标准 5 阶段顺序完整展示空间架构与 18 个语义组件，以验证风格覆盖能力；实际交付按原文语义选用，不要求全量出现。
-3. **`scaffold-ppt.html`**：该风格的 16:9 演示文稿脚手架，必须满足共享 [`../ppt-output-contract.md`](../ppt-output-contract.md) 的舞台、翻页、全屏和打印契约。
+3. **`scaffold-ppt.html`**：该风格的 16:9 演示文稿脚手架，必须满足共享 [`../ppt/output-contract.md`](../ppt/output-contract.md) 的舞台、翻页、全屏和打印契约。
 4. **`preview.svg`**：该风格专属的 `400×240` 严格 4 层隔离坐标系矢量源文件。
 5. **`preview.png`**：由 `preview.svg` 导出的 `800×480` 高清位图，用于对话卡片内嵌预览与画廊展示。
 

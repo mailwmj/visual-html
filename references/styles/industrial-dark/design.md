@@ -370,7 +370,7 @@ mermaid.initialize({
     lineColor: "#67E38B",
     secondaryColor: "#1B2433",
     tertiaryColor: "#090C0B",
-    fontFamily: ""IBM Plex Mono", Consolas, monospace"
+    fontFamily: '"IBM Plex Mono", Consolas, monospace'
   }
 });
 ```

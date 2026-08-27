@@ -201,18 +201,6 @@
       "scenarios": "国企央企汇报、政务规划、数字化方案、战略发布会"
     },
     {
-      "id": "ink-calligraphy",
-      "name": "宣纸泼墨挥毫风",
-      "englishName": "Ink Calligraphy",
-      "categories": [
-        "editorial",
-        "lifestyle"
-      ],
-      "dir": "ink-calligraphy",
-      "visualTraits": "生宣暖底 + 飞溅墨星 + 苍劲行草 + 朱砂印章 + 墨分五色",
-      "scenarios": "中式传统文化、文人书画研报、艺术传记、东方美学"
-    },
-    {
       "id": "xuan-scroll",
       "name": "宣卷留白风",
       "englishName": "Xuan Scroll",
@@ -223,6 +211,18 @@
       "dir": "xuan-scroll",
       "visualTraits": "连续宣纸画布 + 有方向的中锋/侧锋笔线 + 留白章法 + 克制朱砂题跋",
       "scenarios": "长文研究、文化出版、东方美学、16:9 文人汇报"
+    },
+    {
+      "id": "scene-distillation-zine",
+      "name": "手作刊物风",
+      "englishName": "Scene Distillation Zine",
+      "categories": [
+        "editorial",
+        "lifestyle"
+      ],
+      "dir": "scene-distillation-zine",
+      "visualTraits": "棉纸暖底 + 孔版钴青蓝 + 撕纸纤维毛边 + 半调网点 + 打字机题记与古法朱砂印",
+      "scenarios": "独立刊物、摄影与艺术评论、深度调研手札、文化随笔、诗意汇报与设计白皮书"
     }
   ]
 }

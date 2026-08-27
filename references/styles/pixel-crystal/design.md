@@ -316,7 +316,7 @@ mermaid.initialize({
     lineColor: "#D88CA8",
     secondaryColor: "#FAF2F4",
     tertiaryColor: "#FFFFFF",
-    fontFamily: ""Plus Jakarta Sans", sans-serif"
+    fontFamily: '"Plus Jakarta Sans", sans-serif'
   }
 });
 ```

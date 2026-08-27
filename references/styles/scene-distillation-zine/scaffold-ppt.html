@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Scene Distillation Zine (手作刊物风) — PPT Scaffold</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   SCENE DISTILLATION ZINE (手作刊物风) — 16:9 PPT TOKENS & ATOMS
+   ========================================================================== */
+:root {
+  /* 纸张与材质画布色系 */
+  --paper-base: #F5EFEB;
+  --paper-warm: #FAF6EE;
+  --paper-card: #FCFAF6;
+  --paper-dark: #EDE5D8;
+  --paper-shadow: rgba(45, 38, 30, 0.08);
+
+  /* 油墨体系 (Risograph & Charcoal Inks) */
+  --ink-blue: #1E4870;        /* 经典孔版钴青蓝 */
+  --ink-blue-tint: #E4ECF4;   /* 浅蓝半调浸润色 */
+  --ink-blue-muted: #486E91;  /* 次级蓝墨 */
+  --ink-charcoal: #2B2825;    /* 熟褐炭黑 */
+  --ink-gray: #625D56;        /* 铅笔灰 */
+  --ink-muted: #8E887E;       /* 浅沙灰 */
+
+  /* 专属矿物点睛色 (古法朱砂陶土红) */
+  --accent-seal: #A84335;
+  --accent-seal-bg: rgba(168, 67, 53, 0.08);
+  --accent-seal-border: rgba(168, 67, 53, 0.35);
+
+  /* 边框与刻线 */
+  --border-ink: rgba(30, 72, 112, 0.20);
+  --border-hairline: rgba(43, 40, 37, 0.12);
+  --border-dashed: 1px dashed rgba(30, 72, 112, 0.32);
+
+  /* 字体栈 */
+  --font-display: "Newsreader", "Noto Serif SC", "Songti SC", "Source Han Serif SC", Georgia, serif;
+  --font-mono: "Courier Prime", "Courier New", "SFMono-Regular", Consolas, monospace;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+
+  --shadow-paper: 0 2px 0 rgba(43, 40, 37, 0.04), 0 6px 20px rgba(43, 40, 37, 0.06);
+  --shadow-deckle: 0 4px 14px rgba(35, 30, 25, 0.08);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #181614; /* 舞台外环境暗底，烘托棉纸舞台 */
+  font-family: var(--font-sans);
+  color: var(--ink-charcoal);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding: 40px 0 80px;
+}
+
+/* ============================================================
+   16:9 SLIDE STAGE CONTRACT (固定比例舞台契约)
+   ============================================================ */
+.slide {
+  position: relative;
+  width: min(92vw, 1160px);
+  aspect-ratio: 16 / 9;
+  background-color: var(--paper-base);
+  border: 1px solid var(--border-ink);
+  overflow: hidden;
+  padding: 5.5% 6.5%; /* 5~7% 安全边距 */
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.slide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(30, 72, 112, 0.035) 1px, transparent 1px);
+  background-size: 10px 10px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 顶部索引胶囊 (Eyebrow) */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-blue-muted);
+  margin-bottom: 18px;
+  position: relative;
+  z-index: 2;
+}
+
+.eyebrow .dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent-seal);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+.eyebrow .line {
+  flex: 1;
+  height: 1px;
+  background: var(--border-ink);
+}
+
+/* 基础字阶 */
+h1.s {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 4.2vw, 50px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--ink-blue);
+}
+
+h2.s {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3.2vw, 36px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--ink-blue);
+}
+
+.lead-s {
+  font-size: clamp(15px, 1.6vw, 19px);
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--ink-gray);
+  margin-top: 14px;
+  max-width: 48ch;
+}
+
+.body-s {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--ink-gray);
+}
+
+/* 页脚元数据与页码 */
+.slide .meta-foot {
+  position: absolute;
+  left: 6.5%;
+  bottom: 4.5%;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  z-index: 2;
+}
+
+.slide .slide-no {
+  position: absolute;
+  right: 6.5%;
+  bottom: 4.5%;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--ink-muted);
+  z-index: 2;
+}
+
+/* ============================================================
+   ARCHETYPE A: COVER & STATEMENT (封面与核心主张)
+   ============================================================ */
+.sl-cover {
+  justify-content: center;
+}
+
+.sl-cover .cover-content {
+  margin-top: auto;
+  margin-bottom: auto;
+  position: relative;
+  z-index: 2;
+}
+
+.sl-cover .cover-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  background: var(--accent-seal-bg);
+  color: var(--accent-seal);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  border: 1.5px solid var(--accent-seal-border);
+  margin-bottom: 20px;
+  transform: rotate(-1deg);
+}
+
+/* ============================================================
+   ARCHETYPE B: STATS & SUMMARY (核心指标与摘要)
+   ============================================================ */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: auto;
+  margin-bottom: auto;
+  position: relative;
+  z-index: 2;
+}
+
+.stat-box {
+  background: var(--paper-warm);
+  border: 1px solid var(--border-ink);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-box .val {
+  font-family: var(--font-mono);
+  font-size: clamp(34px, 3.8vw, 46px);
+  font-weight: 700;
+  color: var(--ink-blue);
+  line-height: 1;
+}
+
+.stat-box .val span {
+  font-size: 0.5em;
+  color: var(--accent-seal);
+  margin-left: 4px;
+}
+
+.stat-box .label {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink-charcoal);
+  margin: 12px 0 6px;
+}
+
+.stat-box .desc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink-gray);
+}
+
+/* ============================================================
+   ARCHETYPE C: 3-COLUMN PILLARS (三栏核心特性)
+   ============================================================ */
+.col-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: auto;
+  margin-bottom: auto;
+  position: relative;
+  z-index: 2;
+}
+
+.card-pillar {
+  background: var(--paper-card);
+  border: 1px solid var(--border-hairline);
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: var(--shadow-paper);
+}
+
+.card-pillar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--ink-blue);
+}
+
+.card-pillar.highlight::before {
+  background: var(--accent-seal);
+  height: 4px;
+}
+
+.card-pillar .num {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ink-blue);
+}
+
+.card-pillar.highlight .num {
+  color: var(--accent-seal);
+}
+
+.card-pillar .tag {
+  align-self: flex-start;
+  padding: 2px 7px;
+  background: var(--ink-blue-tint);
+  border: 1px dashed var(--border-ink);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: var(--ink-blue);
+  text-transform: uppercase;
+  margin: 10px 0 8px;
+}
+
+.card-pillar.highlight .tag {
+  background: var(--accent-seal-bg);
+  color: var(--accent-seal);
+  border-color: var(--accent-seal-border);
+}
+
+.card-pillar h3 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink-charcoal);
+  margin-bottom: 8px;
+}
+
+.card-pillar p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink-gray);
+}
+
+/* ============================================================
+   ARCHETYPE D: SPLIT COMPARISON (双栏对比与推演)
+   ============================================================ */
+.split-cmp {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: auto;
+  margin-bottom: auto;
+  position: relative;
+  z-index: 2;
+}
+
+.cmp-box {
+  background: var(--paper-card);
+  border: 1px solid var(--border-hairline);
+  padding: 24px;
+}
+
+.cmp-box.target {
+  background: var(--paper-warm);
+  border: 1.5px solid var(--ink-blue);
+}
+
+.cmp-box .tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink-blue);
+  border-bottom: 1px dashed var(--border-ink);
+  padding-bottom: 8px;
+  margin-bottom: 14px;
+}
+
+.cmp-box.target .tag {
+  color: var(--accent-seal);
+}
+
+.cmp-box ul {
+  padding-left: 18px;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--ink-charcoal);
+}
+
+/* ============================================================
+   ARCHETYPE E: TIMELINE & STEPS (演进时序与执行步骤)
+   ============================================================ */
+.steps-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: auto;
+  margin-bottom: auto;
+  position: relative;
+  z-index: 2;
+}
+
+.step-card {
+  background: var(--paper-card);
+  border: 1px solid var(--border-ink);
+  padding: 18px;
+}
+
+.step-card .idx {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-seal);
+  margin-bottom: 6px;
+}
+
+.step-card h4 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink-charcoal);
+  margin-bottom: 6px;
+}
+
+.step-card p {
+  font-size: 12px;
+  color: var(--ink-gray);
+  line-height: 1.55;
+}
+
+/* ============================================================
+   ARCHETYPE F: CONCLUSION & CLOSING (结语与行动呼吁)
+   ============================================================ */
+.sl-closing {
+  justify-content: center;
+  text-align: center;
+}
+
+.sl-closing .closing-box {
+  margin: auto;
+  max-width: 60ch;
+  position: relative;
+  z-index: 2;
+}
+
+.sl-closing .stamp-seal {
+  display: inline-block;
+  border: 1.5px solid var(--accent-seal);
+  color: var(--accent-seal);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 16px;
+  margin-top: 24px;
+}
+
+/* 全屏演示与打印模式 */
+@media screen and (min-width: 1200px) {
+  body.presentation-mode {
+    padding: 0;
+    overflow: hidden;
+  }
+  body.presentation-mode .slide {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+  }
+}
+
+@media print {
+  body {
+    background: none;
+    padding: 0;
+    gap: 0;
+  }
+  .slide {
+    width: 100vw;
+    height: 100vh;
+    border: none;
+    box-shadow: none;
+    page-break-after: always;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     SLIDE 1: COVER
+     ============================================================ -->
+<section class="slide sl-cover" id="slide-1">
+  <div class="cover-content">
+    <div class="cover-badge">★ SCENE DISTILLATION ZINE · v1.5</div>
+    <h1 class="s">where stone meets sky.<br>孔版油墨与诗意手刊演示</h1>
+    <p class="lead-s">将长文与复杂技术体系，蒸馏为极具文学质感与独立手作刊物美学的版面系统。脱离照片图层，以孔版钴青蓝、撕纸毛边与打字机题记构建独立美学。</p>
+  </div>
+  <div class="meta-foot">SCENE DISTILLATION ZINE // SPECIFICATION</div>
+  <div class="slide-no">01 / 06</div>
+</section>
+
+<!-- ============================================================
+     SLIDE 2: STATS & SUMMARY
+     ============================================================ -->
+<section class="slide" id="slide-2">
+  <div class="eyebrow">
+    <span class="dot"></span>
+    <span>02 // EXECUTIVE METRICS & CORE DNA</span>
+    <span class="line"></span>
+  </div>
+  <h2 class="s">空间比例与量化规格</h2>
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="val">74<span>%</span></div>
+      <div class="label">静谧纸面留白率</div>
+      <div class="desc">保持 68%–85% 的呼吸空间，提供沉静凝视与阐释缺口。</div>
+    </div>
+    <div class="stat-box">
+      <div class="val">1<span>处</span></div>
+      <div class="label">矿物朱砂点睛</div>
+      <div class="desc">克制使用沉稳矿物朱砂印泥红（占 0.8%–2%），拒绝刺眼亮橘。</div>
+    </div>
+    <div class="stat-box">
+      <div class="val">100<span>%</span></div>
+      <div class="label">无损脱离照片图层</div>
+      <div class="desc">18 项语义组件全量覆盖，以纯粹手绘、纸纹与排版承载信息。</div>
+    </div>
+  </div>
+  <div class="meta-foot">METHODOLOGY // SPATIAL RATIOS</div>
+  <div class="slide-no">02 / 06</div>
+</section>
+
+<!-- ============================================================
+     SLIDE 3: 3-COLUMN PILLARS
+     ============================================================ -->
+<section class="slide" id="slide-3">
+  <div class="eyebrow">
+    <span class="dot"></span>
+    <span>03 // CORE PRINCIPLES & EXPRESSION</span>
+    <span class="line"></span>
+  </div>
+  <h2 class="s">三项核心法则：从具象事实到诗意阐释</h2>
+  <div class="col-3">
+    <div class="card-pillar">
+      <div class="num">01</div>
+      <div class="tag">REWRITE</div>
+      <h3>剔除 70% 琐碎细节</h3>
+      <p>不描摹全景细节，以孔版单色墨与断续线条重构画面主体，留存核心情感残余。</p>
+    </div>
+    <div class="card-pillar highlight">
+      <div class="num">02</div>
+      <div class="tag">MATERIAL ★</div>
+      <h3>孔版孔印与撕纸边缘</h3>
+      <p>采用 Risograph 钴青蓝与棉纸暖底，配合手工撕纸纤维外轮廓，营造扁平印刷质感。</p>
+    </div>
+    <div class="card-pillar">
+      <div class="num">03</div>
+      <div class="tag">SPACE</div>
+      <h3>大面积静谧留白</h3>
+      <p>保持大比例呼吸空间，故意留下未解悬念的阐释缺口，让观者在留白中完成拼图。</p>
+    </div>
+  </div>
+  <div class="meta-foot">ARCHITECTURE // CORE PILLARS</div>
+  <div class="slide-no">03 / 06</div>
+</section>
+
+<!-- ============================================================
+     SLIDE 4: SPLIT COMPARISON
+     ============================================================ -->
+<section class="slide" id="slide-4">
+  <div class="eyebrow">
+    <span class="dot"></span>
+    <span>04 // EVALUATION & COMPARISON</span>
+    <span class="line"></span>
+  </div>
+  <h2 class="s">两种色彩运作模式契约</h2>
+  <div class="split-cmp">
+    <div class="cmp-box">
+      <div class="tag">STANDARD ACCENT MODE · 标准点睛模式</div>
+      <ul>
+        <li>全图以棉纸底色 + 钴青蓝（#1E4870）为主导。</li>
+        <li>仅使用 1 处矿物朱砂陶土红（#A84335），占 0.8%–2%。</li>
+        <li>承担视觉锚点、印章徽记与章节数字引导功能。</li>
+        <li>支持分布式 Repeatable Motifs（如小花、星芒）。</li>
+      </ul>
+    </div>
+    <div class="cmp-box target">
+      <div class="tag">SOLID COLOR-BLOCK MODE · 单色块模式</div>
+      <ul>
+        <li>严格匹配 <code>单色块模式</code> 精确触发。</li>
+        <li>全图仅 3 色：棉纸底色 + 中性炭黑墨 + 1 个单一连续饱和色块。</li>
+        <li>色块占据 3%–12%，作为主体、门窗或水体存在。</li>
+        <li>所有插画线条、文字与装饰强制收敛为炭黑/石墨中性墨。</li>
+      </ul>
+    </div>
+  </div>
+  <div class="meta-foot">SPECIFICATION // MODES</div>
+  <div class="slide-no">04 / 06</div>
+</section>
+
+<!-- ============================================================
+     SLIDE 5: TIMELINE & STEPS
+     ============================================================ -->
+<section class="slide" id="slide-5">
+  <div class="eyebrow">
+    <span class="dot"></span>
+    <span>05 // WORKFLOW & TRANSITIONS</span>
+    <span class="line"></span>
+  </div>
+  <h2 class="s">四大边缘过渡语法</h2>
+  <div class="steps-row">
+    <div class="step-card">
+      <div class="idx">01 // TORN</div>
+      <h4>撕纸毛边</h4>
+      <p>暴露不规则纸浆纤维毛边与浅接触阴影，区隔插画与纯净纸面。</p>
+    </div>
+    <div class="step-card">
+      <div class="idx">02 // GRAYSCALE</div>
+      <h4>层叠灰阶</h4>
+      <p>2–3 道极窄中性灰阶条带，营造浅层物理纸张叠合感。</p>
+    </div>
+    <div class="step-card">
+      <div class="idx">03 // STIPPLE</div>
+      <h4>网点消解</h4>
+      <p>疏密半调点阵向周围纸面自然渐变消融，体现孔版网点印刷质感。</p>
+    </div>
+    <div class="step-card">
+      <div class="idx">04 // CONTOUR</div>
+      <h4>自然孤立轮廓</h4>
+      <p>纯净有机剪影直接与纸面交接，零撕纸边与零光晕，纯粹克制。</p>
+    </div>
+  </div>
+  <div class="meta-foot">EDGE TRANSITIONS // WORKFLOW</div>
+  <div class="slide-no">05 / 06</div>
+</section>
+
+<!-- ============================================================
+     SLIDE 6: CLOSING
+     ============================================================ -->
+<section class="slide sl-closing" id="slide-6">
+  <div class="closing-box">
+    <h2 class="s">where stone meets sky.</h2>
+    <p class="lead-s" style="margin: 16px auto 0;">将长文转化为极富手作质感的出版物美学。<br>零依赖单文件交付，天然支持离线演讲与印刷分发。</p>
+    <div class="stamp-seal">SCENE DISTILLATION ZINE · AUTHENTIC CRAFT</div>
+  </div>
+  <div class="meta-foot">SCENE DISTILLATION ZINE // CONCLUSION</div>
+  <div class="slide-no">06 / 06</div>
+</section>
+
+<!-- 键盘交互脚本 -->
+<script>
+  let currentIdx = 0;
+  const slides = document.querySelectorAll('.slide');
+  
+  function scrollToSlide(idx) {
+    if (idx >= 0 && idx < slides.length) {
+      currentIdx = idx;
+      slides[currentIdx].scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
+      e.preventDefault();
+      scrollToSlide(currentIdx + 1);
+    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+      e.preventDefault();
+      scrollToSlide(currentIdx - 1);
+    } else if (e.key === 'f' || e.key === 'F') {
+      document.body.classList.toggle('presentation-mode');
+    }
+  });
+</script>
+
+</body>
+</html>

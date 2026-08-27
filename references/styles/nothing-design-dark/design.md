@@ -254,7 +254,7 @@ mermaid.initialize({
     lineColor: "#FF5722",
     secondaryColor: "#161616",
     tertiaryColor: "#000000",
-    fontFamily: ""Doto", "Space Mono", monospace"
+    fontFamily: '"Doto", "Space Mono", monospace'
   }
 });
 ```

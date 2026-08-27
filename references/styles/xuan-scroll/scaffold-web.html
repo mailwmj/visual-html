@@ -195,5 +195,29 @@
       });
     });
   </script>
+
+  <!-- Mermaid.js 动态图表运行时 -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    const mermaidElements = document.querySelectorAll('.mermaid, .mermaid-source');
+    if (mermaidElements.length > 0) {
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: 'base',
+        themeVariables: {
+          darkMode: false,
+          background: '#F1ECE1',
+          primaryColor: '#E6DED0',
+          primaryTextColor: '#191714',
+          primaryBorderColor: '#514B43',
+          lineColor: '#514B43',
+          secondaryColor: '#FAF7EF',
+          tertiaryColor: '#D7CCBA',
+          fontFamily: '"Noto Serif SC", "Songti SC", serif',
+          fontSize: '13px'
+        }
+      });
+    }
+  </script>
 </body>
 </html>

@@ -420,7 +420,7 @@ mermaid.initialize({
     lineColor: "#323D24",
     secondaryColor: "#FFFCEB",
     tertiaryColor: "#F7F4EC",
-    fontFamily: ""Newsreader", "Songti SC", serif"
+    fontFamily: '"Newsreader", "Songti SC", serif'
   }
 });
 ```

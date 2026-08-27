@@ -13,8 +13,8 @@
 根据已确定的 style profile 选择**恰好一个**加载分支：
 
 - **已注册风格**：读取目标 `style_id` 的 `design.md` 和 `scaffold-web.html`；不要读取目标 PPT 脚手架或其他风格规范。
-- **参考材料单次生成**：读取 [`_base-scaffold-web.html`](../_base-scaffold-web.html) 建立洁净结构，不读取任何已注册风格 scaffold；根据 `SKILL.md` 的 Inspiration 边界只转译可迁移视觉规律。
-- **自由设计**：读取 [`_base-scaffold-web.html`](../_base-scaffold-web.html)，按原文语义和本 route 约束建立新视觉系统，不读取无关风格包。
+- **参考材料单次生成**：读取 [`../web/base-scaffold.html`](../web/base-scaffold.html) 建立洁净结构，不读取任何已注册风格 scaffold；根据 `SKILL.md` 的 Inspiration 边界只转译可迁移视觉规律。
+- **自由设计**：读取 [`../web/base-scaffold.html`](../web/base-scaffold.html)，按原文语义和本 route 约束建立新视觉系统，不读取无关风格包。
 
 需要共享 DOM 语义时读取 [`shared-components.md`](../shared-components.md)。只有离线交付或 Mermaid fallback 被触发时，读取并运行 [`scripts/bundle_offline.py`](../scripts/bundle_offline.py)。
 

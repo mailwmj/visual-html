@@ -204,7 +204,7 @@ mermaid.initialize({
     lineColor: '#514B43',
     secondaryColor: '#FAF7EF',
     tertiaryColor: '#D7CCBA',
-    fontFamily: '"Noto Serif SC", "Songti SC", serif',
+    fontFamily: '"Noto Serif SC", "Songti SC", serif'
     fontSize: '13px'
   }
 });
