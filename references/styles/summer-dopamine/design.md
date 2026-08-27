@@ -86,3 +86,27 @@ body::before {
 3. **Don't 在正文上使用低对比度彩色文字**。
 4. **Don't 使用生硬直角（0px）**。
 5. **Don't 在提示框或引用块上使用传统技术文档的生硬左粗实线（`border-left: 6px solid`）或刻板纯文本标题**。
+
+---
+
+## 6. Mermaid Theme Configuration (在线增强与离线降级)
+
+在线增强时，在 `</body>` 前注入以下匹配夏日多巴胺风的 `themeVariables`；最终交付仍需使用 `references/scripts/bundle_offline.py` 生成静态 SVG fallback：
+
+```js
+mermaid.initialize({
+  startOnLoad: true,
+  theme: "base",
+  themeVariables: {
+    darkMode: true,
+    background: "rgba(15,23,42,0.85)",
+    primaryColor: "rgba(255,255,255,0.15)",
+    primaryTextColor: "#FFFFFF",
+    primaryBorderColor: "#FF66B2",
+    lineColor: "#00E676",
+    secondaryColor: "#FFD600",
+    tertiaryColor: "rgba(255,255,255,0.08)",
+    fontFamily: ""Plus Jakarta Sans", "Inter", sans-serif"
+  }
+});
+```

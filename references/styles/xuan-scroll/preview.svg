@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" width="400" height="240">
+  <defs>
+    <filter id="softInk" x="-10%" y="-30%" width="120%" height="160%">
+      <feGaussianBlur stdDeviation=".6"/>
+    </filter>
+  </defs>
+  <style>
+    .mono { font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace; }
+    .serif { font-family: "Noto Serif SC", "Songti SC", "STSong", serif; }
+    .brush { font-family: "STKaiti", "KaiTi", "Noto Serif SC", serif; }
+  </style>
+
+  <!-- Tier 0: continuous Xuan paper -->
+  <rect width="400" height="240" rx="8" fill="#F1ECE1"/>
+  <rect x="1" y="1" width="398" height="238" rx="7" fill="none" stroke="#191714" stroke-opacity=".18"/>
+  <path d="M12 24 C60 20 96 26 142 22 S236 23 286 21 S350 24 390 20 M10 66 C58 62 104 68 152 64 S252 66 304 63 S350 66 392 62 M10 206 C60 202 100 208 148 204 S242 206 292 203 S352 207 392 202" fill="none" stroke="#191714" stroke-opacity=".035" stroke-width=".8"/>
+
+  <!-- Tier 1: eyebrow -->
+  <g transform="translate(20, 14)">
+    <rect width="16" height="16" rx="2" fill="#B83A2E"/>
+    <text x="8" y="11.5" text-anchor="middle" class="brush" font-size="10" fill="#FAF7EF">卷</text>
+    <text x="25" y="11.5" class="mono" font-size="8.3" letter-spacing="1.1" fill="#B83A2E">XUAN SCROLL // 宣卷留白</text>
+  </g>
+
+  <!-- Tier 2: title baseline y=58 -->
+  <g transform="translate(20, 48)">
+    <text x="0" y="10" class="brush" font-size="21" fill="#191714">让纸先说话 · 让笔线留下路</text>
+  </g>
+
+  <!-- Tier 3: representative paper section starts y=76 -->
+  <g transform="translate(20, 76)">
+    <rect width="360" height="116" fill="#FAF7EF" fill-opacity=".34" stroke="#191714" stroke-opacity=".18"/>
+    <path d="M16 28 C72 20 112 33 171 26 S278 20 344 29" fill="none" stroke="#191714" stroke-width="5" stroke-linecap="round" opacity=".88"/>
+    <path d="M22 34 C95 29 144 37 210 30 S286 29 335 34" fill="none" stroke="#191714" stroke-width="1" stroke-linecap="round" opacity=".35"/>
+    <text x="18" y="62" class="serif" font-size="12" fill="#191714">一张连续的宣纸</text>
+    <text x="18" y="82" class="serif" font-size="10" fill="#514B43">正文是纸心，题跋在纸边，印章只落一处。</text>
+    <line x1="18" y1="99" x2="338" y2="99" stroke="#191714" stroke-opacity=".2"/>
+    <circle cx="326" cy="99" r="7" fill="#B83A2E"/>
+    <text x="326" y="102" text-anchor="middle" class="brush" font-size="8" fill="#FAF7EF">题</text>
+  </g>
+
+  <!-- Tier 4: footer and swatches -->
+  <g transform="translate(20, 220)">
+    <text x="0" y="0" class="mono" font-size="8" letter-spacing=".9" fill="#91897D">STYLE: XUAN-SCROLL / 宣卷留白风</text>
+    <circle cx="288" cy="-3" r="6" fill="#191714"/><circle cx="305" cy="-3" r="6" fill="#514B43"/><circle cx="322" cy="-3" r="6" fill="#B83A2E"/><circle cx="339" cy="-3" r="6" fill="#987340"/>
+    <text x="360" y="0" text-anchor="end" class="mono" font-size="8" letter-spacing=".7" fill="#B83A2E">PAPER / INK / SEAL</text>
+  </g>
+</svg>

@@ -237,7 +237,7 @@ box-shadow: 0 4px 20px rgba(74, 159, 212, 0.06), inset 0 1px 0 rgba(255, 255, 25
 1. **Don't 在 `<section>` 局部重复堆叠径向光斑** — 这会导致长页面上下滚动时出现生硬的割裂分块。
 2. **Don't 使用黑灰色或重泥土色重阴影** — 阴影必须是极淡的冷调蓝色散（`rgba(74,159,212,.06)`）。
 3. **Don't 引入与冷蓝冲突的热烈杂色（如暖红、亮粉、荧光紫）** — 保持纯净如洗的蓝白天光感。
-4. **Don't 使用生硬显眼的黑色网格线** — 背景不使用网格线，完全依靠纯净光晕与玻璃折射构建空间。
+4. **Don't 在圆角毛玻璃卡片中使用粗硬单边实色条（如 `border-left: 4px` 或 `border-top: 3px`）** — 严禁破坏卡片的整体圆角与通透感，必须依靠整体柔和描边、微渐变浅底与专属精致胶囊徽章（Badge）表达语义。
 5. **Don't 使用锐利直角（0px）或过于夸张的 32px 巨型圆角** — 14px 为最舒适的平衡点。
 6. **Don't 堆砌大量彩色 emoji** — 保持如无印良品、现代生活方式画册般的典雅与克制。
 7. **Don't 使用过于狂暴的弹簧跳跃动效** — 悬浮动效必须是平滑轻柔的微上浮（`translateY(-3px)`）。
@@ -330,7 +330,45 @@ Fonts:             Display: Nunito, PingFang SC (800 for Hero, 400 for Body)
 </div>
 ```
 
-### 3. Elegant Q&A Item (雅致折叠问答条目)
+### 3. Air Minimalist Admonitions (极简空气感提示框)
+
+```html
+<div class="admonition info">
+  <div class="admonition-head">
+    <span class="icon">✦</span>
+    <span class="admonition-title">核心结论 // INFO</span>
+  </div>
+  <p>去除厚重药丸框与多余渐变，回归纯白晶透毛玻璃卡片与轻盈单行标头，保持空灵、通透、低负担的雅致调性。</p>
+</div>
+```
+
+### 4. Dual Evaluation / Pros & Cons (优劣势对比卡片)
+
+```html
+<div class="pros-cons">
+  <div class="pro-card">
+    <div class="pc-head">
+      <span class="dot"></span>
+      <span>PROS / 核心优势</span>
+    </div>
+    <ul>
+      <li>架构极其稳定，支持超大规模长文结构化解析</li>
+      <li>15 款设计风格无缝插拔，数据协议标准统一</li>
+    </ul>
+  </div>
+  <div class="con-card">
+    <div class="pc-head">
+      <span class="dot"></span>
+      <span>CONS / 考量权衡</span>
+    </div>
+    <ul>
+      <li>初期学习曲线较陡峭，需掌握底层语义契约</li>
+    </ul>
+  </div>
+</div>
+```
+
+### 5. Elegant Q&A Item (雅致折叠问答条目)
 
 ```html
 <div class="faq">
@@ -344,4 +382,28 @@ Fonts:             Display: Nunito, PingFang SC (800 for Hero, 400 for Body)
     </div>
   </div>
 </div>
+```
+
+---
+
+## 6. Mermaid Theme Configuration (在线增强与离线降级)
+
+在线增强时，在 `</body>` 前注入以下匹配清透空灵浅蓝风的 `themeVariables`；最终交付仍需使用 `references/scripts/bundle_offline.py` 生成静态 SVG fallback：
+
+```js
+mermaid.initialize({
+  startOnLoad: true,
+  theme: "base",
+  themeVariables: {
+    darkMode: false,
+    background: "#FFFFFF",
+    primaryColor: "#EAF6FC",
+    primaryTextColor: "#2A3F54",
+    primaryBorderColor: "#0284C7",
+    lineColor: "#0284C7",
+    secondaryColor: "#EAF6FC",
+    tertiaryColor: "#FFFFFF",
+    fontFamily: ""Nunito", -apple-system, sans-serif"
+  }
+});
 ```

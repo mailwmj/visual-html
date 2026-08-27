@@ -234,3 +234,27 @@ Nothing Design 将瑞士国际主义排版风格（Swiss Typography）与现代�
 5. **严禁用 Doto 点阵字排版整段正文**（正文一律使用 Space Grotesk）。
 6. **严禁在暗色背景上使用低对比度文字**。
 7. **严禁省略 Google Fonts 导入**。
+
+---
+
+## 6. Mermaid Theme Configuration (在线增强与离线降级)
+
+在线增强时，在 `</body>` 前注入以下匹配 Nothing 极简点阵暗黑风的 `themeVariables`；最终交付仍需使用 `references/scripts/bundle_offline.py` 生成静态 SVG fallback：
+
+```js
+mermaid.initialize({
+  startOnLoad: true,
+  theme: "base",
+  themeVariables: {
+    darkMode: true,
+    background: "#000000",
+    primaryColor: "#111111",
+    primaryTextColor: "#F5F5F5",
+    primaryBorderColor: "#FF5722",
+    lineColor: "#FF5722",
+    secondaryColor: "#161616",
+    tertiaryColor: "#000000",
+    fontFamily: ""Doto", "Space Mono", monospace"
+  }
+});
+```

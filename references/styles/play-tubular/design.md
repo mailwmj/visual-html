@@ -295,3 +295,27 @@ Play Tubular（玩味极客彩管风 / Play Engineering）将顶级前沿 AI/LLM
 5. **Don't 使用沉闷肮脏的纯黑重阴影** — 阴影必须是多色渐变微透柔光（如 `rgba(37, 99, 235, 0.12)`）。
 6. **Don't 使用生硬直角（0px）或极小圆角** — 卡片必须保持 24px 圆润大圆角。
 7. **Don't 堆砌杂乱的彩色 Emoji** — 使用矢量半调标头与工程符号替代。
+
+---
+
+## 6. Mermaid Theme Configuration (在线增强与离线降级)
+
+在线增强时，在 `</body>` 前注入以下匹配玩味极客彩管风的 `themeVariables`；最终交付仍需使用 `references/scripts/bundle_offline.py` 生成静态 SVG fallback：
+
+```js
+mermaid.initialize({
+  startOnLoad: true,
+  theme: "base",
+  themeVariables: {
+    darkMode: false,
+    background: "#FAF8F3",
+    primaryColor: "#FFFFFF",
+    primaryTextColor: "#111111",
+    primaryBorderColor: "#2563EB",
+    lineColor: "#2563EB",
+    secondaryColor: "#FFF1EB",
+    tertiaryColor: "#FAF8F3",
+    fontFamily: ""Plus Jakarta Sans", -apple-system, sans-serif"
+  }
+});
+```

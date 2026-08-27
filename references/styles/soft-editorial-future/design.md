@@ -129,3 +129,27 @@ body::before {
 5. **Don't 使用低对比度的浅灰文字** — 正文必须清晰深邃。
 6. **Don't 堆砌刺眼杂乱的多彩霓虹** — 强调色仅限苹果蓝与红黄绿三色语义信号。
 7. **Don't 使用生硬直角（0px）**。
+
+---
+
+## 6. Mermaid Theme Configuration (在线增强与离线降级)
+
+在线增强时，在 `</body>` 前注入以下匹配极简未来展厅风的 `themeVariables`；最终交付仍需使用 `references/scripts/bundle_offline.py` 生成静态 SVG fallback：
+
+```js
+mermaid.initialize({
+  startOnLoad: true,
+  theme: "base",
+  themeVariables: {
+    darkMode: true,
+    background: "#0C131F",
+    primaryColor: "#162032",
+    primaryTextColor: "#F8FAFC",
+    primaryBorderColor: "#38BDF8",
+    lineColor: "#38BDF8",
+    secondaryColor: "#111827",
+    tertiaryColor: "#0C131F",
+    fontFamily: ""SF Pro Display", "Inter", sans-serif"
+  }
+});
+```

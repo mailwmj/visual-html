@@ -296,3 +296,27 @@ Pixel Crystal（油画粉彩晶光风 / Monet Crystal & Iridescent DNA）从根�
 - 所有装饰苹果和背景晶珠使用 `aria-hidden="true"`；信息型图表必须提供可读文本或 `aria-label`。
 - 正文和交互控件必须满足 WCAG AA 对比度；不能用浅粉色作为唯一的信息编码。
 - 所有键盘可操作元素必须有可见 `:focus-visible` 状态。
+
+---
+
+## 6. Mermaid Theme Configuration (在线增强与离线降级)
+
+在线增强时，在 `</body>` 前注入以下匹配油画粉彩晶光风的 `themeVariables`；最终交付仍需使用 `references/scripts/bundle_offline.py` 生成静态 SVG fallback：
+
+```js
+mermaid.initialize({
+  startOnLoad: true,
+  theme: "base",
+  themeVariables: {
+    darkMode: false,
+    background: "#FDF8F7",
+    primaryColor: "#FAF2F4",
+    primaryTextColor: "#3C2836",
+    primaryBorderColor: "#D88CA8",
+    lineColor: "#D88CA8",
+    secondaryColor: "#FAF2F4",
+    tertiaryColor: "#FFFFFF",
+    fontFamily: ""Plus Jakarta Sans", sans-serif"
+  }
+});
+```

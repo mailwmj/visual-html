@@ -301,3 +301,27 @@ Fonts:             Display: Helvetica Neue, PingFang SC (900 for Hero, 400 for B
   </p>
 </div>
 ```
+
+---
+
+## 6. Mermaid Theme Configuration (在线增强与离线降级)
+
+在线增强时，在 `</body>` 前注入以下匹配先锋撞色海报风的 `themeVariables`；最终交付仍需使用 `references/scripts/bundle_offline.py` 生成静态 SVG fallback：
+
+```js
+mermaid.initialize({
+  startOnLoad: true,
+  theme: "base",
+  themeVariables: {
+    darkMode: false,
+    background: "#FFFFFF",
+    primaryColor: "#00E5CC",
+    primaryTextColor: "#000000",
+    primaryBorderColor: "#FF4591",
+    lineColor: "#000000",
+    secondaryColor: "#FFF500",
+    tertiaryColor: "#FFFFFF",
+    fontFamily: ""Space Grotesk", "Space Mono", monospace"
+  }
+});
+```

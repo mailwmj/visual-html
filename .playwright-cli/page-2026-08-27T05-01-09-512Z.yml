@@ -1,0 +1,196 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - complementary "页面索引" [ref=e3]: 宣卷留白 / XUAN SCROLL
+    - article [ref=e4]:
+      - generic [ref=e5]:
+        - generic [ref=e6]: 01 / OPENING LEAF
+        - heading "让纸先说话， 让笔线留下路" [level=1] [ref=e10]: 让纸先说话，让笔线留下路
+        - paragraph [ref=e11]: 宣卷留白以宣纸为连续画布，以有方向的笔触组织章节与证据；文字是主体，墨迹只在需要的地方落笔。
+        - generic "核心数据" [ref=e12]:
+          - generic [ref=e13]:
+            - strong [ref=e14]: 72%
+            - generic [ref=e15]: 完成度
+          - generic [ref=e17]:
+            - strong [ref=e18]: "4.8"
+            - generic [ref=e19]: 读者评分
+        - generic [ref=e20]:
+          - generic [ref=e21]:
+            - generic [ref=e22]: 半生熟
+            - generic [ref=e23]: PAPER / 纸性
+          - generic [ref=e24]:
+            - generic [ref=e25]: 中锋 + 侧锋
+            - generic [ref=e26]: GESTURE / 笔势
+          - generic [ref=e27]:
+            - generic [ref=e28]: 0 依赖
+            - generic [ref=e29]: DELIVERY / 交付
+      - generic [ref=e30]:
+        - generic [ref=e31]: 02 / NARRATIVE
+        - heading "笔势有秩序，留白有用途" [level=2] [ref=e35]
+        - complementary [ref=e36]:
+          - generic [ref=e37]: 戒
+          - generic [ref=e38]:
+            - heading "边界条件" [level=3] [ref=e39]
+            - paragraph [ref=e40]: 不要把推演结果写成事实；来源、口径和不确定性必须留在正文中。
+        - generic [ref=e41]:
+          - paragraph [ref=e42]:
+            - text: 软笔的价值在于变化：笔尖和笔侧、速度和压力、含墨量和收笔方式共同决定线条的性格。界面不需要模拟一团烟雾，而应保留这些关系带来的
+            - strong [ref=e43]: 方向、轻重和停顿
+            - text: 。
+          - blockquote [ref=e44]: 空处不是缺失的内容，而是让下一段文字获得呼吸的纸面。
+          - heading "三项阅读原则" [level=4] [ref=e45]
+          - list [ref=e46]:
+            - listitem [ref=e47]: 长正文维持稳定列宽与舒适行距。
+            - listitem [ref=e48]: 墨迹只出现在章节边缘或语义节点。
+            - listitem [ref=e49]: 来源以题跋方式收束，不覆盖正文。
+        - generic [ref=e50]:
+          - generic [ref=e51]:
+            - generic [ref=e56]: CSS / INK VARIABLES
+            - button "COPY" [ref=e57] [cursor=pointer]
+          - code [ref=e59]: "/* authored stroke, not random noise */ --wetness: 0.62; --density: 0.78; --pressure: 0.44; --speed: 0.70;"
+      - generic [ref=e60]:
+        - generic [ref=e61]: 03 / STRUCTURE
+        - heading "一张纸，三种笔触，十八种语义" [level=2] [ref=e65]
+        - generic [ref=e66]:
+          - generic [ref=e67]:
+            - generic [ref=e68]: "01"
+            - heading "中锋细线" [level=3] [ref=e69]
+            - paragraph [ref=e70]: 用于章节锚点、轻量分隔和连续叙事。
+            - generic [ref=e71]: CENTER TIP
+          - generic [ref=e72]:
+            - generic [ref=e73]: "02"
+            - heading "侧锋宽线" [level=3] [ref=e74]
+            - paragraph [ref=e75]: 用于核心结论、流程转折和视觉主轴。
+            - generic [ref=e76]: SIDE TIP
+          - generic [ref=e77]:
+            - generic [ref=e78]: "03"
+            - heading "枯笔飞白" [level=3] [ref=e79]
+            - paragraph [ref=e80]: 用于收束、停顿和有限的强调。
+            - generic [ref=e81]: DRY BRUSH
+        - generic [ref=e83]:
+          - generic [ref=e84]: MEDIA / NATIVE SVG
+          - heading "线条是图解，不是背景" [level=3] [ref=e85]
+          - paragraph [ref=e86]: 简单流程使用离线 SVG；复杂图表仍保留完整节点、关系和标签。
+          - generic [ref=e87]: MEDIA AREA / 只在有真实媒体时填充
+        - img "从输入到交付的四步流程" [ref=e88]:
+          - img [ref=e89]:
+            - generic [ref=e90]:
+              - generic [ref=e92]: 01 / INPUT
+              - generic [ref=e93]: 原始长文
+            - generic [ref=e94]:
+              - generic [ref=e96]: 02 / READ
+              - generic [ref=e97]: 章法拆解
+            - generic [ref=e98]:
+              - generic [ref=e100]: 03 / INK
+              - generic [ref=e101]: 语义落笔
+            - generic [ref=e102]:
+              - generic [ref=e104]: 04 / DELIVER
+              - generic [ref=e105]: 纸面交付
+        - generic [ref=e106]:
+          - generic [ref=e107]:
+            - generic [ref=e108]: "01"
+            - generic [ref=e109]:
+              - heading "读原文" [level=3] [ref=e110]
+              - paragraph [ref=e111]: 保留标题树、论据、参数和限定条件。
+          - generic [ref=e112]:
+            - generic [ref=e113]: "02"
+            - generic [ref=e114]:
+              - heading "定行气" [level=3] [ref=e115]
+              - paragraph [ref=e116]: 为段落、图表和引用安排适合的纸面节奏。
+          - generic [ref=e117]:
+            - generic [ref=e118]: "03"
+            - generic [ref=e119]:
+              - heading "落一笔" [level=3] [ref=e120]
+              - paragraph [ref=e121]: 只在信息关系需要时使用方向明确的笔触。
+        - list [ref=e122]:
+          - listitem [ref=e123]:
+            - time [ref=e124]: "2022"
+            - generic [ref=e125]:
+              - heading "观察样本" [level=3] [ref=e126]
+              - paragraph [ref=e127]: 建立内容与纸面之间的对应关系。
+          - listitem [ref=e128]:
+            - time [ref=e129]: "2024"
+            - generic [ref=e130]:
+              - heading "材料验证" [level=3] [ref=e131]
+              - paragraph [ref=e132]: 比较不同纸性下的边缘、浓度和可读性。
+          - listitem [ref=e133]:
+            - time [ref=e134]: "2026"
+            - generic [ref=e135]:
+              - heading "数字转译" [level=3] [ref=e136]
+              - paragraph [ref=e137]: 形成可复用的 Web 与 PPT 风格契约。
+      - generic [ref=e138]:
+        - generic [ref=e139]: 04 / EVALUATION
+        - heading "纸性选择与设计取舍" [level=2] [ref=e143]
+        - generic [ref=e145]:
+          - generic [ref=e146]:
+            - generic [ref=e147]: 维度
+            - generic [ref=e148]: 生宣主视觉
+            - generic [ref=e149]: 半生熟正文
+          - generic [ref=e150]:
+            - generic [ref=e151]: 边缘
+            - generic [ref=e152]: 柔和、有方向的晕边
+            - generic [ref=e153]: 轻微变化、保持清晰
+          - generic [ref=e154]:
+            - generic [ref=e155]: 适用内容
+            - generic [ref=e156]: 封面、引文、重点
+            - generic [ref=e157]: 长文、表格、图表
+          - generic [ref=e158]:
+            - generic [ref=e159]: 实现
+            - generic [ref=e160]: SVG 局部纹理
+            - generic [ref=e162]: 稳定纸面变量
+        - generic [ref=e164]:
+          - generic [ref=e165]:
+            - generic [ref=e166]: PROS / 优势
+            - list [ref=e167]:
+              - listitem [ref=e168]: 纸面连续，阅读焦点稳定。
+              - listitem [ref=e169]: 笔线可以表达层级与方向。
+          - generic [ref=e170]:
+            - generic [ref=e171]: CONS / 约束
+            - list [ref=e172]:
+              - listitem [ref=e173]: 不能靠高强度特效制造视觉冲击。
+              - listitem [ref=e174]: 字体回退和纹理对比度必须严格测试。
+        - generic [ref=e175]:
+          - generic [ref=e176]:
+            - generic [ref=e177]: ROUND 01 / 纸性决策
+            - generic [ref=e178]: STATUS // 已确认
+          - generic [ref=e179]:
+            - generic [ref=e180]:
+              - generic [ref=e181]: AI 访谈助手 · 设计提问
+              - generic [ref=e182]:
+                - generic [ref=e183]: "01"
+                - generic [ref=e184]: 为什么不保留动态水墨烟岚？
+                - generic [ref=e185]:
+                  - strong [ref=e186]: 结论
+                  - text: 持续运动会让墨成为主角；本风格只保留落笔瞬间和纸面边缘的变化。
+            - generic [ref=e187]:
+              - generic [ref=e188]: DECISION // 设计拍板
+              - generic [ref=e189]: 采用半生熟正文纸性，生宣只用于少量标题与引文。
+      - generic [ref=e190]:
+        - generic [ref=e191]: 05 / COLOPHON
+        - heading "题跋、问答与出处" [level=2] [ref=e195]
+        - generic [ref=e196]:
+          - generic [ref=e197]:
+            - generic [ref=e198]: 可以把所有标题都写成毛笔字吗？
+            - generic [ref=e199]: 不建议。书法字只承担短标题和视觉锚点，长标题、表格和正文使用可读的宋体或系统衬线字体。
+          - generic [ref=e200]:
+            - generic [ref=e201]: 没有真实图片时如何表达纸张？
+            - generic [ref=e202]: 使用低对比度 CSS 纤维和局部 SVG 笔触；不制造虚假的作品图片，也不把纹理放到文字上方。
+        - generic [ref=e203]:
+          - heading "REFERENCES / 参考文献" [level=3] [ref=e204]
+          - list [ref=e205]:
+            - listitem [ref=e206]:
+              - text: Metropolitan Museum of Art,
+              - emphasis [ref=e207]: Chinese Calligraphy
+              - text: .
+            - listitem [ref=e208]:
+              - text: UNESCO Intangible Cultural Heritage,
+              - emphasis [ref=e209]: Traditional handicrafts of making Xuan paper
+              - text: .
+            - listitem [ref=e210]: 北京大学人文社会科学研究院，《书法的物质性与历史研究》工作坊（安徽场二）。
+    - complementary [ref=e211]:
+      - strong [ref=e212]: 题 / COLOPHON
+      - generic [ref=e213]: 宣卷留白XUAN SCROLLBUILD 1.0
+  - contentinfo [ref=e214]:
+    - generic [ref=e215]:
+      - generic [ref=e216]: XUAN SCROLL // DIRECT IMMERSIVE FLOW
+      - generic [ref=e217]: WEB SCAFFOLD // 18 SEMANTIC COMPONENTS
+      - generic [ref=e218]: OFFLINE READY // NO WEBGL

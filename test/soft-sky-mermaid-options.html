@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Soft Sky Mermaid 图表高级感升级对比</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg: #EAF6FC;
+  --bg-deep: #D8EEF8;
+  --surface-1: rgba(255, 255, 255, .82);
+  --surface-2: rgba(255, 255, 255, .55);
+
+  --text-primary: #2A3F54;
+  --text-secondary: #5D7A8C;
+  --text-muted: #90A8B8;
+
+  --border: rgba(93, 179, 232, .28);
+  --signal-blue: #4A9FD4;
+  --signal-accent: #0284C7;
+
+  --shadow-card: 0 4px 20px rgba(74, 159, 212, .06), inset 0 1px 0 rgba(255, 255, 255, .95);
+  --radius: 14px;
+  --radius-sm: 8px;
+  --radius-pill: 20px;
+
+  --font-display: "Nunito", -apple-system, BlinkMacSystemFont, "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background-color: var(--bg);
+  background-image: linear-gradient(180deg, #EAF6FC 0%, #F5FBFE 50%, #D8EEF8 100%);
+  min-height: 100vh;
+  color: var(--text-secondary);
+  font-family: var(--font-display);
+  font-size: 15px;
+  line-height: 1.7;
+  padding: 48px 24px;
+}
+.container { max-width: 1000px; margin: 0 auto; }
+
+.page-header { margin-bottom: 40px; text-align: center; }
+.page-header h1 { font-size: 30px; color: var(--text-primary); font-weight: 800; margin-bottom: 8px; }
+.page-header p { font-size: 15px; color: var(--text-secondary); }
+
+.box {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  margin-bottom: 40px;
+  box-shadow: var(--shadow-card);
+}
+.box-title {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 12px;
+}
+.box-title h2 { font-size: 18px; color: var(--text-primary); font-weight: 700; }
+.badge {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+  padding: 3px 10px; border-radius: var(--radius-pill);
+  background: rgba(2, 132, 199, 0.1); color: var(--signal-accent);
+}
+.badge.upgraded { background: var(--signal-accent); color: #fff; }
+
+.flowchart {
+  display: flex; justify-content: center; align-items: center;
+  overflow-x: auto; padding: 16px 0;
+}
+.mermaid {
+  background: transparent !important; border: none !important;
+  width: 100%; display: flex; justify-content: center;
+}
+
+/* ============================================================
+   升级后的 Mermaid 专属高级感 CSS 注入
+   ============================================================ */
+.upgraded-section .mermaid svg {
+  font-family: var(--font-display) !important;
+  filter: drop-shadow(0 6px 18px rgba(74, 159, 212, 0.08));
+}
+/* 节点：毛玻璃浅底 + 柔和圆角 + 精致描边 */
+.upgraded-section .mermaid .node rect,
+.upgraded-section .mermaid .node circle,
+.upgraded-section .mermaid .node ellipse,
+.upgraded-section .mermaid .node polygon,
+.upgraded-section .mermaid .node path {
+  rx: 10px !important;
+  ry: 10px !important;
+  stroke: rgba(93, 179, 232, 0.4) !important;
+  stroke-width: 1.25px !important;
+  fill: rgba(255, 255, 255, 0.95) !important;
+}
+/* 决策菱形节点特别收敛与美化 */
+.upgraded-section .mermaid .node.decision polygon {
+  fill: rgba(234, 246, 252, 0.95) !important;
+  stroke: var(--signal-accent) !important;
+  stroke-width: 1.5px !important;
+}
+/* 节点文本排版 */
+.upgraded-section .mermaid .node .label {
+  color: var(--text-primary) !important;
+  font-size: 13px !important;
+  line-height: 1.45 !important;
+  font-weight: 500 !important;
+}
+.upgraded-section .mermaid .node .label b {
+  color: var(--signal-accent) !important;
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.04em !important;
+}
+/* 连线与平滑曲线 */
+.upgraded-section .mermaid .flowchart-link,
+.upgraded-section .mermaid .edgePaths path {
+  stroke: rgba(74, 159, 212, 0.55) !important;
+  stroke-width: 1.5px !important;
+}
+.upgraded-section .mermaid .marker {
+  fill: var(--signal-accent) !important;
+  stroke: var(--signal-accent) !important;
+}
+/* 连线标签气泡 */
+.upgraded-section .mermaid .edgeLabel {
+  background-color: transparent !important;
+}
+.upgraded-section .mermaid .edgeLabel .label {
+  color: var(--text-secondary) !important;
+  font-size: 11px !important;
+  font-family: var(--font-mono) !important;
+}
+.upgraded-section .mermaid .edgeLabel rect {
+  fill: rgba(234, 246, 252, 0.95) !important;
+  stroke: rgba(93, 179, 232, 0.3) !important;
+  stroke-width: 1px !important;
+  rx: 6px !important;
+  ry: 6px !important;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="page-header">
+    <h1>Soft Sky Mermaid 图表渲染优化比对</h1>
+    <p>解决 Mermaid 默认菱形巨大突兀、直角硬边框以及文字紧贴贴死的问题</p>
+  </div>
+
+  <!-- 优化后方案 -->
+  <div class="box upgraded-section">
+    <div class="box-title">
+      <h2>✨ 升级后方案 · 空灵通透贝塞尔流线 (Air Curve + Glass Nodes)</h2>
+      <span class="badge upgraded">推荐方案</span>
+    </div>
+    
+    <div class="flowchart">
+      <pre class="mermaid">
+flowchart LR
+    A["<b>01 / INPUT</b><br>长文本输入"] --> B["<b>02 / EXTRACT</b><br>AI 语义提取"]
+    B --> C{"<b>架构决策</b><br>复杂度评估"}
+    C -->|"简单 3-5 步"| D["<b>纯矢量 SVG</b><br>零依赖秒开"]
+    C -->|"复杂拓扑/时序"| E["<b>Mermaid 引擎</b><br>自动风格渲染"]
+    D --> F["<b>成果交付</b><br>单文件 HTML"]
+    E --> F
+      </pre>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    securityLevel: 'loose',
+    flowchart: {
+      htmlLabels: true,
+      curve: 'basis',
+      nodeSpacing: 35,
+      rankSpacing: 45
+    },
+    themeVariables: {
+      darkMode: false,
+      background: 'transparent',
+      primaryColor: '#FFFFFF',
+      primaryTextColor: '#2A3F54',
+      primaryBorderColor: '#4A9FD4',
+      lineColor: '#4A9FD4',
+      secondaryColor: '#EAF6FC',
+      tertiaryColor: '#FFFFFF',
+      fontFamily: '"Nunito", -apple-system, sans-serif'
+    }
+  });
+</script>
+
+</body>
+</html>

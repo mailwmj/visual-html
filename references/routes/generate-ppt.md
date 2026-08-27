@@ -13,8 +13,8 @@
 根据已确定的 style profile 选择**恰好一个**加载分支：
 
 - **已注册风格**：读取目标 `style_id` 的 `design.md` 和 `scaffold-ppt.html`；不要读取目标 Web 脚手架或其他风格规范。
-- **参考材料单次生成**：不读取任何已注册风格 scaffold；根据 `SKILL.md` 的 Inspiration 边界和本 route 的 16:9 契约，从空白舞台转译可迁移视觉规律。
-- **自由设计**：按原文语义和本 route 约束从空白 16:9 舞台建立新视觉系统，不读取无关风格包。
+- **参考材料单次生成**：读取 [`_base-scaffold-ppt.html`](../_base-scaffold-ppt.html) 建立洁净 16:9 舞台结构，不读取任何已注册风格 scaffold；根据 `SKILL.md` 的 Inspiration 边界和本 route 的 16:9 契约转译可迁移视觉规律。
+- **自由设计**：读取 [`_base-scaffold-ppt.html`](../_base-scaffold-ppt.html)，按原文语义和本 route 约束建立新视觉系统，不读取无关风格包。
 
 所有 profile 都必须读取并执行 [`ppt-output-contract.md`](../ppt-output-contract.md)。需要共享 DOM 语义时读取 [`shared-components.md`](../shared-components.md)。若内容包含 Mermaid，仍按 `SKILL.md` 的共享离线 fallback 契约触发对应 bundler。
 

@@ -5,120 +5,224 @@
       "id": "industrial-dark",
       "name": "暗黑极客工业风",
       "englishName": "Industrial Dark",
-      "categories": ["tech"],
-      "dir": "industrial-dark"
+      "categories": [
+        "tech"
+      ],
+      "dir": "industrial-dark",
+      "visualTraits": "近黑背景 + CAD 网格 + 0–2px 硬边 + 信号绿与紫色通道",
+      "scenarios": "硬件参数、工程文档、技术说明、极客展示、系统架构"
+    },
+    {
+      "id": "quantum-pulse",
+      "name": "量子脉冲黑蓝风",
+      "englishName": "Quantum Pulse",
+      "categories": [
+        "tech",
+        "editorial"
+      ],
+      "dir": "quantum-pulse",
+      "visualTraits": "近黑网格 + 钴蓝能量穹顶 + 白色光束 + 半调粒子与冰蓝信号",
+      "scenarios": "AI/LLM 发布、技术白皮书、系统架构、数据叙事"
     },
     {
       "id": "soft-sky",
       "name": "清透空灵浅蓝风",
       "englishName": "Soft Sky",
-      "categories": ["lifestyle"],
-      "dir": "soft-sky"
+      "categories": [
+        "lifestyle"
+      ],
+      "dir": "soft-sky",
+      "visualTraits": "浅天蓝渐变 + 半透白卡 + 8–16px 柔和圆角 + 蔚蓝强调",
+      "scenarios": "包装展示、生活方式、消费硬件、清新雅致技术页"
     },
     {
       "id": "obsidian-cyan",
       "name": "黑曜霓蓝展厅风",
       "englishName": "Obsidian Cyan",
-      "categories": ["tech"],
-      "dir": "obsidian-cyan"
+      "categories": [
+        "tech"
+      ],
+      "dir": "obsidian-cyan",
+      "visualTraits": "黑曜近黑 + 冷蓝极光 + 悬浮设备模型 + 霓蓝标注线与流程徽章",
+      "scenarios": "UI/UX 案例集、移动端 App、数字产品、科技展厅"
     },
     {
       "id": "play-tubular",
       "name": "玩味极客彩管风",
       "englishName": "Play Tubular",
-      "categories": ["tech", "pop"],
-      "dir": "play-tubular"
+      "categories": [
+        "tech",
+        "pop"
+      ],
+      "dir": "play-tubular",
+      "visualTraits": "浅暖米白点阵 + 3D 渐变彩管 + 半调网点光影 + 粗黑体",
+      "scenarios": "AI/LLM 创新展示、创意产品发布、白皮书、开发者大会"
     },
     {
       "id": "warm-craft",
       "name": "温润纸感手札风",
       "englishName": "Warm Craft",
-      "categories": ["editorial"],
-      "dir": "warm-craft"
+      "categories": [
+        "editorial"
+      ],
+      "dir": "warm-craft",
+      "visualTraits": "暖米纸质 + 人文宋体 + 深橄榄绿 + 错落微倾粉彩贴纸 + 手绘涂鸦",
+      "scenarios": "智能代理、知识沉淀、深度调研、SaaS 官网、人文科技"
     },
     {
       "id": "neon-3d",
       "name": "暗紫流体极光风",
       "englishName": "Neon Aurora",
-      "categories": ["pop", "tech"],
-      "dir": "neon-3d"
+      "categories": [
+        "pop",
+        "tech"
+      ],
+      "dir": "neon-3d",
+      "visualTraits": "深邃黑紫 + 流体极光 + 胶片噪点 + 3D 浮雕高光 + 霓虹紫/洋红",
+      "scenarios": "创意应用、工具集合、潮酷硬件、潮流设计、蒸汽波质感"
     },
     {
       "id": "pixel-pop",
       "name": "日系像素波普风",
       "englishName": "Pixel Pop",
-      "categories": ["pop"],
-      "dir": "pixel-pop"
+      "categories": [
+        "pop"
+      ],
+      "dir": "pixel-pop",
+      "visualTraits": "青春亮蓝 + 浅奶油看板 + 粗黑边框与 5px 硬投影 + 像素涂鸦",
+      "scenarios": "青春校园、创意活动、复古游戏、手账拼贴、动漫手绘"
     },
     {
       "id": "brutalist-acid",
       "name": "先锋撞色海报风",
       "englishName": "Brutalist Poster",
-      "categories": ["pop"],
-      "dir": "brutalist-acid"
+      "categories": [
+        "pop"
+      ],
+      "dir": "brutalist-acid",
+      "visualTraits": "纯白高对比 + 亮粉色块 + 荧光青超大字号 + 破坏性紧凑排版",
+      "scenarios": "艺术展览、独立出版物、实验排版、先锋设计海报"
     },
     {
       "id": "sunflower-bloom",
       "name": "向日葵暖阳风",
       "englishName": "Sunflower Bloom",
-      "categories": ["lifestyle", "editorial"],
-      "dir": "sunflower-bloom"
+      "categories": [
+        "lifestyle",
+        "editorial"
+      ],
+      "dir": "sunflower-bloom",
+      "visualTraits": "纸质蓝背景 + 米白字 + 向日葵明黄高亮 + 粗大排版",
+      "scenarios": "产品海报、活力传递、纸质文艺、团队文化"
     },
     {
       "id": "summer-dopamine",
       "name": "夏日多巴胺风",
       "englishName": "Summer Dopamine",
-      "categories": ["lifestyle", "pop"],
-      "dir": "summer-dopamine"
+      "categories": [
+        "lifestyle",
+        "pop"
+      ],
+      "dir": "summer-dopamine",
+      "visualTraits": "高饱和渐变网格 + 毛玻璃大圆角 + 发光微点",
+      "scenarios": "夏日活动、创意产品、汽水风格、多巴胺元气海报"
     },
     {
       "id": "soft-editorial-future",
       "name": "极简未来展厅风",
       "englishName": "Future Showroom",
-      "categories": ["editorial", "tech"],
-      "dir": "soft-editorial-future"
+      "categories": [
+        "editorial",
+        "tech"
+      ],
+      "dir": "soft-editorial-future",
+      "visualTraits": "冷质感画布 + 高光悬浮玻璃展柜 + 3D 柔光彩球",
+      "scenarios": "高级展厅、视觉画廊、艺术展、前沿科技、AI 产品发布"
     },
     {
       "id": "nothing-design-dark",
       "name": "Nothing 极简点阵暗黑风",
       "englishName": "Nothing Monochrome Dark",
-      "categories": ["tech", "editorial"],
-      "dir": "nothing-design-dark"
+      "categories": [
+        "tech",
+        "editorial"
+      ],
+      "dir": "nothing-design-dark",
+      "visualTraits": "OLED 纯黑 + 24px 点阵网格 + Doto 点阵字 + 多通道遥测色",
+      "scenarios": "硬件工业设计、前沿数码、技术规格书、夜间长篇研报"
     },
     {
       "id": "nothing-design-light",
       "name": "Nothing 极简点阵亮白风",
       "englishName": "Nothing Monochrome Light",
-      "categories": ["tech", "editorial"],
-      "dir": "nothing-design-light"
+      "categories": [
+        "tech",
+        "editorial"
+      ],
+      "dir": "nothing-design-light",
+      "visualTraits": "陶瓷冷白 + 浅灰点阵网格 + Doto 点阵字 + 信号功能色",
+      "scenarios": "白瓷工业、学术出版物、现代印刷报告、硬件参数发布"
     },
     {
       "id": "pixel-crystal",
       "name": "油画粉彩晶光风",
       "englishName": "Pixel Crystal",
-      "categories": ["pop", "lifestyle", "editorial"],
-      "dir": "pixel-crystal"
+      "categories": [
+        "pop",
+        "lifestyle",
+        "editorial"
+      ],
+      "dir": "pixel-crystal",
+      "visualTraits": "油画布纹 + 莫奈复调渐变 + 点彩星芒 + 熟褐墨色正文",
+      "scenarios": "艺术企划、文化出版、Vtuber、独立游戏、插画案例集"
     },
     {
       "id": "ink-bamboo",
       "name": "青绿水墨竹韵风",
       "englishName": "Ink Bamboo",
-      "categories": ["editorial", "lifestyle"],
-      "dir": "ink-bamboo"
+      "categories": [
+        "editorial",
+        "lifestyle"
+      ],
+      "dir": "ink-bamboo",
+      "visualTraits": "古法宣纸暖底 + 水墨竹竿影 + 古典宋体 + 翠竹生青 + 朱砂印",
+      "scenarios": "中式文化企划、行业研报、东方文创、政企汇报"
     },
     {
       "id": "state-governance",
       "name": "国企政务严谨汇报风",
       "englishName": "State Governance Blue",
-      "categories": ["editorial", "tech"],
-      "dir": "state-governance"
+      "categories": [
+        "editorial",
+        "tech"
+      ],
+      "dir": "state-governance",
+      "visualTraits": "纯净冷白/微浅蓝 + 权威深海蓝 + 标题贯穿线 + 推进器矩阵",
+      "scenarios": "国企央企汇报、政务规划、数字化方案、战略发布会"
     },
     {
       "id": "ink-calligraphy",
       "name": "宣纸泼墨挥毫风",
       "englishName": "Ink Calligraphy",
-      "categories": ["editorial", "lifestyle"],
-      "dir": "ink-calligraphy"
+      "categories": [
+        "editorial",
+        "lifestyle"
+      ],
+      "dir": "ink-calligraphy",
+      "visualTraits": "生宣暖底 + 飞溅墨星 + 苍劲行草 + 朱砂印章 + 墨分五色",
+      "scenarios": "中式传统文化、文人书画研报、艺术传记、东方美学"
+    },
+    {
+      "id": "xuan-scroll",
+      "name": "宣卷留白风",
+      "englishName": "Xuan Scroll",
+      "categories": [
+        "editorial",
+        "lifestyle"
+      ],
+      "dir": "xuan-scroll",
+      "visualTraits": "连续宣纸画布 + 有方向的中锋/侧锋笔线 + 留白章法 + 克制朱砂题跋",
+      "scenarios": "长文研究、文化出版、东方美学、16:9 文人汇报"
     }
   ]
 }

@@ -7,7 +7,7 @@
 - 用户要求的最终结果是可复用风格包时进入本 route。图片、截图或 PPT/PPTX 是输入材料，不决定输出媒介。
 - 用户只要求当前 Web/PPT 参考某种视觉方向时，不进入本 route，使用对应 Generate route 的单次参考 profile。
 - 创建新风格时读取本文件；只有存在参考材料时再读取 `style-reference-extraction.md`。
-- Style Brief 获得确认或用户明确授权跳过确认后，读取 [`../shared-components.md`](../shared-components.md)、[`../_base-scaffold-web.html`](../_base-scaffold-web.html) 和共享 [`../ppt-output-contract.md`](../ppt-output-contract.md)。不得为了实现双媒介 scaffold 而加载另一个顶层 route authority。
+- Style Brief 获得确认或用户明确授权跳过确认后，读取 [`../shared-components.md`](../shared-components.md)、[`../_base-scaffold-web.html`](../_base-scaffold-web.html)、[`../_base-scaffold-ppt.html`](../_base-scaffold-ppt.html) 和共享 [`../ppt-output-contract.md`](../ppt-output-contract.md)。不得为了实现双媒介 scaffold 而加载另一个顶层 route authority。
 - 修改已有风格时，确认 `style_id` 后只额外读取该风格的 `design.md`、目标 scaffold 和直接相关资源，不读取其他风格实现来拼贴样式。
 
 默认参考模式是 `Inspiration`：目标是创造与参考材料属于同一视觉家族的独立设计系统，而非逐像素、逐页或逐构图复刻。只有用户明确要求高保真适配时才提高参考强度。
@@ -110,7 +110,7 @@
 
 ### Stage 9 — Registration
 
-只有 Stage 8 全部通过后才执行注册集成：写入 `registry.json`，同步更新 `SKILL.md` 风格概览和 `shared-components.md` Mermaid 主题表。画廊从注册表自动生成卡片，不手工向 `style-gallery.html` 添加单个风格。随后运行全局 `validate_registry.py` 与 `validate_previews.py`；任何失败都表示注册未完成，必须修正后再交付。
+只有 Stage 8 全部通过后才执行注册集成：在 `registry.json` 中写入新风格条目（含 `visualTraits` 与 `scenarios`），并运行 `python3 references/scripts/sync_registry.py` 自动同步 `SKILL.md` 风格表。Mermaid 主题配置已完全内聚在自身 `design.md` 与 `scaffold-web.html` 中，无需手动修改全局 `shared-components.md`。画廊从注册表自动生成卡片，不手工向 `style-gallery.html` 添加单个风格。随后运行全局 `validate_registry.py` 与 `validate_previews.py`；任何失败都表示注册未完成，必须修正后再交付。
 
 ## 3. 常见失败模式
 
@@ -219,7 +219,11 @@
 - **必须包含具象的内联/类名样式**，避免 AI 在生成时发生“抽象塌陷”。
 - 组件必须重新构图并可承载无关内容，不得复用参考材料的原始文案、Logo、插画或单页几何。
 
-### 6. `## 6. Do's and Don'ts` (7 项金律与 7 项严禁红线)
+### 6. `## 6. Mermaid Theme Configuration` (在线增强与离线降级专属配置)
+- 给出该风格专属的 `mermaid.initialize({ theme: 'base', themeVariables: { ... } })` 完整代码块。
+- 必须与风格的 Color Tokens（画布底色、卡片主色、主文字色、边框色与主信号线色）严格对齐，禁止直接使用 Mermaid 默认主题。
+
+### 7. `## 7. Do's and Don'ts` (7 项金律与 7 项严禁红线)
 - **7 项核心金律 (Do's)**：必须做到的标志性手法（如必须保留专属空间骨架、必须使用专属动效、必须保持高清晰度正文等）。
 - **7 项严禁红线 (Don'ts)**：明确列出绝对禁止的退化反模式（如严禁私自删除背景图层、严禁将多彩便签漂白为纯白卡片、严禁混淆暗黑与浅色基调等）。
 
@@ -276,6 +280,6 @@ python3 references/scripts/validate_previews.py
 ## 5. 最终并网注册 (Final Registration)
 
 1. **注册前提**：Style Brief 与代表性小样已确认（或用户明确授权跳过确认），完整风格包已经通过 Stage 8 的四层质量门和单目录 preview 校验。
-2. **注册集成**：在 `references/styles/registry.json` 中添加新风格的 `id`、名称、目录和分类，并同步更新 `SKILL.md` 风格概览与 `shared-components.md` Mermaid 主题表；当前全局 validator 要求三者 ID 集合一致。
+2. **注册集成**：在 `references/styles/registry.json` 中添加新风格的 `id`、名称、目录、分类、核心视觉特征（`visualTraits`）与推荐场景（`scenarios`），并运行 `python3 references/scripts/sync_registry.py` 自动同步 `SKILL.md` 风格表。Mermaid 配置已内聚于 `design.md`，无需维护全局映射表。
 3. **画廊来源**：画廊从注册表自动生成卡片、预览链接和“使用此风格”的复制内容；不得手工修改 `references/style-gallery.html` 添加单个风格。
 4. **全局复验**：运行 `validate_registry.py` 与不带 `--style-dir` 的 `validate_previews.py`。只有两项通过且 Stage 8 的视觉证据仍成立时，注册才完成。

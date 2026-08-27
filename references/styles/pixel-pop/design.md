@@ -374,3 +374,27 @@ graph LR
 ```
 
 脚手架可以保留上述 Mermaid 源码供在线引擎增强；最终交付前运行 `references/scripts/bundle_offline.py`，由打包器生成静态 SVG fallback。完全断网交付使用 `--strict`，不能把 CDN 运行时当作必要条件。
+
+---
+
+## 6. Mermaid Theme Configuration (在线增强与离线降级)
+
+在线增强时，在 `</body>` 前注入以下匹配日系像素波普风的 `themeVariables`；最终交付仍需使用 `references/scripts/bundle_offline.py` 生成静态 SVG fallback：
+
+```js
+mermaid.initialize({
+  startOnLoad: true,
+  theme: "base",
+  themeVariables: {
+    darkMode: false,
+    background: "#FFFFFF",
+    primaryColor: "#FFF8D6",
+    primaryTextColor: "#000000",
+    primaryBorderColor: "#000000",
+    lineColor: "#000000",
+    secondaryColor: "#FFDE00",
+    tertiaryColor: "#FFFFFF",
+    fontFamily: ""JetBrains Mono", Consolas, monospace"
+  }
+});
+```

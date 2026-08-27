@@ -346,3 +346,27 @@ Fonts:             Display: Inter, PingFang SC (900 for Hero, 400 for Body)
   <p class="lead">在纯黑画布上谱写流体极光与胶片微粒的现代视觉交响乐。</p>
 </section>
 ```
+
+---
+
+## 6. Mermaid Theme Configuration (在线增强与离线降级)
+
+在线增强时，在 `</body>` 前注入以下匹配暗紫流体极光风的 `themeVariables`；最终交付仍需使用 `references/scripts/bundle_offline.py` 生成静态 SVG fallback：
+
+```js
+mermaid.initialize({
+  startOnLoad: true,
+  theme: "base",
+  themeVariables: {
+    darkMode: true,
+    background: "#0D0D11",
+    primaryColor: "#16121E",
+    primaryTextColor: "#FFFFFF",
+    primaryBorderColor: "#EC4899",
+    lineColor: "#A855F7",
+    secondaryColor: "#20162B",
+    tertiaryColor: "#0A0A0F",
+    fontFamily: ""Inter", sans-serif"
+  }
+});
+```

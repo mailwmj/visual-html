@@ -313,3 +313,27 @@ Fonts:             Sans: Helvetica Neue, PingFang SC (900 for Hero, 400 for Body
   <span style="color: #FFC300;">leaf_green</span>: <span style="color: #6B8E23;">"#6B8E23"</span></code></pre>
 </div>
 ```
+
+---
+
+## 6. Mermaid Theme Configuration (在线增强与离线降级)
+
+在线增强时，在 `</body>` 前注入以下匹配向日葵暖阳风的 `themeVariables`；最终交付仍需使用 `references/scripts/bundle_offline.py` 生成静态 SVG fallback：
+
+```js
+mermaid.initialize({
+  startOnLoad: true,
+  theme: "base",
+  themeVariables: {
+    darkMode: true,
+    background: "#1E3A5F",
+    primaryColor: "#2A455C",
+    primaryTextColor: "#F2EAE0",
+    primaryBorderColor: "#FFC300",
+    lineColor: "#FFC300",
+    secondaryColor: "#162C46",
+    tertiaryColor: "#0F2035",
+    fontFamily: ""JetBrains Mono", monospace"
+  }
+});
+```

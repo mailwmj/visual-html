@@ -365,3 +365,27 @@ Fonts:             Display: Inter, PingFang SC (800 for Hero, 400 for Body)
   </div>
 </div>
 ```
+
+---
+
+## 6. Mermaid Theme Configuration (在线增强与离线降级)
+
+在线增强时，在 `</body>` 前注入以下匹配黑曜霓蓝展厅风的 `themeVariables`；最终交付仍需使用 `references/scripts/bundle_offline.py` 生成静态 SVG fallback：
+
+```js
+mermaid.initialize({
+  startOnLoad: true,
+  theme: "base",
+  themeVariables: {
+    darkMode: true,
+    background: "#151D2A",
+    primaryColor: "#131924",
+    primaryTextColor: "#FFFFFF",
+    primaryBorderColor: "#38BDF8",
+    lineColor: "#38BDF8",
+    secondaryColor: "#1E293B",
+    tertiaryColor: "#0B0E14",
+    fontFamily: ""JetBrains Mono", "Inter", sans-serif"
+  }
+});
+```

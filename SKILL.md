@@ -13,24 +13,25 @@ metadata:
 
 ---
 
-## 0. 执行路由（必读）
+## 0. 用户意图判断与 Route 选择（必读）
 
-本入口负责共享约束和路由选择；各媒介的完整执行步骤由对应 route authority 定义。对需要生成或扩展的请求，先按用户要求的**最终产物**选择**恰好一个顶层 route**：
+触发本 Skill 后，**先判断用户想完成什么，再读取执行文档**。判断依据是用户明确表达、期望的最终交付物，以及图片、截图或 PPT/PPTX 在请求中扮演的是参考材料还是待生成产物；意图确定前不要预读 `references/routes/` 下的文件。
 
-| 最终产物 | 顶层 route authority |
-|---|---|
-| 单文件 Web 页面 | [`references/routes/generate-web.md`](references/routes/generate-web.md) |
-| 16:9 PPT / 演示文稿 | [`references/routes/generate-ppt.md`](references/routes/generate-ppt.md) |
-| 可复用视觉风格包 | [`references/routes/extend-style-pack.md`](references/routes/extend-style-pack.md) |
+| 用户意图 | 识别标准 | 下一步 |
+|---|---|---|
+| 浏览或选择现有风格 | 只想查看、比较或选定已注册风格，尚未要求生成产物 | 进入下文的风格选择 stage；暂不加载 route authority |
+| 生成单文件 Web | 要把当前内容制作成网页、响应式 HTML 或长文页面 | 读取 [`references/routes/generate-web.md`](references/routes/generate-web.md) |
+| 生成 16:9 PPT | 要把当前内容制作成 PPT、演示文稿或幻灯片 | 读取 [`references/routes/generate-ppt.md`](references/routes/generate-ppt.md) |
+| 创建或扩展风格包 | 要创建、修改、扩展或注册可复用视觉风格 | 读取 [`references/routes/extend-style-pack.md`](references/routes/extend-style-pack.md) |
 
-路由纪律：
+意图判断规则：
 
-1. **按输出路由，不按附件路由**：图片、截图或 PPT/PPTX 作为参考输入时不决定 route。
-2. **扩展意图优先**：只要用户明确要求创建、修改、扩展或注册视觉风格包，始终进入 Extend Style Pack；参考材料只是该 route 的输入。
-3. **一次只加载一个 authority**：路由确定后，读取对应 authority 及其中明确触发的支持文档，不读取另一个媒介或生命周期的 authority。
-4. **风格不是顶层 route**：已注册风格、参考材料和自由设计是 Generate Web / Generate PPT 内的 style profile；锁定 `style_id` 后只读取目标风格规范和对应媒介脚手架。
-5. **辅助流程不是顶层 route**：画廊、参考提炼、离线打包和质量检查只在当前 route 的条件满足时触发。
-6. **仅浏览或选择风格**：停留在下文的风格选择 stage，不生成产物；媒介或扩展意图明确后再进入对应 route。
+1. **显式风格包意图优先**：只要用户明确要求创建、修改、扩展或注册可复用风格包，就选择 Extend Style Pack；附件只是提炼依据，不决定 route。
+2. **单次参考不等于创建风格包**：用户只要求当前 Web/PPT 参考某张图片或某份 PPT 的视觉方向时，仍选择对应 Generate route，把参考材料作为该 route 内的 style profile。
+3. **纯浏览不是顶层 route**：只运行风格选择 stage，不生成产物；用户随后明确媒介或扩展意图时再选择 route。
+4. **只澄清会改变 route 的歧义**：Web 与 PPT 均无法从请求确定时，提出一个最小澄清问题；不要让用户选择实现路径或重复确认已经明确的信息。
+
+意图确定后，读取**恰好一个**对应 route authority，以及该文件按条件明确要求的支持文档；不要读取其他 route。已注册风格、参考材料和自由设计是 route 内的 style profile，画廊、参考提炼、离线打包和质量检查是按条件触发的 stage，都不新增顶层 route。
 
 所有 Skill 路径均相对于包含本文件的目录解析。执行命令前将该目录解析为绝对路径，不以当前工作目录作为 Skill 根目录。
 
@@ -38,30 +39,31 @@ metadata:
 
 ## 1. 风格注册表 (Style Registry)
 
-当前系统内置的风格包列表以 `references/styles/registry.json` 为机器可读真相源。每种风格均包含独立的 `design.md`、`scaffold-web.html`、`scaffold-ppt.html`、矢量源文件 `preview.svg`，以及供对话直接渲染的微缩视觉名片 `preview.png`：
-> 🎨 **查看全部风格**：按下方流程启动本地画廊后，把命令输出的带 `?key=` URL 作为 [查看全部风格] 链接。点击“使用此风格”会复制选择文本，用户可粘贴到当前对话；画廊运行时读取 `registry.json`，需要通过本地画廊服务打开。
+内置风格包列表以 `references/styles/registry.json` 为机器真相源，每种风格均在 `references/styles/<style_id>/` 下包含独立的 `design.md`、`scaffold-web.html`、`scaffold-ppt.html`、`preview.svg` 及 `preview.png`。
 
-| Style ID | 风格名称 | 核心视觉特征 | 推荐场景与关键词 | 微缩预览与风格包 |
-|---|---|---|---|---|
-| **`industrial-dark`** | **暗黑极客工业风**<br>(Industrial Dark) | 近黑背景 (`#090C0B`) + CAD 极淡网格 + 0–2px 硬边模块 + 信号绿 (`#67E38B`) + 紫色第二通道 | 硬件参数页、产品官网、工程文档、技术说明、极客展示、系统架构 | [预览名片](references/styles/industrial-dark/preview.png)<br>`references/styles/industrial-dark/` |
-| **`soft-sky`** | **清透空灵浅蓝风**<br>(Soft Sky) | 浅天蓝渐变背景 + 半透明白色卡片 + 8–16px 柔和圆角 + 同色系高阶蔚蓝 (`#0284C7`) 强调通道 | 包装展示、生活方式产品、消费级硬件、手账/文具、清新雅致向技术页 | [预览名片](references/styles/soft-sky/preview.png)<br>`references/styles/soft-sky/` |
-| **`obsidian-cyan`** | **黑曜霓蓝展厅风**<br>(Obsidian Cyan) | 黑曜近黑底色 (`#0B0E14`) + 顶部冷蓝极光 + 悬浮设备模型 + 电光霓蓝 (`#38BDF8`) 信号与标注线 (Callout Pins) + 多步流程徽章 | UI/UX 案例集、移动端 App 展示、数字产品发布、前沿软件功能演示、高科技展厅 | [预览名片](references/styles/obsidian-cyan/preview.png)<br>`references/styles/obsidian-cyan/` |
-| **`neon-3d`** | **暗紫流体极光风**<br>(Neon Aurora) | 深邃黑紫底色 + 流体极光光晕 (Fluid Aurora Wave) + 胶片颗粒噪点 (Film Grain) + 3D浮雕高光卡片 + 霓虹紫/洋红通道 (`#A855F7` / `#EC4899`) | 工具集合展示、创意应用、潮酷硬件、潮流设计工作室、流体极光落地页、蒸汽波质感 | [预览名片](references/styles/neon-3d/preview.png)<br>`references/styles/neon-3d/` |
-| **`pixel-pop`** | **日系像素波普风**<br>(Pixel Pop) | 青春亮蓝底色 (`#0055ff`) + 浅奶油看板画布 + 粗黑边框与 5px 偏移硬投影 + 悬浮像素碎片与涂鸦 | 青春校园、创意活动、复古游戏、手账拼贴、动漫手绘风展示 | [预览名片](references/styles/pixel-pop/preview.png)<br>`references/styles/pixel-pop/` |
-| **`brutalist-acid`** | **先锋撞色海报风**<br>(Brutalist Poster) | 纯白高对比度画布 + 亮粉几何色块 (`#FF4591`) + 荧光青色 (`#00E5CC`) 超大字号标题 + 破坏性排版与紧凑字距 | 艺术展览、独立出版物、实验性排版、先锋设计展示、海报视觉冲击 | [预览名片](references/styles/brutalist-acid/preview.png)<br>`references/styles/brutalist-acid/` |
-| **`sunflower-bloom`** | **向日葵暖阳风**<br>(Sunflower Bloom) | 沉静纸质蓝背景 (`#4278A9`) + 米白奶油字 (`#F2EAE0`) + 向日葵明黄 (`#FFC300`) 高亮与强调色 + 粗大排版 | 产品海报、积极向上展示、生机活力传递、纸质文艺风格、团队文化 | [预览名片](references/styles/sunflower-bloom/preview.png)<br>`references/styles/sunflower-bloom/` |
-| **`summer-dopamine`** | **夏日多巴胺风**<br>(Summer Dopamine) | 高饱和渐变网格背景 + 毛玻璃大圆角卡片 + 纯白与发光元素点缀 | 夏日活动、创意产品、汽水风格、多巴胺设计、元气海报 | [预览名片](references/styles/summer-dopamine/preview.png)<br>`references/styles/summer-dopamine/` |
-| **`warm-craft`** | **温润纸感手札风**<br>(Warm Craft) | 暖米纸质画布 (`#F7F4EC`) + 人文宋体大标题 (Editorial Serif) + 深橄榄绿行动通道 (`#323D24`) + 错落微倾粉彩贴纸 (`-2deg`~`+2deg`) + 手绘涂鸦 | 智能代理、知识沉淀、深度调研、SaaS 产品官网、人文科技、书籍出版物、温润工作流 | [预览名片](references/styles/warm-craft/preview.png)<br>`references/styles/warm-craft/` |
-| **`soft-editorial-future`** | **极简未来展厅风**<br>(Future Showroom) | 偏冷质感画布 + 高光悬浮玻璃展柜 + 内部色彩温润晕开的 3D 柔光彩球散布（边缘柔和自然） | 高级展厅、视觉画廊、艺术展落地页、前沿科技、AI产品、高端发布会 | [预览名片](references/styles/soft-editorial-future/preview.png)<br>`references/styles/soft-editorial-future/` |
-| **`play-tubular`** | **玩味极客彩管风**<br>(Play Tubular) | 浅暖米白点阵画布 (`#FAF8F3`) + 粗圆鲜活 3D 渐变立体彩管/丝带环绕 + 球头末端与弯折处的 **半调网点 (Halftone Dot Matrix)** 光影 + 现代高对比度工程粗黑体 + 纯白大圆角弹簧动效卡片 | AI/LLM 创新展示、创意产品发布、工程技术白皮书、开发者大会、玩味科技落地页 | [预览名片](references/styles/play-tubular/preview.png)<br>`references/styles/play-tubular/` |
-| **`nothing-design-dark`** | **Nothing 极简点阵暗黑风**<br>(Nothing Monochrome Dark) | OLED 纯黑背景 (`#000000`) + 24px 点阵网格 + Doto 点阵字 + 多通道遥测色（珊瑚橙 `#FF5722`、翡翠绿 `#22C55E`、琥珀金 `#F59E0B`）+ 按需语义组件 + 分段刻度条 | 硬件工业设计、前沿数码发布、技术规格书、深度研究白皮书、瑞士排版工程文档、夜间长篇报告 | [预览名片](references/styles/nothing-design-dark/preview.png)<br>`references/styles/nothing-design-dark/` |
-| **`nothing-design-light`** | **Nothing 极简点阵亮白风**<br>(Nothing Monochrome Light) | 陶瓷冷白背景 (`#FFFFFF`) + 浅灰点阵网格 + Doto 点阵字 + 纯黑正文 + 多通道功能色（信号红 `#D71921`、翡翠绿 `#16A34A`、琥珀金 `#D97706`）+ 按需语义组件 | 白瓷工业设计、白皮书、现代印刷质感报告、硬件参数发布、极简日间阅读、学术出版物 | [预览名片](references/styles/nothing-design-light/preview.png)<br>`references/styles/nothing-design-light/` |
-| **`pixel-crystal`** | **油画粉彩晶光风**<br>(Pixel Crystal) | 温润油画布纹 (`#FDF8F7`) + 莫奈复调渐变 + 晶透苹果图腾 + 点彩星芒 + 珍珠母贝画板 + 熟褐暗茜草墨色正文 (`#3C2836`) | 艺术企划、文化出版、Vtuber、梦幻生活方式、独立游戏、高端少女心与治愈系产品、创意插画案例集 | [预览名片](references/styles/pixel-crystal/preview.png)<br>`references/styles/pixel-crystal/` |
-| **`ink-bamboo`** | **青绿水墨竹韵风**<br>(Ink Bamboo) | 古法宣纸暖底 (`#F6F4EE`) + 右侧水墨竹节竿影 + 古典宋体大标题 + 翠竹生青 (`#5A8F43`) + 朱砂印章点睛 (`#C03E2D`) + 矿物青绿色谱 | 中式文化企划、行业深度研报、学术白皮书、东方文创展示、自然生态战略、高端政企汇报 | [预览名片](references/styles/ink-bamboo/preview.png)<br>`references/styles/ink-bamboo/` |
-| **`state-governance`** | **国企政务严谨汇报风**<br>(State Governance Blue) | 纯净冷白/微浅蓝画布 + 权威深海蓝 (`#103A71`) + 工信科技蓝 (`#1A56DB`) + 标题贯穿深蓝细线 + 蓝色虚线重点框 + 三箭头推进器 + 多视角流转矩阵 | 国企/央企工作汇报、政府与公共事业规划、政企数字化方案、大型企业管理架构、全生命周期业务推演、供应链韧性策略、党政战略发布会 | [预览名片](references/styles/state-governance/preview.png)<br>`references/styles/state-governance/` |
-| **`ink-calligraphy`** | **宣纸泼墨挥毫风**<br>(Ink Calligraphy) | 古法生宣暖底 (`#F5F2EB`) + 自然飞溅墨星 + 苍劲行草大标题 + 朱砂篆刻印章 (`#C23531`) + 墨分五色阶梯 + 飞白扫墨横纹 | 中式传统文化、文人书画研报、艺术大家传记、东方美学白皮书、古典哲学出版物、泼墨意境展示 | [预览名片](references/styles/ink-calligraphy/preview.png)<br>`references/styles/ink-calligraphy/` |
+| Style ID | 风格名称 | 核心视觉特征 | 推荐场景 |
+|---|---|---|---|
+| **`industrial-dark`** | **暗黑极客工业风** | 近黑背景 + CAD 网格 + 0–2px 硬边 + 信号绿与紫色通道 | 硬件参数、工程文档、技术说明、极客展示、系统架构 |
+| **`quantum-pulse`** | **量子脉冲黑蓝风** | 近黑网格 + 钴蓝能量穹顶 + 白色光束 + 半调粒子与冰蓝信号 | AI/LLM 发布、技术白皮书、系统架构、数据叙事 |
+| **`soft-sky`** | **清透空灵浅蓝风** | 浅天蓝渐变 + 半透白卡 + 8–16px 柔和圆角 + 蔚蓝强调 | 包装展示、生活方式、消费硬件、清新雅致技术页 |
+| **`obsidian-cyan`** | **黑曜霓蓝展厅风** | 黑曜近黑 + 冷蓝极光 + 悬浮设备模型 + 霓蓝标注线与流程徽章 | UI/UX 案例集、移动端 App、数字产品、科技展厅 |
+| **`play-tubular`** | **玩味极客彩管风** | 浅暖米白点阵 + 3D 渐变彩管 + 半调网点光影 + 粗黑体 | AI/LLM 创新展示、创意产品发布、白皮书、开发者大会 |
+| **`warm-craft`** | **温润纸感手札风** | 暖米纸质 + 人文宋体 + 深橄榄绿 + 错落微倾粉彩贴纸 + 手绘涂鸦 | 智能代理、知识沉淀、深度调研、SaaS 官网、人文科技 |
+| **`neon-3d`** | **暗紫流体极光风** | 深邃黑紫 + 流体极光 + 胶片噪点 + 3D 浮雕高光 + 霓虹紫/洋红 | 创意应用、工具集合、潮酷硬件、潮流设计、蒸汽波质感 |
+| **`pixel-pop`** | **日系像素波普风** | 青春亮蓝 + 浅奶油看板 + 粗黑边框与 5px 硬投影 + 像素涂鸦 | 青春校园、创意活动、复古游戏、手账拼贴、动漫手绘 |
+| **`brutalist-acid`** | **先锋撞色海报风** | 纯白高对比 + 亮粉色块 + 荧光青超大字号 + 破坏性紧凑排版 | 艺术展览、独立出版物、实验排版、先锋设计海报 |
+| **`sunflower-bloom`** | **向日葵暖阳风** | 纸质蓝背景 + 米白字 + 向日葵明黄高亮 + 粗大排版 | 产品海报、活力传递、纸质文艺、团队文化 |
+| **`summer-dopamine`** | **夏日多巴胺风** | 高饱和渐变网格 + 毛玻璃大圆角 + 发光微点 | 夏日活动、创意产品、汽水风格、多巴胺元气海报 |
+| **`soft-editorial-future`** | **极简未来展厅风** | 冷质感画布 + 高光悬浮玻璃展柜 + 3D 柔光彩球 | 高级展厅、视觉画廊、艺术展、前沿科技、AI 产品发布 |
+| **`nothing-design-dark`** | **Nothing 极简点阵暗黑风** | OLED 纯黑 + 24px 点阵网格 + Doto 点阵字 + 多通道遥测色 | 硬件工业设计、前沿数码、技术规格书、夜间长篇研报 |
+| **`nothing-design-light`** | **Nothing 极简点阵亮白风** | 陶瓷冷白 + 浅灰点阵网格 + Doto 点阵字 + 信号功能色 | 白瓷工业、学术出版物、现代印刷报告、硬件参数发布 |
+| **`pixel-crystal`** | **油画粉彩晶光风** | 油画布纹 + 莫奈复调渐变 + 点彩星芒 + 熟褐墨色正文 | 艺术企划、文化出版、Vtuber、独立游戏、插画案例集 |
+| **`ink-bamboo`** | **青绿水墨竹韵风** | 古法宣纸暖底 + 水墨竹竿影 + 古典宋体 + 翠竹生青 + 朱砂印 | 中式文化企划、行业研报、东方文创、政企汇报 |
+| **`state-governance`** | **国企政务严谨汇报风** | 纯净冷白/微浅蓝 + 权威深海蓝 + 标题贯穿线 + 推进器矩阵 | 国企央企汇报、政务规划、数字化方案、战略发布会 |
+| **`ink-calligraphy`** | **宣纸泼墨挥毫风** | 生宣暖底 + 飞溅墨星 + 苍劲行草 + 朱砂印章 + 墨分五色 | 中式传统文化、文人书画研报、艺术传记、东方美学 |
+| **`xuan-scroll`** | **宣卷留白风** | 连续宣纸画布 + 有方向的中锋/侧锋笔线 + 留白章法 + 克制朱砂题跋 | 长文研究、文化出版、东方美学、16:9 文人汇报 |
 
-> 💡 **未来扩展**：新增、修改或注册风格包时进入 [`references/routes/extend-style-pack.md`](references/routes/extend-style-pack.md)。完整风格包通过确认与质量门后才写入 `registry.json`；画廊卡片会从注册表自动生成。
+> 💡 **未来扩展**：新增或修改风格包读取 [`references/routes/extend-style-pack.md`](references/routes/extend-style-pack.md)。
 
 ---
 
@@ -77,39 +79,21 @@ flowchart LR
 
 ### 第一步：意图分析与交互确认（视觉卡片推荐）
 
-本节只适用于 Generate Web / Generate PPT。Extend Style Pack 使用自己的提炼、确认、实现与注册生命周期，不执行本节的现有风格推荐流程。
+本节只适用于 Generate Web / Generate PPT。Extend Style Pack 走独立生命周期。
 
-进入生成 route 后，**不要直接生成全部代码**。首先分析用户需求与偏好：
-
-1. **已明确指定**：若用户已明确指定风格（如“用浅蓝风”、“Industrial Dark”、“Play Tubular”），直接锁定对应 `style_id`。
-2. **基于参考材料的单次生成**：若用户只要求当前 Web/PPT 参考图片、截图或 PPT/PPTX 的视觉方向，默认采用 `Inspiration` 模式，提取可迁移的色彩角色、排版气质、空间节奏、形状、材质和图形语言；不得复制原文、Logo、品牌资产、专有插画、逐页坐标或一次性构图。Web 自由设计从 `references/_base-scaffold-web.html` 建立洁净结构；PPT 遵循 Generate PPT route 的 16:9 契约。若用户明确要求创建、扩展或注册可复用风格包，不执行本分支，改走 Extend Style Pack。
+1. **已明确指定**：直接锁定对应 `style_id`。
+2. **基于参考材料的单次生成**：默认 `Inspiration` 模式提炼可迁移规则（Web 基于 [`references/_base-scaffold-web.html`](references/_base-scaffold-web.html)，PPT 遵循 16:9 契约），不复制原文、Logo 与专有资产。
 3. **智能推荐机制（输出 3～5 款设计风格）**：
-   - 当用户提供了长文或排版需求但未锁定风格，或者意图较为宽泛时，分析文本特征并挑选 **最契合的 3～5 套风格**。
-   - **对话内嵌视觉预览（强制）**：在同一条推荐回复中，用 Markdown 图片直接展示每个候选风格的 `preview.png`，然后再给出文字说明。用户必须能在对话流中看见实际色彩、构图和组件质感后再选择。
-     - 从当前 `SKILL.md` 所在目录解析每个候选的绝对路径：`references/styles/<style_id>/preview.png`。
-     - 使用绝对本地路径的 Markdown 图片语法，路径含空格时包裹在尖括号内：`![<style_id> 风格预览](</绝对路径/references/styles/<style_id>/preview.png>)`。
-     - **不得**改用 `preview.svg`、`file://` 链接、相对路径、纯文字卡片、Artifact 或浏览器画廊来替代该图片。画廊只能作为查看全部风格的补充入口。
-     - 仅当当前客户端明确无法显示本地 Markdown 图片时，才降级为文字卡片和画廊链接；需明确说明“当前客户端无法内嵌本地预览”，不能假称已经展示预览。
-   - **每项说明**：每张预览图下保留风格名称、`style_id`、一句视觉基因和一句推荐理由，便于用户依据预览与场景共同决策：
-     ```markdown
-     ### 1. 玩味极客彩管风 (`play-tubular`)
-     ![玩味极客彩管风预览](</绝对路径/references/styles/play-tubular/preview.png>)
-     - **视觉基因**：浅暖米白点阵画布 + 3D 渐变立体彩管 + 半调网点光影。
-     - **推荐理由**：适合 AI/LLM 架构与技术白皮书，兼顾工程感与活力。
-
-     ### 2. 暗黑极客工业风 (`industrial-dark`)
-     ![暗黑极客工业风预览](</绝对路径/references/styles/industrial-dark/preview.png>)
-     - **视觉基因**：近黑背景 + CAD 网格 + 信号绿与紫色通道 + 硬边模块。
-     - **推荐理由**：适合硬核技术规格与系统参数展示。
-     ```
-   - **画廊补充入口**：在推荐内容末尾附带本次本地画廊服务返回的带 `?key=` URL，链接文字固定为“查看全部风格”。用户可在 Codex 内置浏览器对比全部已注册风格的完整动态效果与配色；点击“使用此风格”后，页面复制包含中文风格名与 `style_id` 的选择文本，并显示“风格已复制”。
-   - **条件式确认**：风格和媒介都已明确时直接生成；只明确风格时只询问媒介；只明确媒介时推荐 3–5 款风格；两者都不明确时才推荐 3–5 款并询问媒介。不要重复确认用户已经明确的选择。
-
-   - **本地画廊（默认选择路径）**：当用户需要浏览并选择风格时，自动运行 `references/scripts/style-companion/start-server.sh --project-dir <当前项目根> --open`。这是 Skill 自带的本地 Node 服务，不需要用户安装 MCP server、浏览器插件或额外依赖。命令会返回带会话 key 的 URL、`state_dir` 和会话目录；把完整 URL（包括 `?key=`）作为“查看全部风格”链接，并在当前客户端支持时用内置浏览器打开。
-     - 在 Codex 中直接运行该命令并保留前台终端会话，然后使用内置 Browser 将返回的 URL 导航到画廊；不要依赖操作系统的默认浏览器，也不要用命令替换吞掉会话。启动脚本会检测 Codex 环境，确保服务跨对话轮次持续运行。
-     - 点击“使用此风格”只复制选择文本并显示“风格已复制”；不向对话发送消息、不创建本地选择事件，也不注入对话桥接。
-     - 用户将复制文本粘贴到对话后，使用其中的 `style_id` 锁定风格，并继续询问“想制作成网页还是 PPT”。用户未在对话中明确风格时不得从画廊操作猜测。
-     - 服务不可用时，明确说明原因并保留已展示的对话内预览；画廊本身需要通过本地服务读取注册表。完成流程后可运行 `references/scripts/style-companion/stop-server.sh <session_dir>` 停止服务。
+   - 当用户未锁定风格时，分析文本特征推荐 **最契合的 3～5 套风格**。
+   - **对话内嵌视觉预览（强制）**：在同一条回复中，使用绝对本地路径 Markdown 图片直接展示候选的 `preview.png`：
+     `![<style_id> 风格预览](</绝对路径/references/styles/<style_id>/preview.png>)`
+   - **不得**改用 `preview.svg`、`file://` 链接、相对路径、纯文字卡片或 Artifact 替代预览图片。
+   - **每项说明**：保留风格名称、`style_id`、核心视觉基因与推荐理由。
+   - **画廊补充入口**：在推荐末尾附带本地画廊链接（“查看全部风格”）。
+   - **条件式确认**：媒介与风格均明确时直接生成；只明确风格时只询问媒介；只明确媒介时推荐 3–5 款风格；两者都不明确时推荐 3–5 款并询问媒介。不重复确认已明确信息。
+4. **本地画廊启动与交互**：
+   - 当用户需要浏览并选择风格时，运行 `references/scripts/style-companion/start-server.sh --project-dir <当前项目根> --open`，把返回的带 `?key=` URL 作为“查看全部风格”链接。
+   - 画廊点击“使用此风格”会复制选择文本，用户粘贴回对话后锁定 `style_id`，继续询问媒介。完成流程后可运行 `references/scripts/style-companion/stop-server.sh <session_dir>` 停止服务。
 
 
 ### 第二步：按需精准读取 (On-Demand Loading)

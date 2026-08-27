@@ -176,3 +176,27 @@ Nothing Design Light 是 Nothing 设计语言的白瓷工程版（White Ceramic 
 5. **严禁用 Doto 点阵字排版整段正文**。
 6. **严禁省略 Google Fonts 导入**。
 7. **严禁滥用 emoji 替代精密硬件字符标头**。
+
+---
+
+## 6. Mermaid Theme Configuration (在线增强与离线降级)
+
+在线增强时，在 `</body>` 前注入以下匹配 Nothing 极简点阵亮白风的 `themeVariables`；最终交付仍需使用 `references/scripts/bundle_offline.py` 生成静态 SVG fallback：
+
+```js
+mermaid.initialize({
+  startOnLoad: true,
+  theme: "base",
+  themeVariables: {
+    darkMode: false,
+    background: "#FFFFFF",
+    primaryColor: "#F5F5F5",
+    primaryTextColor: "#000000",
+    primaryBorderColor: "#D71921",
+    lineColor: "#D71921",
+    secondaryColor: "#EEEEEE",
+    tertiaryColor: "#FFFFFF",
+    fontFamily: ""Doto", "Space Mono", monospace"
+  }
+});
+```

@@ -350,3 +350,27 @@ Focus Ring:        0 0 0 2px #090C0B, 0 0 0 4px #67E38B
 <span class="token-keyword">systemctl</span> enable --now cluster-daemon</code></pre>
 </div>
 ```
+
+---
+
+## 6. Mermaid Theme Configuration (在线增强与离线降级)
+
+在线增强时，在 `</body>` 前注入以下匹配暗黑极客工业风的 `themeVariables`；最终交付仍需使用 `references/scripts/bundle_offline.py` 生成静态 SVG fallback：
+
+```js
+mermaid.initialize({
+  startOnLoad: true,
+  theme: "base",
+  themeVariables: {
+    darkMode: true,
+    background: "#0D1110",
+    primaryColor: "#131924",
+    primaryTextColor: "#F2F3EF",
+    primaryBorderColor: "#67E38B",
+    lineColor: "#67E38B",
+    secondaryColor: "#1B2433",
+    tertiaryColor: "#090C0B",
+    fontFamily: ""IBM Plex Mono", Consolas, monospace"
+  }
+});
+```

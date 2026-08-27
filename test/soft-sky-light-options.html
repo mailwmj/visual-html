@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Soft Sky 轻量化设计方案对比</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg: #EAF6FC;
+  --bg-deep: #D8EEF8;
+  --surface-1: rgba(255, 255, 255, .82);
+  --surface-2: rgba(255, 255, 255, .55);
+
+  --text-primary: #2A3F54;
+  --text-secondary: #5D7A8C;
+  --text-muted: #90A8B8;
+
+  --border: rgba(93, 179, 232, .28);
+  --border-subtle: rgba(93, 179, 232, .18);
+
+  --signal-blue: #4A9FD4;
+  --signal-accent: #0284C7;
+  --signal-accent-bg: rgba(2, 132, 199, .06);
+
+  --shadow-card: 0 4px 20px rgba(74, 159, 212, .06), inset 0 1px 0 rgba(255, 255, 255, .95);
+  --radius: 14px;
+  --radius-sm: 8px;
+  --radius-pill: 20px;
+
+  --font-display: "Nunito", -apple-system, BlinkMacSystemFont, "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background-color: var(--bg);
+  background-image: linear-gradient(180deg, #EAF6FC 0%, #F5FBFE 50%, #D8EEF8 100%);
+  min-height: 100vh;
+  color: var(--text-secondary);
+  font-family: var(--font-display);
+  font-size: 15px;
+  line-height: 1.7;
+  padding: 48px 24px;
+}
+.container { max-width: 1080px; margin: 0 auto; }
+
+.page-header { margin-bottom: 40px; text-align: center; }
+.page-header h1 { font-size: 30px; color: var(--text-primary); font-weight: 800; margin-bottom: 8px; }
+.page-header p { font-size: 15px; color: var(--text-secondary); }
+
+.option-box {
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 32px;
+  margin-bottom: 48px;
+  box-shadow: 0 8px 30px rgba(74, 159, 212, 0.05);
+}
+.option-title {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 14px;
+}
+.option-title h2 { font-size: 20px; color: var(--text-primary); font-weight: 700; }
+.option-badge {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+  padding: 3px 10px; border-radius: var(--radius-pill);
+  background: rgba(2, 132, 199, 0.1); color: var(--signal-accent);
+}
+.option-badge.recommended { background: var(--signal-accent); color: #fff; }
+
+/* ============================================================
+   方案 A：极简空气感（Air Minimalist）· 推荐
+   特点：彻底去掉药丸胶囊外框，直接使用轻盈单行文字标头 + 精致微符号
+   ============================================================ */
+.plan-a .admonition {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 26px;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 24px;
+}
+.plan-a .admonition-head {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+  color: var(--signal-accent); letter-spacing: 0.06em; text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.plan-a .admonition-head .icon { font-size: 11px; opacity: 0.85; }
+.plan-a .admonition p { font-size: 14.5px; line-height: 1.7; color: var(--text-secondary); margin: 0; }
+
+.plan-a .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.plan-a .pro-card, .plan-a .con-card {
+  background: var(--surface-1); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px 26px;
+  box-shadow: var(--shadow-card);
+}
+.plan-a .pc-head {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.plan-a .pro-card .pc-head { color: var(--signal-accent); }
+.plan-a .con-card .pc-head { color: var(--text-secondary); }
+.plan-a .pc-head .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+.plan-a .pros-cons ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.plan-a .pros-cons li {
+  position: relative; padding-left: 16px; font-size: 14.5px; line-height: 1.65; color: var(--text-secondary);
+}
+.plan-a .pros-cons li::before {
+  content: ""; position: absolute; left: 2px; top: 10px;
+  width: 4px; height: 4px; border-radius: 50%; background: var(--signal-blue); opacity: 0.6;
+}
+
+/* ============================================================
+   方案 B：微光通栏标头（Subtle Tint Bar）
+   特点：极淡的同色系微光细底栏，标题与内容轻柔包裹
+   ============================================================ */
+.plan-b .admonition {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 24px;
+}
+.plan-b .admonition-head {
+  background: rgba(2, 132, 199, 0.05);
+  border-bottom: 1px solid rgba(93, 179, 232, 0.15);
+  padding: 10px 22px;
+  font-family: var(--font-mono); font-size: 11.5px; font-weight: 700;
+  color: var(--signal-accent); letter-spacing: 0.06em; text-transform: uppercase;
+}
+.plan-b .admonition p { padding: 18px 22px; font-size: 14.5px; line-height: 1.7; color: var(--text-secondary); margin: 0; }
+
+.plan-b .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.plan-b .pro-card, .plan-b .con-card {
+  background: var(--surface-1); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.plan-b .pc-head {
+  padding: 10px 20px;
+  font-family: var(--font-mono); font-size: 11.5px; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  border-bottom: 1px solid rgba(93, 179, 232, 0.15);
+}
+.plan-b .pro-card .pc-head { background: rgba(2, 132, 199, 0.05); color: var(--signal-accent); }
+.plan-b .con-card .pc-head { background: rgba(93, 122, 140, 0.05); color: var(--text-secondary); }
+.plan-b .pros-cons ul { list-style: none; padding: 18px 20px; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.plan-b .pros-cons li { font-size: 14.5px; line-height: 1.65; color: var(--text-secondary); }
+
+/* ============================================================
+   方案 C：日系出版物细线刻度（Editorial Hairline）
+   特点：标头与正文之间用一根 1px 极淡天蓝微线隔断
+   ============================================================ */
+.plan-c .admonition {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 24px;
+}
+.plan-c .admonition-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-bottom: 10px; margin-bottom: 12px;
+  border-bottom: 1px solid rgba(93, 179, 232, 0.2);
+  font-family: var(--font-mono); font-size: 11.5px; font-weight: 700;
+  color: var(--signal-accent); letter-spacing: 0.06em; text-transform: uppercase;
+}
+.plan-c .admonition p { font-size: 14.5px; line-height: 1.7; color: var(--text-secondary); margin: 0; }
+
+.plan-c .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.plan-c .pro-card, .plan-c .con-card {
+  background: var(--surface-1); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px 24px;
+  box-shadow: var(--shadow-card);
+}
+.plan-c .pc-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-bottom: 10px; margin-bottom: 12px;
+  border-bottom: 1px solid rgba(93, 179, 232, 0.2);
+  font-family: var(--font-mono); font-size: 11.5px; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.plan-c .pro-card .pc-head { color: var(--signal-accent); }
+.plan-c .con-card .pc-head { color: var(--text-secondary); }
+.plan-c .pros-cons ul { list-style: square; padding-left: 18px; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.plan-c .pros-cons li { font-size: 14.5px; line-height: 1.65; color: var(--text-secondary); }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="page-header">
+    <h1>Soft Sky 组件轻量化设计方案比对</h1>
+    <p>去除沉重胶囊药丸感，回归通透、轻盈、高级的生活方式与雅致出版物调性</p>
+  </div>
+
+  <!-- 方案 A -->
+  <div class="option-box plan-a">
+    <div class="option-title">
+      <h2>方案 A · 极简空气感 (Air Minimalist)</h2>
+      <span class="option-badge recommended">推荐方案 · 极轻 / 最通透</span>
+    </div>
+    
+    <div class="admonition">
+      <div class="admonition-head">
+        <span class="icon">✦</span>
+        <span>核心结论 // INFO</span>
+      </div>
+      <p>在基于多模态参考图逆向生成或开发全新风格时，严禁直接继承旧模板中的硬编码样式。必须基于标准纯 HTML 基座独立声明 Design Tokens 与 CSS 规则，从物理上杜绝跨风格样式污染与视觉退化。</p>
+    </div>
+
+    <div class="pros-cons">
+      <div class="pro-card">
+        <div class="pc-head">
+          <span class="dot"></span>
+          <span>PROS / 核心优势</span>
+        </div>
+        <ul>
+          <li>架构极其稳定，支持超大规模长文结构化解析</li>
+          <li>15 款设计风格无缝插拔，数据协议标准统一</li>
+        </ul>
+      </div>
+      <div class="con-card">
+        <div class="pc-head">
+          <span class="dot"></span>
+          <span>CONS / 考量权衡</span>
+        </div>
+        <ul>
+          <li>初期学习曲线较陡峭，需掌握底层语义契约</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 方案 B -->
+  <div class="option-box plan-b">
+    <div class="option-title">
+      <h2>方案 B · 微光通栏标头 (Subtle Tint Bar)</h2>
+      <span class="option-badge">秩序感 / 模块分明</span>
+    </div>
+    
+    <div class="admonition">
+      <div class="admonition-head">
+        ✦ 核心结论 // INFO
+      </div>
+      <p>在基于多模态参考图逆向生成或开发全新风格时，严禁直接继承旧模板中的硬编码样式。必须基于标准纯 HTML 基座独立声明 Design Tokens 与 CSS 规则，从物理上杜绝跨风格样式污染与视觉退化。</p>
+    </div>
+
+    <div class="pros-cons">
+      <div class="pro-card">
+        <div class="pc-head">
+          PROS // 核心优势
+        </div>
+        <ul>
+          <li>架构极其稳定，支持超大规模长文结构化解析</li>
+          <li>15 款设计风格无缝插拔，数据协议标准统一</li>
+        </ul>
+      </div>
+      <div class="con-card">
+        <div class="pc-head">
+          CONS // 考量权衡
+        </div>
+        <ul>
+          <li>初期学习曲线较陡峭，需掌握底层语义契约</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 方案 C -->
+  <div class="option-box plan-c">
+    <div class="option-title">
+      <h2>方案 C · 出版物细线刻度 (Editorial Hairline)</h2>
+      <span class="option-badge">日系杂志感 / 清晰利落</span>
+    </div>
+    
+    <div class="admonition">
+      <div class="admonition-head">
+        <span>✦ 核心结论</span>
+        <span>INFO</span>
+      </div>
+      <p>在基于多模态参考图逆向生成或开发全新风格时，严禁直接继承旧模板中的硬编码样式。必须基于标准纯 HTML 基座独立声明 Design Tokens 与 CSS 规则，从物理上杜绝跨风格样式污染与视觉退化。</p>
+    </div>
+
+    <div class="pros-cons">
+      <div class="pro-card">
+        <div class="pc-head">
+          <span>PROS / 核心优势</span>
+          <span>01</span>
+        </div>
+        <ul>
+          <li>架构极其稳定，支持超大规模长文结构化解析</li>
+          <li>15 款设计风格无缝插拔，数据协议标准统一</li>
+        </ul>
+      </div>
+      <div class="con-card">
+        <div class="pc-head">
+          <span>CONS / 考量权衡</span>
+          <span>02</span>
+        </div>
+        <ul>
+          <li>初期学习曲线较陡峭，需掌握底层语义契约</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

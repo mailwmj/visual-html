@@ -400,3 +400,27 @@ pre code {
 6. **Don't 使用生硬直角（0px）** — 卡片保持 20px 圆角，标签使用胶囊圆角。
 7. **Don't 使用高饱和荧光刺眼色彩** — 卡片色彩必须是温和低刺激的粉彩色系（Pastel Tones）。
 8. **Don't 让 `.rich-text code` 浅色内联样式污染多行 `<pre><code>` 代码块** — 严禁出现灰白底色碎块包裹深色代码块中语法文字的低对比度错误。
+
+---
+
+## 6. Mermaid Theme Configuration (在线增强与离线降级)
+
+在线增强时，在 `</body>` 前注入以下匹配温润纸感手札风的 `themeVariables`；最终交付仍需使用 `references/scripts/bundle_offline.py` 生成静态 SVG fallback：
+
+```js
+mermaid.initialize({
+  startOnLoad: true,
+  theme: "base",
+  themeVariables: {
+    darkMode: false,
+    background: "#F7F4EC",
+    primaryColor: "#EDE8DC",
+    primaryTextColor: "#242724",
+    primaryBorderColor: "#323D24",
+    lineColor: "#323D24",
+    secondaryColor: "#FFFCEB",
+    tertiaryColor: "#F7F4EC",
+    fontFamily: ""Newsreader", "Songti SC", serif"
+  }
+});
+```

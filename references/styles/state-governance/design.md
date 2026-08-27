@@ -413,3 +413,27 @@
 5. **严禁使用低对比度的浅灰文字**，正文必须达到 WCAG AA 级以上高对比度清晰度。
 6. **严禁把 16:9 PPT 做成超长竖向滚动条页面**，PPT 每页必须单屏自适应收敛。
 7. **严禁破坏 4 层隔离坐标系的 Preview 结构**，杜绝顶条切角与文字重叠。
+
+---
+
+## 6. Mermaid Theme Configuration (在线增强与离线降级)
+
+在线增强时，在 `</body>` 前注入以下匹配国企政务严谨汇报风的 `themeVariables`；最终交付仍需使用 `references/scripts/bundle_offline.py` 生成静态 SVG fallback：
+
+```js
+mermaid.initialize({
+  startOnLoad: true,
+  theme: "base",
+  themeVariables: {
+    darkMode: false,
+    background: "#FFFFFF",
+    primaryColor: "#F0F6FF",
+    primaryTextColor: "#103A71",
+    primaryBorderColor: "#1A56DB",
+    lineColor: "#103A71",
+    secondaryColor: "#E0EDFD",
+    tertiaryColor: "#FFFFFF",
+    fontFamily: ""SF Pro Display", "Inter", sans-serif"
+  }
+});
+```

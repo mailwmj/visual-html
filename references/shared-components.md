@@ -299,27 +299,33 @@ flowchart LR
 - 完全断网或内网交付使用 `--strict`，移除外部字体和 Mermaid runtime，只保留静态 SVG 与系统字体栈。
 - 静态 fallback 必须包含可读文本和 `role="img"`/`aria-label`，不能只显示“图表加载失败”。
 
-#### 3. 17 款视觉风格专属 Mermaid `themeVariables` 字典对照表：
+#### 3. 风格专属 Mermaid `themeVariables` 注入契约：
 
-| 风格 ID (`style_id`) | `darkMode` | `background` | `primaryColor` | `primaryTextColor` | `lineColor` | `primaryBorderColor` |
-|---|---|---|---|---|---|---|
-| **`industrial-dark`** | `true` | `#0D1110` | `#131924` | `#F2F3EF` | `#67E38B` | `#67E38B` |
-| **`soft-sky`** | `false` | `#FFFFFF` | `#EAF6FC` | `#2A3F54` | `#0284C7` | `#0284C7` |
-| **`obsidian-cyan`** | `true` | `#151D2A` | `#131924` | `#FFFFFF` | `#38BDF8` | `#38BDF8` |
-| **`play-tubular`** | `false` | `#FAF8F3` | `#FFFFFF` | `#111111` | `#2563EB` | `#2563EB` |
-| **`warm-craft`** | `false` | `#F7F4EC` | `#EDE8DC` | `#242724` | `#323D24` | `#323D24` |
-| **`neon-3d`** | `true` | `#0D0D11` | `#16121E` | `#FFFFFF` | `#A855F7` | `#EC4899` |
-| **`pixel-pop`** | `false` | `#FFFFFF` | `#FFF8D6` | `#000000` | `#000000` | `#000000` |
-| **`brutalist-acid`** | `false` | `#FFFFFF` | `#00E5CC` | `#000000` | `#000000` | `#FF4591` |
-| **`sunflower-bloom`** | `true` | `#1E3A5F` | `#2A455C` | `#F2EAE0` | `#FFC300` | `#FFC300` |
-| **`summer-dopamine`** | `true` | `rgba(15,23,42,0.85)` | `rgba(255,255,255,0.15)` | `#FFFFFF` | `#00E676` | `#FF66B2` |
-| **`soft-editorial-future`** | `true` | `#0C131F` | `#162032` | `#F8FAFC` | `#38BDF8` | `#38BDF8` |
-| **`nothing-design-dark`** | `true` | `#000000` | `#111111` | `#F5F5F5` | `#FF5722` | `#FF5722` |
-| **`nothing-design-light`** | `false` | `#FFFFFF` | `#F5F5F5` | `#111111` | `#D71921` | `#D71921` |
-| **`pixel-crystal`** | `false` | `#FDF8F7` | `#FAF2F4` | `#3C2836` | `#D88CA8` | `#D88CA8` |
-| **`ink-bamboo`** | `false` | `#FAF8F3` | `#EAF2E6` | `#1C241B` | `#2B4E24` | `#5A8F43` |
-| **`state-governance`** | `false` | `#FFFFFF` | `#F0F6FF` | `#103A71` | `#103A71` | `#1A56DB` |
-| **`ink-calligraphy`** | `false` | `#FAF7F0` | `#F0EBE0` | `#141312` | `#524E48` | `#141312` |
+Mermaid 的 `themeVariables` 本质上是各视觉风格的色彩与排版 Token（如 `darkMode`、`background`、`primaryColor`、`lineColor`、`fontFamily` 等），已完全**内聚在各风格包自身的 `references/styles/<style_id>/design.md`** 及对应 `scaffold-web.html` 中。
+
+代码生成或扩展新风格时：
+- 读取目标风格的 `references/styles/<style_id>/design.md` 中的 `## Mermaid Theme Configuration` 配置块；
+- 在 HTML 页面底部通过 `mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables: { ... } })` 注入风格专属变量；
+- 交付前运行 `python3 references/scripts/bundle_offline.py <input.html> -o <output.html>` 自动提取 `themeVariables` 并生成静态 SVG fallback。
+
+```js
+// 示例：风格专属 themeVariables 注入结构
+mermaid.initialize({
+  startOnLoad: true,
+  theme: 'base',
+  themeVariables: {
+    darkMode: true,
+    background: '#0D1110',
+    primaryColor: '#131924',
+    primaryTextColor: '#F2F3EF',
+    primaryBorderColor: '#67E38B',
+    lineColor: '#67E38B',
+    secondaryColor: '#1B2433',
+    tertiaryColor: '#090C0B',
+    fontFamily: '"IBM Plex Mono", Consolas, monospace'
+  }
+});
+```
 
 ---
 
