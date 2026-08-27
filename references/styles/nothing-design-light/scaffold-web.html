@@ -468,6 +468,21 @@ footer {
   .cmp .row { grid-template-columns: 1fr; }
   .wrap { padding: 0 20px; }
 }
+
+/* Mermaid Diagram Container */
+.flowchart-wrap.mermaid-wrapper {
+  margin: 24px 0 32px;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  text-align: center;
+}
+.flowchart-wrap.mermaid-wrapper .mermaid {
+  display: flex;
+  justify-content: center;
+}
+
 </style>
 </head>
 <body>
@@ -729,6 +744,20 @@ footer {
       </svg>
     </div>
 
+
+    <!-- 10B / MERMAID DYNAMIC ENGINE (动态拓扑与状态机) -->
+    <div class="flowchart-wrap mermaid-wrapper">
+      <pre class="mermaid">
+flowchart LR
+    A[01 / SENSOR INGEST<br><b>RAW 100K EVENT/S</b>] --> B[02 / MATRIX COMPUTE<br><b>ZERO COPY PIPELINE</b>]
+    B --> C{TELEMETRY CHECK<br><b>NOMINAL OR ALERT?</b>}
+    C -->|PASS| D[03 / GLYPH RENDER<br><b>LED PATTERN SYNC</b>]
+    C -->|ANOMALY| E[SIGNAL RED ALERT<br><b>EMERGENCY LOG</b>]
+    D --> F[04 / EMIT<br><b>ACK // 200 SUCCESS</b>]
+    E --> F
+      </pre>
+    </div>
+
     <!-- 11 / PROCESS STEPS (流程步骤拆解) -->
     <div class="proc">
       <div class="step">
@@ -942,6 +971,36 @@ footer {
     </div>
   </div>
 </footer>
+
+
+<!-- Mermaid.js 动态图表运行时 -->
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  const mermaidElements = document.querySelectorAll('.mermaid');
+  if (mermaidElements.length > 0) {
+    mermaidElements.forEach(el => {
+      el.textContent = el.textContent
+        .replace(/^\s*\/\/\s*MERMAID/i, '')
+        .replace(/^\s*\/\*[\s\S]*?\*\//, '')
+        .trim();
+    });
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'base',
+      themeVariables: {
+        darkMode: false,
+        background: '#FFFFFF',
+        primaryColor: '#F7F7F7',
+        primaryTextColor: '#000000',
+        primaryBorderColor: '#D71921',
+        lineColor: '#D71921',
+        secondaryColor: '#EEEEEE',
+        tertiaryColor: '#FFFFFF',
+        fontFamily: '"Doto", "Space Mono", monospace'
+      }
+    });
+  }
+</script>
 
 </body>
 </html>

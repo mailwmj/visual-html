@@ -227,25 +227,98 @@ h2.section-title {
   margin-top: 6px;
 }
 
-/* ---- 05. Admonitions ---- */
+/* ---- 05. Admonitions (Jelly Pill & Ambient Glow) ---- */
 .admonition {
+  position: relative;
+  overflow: hidden;
   background: var(--surface-card);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1.5px solid var(--border);
-  border-left: 6px solid var(--signal-yellow);
-  border-radius: var(--radius-sm);
-  padding: 24px 28px;
+  border-radius: 22px;
+  padding: 22px 26px;
   box-shadow: var(--shadow-glass);
   margin-bottom: 32px;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
 }
-.admonition.info { border-left-color: var(--signal-blue); }
-.admonition.warning { border-left-color: var(--signal-yellow); }
-.admonition.tip { border-left-color: var(--signal-green); }
+.admonition:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glass-hover);
+}
+.admonition::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  left: -40px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  opacity: 0.16;
+  pointer-events: none;
+  filter: blur(28px);
+}
+.admonition.info::before { background: var(--signal-blue); }
+.admonition.tip::before, .admonition.success::before { background: var(--signal-green); opacity: 0.22; }
+.admonition.warning::before { background: #FF9900; opacity: 0.20; }
+.admonition.danger::before, .admonition.error::before, .admonition.dopamine::before { background: var(--signal-pink); opacity: 0.22; }
+
+.admonition-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.admonition-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.admonition-badge .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 8px currentColor;
+}
+.admonition.info .admonition-badge {
+  background: rgba(0, 119, 255, 0.12);
+  color: #0066FF;
+  border: 1px solid rgba(0, 119, 255, 0.25);
+}
+.admonition.tip .admonition-badge, .admonition.success .admonition-badge {
+  background: rgba(0, 200, 100, 0.14);
+  color: #008f43;
+  border: 1px solid rgba(0, 230, 118, 0.35);
+}
+.admonition.warning .admonition-badge {
+  background: rgba(255, 170, 0, 0.16);
+  color: #c97000;
+  border: 1px solid rgba(255, 170, 0, 0.35);
+}
+.admonition.danger .admonition-badge, .admonition.error .admonition-badge, .admonition.dopamine .admonition-badge {
+  background: rgba(255, 102, 178, 0.16);
+  color: #e0005a;
+  border: 1px solid rgba(255, 102, 178, 0.35);
+}
+
 .admonition-title {
-  font-size: 16px; font-weight: 800; color: var(--text-primary); margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  margin-bottom: 0;
 }
-.admonition p { font-size: 15px; color: var(--text-secondary); line-height: 1.6; margin: 0; }
+.admonition > .admonition-title {
+  margin-bottom: 8px;
+}
+.admonition p { font-size: 15px; color: var(--text-secondary); line-height: 1.65; margin: 0; }
 
 /* ---- 06. Rich Text ---- */
 .rich-text {
@@ -275,13 +348,32 @@ h2.section-title {
   font-weight: 700;
 }
 .rich-text blockquote {
-  border-left: 5px solid var(--signal-pink);
-  background: rgba(255, 102, 178, 0.06);
-  padding: 22px 26px;
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  font-size: 17px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 240, 248, 0.90) 100%);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1.5px solid rgba(255, 102, 178, 0.35);
+  border-radius: 22px;
+  padding: 24px 28px;
+  box-shadow: 0 16px 36px rgba(255, 102, 178, 0.10), inset 0 1px 2px #fff;
+  font-size: 16.5px;
+  line-height: 1.7;
   color: var(--text-primary);
   margin: 28px 0;
+}
+.rich-text blockquote::before {
+  content: "“";
+  position: absolute;
+  right: 18px;
+  bottom: -20px;
+  font-family: Georgia, serif;
+  font-size: 90px;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--signal-pink);
+  opacity: 0.18;
+  pointer-events: none;
 }
 
 /* ---- 07. Code Block & Terminal ---- */
@@ -509,28 +601,33 @@ h2.section-title {
 .step p { font-size: 15px; color: var(--text-secondary); }
 
 /* ---- 12. Timeline ---- */
-.timeline { position: relative; padding-left: 40px; margin: 32px 0; }
+.timeline { position: relative; padding-left: 44px; margin: 32px 0; }
 .timeline::before {
-  content: ""; position: absolute; left: 14px; top: 0; bottom: 0;
-  width: 4px; background: rgba(255, 255, 255, 0.7);
-  border-radius: 2px;
+  content: ""; position: absolute; left: 14px; top: 6px; bottom: 6px;
+  width: 5px;
+  background: linear-gradient(180deg, var(--signal-pink) 0%, var(--signal-blue) 35%, var(--signal-green) 70%, var(--signal-yellow) 100%);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 0 12px rgba(0, 119, 255, 0.35);
 }
-.timeline-item { position: relative; margin-bottom: 32px; }
+.timeline-item { position: relative; margin-bottom: 24px; }
 .timeline-item:last-child { margin-bottom: 0; }
 .timeline-marker {
-  position: absolute; left: -40px; top: 0;
-  width: 32px; height: 32px; background: var(--signal-pink);
+  position: absolute; left: -44px; top: 2px;
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg, var(--signal-pink) 0%, var(--signal-blue) 100%);
   border: 3px solid #FFFFFF; border-radius: 50%;
-  box-shadow: 0 0 16px rgba(255, 102, 178, 0.6);
+  box-shadow: 0 4px 14px rgba(255, 102, 178, 0.45);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-family: var(--font-mono); font-size: 11px; font-weight: 900;
 }
 .timeline-content {
   background: var(--surface-card); backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur); border: 1.5px solid var(--border);
-  border-radius: var(--radius-sm); padding: 22px 26px;
+  border-radius: 20px; padding: 22px 26px;
   box-shadow: var(--shadow-glass);
 }
 .timeline-content h3 { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
-.timeline-content p { font-size: 14.5px; color: var(--text-secondary); }
+.timeline-content p { font-size: 14.5px; color: var(--text-secondary); margin: 0; }
 
 /* ---- 13. Comparison Table ---- */
 .cmp-matrix-wrapper {
@@ -554,27 +651,37 @@ h2.section-title {
 /* ---- 14. Pros & Cons ---- */
 .pros-cons { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin: 32px 0; }
 .pro-card {
-  background: var(--surface-card); border: 1.5px solid rgba(0, 230, 118, 0.5);
+  background: var(--surface-card); border: 1.5px solid rgba(0, 230, 118, 0.45);
   border-radius: var(--radius); padding: 30px 26px; box-shadow: var(--shadow-glass);
+  backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
 }
 .con-card {
-  background: var(--surface-card); border: 1.5px solid rgba(255, 102, 178, 0.5);
+  background: var(--surface-card); border: 1.5px solid rgba(255, 102, 178, 0.45);
   border-radius: var(--radius); padding: 30px 26px; box-shadow: var(--shadow-glass);
+  backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
 }
 .pro-card .tag {
-  display: inline-block; font-family: var(--font-mono); font-size: 11px; font-weight: 800;
-  text-transform: uppercase; color: #008f44; background: rgba(0, 230, 118, 0.2);
-  padding: 4px 12px; border-radius: var(--radius-pill); margin-bottom: 16px;
+  display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 11px; font-weight: 800;
+  text-transform: uppercase; color: #008f44; background: rgba(0, 230, 118, 0.16);
+  border: 1px solid rgba(0, 230, 118, 0.3); padding: 4px 12px; border-radius: var(--radius-pill); margin-bottom: 16px;
 }
 .con-card .tag {
-  display: inline-block; font-family: var(--font-mono); font-size: 11px; font-weight: 800;
-  text-transform: uppercase; color: #c4005e; background: rgba(255, 102, 178, 0.2);
-  padding: 4px 12px; border-radius: var(--radius-pill); margin-bottom: 16px;
+  display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 11px; font-weight: 800;
+  text-transform: uppercase; color: #e0005a; background: rgba(255, 102, 178, 0.16);
+  border: 1px solid rgba(255, 102, 178, 0.3); padding: 4px 12px; border-radius: var(--radius-pill); margin-bottom: 16px;
 }
-.pros-cons ul { list-style: none; }
-.pros-cons li { position: relative; padding-left: 24px; font-size: 15px; color: var(--text-secondary); margin-bottom: 10px; }
-.pro-card li::before { content: "+"; position: absolute; left: 0; color: #008f44; font-weight: 900; font-size: 18px; }
-.con-card li::before { content: "–"; position: absolute; left: 0; color: #c4005e; font-weight: 900; font-size: 18px; }
+.pros-cons ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.pros-cons li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 15px; color: var(--text-secondary); line-height: 1.5;
+}
+.pros-cons li .icon-badge {
+  width: 20px; height: 20px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 900; flex-shrink: 0; margin-top: 1px;
+}
+.pro-card li .icon-badge { background: #00E676; color: #044b24; box-shadow: 0 2px 8px rgba(0, 230, 118, 0.35); }
+.con-card li .icon-badge { background: #FF66B2; color: #fff; box-shadow: 0 2px 8px rgba(255, 102, 178, 0.35); }
 
 /* ---- 15. Editorial Interview & Dialogue Rounds ---- */
 .interview-rounds { display: flex; flex-direction: column; gap: 24px; margin: 32px 0; }
@@ -631,8 +738,8 @@ h2.section-title {
 .q-title { font-size: 15.5px; font-weight: 800; color: var(--text-primary); margin-bottom: 8px; }
 .q-recom-note, .q-subagent-note {
   font-size: 14px; line-height: 1.6; color: var(--text-secondary);
-  background: rgba(0, 230, 118, 0.06); border-left: 4px solid var(--signal-green);
-  padding: 10px 14px; border-radius: 0 8px 8px 0; margin-top: 8px;
+  background: rgba(0, 230, 118, 0.08); border: 1.5px solid rgba(0, 230, 118, 0.3);
+  padding: 12px 16px; border-radius: 14px; margin-top: 10px;
 }
 .q-recom-note strong, .q-subagent-note strong {
   color: #008f44; display: block; margin-bottom: 2px;
@@ -658,10 +765,27 @@ h2.section-title {
 .faq-item {
   background: var(--surface-card); backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur); border: 1.5px solid var(--border);
-  border-radius: var(--radius-sm); padding: 22px 26px; box-shadow: var(--shadow-glass);
+  border-radius: 20px; padding: 22px 26px; box-shadow: var(--shadow-glass);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
 }
-.faq-item .q { font-size: 17px; font-weight: 800; color: var(--text-primary); margin-bottom: 8px; }
-.faq-item .a { font-size: 15px; color: var(--text-secondary); line-height: 1.65; }
+.faq-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glass-hover);
+}
+.faq-item .faq-q {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 8px;
+}
+.faq-item .faq-q .badge-q {
+  width: 26px; height: 26px; border-radius: 8px;
+  background: linear-gradient(135deg, var(--signal-blue) 0%, #00C6FF 100%);
+  color: #fff; display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 13px; font-weight: 900;
+  box-shadow: 0 4px 10px rgba(0, 119, 255, 0.3); flex-shrink: 0;
+}
+.faq-item .faq-q .title { font-size: 17px; font-weight: 800; color: var(--text-primary); }
+.faq-item .faq-a { font-size: 15px; color: var(--text-secondary); line-height: 1.65; padding-left: 38px; }
+.faq-item > .q { font-size: 17px; font-weight: 800; color: var(--text-primary); margin-bottom: 8px; }
+.faq-item > .a { font-size: 15px; color: var(--text-secondary); line-height: 1.65; }
 
 /* ---- 17. References ---- */
 .references {
@@ -759,16 +883,19 @@ footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(255, 25
 
     <!-- 05 / ADMONITIONS -->
     <div class="admonition info">
-      <div class="admonition-title">★ 多巴胺设计原则 (INFO)</div>
+      <div class="admonition-header">
+        <span class="admonition-badge"><span class="dot"></span>INFO / 核心原则</span>
+        <div class="admonition-title">多巴胺设计原则</div>
+      </div>
       <p>背景负责大面积色彩释放，卡片采用白透毛玻璃承托文字，确保长文阅读不刺眼且充满元气。</p>
     </div>
 
     <!-- 06 / RICH TEXT -->
     <div class="rich-text">
-      <p>这是标准的正文段落。支持 <strong>加粗强调</strong>、<em>斜体修饰</em> 以及 <code>内联代码 (Inline Code)</code> 等基础排版元素。</p>
+      <p>Visual HTML 采用<strong>三层空间解耦模型（Three-Layer Spatial Architecture）</strong>：Layer 0 为环境背景层（Ambient Canvas），承载全屏纹理与情绪张力；Layer 1 为承托画板层（Carrier Board），规范长文流式的视觉边界；Layer 2 为具象组件层（Semantic Components），赋予卡片、列表与表格独特的触感与材质。</p>
       <blockquote>夏日多巴胺风格通过高明度四色渐变与白透毛玻璃，将情绪张力拉满，兼顾出色的文字可读性。</blockquote>
 
-      <h4>子章节核心要点列表</h4>
+      <h4>生产级长文重构的三项核心原则</h4>
       <ul>
         <li>这是无序列表项目一：阐述核心架构原则与设计底线</li>
         <li>这是无序列表项目二：说明多端自适应网格与排版规范</li>
@@ -892,14 +1019,14 @@ graph LR
     <!-- 12 / TIMELINE -->
     <div class="timeline">
       <div class="timeline-item">
-        <div class="timeline-marker"></div>
+        <div class="timeline-marker">01</div>
         <div class="timeline-content">
           <h3>2024 · 视觉探索与原型设计</h3>
           <p>完成夏日多巴胺风格的设计语言定义与核心毛玻璃组件原型构建。</p>
         </div>
       </div>
       <div class="timeline-item">
-        <div class="timeline-marker"></div>
+        <div class="timeline-marker">02</div>
         <div class="timeline-content">
           <h3>2025 · 全组件规范标准化</h3>
           <p>实现 18 项语义组件与 Mermaid 动态图表引擎的深度并网。</p>
@@ -960,16 +1087,16 @@ graph LR
       <div class="pro-card">
         <div class="tag">PROS / 优势清单</div>
         <ul>
-          <li>极强的视觉感染力与元气活力，情绪价值拉满</li>
-          <li>白透毛玻璃有效保护文字清晰度与对比度</li>
-          <li>内置完整的 18 项语义化组件，表达力完备</li>
+          <li><span class="icon-badge">✓</span><span>极强的视觉感染力与元气活力，情绪价值拉满</span></li>
+          <li><span class="icon-badge">✓</span><span>白透毛玻璃有效保护文字清晰度与对比度</span></li>
+          <li><span class="icon-badge">✓</span><span>内置完整的 18 项语义化组件，表达力完备</span></li>
         </ul>
       </div>
       <div class="con-card">
         <div class="tag">CONS / 劣势与边界</div>
         <ul>
-          <li>不适用于严肃金融或工程白皮书类报告</li>
-          <li>高饱和背景需确保卡片背景不透明度足够</li>
+          <li><span class="icon-badge">✕</span><span>不适用于严肃金融或工程白皮书类报告</span></li>
+          <li><span class="icon-badge">✕</span><span>高饱和背景需确保卡片背景不透明度足够</span></li>
         </ul>
       </div>
     </div>
@@ -1029,12 +1156,18 @@ graph LR
     <!-- 16 / FAQ / Q&A LIST -->
     <div class="faq">
       <div class="faq-item">
-        <div class="q">背景还会抢夺正文焦点吗？</div>
-        <div class="a">不会。正文区域有统一的白透毛玻璃大圆角卡片包裹，文字排版纯净清晰，背景光芒自然退居为页面氛围。</div>
+        <div class="faq-q">
+          <span class="badge-q">Q</span>
+          <div class="title">背景还会抢夺正文焦点吗？</div>
+        </div>
+        <div class="faq-a">不会。正文区域有统一的白透毛玻璃大圆角卡片包裹，文字排版纯净清晰，背景光芒自然退居为页面氛围。</div>
       </div>
       <div class="faq-item">
-        <div class="q">是否支持单文件离线使用？</div>
-        <div class="a">支持。生成的 HTML 文件包含完整的内联样式与矢量图表，无需部署即可本地直接双击打开查看。</div>
+        <div class="faq-q">
+          <span class="badge-q">Q</span>
+          <div class="title">是否支持单文件离线使用？</div>
+        </div>
+        <div class="faq-a">支持。生成的 HTML 文件包含完整的内联样式与矢量图表，无需部署即可本地直接双击打开查看。</div>
       </div>
     </div>
 

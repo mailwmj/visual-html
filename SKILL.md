@@ -19,7 +19,7 @@ metadata:
 
 - **Generate Web**：读取 [`references/routes/generate-web.md`](references/routes/generate-web.md)。
 - **Generate PPT**：读取 [`references/routes/generate-ppt.md`](references/routes/generate-ppt.md)。
-- **Extend Style Pack**：读取 [`references/template-extension-guide.md`](references/template-extension-guide.md)。
+- **Extend Style Pack**：读取 [`references/routes/extend-style-pack.md`](references/routes/extend-style-pack.md)。
 
 风格是生成 route 内的 profile，不是新的顶层 route；画廊、离线打包和质量检查是按条件触发的 stage。路由确定后，不读取另一个媒介或生命周期的 authority；缺少前置条件时停在当前 route 并说明原因，不猜测风格、媒介或本地路径。
 
@@ -224,6 +224,6 @@ flowchart LR
 
 - Web 响应式布局、离线 bundle、字体内联和单文件交付：读取 [`references/routes/generate-web.md`](references/routes/generate-web.md)。
 - PPT 16:9 舞台、单页聚焦、翻页/打印导出和演示交付：读取 [`references/routes/generate-ppt.md`](references/routes/generate-ppt.md)。
-- 新增或扩展风格包的目录、预览、注册和验证 SOP：读取 [`references/template-extension-guide.md`](references/template-extension-guide.md)。
+- 新增或扩展风格包的目录、预览、注册和验证 SOP：读取 [`references/routes/extend-style-pack.md`](references/routes/extend-style-pack.md)。
 
 route 文档与本入口的共享质量清单共同构成验收标准；route 文档未声明的行为不从其他 route 推断。

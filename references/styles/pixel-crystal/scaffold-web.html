@@ -398,57 +398,93 @@ section {
    ============================================================ */
 .admonition {
   border-radius: var(--radius-md);
-  padding: 20px 24px;
+  padding: 18px 22px;
   margin-bottom: 24px;
   border: 1.5px solid;
   position: relative;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.9), 0 6px 20px rgba(194, 89, 117, 0.05);
+  overflow: hidden;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.95), 0 8px 24px rgba(194, 89, 117, 0.06);
+  transition: transform 0.25s var(--ease-spring), box-shadow 0.25s ease;
+}
+.admonition:hover {
+  transform: translateY(-2px);
+  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 1), 0 14px 32px rgba(194, 89, 117, 0.12);
 }
 
 .admonition.info {
-  background: rgba(254, 243, 246, 0.70);
-  border-color: rgba(242, 167, 184, 0.6);
+  background: linear-gradient(135deg, rgba(254, 243, 246, 0.85) 0%, rgba(250, 235, 242, 0.65) 100%);
+  border-color: rgba(242, 167, 184, 0.55);
 }
-.admonition.info .admonition-title {
-  color: #C25975;
-}
-
 .admonition.warning {
-  background: rgba(254, 249, 235, 0.70);
+  background: linear-gradient(135deg, rgba(254, 249, 235, 0.85) 0%, rgba(252, 243, 218, 0.65) 100%);
   border-color: rgba(228, 200, 140, 0.65);
 }
-.admonition.warning .admonition-title {
-  color: #9A7228;
-}
-
-.admonition.success {
-  background: rgba(243, 250, 240, 0.70);
+.admonition.success, .admonition.tip {
+  background: linear-gradient(135deg, rgba(243, 250, 240, 0.85) 0%, rgba(232, 247, 238, 0.65) 100%);
   border-color: rgba(184, 222, 175, 0.65);
 }
-.admonition.success .admonition-title {
-  color: #4A8042;
+
+.admonition-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.admonition-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.admonition.info .admonition-badge {
+  background: rgba(242, 167, 184, 0.28);
+  color: #B84A68;
+  border: 1px solid rgba(242, 167, 184, 0.45);
+}
+.admonition.success .admonition-badge, .admonition.tip .admonition-badge {
+  background: rgba(184, 222, 175, 0.35);
+  color: #356E2D;
+  border: 1px solid rgba(184, 222, 175, 0.55);
+}
+.admonition.warning .admonition-badge {
+  background: rgba(228, 200, 140, 0.35);
+  color: #855E18;
+  border: 1px solid rgba(228, 200, 140, 0.55);
 }
 
 .admonition-title {
   font-weight: 800;
-  font-size: 14px;
+  font-size: 14.5px;
+  color: var(--text-primary);
+  margin-bottom: 0;
+}
+.admonition > .admonition-title {
   margin-bottom: 8px;
   display: flex;
   align-items: center;
   gap: 8px;
 }
-
-.admonition-title::before {
+.admonition > .admonition-title::before {
   content: "✦";
   font-size: 11px;
 }
+.admonition.info > .admonition-title { color: #C25975; }
+.admonition.warning > .admonition-title { color: #9A7228; }
+.admonition.success > .admonition-title, .admonition.tip > .admonition-title { color: #4A8042; }
 
 .admonition p {
   color: var(--text-secondary);
-  font-size: 14px;
+  font-size: 13.5px;
   line-height: 1.62;
+  margin: 0;
 }
 
 .rich-text {
@@ -473,14 +509,33 @@ section {
 }
 
 .rich-text blockquote {
-  border-left: 3.5px solid var(--oil-peach);
-  padding: 14px 20px;
-  margin: 18px 0;
-  font-style: italic;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.90) 0%, rgba(253, 244, 246, 0.75) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid rgba(242, 167, 184, 0.45);
+  border-radius: var(--radius-md);
+  padding: 22px 26px;
+  margin: 22px 0;
+  box-shadow: var(--shadow-card);
+  font-style: normal;
   color: var(--text-primary);
   font-size: 15px;
-  background: rgba(253, 244, 246, 0.6);
-  border-radius: 0 10px 10px 0;
+  line-height: 1.68;
+}
+.rich-text blockquote::before {
+  content: "“";
+  position: absolute;
+  right: 16px;
+  bottom: -18px;
+  font-family: Georgia, serif;
+  font-size: 80px;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--oil-peach);
+  opacity: 0.22;
+  pointer-events: none;
 }
 
 .rich-text ul, .rich-text ol {
@@ -740,18 +795,20 @@ section {
 
 .timeline {
   position: relative;
-  padding-left: 32px;
+  padding-left: 40px;
   margin-bottom: 32px;
 }
 
 .timeline::before {
   content: "";
   position: absolute;
-  left: 11px;
-  top: 8px;
-  bottom: 8px;
-  width: 2px;
+  left: 14px;
+  top: 6px;
+  bottom: 6px;
+  width: 4px;
   background: var(--grad-oil-crystal);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 0 10px rgba(242, 167, 184, 0.4);
 }
 
 .timeline-item {
@@ -765,19 +822,20 @@ section {
 
 .timeline-marker {
   position: absolute;
-  left: -32px;
-  top: 4px;
-  width: 24px;
-  height: 24px;
+  left: -40px;
+  top: 2px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  background: var(--bg-card);
-  border: 1.5px solid var(--oil-peach);
+  background: radial-gradient(circle at 35% 30%, #FFFFFF 0%, #F2A7B8 45%, #C5B9E8 80%, #D4E8B8 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 10px;
-  color: var(--oil-peach);
-  box-shadow: 0 0 10px rgba(242, 167, 184, 0.35);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  color: #3C2836;
+  box-shadow: var(--shadow-orb);
 }
 
 .timeline-content {
@@ -794,7 +852,7 @@ section {
   font-size: 11px;
   font-weight: 700;
   color: var(--text-muted);
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .timeline-content h4 {
@@ -805,9 +863,10 @@ section {
 }
 
 .timeline-content p {
-  font-size: 13px;
+  font-size: 13.5px;
   color: var(--text-secondary);
   line-height: 1.52;
+  margin: 0;
 }
 
 /* ============================================================
@@ -860,7 +919,7 @@ section {
   background: var(--bg-card);
   backdrop-filter: blur(16px);
   border-radius: var(--radius-md);
-  padding: 24px;
+  padding: 20px 22px;
   box-shadow: var(--shadow-card);
   border: 1.5px solid;
 }
@@ -874,25 +933,56 @@ section {
 }
 
 .pros-cons-title {
-  font-size: 16px;
+  font-size: 14.5px;
   font-weight: 800;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.pro-card .pros-cons-title { color: #4A8042; }
-.con-card .pros-cons-title { color: #C25975; }
+.pro-card .pros-cons-title { color: #356E2D; }
+.con-card .pros-cons-title { color: #B84A68; }
 
 .pros-cons ul {
-  padding-left: 20px;
-  font-size: 13.5px;
-  color: var(--text-secondary);
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 0;
 }
 
 .pros-cons li {
-  margin-bottom: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.pros-cons li .icon-gem {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 900;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.pro-card li .icon-gem {
+  background: radial-gradient(circle at 35% 30%, #fff 0%, #D4E8B8 60%, #A8DCA8 100%);
+  color: #2B5722;
+  box-shadow: 0 2px 6px rgba(184, 222, 175, 0.5);
+}
+.con-card li .icon-gem {
+  background: radial-gradient(circle at 35% 30%, #fff 0%, #F2A7B8 60%, #E8A4B8 100%);
+  color: #7A1D36;
+  box-shadow: 0 2px 6px rgba(242, 167, 184, 0.5);
 }
 
 .interview-rounds {
@@ -942,9 +1032,9 @@ section {
 
 .user-decision-note {
   background: rgba(253, 244, 246, 0.85);
-  border-left: 3px solid var(--oil-peach);
-  padding: 12px 16px;
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  border: 1px solid var(--border);
+  padding: 14px 18px;
+  border-radius: var(--radius-sm);
   font-size: 13px;
   color: var(--text-primary);
 }
@@ -964,11 +1054,52 @@ section {
   backdrop-filter: blur(16px);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 20px 24px;
+  padding: 18px 22px;
   box-shadow: var(--shadow-card);
+  transition: transform 0.25s var(--ease-spring), box-shadow 0.25s ease;
+}
+.faq-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card-hover);
 }
 
-.faq-item .q {
+.faq-item .faq-q {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.faq-item .badge-q-gem {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  background: radial-gradient(circle at 35% 30%, #FFFFFF 0%, #F7B8C4 50%, #D88CA8 100%);
+  color: #3C2836;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(242, 167, 184, 0.4);
+  flex-shrink: 0;
+}
+
+.faq-item .faq-q-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.faq-item .faq-a-body {
+  padding-left: 34px;
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.faq-item > .q {
   font-size: 15px;
   font-weight: 800;
   color: var(--text-primary);
@@ -977,16 +1108,14 @@ section {
   align-items: center;
   gap: 8px;
 }
-
-.faq-item .q::before {
+.faq-item > .q::before {
   content: "Q";
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 800;
   color: var(--oil-peach);
 }
-
-.faq-item .a {
+.faq-item > .a {
   font-size: 13.5px;
   color: var(--text-secondary);
   line-height: 1.62;
@@ -1049,6 +1178,21 @@ section {
   .feat-grid, .pros-cons { grid-template-columns: 1fr; }
   .meta-foot { flex-direction: column; gap: 12px; align-items: flex-start; }
 }
+
+/* Mermaid Diagram Container */
+.flowchart-container.mermaid-wrapper {
+  margin: 28px 0;
+  background: var(--surface-pearl);
+  border: 1px solid var(--border-crystal);
+  border-radius: var(--radius);
+  padding: 24px;
+  text-align: center;
+}
+.flowchart-container.mermaid-wrapper .mermaid {
+  display: flex;
+  justify-content: center;
+}
+
 </style>
 </head>
 <body>
@@ -1196,17 +1340,26 @@ section {
       
       <!-- 05 / ADMONITIONS -->
       <div class="admonition info">
-        <div class="admonition-title">核心结论 (INFO)</div>
-        <p>这是 AI 提取的关键结论高亮框，用于引起读者对核心发现或前置约束的重点关注。</p>
+        <div class="admonition-header">
+          <span class="admonition-badge">✦ INFO / 核心结论</span>
+          <div class="admonition-title">Clean Room 设计规范</div>
+        </div>
+        <p>在基于多模态参考图逆向生成或开发全新风格时，严禁直接继承旧模板中的硬编码样式。必须基于标准纯 HTML 基座独立声明 Design Tokens 与 CSS 规则，从物理上杜绝跨风格样式污染与视觉退化。</p>
       </div>
 
       <div class="admonition warning">
-        <div class="admonition-title">重要警示 (WARNING)</div>
+        <div class="admonition-header">
+          <span class="admonition-badge">✦ WARN / 重要警示</span>
+          <div class="admonition-title">正文对比度保障</div>
+        </div>
         <p>在浅色油画背景下排版时，严禁使用低对比度浅粉色正文，必须采用沉稳的熟褐暗茜草色以确保阅读舒适度与可访问性。</p>
       </div>
 
       <div class="admonition success">
-        <div class="admonition-title">验证通过 (SUCCESS)</div>
+        <div class="admonition-header">
+          <span class="admonition-badge">✦ PASS / 验证通过</span>
+          <div class="admonition-title">全组件保真验收</div>
+        </div>
         <p>所有语义组件均通过 WCAG AAA 高对比度测试，在保证艺术美感的同时实现 100% 内容保真。</p>
       </div>
 
@@ -1332,6 +1485,20 @@ section {
         </svg>
       </div>
 
+
+      <!-- 10B / MERMAID DYNAMIC ENGINE -->
+      <div class="flowchart-container mermaid-wrapper">
+        <pre class="mermaid">
+flowchart LR
+    A[01 / INPUT<br><b>长文本 / 设计参考图</b>] --> B[02 / EXTRACT<br><b>多模态语义解构</b>]
+    B --> C{图表决策<br><b>Native SVG 或 Mermaid?</b>}
+    C -->|简单 3-5 步| D[纯矢量 SVG<br><b>零依赖秒开</b>]
+    C -->|复杂拓扑/时序| E[Mermaid 引擎<br><b>晶体主题变量注入</b>]
+    D --> F[04 / OUTPUT<br><b>单文件 HTML 交付</b>]
+    E --> F
+        </pre>
+      </div>
+
       <!-- 11 / MULTI-STEP PROCESS -->
       <div class="steps">
         <div class="step">
@@ -1360,7 +1527,7 @@ section {
       <!-- 12 / TIMELINE MILESTONES -->
       <div class="timeline">
         <div class="timeline-item">
-          <div class="timeline-marker">✦</div>
+          <div class="timeline-marker">01</div>
           <div class="timeline-content">
             <div class="timeline-time">2026 Q1 · 架构初探</div>
             <h4>发布视觉 HTML 3.0 插件化架构</h4>
@@ -1368,7 +1535,7 @@ section {
           </div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-marker">✦</div>
+          <div class="timeline-marker">02</div>
           <div class="timeline-content">
             <div class="timeline-time">2026 Q3 · 艺术油画升级</div>
             <h4>发布 Pixel Crystal 油画粉彩晶光风</h4>
@@ -1434,18 +1601,18 @@ section {
       <!-- 14 / PROS & CONS -->
       <div class="pros-cons">
         <div class="pro-card">
-          <div class="pros-cons-title">优势与亮点 (PROS)</div>
+          <div class="pros-cons-title"><span>✦</span> 优势与亮点 (PROS)</div>
           <ul>
-            <li>油画复调色彩极其高级典雅，兼具艺术美感与深厚情绪价值；</li>
-            <li>熟褐暗茜草墨色正文保障严谨长篇研报的长时间阅读舒适度；</li>
-            <li>珍珠母贝画板与细密布纹环境层解耦，视觉层次丰富不抢焦。</li>
+            <li><span class="icon-gem pro">✓</span><span>油画复调色彩极其高级典雅，兼具艺术美感与深厚情绪价值；</span></li>
+            <li><span class="icon-gem pro">✓</span><span>熟褐暗茜草墨色正文保障严谨长篇研报的长时间阅读舒适度；</span></li>
+            <li><span class="icon-gem pro">✓</span><span>珍珠母贝画板与细密布纹环境层解耦，视觉层次丰富不抢焦。</span></li>
           </ul>
         </div>
         <div class="con-card">
-          <div class="pros-cons-title">边界与考量 (CONS)</div>
+          <div class="pros-cons-title"><span>✦</span> 边界与考量 (CONS)</div>
           <ul>
-            <li>不适用于纯工科重工业参数说明页或严肃金融审计白皮书；</li>
-            <li>需确保大屏与小屏均保持细密油画布纹的轻微透明度。</li>
+            <li><span class="icon-gem con">✕</span><span>不适用于纯工科重工业参数说明页或严肃金融审计白皮书；</span></li>
+            <li><span class="icon-gem con">✕</span><span>需确保大屏与小屏均保持细密油画布纹的轻微透明度。</span></li>
           </ul>
         </div>
       </div>
@@ -1481,12 +1648,18 @@ section {
       <!-- 16 / FAQ ACCORDION -->
       <div class="faq">
         <div class="faq-item">
-          <div class="q">如何在网页与 16:9 PPT 模式之间无缝切换？</div>
-          <div class="a">本系统为两种媒介提供了独立的脚手架模版。网页采用自适应通体画板，PPT 采用 16:9 居中舞台与方向键翻页，风格 Tokens 完全一致。</div>
+          <div class="faq-q">
+            <span class="badge-q-gem">Q</span>
+            <div class="faq-q-title">如何在网页与 16:9 PPT 模式之间无缝切换？</div>
+          </div>
+          <div class="faq-a-body">本系统为两种媒介提供了独立的脚手架模版。网页采用自适应通体画板，PPT 采用 16:9 居中舞台与方向键翻页，风格 Tokens 完全一致。</div>
         </div>
         <div class="faq-item">
-          <div class="q">代码生成后是否需要联网才能渲染？</div>
-          <div class="a">所有 SVG 图形、油画布纹与 CSS 样式均可在交付打包后内联；在线使用完整增强，离线使用静态 SVG 与系统字体 fallback。</div>
+          <div class="faq-q">
+            <span class="badge-q-gem">Q</span>
+            <div class="faq-q-title">代码生成后是否需要联网才能渲染？</div>
+          </div>
+          <div class="faq-a-body">所有 SVG 图形、油画布纹与 CSS 样式均可在交付打包后内联；在线使用完整增强，离线使用静态 SVG 与系统字体 fallback。</div>
         </div>
       </div>
 
@@ -1515,6 +1688,36 @@ section {
 
   </div>
 </main>
+
+
+<!-- Mermaid.js 动态图表运行时 -->
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  const mermaidElements = document.querySelectorAll('.mermaid');
+  if (mermaidElements.length > 0) {
+    mermaidElements.forEach(el => {
+      el.textContent = el.textContent
+        .replace(/^\s*\/\/\s*MERMAID/i, '')
+        .replace(/^\s*\/\*[\s\S]*?\*\//, '')
+        .trim();
+    });
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'base',
+      themeVariables: {
+        darkMode: false,
+        background: '#FDF8F7',
+        primaryColor: '#FFFFFF',
+        primaryTextColor: '#3C2836',
+        primaryBorderColor: '#9B72CF',
+        lineColor: '#9B72CF',
+        secondaryColor: '#F6ECF5',
+        tertiaryColor: '#FFFFFF',
+        fontFamily: '"Cinzel", "Noto Serif SC", serif'
+      }
+    });
+  }
+</script>
 
 </body>
 </html>

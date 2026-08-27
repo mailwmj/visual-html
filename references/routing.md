@@ -17,7 +17,7 @@
 |---|---|---|---|---|
 | **Generate Web** | 要求单文件网页、响应式 HTML 或长文网页 | 原文/结构化内容可用；媒介明确为 Web；风格可在进入 route 后通过选择 stage 确定 | [`routes/generate-web.md`](routes/generate-web.md) | 可独立打开的单文件 HTML；需要离线交付时再生成 bundle |
 | **Generate PPT** | 要求 16:9 PPT、演示文稿或幻灯片页面 | 原文/结构化内容可用；媒介明确为 PPT；风格可在进入 route 后通过选择 stage 确定 | [`routes/generate-ppt.md`](routes/generate-ppt.md) | 16:9 演示文稿 HTML/PPT 交付物，保留结论、关键指标和出处 |
-| **Extend Style Pack** | 明确新增、修改或注册视觉风格包 | 已确认风格目录与完整扩展需求 | [`template-extension-guide.md`](template-extension-guide.md) | 通过校验并注册的完整风格包 |
+| **Extend Style Pack** | 明确新增、修改或注册视觉风格包 | 已确认风格目录与完整扩展需求 | [`routes/extend-style-pack.md`](routes/extend-style-pack.md) | 通过校验并注册的完整风格包 |
 
 只想查看或选择风格时，进入现有的风格选择 stage，不生成产物，也不把复制选择文本当作生成完成。相关行为仍由 [`SKILL.md`](../SKILL.md) 的第一步和 [`style-gallery.html`](style-gallery.html) 定义。
 

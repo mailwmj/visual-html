@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Summer Dopamine 全组件深度视觉审计与优化方案</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  --bg-gradient-1: #FF66B2;
+  --bg-gradient-2: #0077FF;
+  --bg-gradient-3: #00E676;
+  --bg-gradient-4: #FFEA00;
+  
+  --surface-1: rgba(255, 255, 255, 0.22);
+  --surface-2: rgba(255, 255, 255, 0.35);
+  --surface-card: rgba(255, 255, 255, 0.90);
+  --surface-card-alt: rgba(255, 255, 255, 0.96);
+  --glass-blur: blur(28px) saturate(140%);
+
+  --text-primary: #111827;
+  --text-hero: #FFFFFF;
+  --text-secondary: #374151;
+  --text-muted: #6B7280;
+  --text-inverse: #FFFFFF;
+
+  --border: rgba(255, 255, 255, 0.65);
+  --border-strong: rgba(255, 255, 255, 0.95);
+
+  --signal-pink: #FF66B2;
+  --signal-blue: #0077FF;
+  --signal-green: #00E676;
+  --signal-yellow: #FFD600;
+  --signal-orange: #FF8A00;
+
+  --shadow-glass: 0 16px 40px rgba(0, 50, 150, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+  --shadow-glass-hover: 0 24px 54px rgba(0, 50, 150, 0.2), inset 0 1px 2px rgba(255, 255, 255, 1);
+
+  --radius: 24px;
+  --radius-sm: 16px;
+  --radius-pill: 999px;
+  --container: 1200px;
+
+  --font-display: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", sans-serif;
+  --font-mono: "JetBrains Mono", Consolas, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-display);
+  color: var(--text-primary);
+  line-height: 1.65;
+  background-color: #0077FF;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  padding-bottom: 80px;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: -60px;
+  z-index: -1;
+  background: 
+    radial-gradient(circle at 10% 20%, var(--bg-gradient-1) 0%, transparent 55%),
+    radial-gradient(circle at 90% 15%, var(--bg-gradient-2) 0%, transparent 55%),
+    radial-gradient(circle at 15% 85%, var(--bg-gradient-3) 0%, transparent 55%),
+    radial-gradient(circle at 85% 90%, var(--bg-gradient-4) 0%, transparent 55%),
+    linear-gradient(135deg, #0077FF 0%, #FF66B2 100%);
+  filter: blur(50px) saturate(140%);
+  opacity: 0.95;
+  pointer-events: none;
+}
+
+.wrap {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.header-hero {
+  padding: 60px 0 36px;
+  text-align: center;
+}
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.header-hero h1 {
+  font-size: clamp(32px, 4.5vw, 46px);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.2;
+  text-shadow: 0 4px 20px rgba(0, 50, 150, 0.35);
+  margin-bottom: 12px;
+}
+.header-hero p {
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 17px;
+  max-width: 820px;
+  margin: 0 auto 28px;
+}
+
+.audit-card {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-radius: 30px;
+  padding: 36px;
+  margin-bottom: 44px;
+  box-shadow: 0 20px 50px rgba(0, 50, 150, 0.15);
+}
+.audit-head {
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1.5px dashed rgba(255, 255, 255, 0.7);
+}
+.audit-head h2 {
+  font-size: 24px;
+  font-weight: 800;
+  color: #111827;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+.badge-tag {
+  font-size: 12px;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  background: #FF66B2;
+  color: #fff;
+}
+.audit-desc {
+  font-size: 15px;
+  color: #374151;
+  line-height: 1.6;
+}
+
+.compare-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+@media (max-width: 860px) {
+  .compare-row { grid-template-columns: 1fr; }
+}
+
+.col-box {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-radius: 22px;
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  padding: 24px;
+  box-shadow: var(--shadow-glass);
+}
+.col-label {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.col-label.old { color: #dc2626; }
+.col-label.new { color: #059669; }
+
+
+/* ============================================================
+   组件 1：Blockquote 引用金句
+   ============================================================ */
+/* 旧版 */
+.quote-old {
+  border-left: 5px solid var(--signal-pink);
+  background: rgba(255, 102, 178, 0.06);
+  padding: 20px 24px;
+  border-radius: 0 14px 14px 0;
+  font-size: 16px;
+  color: var(--text-primary);
+  margin: 0;
+}
+/* 新版：果冻双引号气泡 + 20px大圆角 + 柔粉微渐变描边 */
+.quote-new {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 240, 248, 0.90) 100%);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1.5px solid rgba(255, 102, 178, 0.35);
+  border-radius: 22px;
+  padding: 24px 28px;
+  box-shadow: 0 16px 36px rgba(255, 102, 178, 0.12), inset 0 1px 2px #fff;
+}
+.quote-new::before {
+  content: "“";
+  position: absolute;
+  right: 18px;
+  bottom: -20px;
+  font-family: Georgia, serif;
+  font-size: 90px;
+  font-weight: 900;
+  line-height: 1;
+  color: #FF66B2;
+  opacity: 0.18;
+  pointer-events: none;
+}
+.quote-new p {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.7;
+  color: #111827;
+  margin: 0 0 10px;
+}
+.quote-new .author {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 800;
+  color: #e0005a;
+  text-transform: uppercase;
+}
+
+
+/* ============================================================
+   组件 2：Timeline 时间轴
+   ============================================================ */
+/* 旧版 */
+.timeline-old {
+  position: relative;
+  padding-left: 36px;
+}
+.timeline-old::before {
+  content: ""; position: absolute; left: 10px; top: 0; bottom: 0;
+  width: 4px; background: rgba(0, 119, 255, 0.3); border-radius: 2px;
+}
+.timeline-old .item { position: relative; margin-bottom: 18px; }
+.timeline-old .dot {
+  position: absolute; left: -36px; top: 2px;
+  width: 24px; height: 24px; background: var(--signal-pink);
+  border: 3px solid #FFFFFF; border-radius: 50%;
+}
+.timeline-old .card {
+  background: #FFFFFF; border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; padding: 14px 18px;
+}
+
+/* 新版：四色流光渐变轨道 + 果冻发光胶囊节点 */
+.timeline-new {
+  position: relative;
+  padding-left: 44px;
+}
+.timeline-new::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  top: 6px;
+  bottom: 6px;
+  width: 5px;
+  background: linear-gradient(180deg, #FF66B2 0%, #0077FF 35%, #00E676 70%, #FFD600 100%);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 0 12px rgba(0, 119, 255, 0.4);
+}
+.timeline-new .item {
+  position: relative;
+  margin-bottom: 20px;
+}
+.timeline-new .node-pill {
+  position: absolute;
+  left: -44px;
+  top: 4px;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #FF66B2 0%, #0077FF 100%);
+  border: 3px solid #FFFFFF;
+  border-radius: 50%;
+  box-shadow: 0 4px 14px rgba(255, 102, 178, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 900;
+}
+.timeline-new .card {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: var(--glass-blur);
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  border-radius: 18px;
+  padding: 16px 20px;
+  box-shadow: 0 10px 24px rgba(0, 50, 150, 0.08);
+}
+.timeline-new .card h4 { font-size: 16px; font-weight: 800; color: #111827; margin-bottom: 4px; }
+.timeline-new .card p { font-size: 14px; color: var(--text-secondary); margin: 0; }
+
+
+/* ============================================================
+   组件 3：Pros & Cons 优缺点对比
+   ============================================================ */
+/* 旧版 */
+.pc-old ul { list-style: none; }
+.pc-old li { padding-left: 20px; position: relative; margin-bottom: 6px; font-size: 14px; color: #374151; }
+.pc-old .pro li::before { content: "+"; position: absolute; left: 0; color: #008f44; font-weight: 900; }
+.pc-old .con li::before { content: "–"; position: absolute; left: 0; color: #c4005e; font-weight: 900; }
+
+/* 新版：晶莹徽章 + 柔光底色 + 饱满胶囊 */
+.pc-new-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 600px) { .pc-new-grid { grid-template-columns: 1fr; } }
+.pc-new-card {
+  border-radius: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+}
+.pc-new-card.pro { border: 1.5px solid rgba(0, 230, 118, 0.4); }
+.pc-new-card.con { border: 1.5px solid rgba(255, 102, 178, 0.4); }
+.pc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+.pc-new-card.pro .pc-badge { background: rgba(0, 230, 118, 0.16); color: #008f43; border: 1px solid rgba(0, 230, 118, 0.3); }
+.pc-new-card.con .pc-badge { background: rgba(255, 102, 178, 0.16); color: #e0005a; border: 1px solid rgba(255, 102, 178, 0.3); }
+.pc-new-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.pc-new-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: #1f2937;
+  font-weight: 600;
+}
+.icon-circle {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 900;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.icon-pro { background: #00E676; color: #044b24; box-shadow: 0 2px 8px rgba(0, 230, 118, 0.4); }
+.icon-con { background: #FF66B2; color: #fff; box-shadow: 0 2px 8px rgba(255, 102, 178, 0.4); }
+
+
+/* ============================================================
+   组件 4：FAQ 问答手风琴
+   ============================================================ */
+/* 旧版 */
+.faq-old-item {
+  background: #FFFFFF; border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; padding: 16px; margin-bottom: 10px;
+}
+.faq-old-item .q { font-size: 15px; font-weight: 800; margin-bottom: 6px; }
+.faq-old-item .a { font-size: 14px; color: #4b5563; }
+
+/* 新版：Q/A 胶囊高光徽标 + 柔白悬浮卡片 */
+.faq-new-item {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: var(--glass-blur);
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 20px 24px;
+  box-shadow: 0 10px 28px rgba(0, 50, 150, 0.08);
+  margin-bottom: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.faq-new-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(0, 50, 150, 0.14);
+}
+.faq-q-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.badge-q {
+  width: 26px;
+  height: 26px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #0077FF 0%, #00C6FF 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 900;
+  box-shadow: 0 4px 10px rgba(0, 119, 255, 0.3);
+  flex-shrink: 0;
+}
+.faq-q-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #111827;
+}
+.faq-a-body {
+  padding-left: 38px;
+  font-size: 14.5px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+  <header class="header-hero">
+    <div class="hero-tag">Style Health Check / 视觉健康度审计</div>
+    <h1>Summer Dopamine 风格其他组件优化建议</h1>
+    <p>深度审查 18 个共享语义组件，梳理出 4 个存在“直角粗边框残留”或“缺乏果冻/流光活力”的组件优化方案。</p>
+  </header>
+
+
+  <!-- 1. Blockquote -->
+  <section class="audit-card">
+    <div class="audit-head">
+      <h2>1. Blockquote 金句引用模块 <span class="badge-tag">高优先级</span></h2>
+      <div class="audit-desc">
+        <strong>现状问题：</strong>目前采用 <code>border-left: 5px solid</code> + <code>border-radius: 0 14px 14px 0</code>，左侧依然是 0px 生硬直角和单边粗线。<br>
+        <strong>优化方案：</strong>升级为 <strong>22px 饱满大圆角</strong> + 草莓果汁微粉透光底 + 晶莹背景双引号装饰（“）+ 柔粉发光渐变描边。
+      </div>
+    </div>
+
+    <div class="compare-row">
+      <div class="col-box">
+        <div class="col-label old">❌ 现状（单边左粗实线 + 直角）</div>
+        <blockquote class="quote-old">
+          夏日多巴胺风格通过高明度四色渐变与白透毛玻璃，将情绪张力拉满，兼顾出色的文字可读性。
+        </blockquote>
+      </div>
+
+      <div class="col-box">
+        <div class="col-label new">✅ 建议优化（果汁微光气泡 + 22px大圆角）</div>
+        <div class="quote-new">
+          <p>“夏日多巴胺风格通过高明度四色渐变与白透毛玻璃，将情绪张力拉满，兼顾出色的文字可读性。”</p>
+          <div class="author">✦ SUMMER DOPAMINE DESIGN ESSENCE</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 2. Timeline -->
+  <section class="audit-card">
+    <div class="audit-head">
+      <h2>2. Timeline 时间轴 / 演进路线 <span class="badge-tag">中优先级</span></h2>
+      <div class="audit-desc">
+        <strong>现状问题：</strong>连接轴为单调的半透明白线，节点缺少动态感，卡片圆角偏小。<br>
+        <strong>优化方案：</strong>连接轨道升级为<strong>“四色流光渐变能量轨道（粉→蓝→绿→黄）”</strong>，节点升级为带编号的果冻双色发光球。
+      </div>
+    </div>
+
+    <div class="compare-row">
+      <div class="col-box">
+        <div class="col-label old">❌ 现状（单调白线 + 普通圆点）</div>
+        <div class="timeline-old">
+          <div class="item">
+            <div class="dot"></div>
+            <div class="card">
+              <h4 style="margin-bottom:4px">2024 Q1 · 初始架构发布</h4>
+              <p style="font-size:13px; color:#666">确立三层空间解耦模型与高饱和流光背景。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-box">
+        <div class="col-label new">✅ 建议优化（四色流光能量轨道 + 果冻编号球）</div>
+        <div class="timeline-new">
+          <div class="item">
+            <div class="node-pill">01</div>
+            <div class="card">
+              <h4>2024 Q1 · 初始架构发布</h4>
+              <p>确立三层空间解耦模型与高饱和四色流光渐变背景。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 3. Pros & Cons -->
+  <section class="audit-card">
+    <div class="audit-head">
+      <h2>3. Pros & Cons 优缺点对比卡片 <span class="badge-tag">中优先级</span></h2>
+      <div class="audit-desc">
+        <strong>现状问题：</strong>列表前缀采用简单的纯文本 <code>+</code> 和 <code>–</code>，层级不够精致。<br>
+        <strong>优化方案：</strong>升级为薄荷荧绿 <code>✓</code> 和草莓元气粉 <code>✕</code> <strong>晶莹果冻圆形徽章</strong>，正文对比度与精致度大幅提升。
+      </div>
+    </div>
+
+    <div class="compare-row">
+      <div class="col-box">
+        <div class="col-label old">❌ 现状（纯文本加减号）</div>
+        <div class="pc-old">
+          <div class="pro">
+            <div style="font-size:11px;font-weight:800;color:#008f44;margin-bottom:8px">PROS / 优势</div>
+            <ul>
+              <li>高明度视觉吸引力极强</li>
+              <li>白透毛玻璃保证可读性</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-box">
+        <div class="col-label new">✅ 建议优化（多巴胺晶莹果冻徽标）</div>
+        <div class="pc-new-grid">
+          <div class="pc-new-card pro">
+            <div class="pc-badge">PROS / 核心优势</div>
+            <ul class="pc-new-list">
+              <li class="pc-new-item"><span class="icon-circle icon-pro">✓</span><span>高明度视觉吸引力极强</span></li>
+              <li class="pc-new-item"><span class="icon-circle icon-pro">✓</span><span>白透毛玻璃保证可读性</span></li>
+            </ul>
+          </div>
+          <div class="pc-new-card con">
+            <div class="pc-badge">CONS / 适用边界</div>
+            <ul class="pc-new-list">
+              <li class="pc-new-item"><span class="icon-circle icon-con">✕</span><span>不适合严谨黑白学术报告</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 4. FAQ -->
+  <section class="audit-card">
+    <div class="audit-head">
+      <h2>4. FAQ 常见问答手风琴 <span class="badge-tag">体验优化</span></h2>
+      <div class="audit-desc">
+        <strong>现状问题：</strong>仅为普通白底卡片，问答缺乏多巴胺专属色彩标记。<br>
+        <strong>优化方案：</strong>问题头部引入<strong>蔚蓝渐变立体 Q 徽章</strong>，答复区做轻量内缩排版，整体层次分明、元气明快。
+      </div>
+    </div>
+
+    <div class="compare-row">
+      <div class="col-box">
+        <div class="col-label old">❌ 现状（常规白框）</div>
+        <div class="faq-old-item">
+          <div class="q">Q: 多巴胺风格是否适合企业级长文？</div>
+          <div class="a">A: 适合。白透毛玻璃层阻断了底层色彩干扰，正文采用深墨色，确保数万字长文阅读依然清晰不刺眼。</div>
+        </div>
+      </div>
+
+      <div class="col-box">
+        <div class="col-label new">✅ 建议优化（Q 渐变立体徽标 + 层次排版）</div>
+        <div class="faq-new-item">
+          <div class="faq-q-row">
+            <span class="badge-q">Q</span>
+            <div class="faq-q-title">多巴胺风格是否适合企业级长文？</div>
+          </div>
+          <div class="faq-a-body">
+            适合。白透毛玻璃层阻断了底层色彩干扰，正文采用深墨色，确保数万字长文阅读依然清晰不刺眼。
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+</body>
+</html>
