@@ -1,8 +1,8 @@
 ---
 name: visual-html
-description: Use when the user asks to turn long-form content into a highly designed single-file Web page or 16:9 PPT, or asks to choose or apply a registered visual style pack.
+description: Use when the user asks to turn long-form content into a highly designed single-file Web page or 16:9 PPT, choose or apply a registered visual style pack, or create, extend, or register a visual style pack from written direction, images, screenshots, or PPT/PPTX references.
 metadata:
-  version: "3.0"
+  version: "3.1"
 ---
 
 # Visual HTML — 模块化视觉设计与长文本排版系统
@@ -21,7 +21,7 @@ metadata:
 - **Generate PPT**：读取 [`references/routes/generate-ppt.md`](references/routes/generate-ppt.md)。
 - **Extend Style Pack**：读取 [`references/routes/extend-style-pack.md`](references/routes/extend-style-pack.md)。
 
-风格是生成 route 内的 profile，不是新的顶层 route；画廊、离线打包和质量检查是按条件触发的 stage。路由确定后，不读取另一个媒介或生命周期的 authority；缺少前置条件时停在当前 route 并说明原因，不猜测风格、媒介或本地路径。
+风格是生成 route 内的 profile，不是新的顶层 route；画廊、离线打包和质量检查是按条件触发的 stage。顶层 route 由用户要求的**输出生命周期**决定，图片或 PPT/PPTX 作为参考输入时不决定 route：明确要求创建、扩展或注册风格包时始终进入 Extend Style Pack。路由确定后，不读取另一个媒介或生命周期的 authority。
 
 所有 Skill 路径均相对于包含本文件的目录解析。执行命令前将该目录解析为绝对路径，不以当前工作目录作为 Skill 根目录。
 
@@ -52,11 +52,11 @@ metadata:
 | **`state-governance`** | **国企政务严谨汇报风**<br>(State Governance Blue) | 纯净冷白/微浅蓝画布 + 权威深海蓝 (`#103A71`) + 工信科技蓝 (`#1A56DB`) + 标题贯穿深蓝细线 + 蓝色虚线重点框 + 三箭头推进器 + 多视角流转矩阵 | 国企/央企工作汇报、政府与公共事业规划、政企数字化方案、大型企业管理架构、全生命周期业务推演、供应链韧性策略、党政战略发布会 | [预览名片](references/styles/state-governance/preview.png)<br>`references/styles/state-governance/` |
 | **`ink-calligraphy`** | **宣纸泼墨挥毫风**<br>(Ink Calligraphy) | 古法生宣暖底 (`#F5F2EB`) + 自然飞溅墨星 + 苍劲行草大标题 + 朱砂篆刻印章 (`#C23531`) + 墨分五色阶梯 + 飞白扫墨横纹 | 中式传统文化、文人书画研报、艺术大家传记、东方美学白皮书、古典哲学出版物、泼墨意境展示 | [预览名片](references/styles/ink-calligraphy/preview.png)<br>`references/styles/ink-calligraphy/` |
 
-> 💡 **未来扩展**：新增风格只需在 `references/styles/<style_id>/` 目录下添加设计规范、脚手架、矢量源文件 `preview.svg` 与对话预览 `preview.png`，并在 `registry.json` 中注册；画廊卡片会自动生成。
+> 💡 **未来扩展**：新增、修改或注册风格包时进入 [`references/routes/extend-style-pack.md`](references/routes/extend-style-pack.md)。完整风格包通过确认与质量门后才写入 `registry.json`；画廊卡片会从注册表自动生成。
 
 ---
 
-## 2. 标准执行工作流 (Standard Workflow)
+## 2. 标准生成工作流 (Generate Workflow)
 
 ```mermaid
 flowchart LR
@@ -68,56 +68,12 @@ flowchart LR
 
 ### 第一步：意图分析与交互确认（视觉卡片推荐）
 
-本 Skill 触发后，**不要直接生成全部代码**。首先分析用户需求与偏好：
+本节只适用于 Generate Web / Generate PPT。Extend Style Pack 使用自己的提炼、确认、实现与注册生命周期，不执行本节的现有风格推荐流程。
+
+进入生成 route 后，**不要直接生成全部代码**。首先分析用户需求与偏好：
 
 1. **已明确指定**：若用户已明确指定风格（如“用浅蓝风”、“Industrial Dark”、“Play Tubular”），直接锁定对应 `style_id`。
-2. **基于图像参考（多模态设计逆向工程）**：如果用户提供了一张**设计参考图**，请先执行解构分析：
-   - 提取全局底色（背景）。
-   - 提取核心信号色（品牌色、高光色、渐变色）。
-   - 提取形状特征（圆角大小、卡片阴影质感、3D或扁平）。
-   - 提取排版特征（字重、留白、边框风格）。
-   - **完成分析后，严格遵守“Clean Room Design”法则，不要继承旧模板，直接从 `references/_base-scaffold-web.html` 读取基座并在其上编写全新 CSS**，以防止硬编码污染。
-3. **智能推荐机制（输出 3～5 款设计风格）**：
-   - 当用户提供了长文或排版需求但未锁定风格，或者意图较为宽泛时，分析文本特征并挑选 **最契合的 3～5 套风格**。
-   - **对话内嵌视觉预览（强制）**：在同一条推荐回复中，用 Markdown 图片直接展示每个候选风格的 `preview.png`，然后再给出文字说明。用户必须能在对话流中看见实际色彩、构图和组件质感后再选择。
-     - 从当前 `SKILL.md` 所在目录解析每个候选的绝对路径：`references/styles/<style_id>/preview.png`。
-     - 使用绝对本地路径的 Markdown 图片语法，路径含空格时包裹在尖括号内：`![<style_id> 风格预览](</绝对路径/references/styles/<style_id>/preview.png>)`。
-     - **不得**改用 `preview.svg`、`file://` 链接、相对路径、纯文字卡片、Artifact 或浏览器画廊来替代该图片。画廊只能作为查看全部风格的补充入口。
-     - 仅当当前客户端明确无法显示本地 Markdown 图片时，才降级为文字卡片和画廊链接；需明确说明“当前客户端无法内嵌本地预览”，不能假称已经展示预览。
-   - **每项说明**：每张预览图下保留风格名称、`style_id`、一句视觉基因和一句推荐理由，便于用户依据预览与场景共同决策：
-     ```markdown
-     ### 1. 玩味极客彩管风 (`play-tubular`)
-     ![玩味极客彩管风预览](</绝对路径/references/styles/play-tubular/preview.png>)
-     - **视觉基因**：浅暖米白点阵画布 + 3D 渐变立体彩管 + 半调网点光影。
-     - **推荐理由**：适合 AI/LLM 架构与技术白皮书，兼顾工程感与活力。
-| **`state-governance`** | **国企政务严谨汇报风**<br>(State Governance Blue) | 纯净冷白/微浅蓝画布 + 权威深海蓝 (`#103A71`) + 工信科技蓝 (`#1A56DB`) + 标题贯穿深蓝细线 + 蓝色虚线重点框 + 三箭头推进器 + 多视角流转矩阵 | 国企/央企工作汇报、政府与公共事业规划、政企数字化方案、大型企业管理架构、全生命周期业务推演、供应链韧性策略、党政战略发布会 | [预览名片](references/styles/state-governance/preview.png)<br>`references/styles/state-governance/` |
-| **`ink-calligraphy`** | **宣纸泼墨挥毫风**<br>(Ink Calligraphy) | 古法生宣暖底 (`#F5F2EB`) + 自然飞溅墨星 + 苍劲行草大标题 + 朱砂篆刻印章 (`#C23531`) + 墨分五色阶梯 + 飞白扫墨横纹 | 中式传统文化、文人书画研报、艺术大家传记、东方美学白皮书、古典哲学出版物、泼墨意境展示 | [预览名片](references/styles/ink-calligraphy/preview.png)<br>`references/styles/ink-calligraphy/` |
-
-> 💡 **未来扩展**：新增风格只需在 `references/styles/<style_id>/` 目录下添加设计规范、脚手架、矢量源文件 `preview.svg` 与对话预览 `preview.png`，并同步在 `style-gallery.html` 与本表中注册即可。
-
----
-
-## 3. 标准执行工作流 (Standard Workflow)
-
-```mermaid
-flowchart LR
-    A["1. 意图分析与匹配"] --> B["2. 对话内嵌视觉预览并确认风格"]
-    B --> C["3. 按需读取专属规范与模版"]
-    C --> D["4. 结构化代码生成"]
-    D --> E["5. 双层质量清单验收"]
-```
-
-### 第一步：意图分析与交互确认（视觉卡片推荐）
-
-本 Skill 触发后，**不要直接生成全部代码**。首先分析用户需求与偏好：
-
-1. **已明确指定**：若用户已明确指定风格（如“用浅蓝风”、“Industrial Dark”、“Play Tubular”），直接锁定对应 `style_id`。
-2. **基于图像参考（多模态设计逆向工程）**：如果用户提供了一张**设计参考图**，请先执行解构分析：
-   - 提取全局底色（背景）。
-   - 提取核心信号色（品牌色、高光色、渐变色）。
-   - 提取形状特征（圆角大小、卡片阴影质感、3D或扁平）。
-   - 提取排版特征（字重、留白、边框风格）。
-   - **完成分析后，严格遵守“Clean Room Design”法则，不要继承旧模板，直接从 `references/_base-scaffold-web.html` 读取基座并在其上编写全新 CSS**，以防止硬编码污染。
+2. **基于参考材料的单次生成**：若用户只要求当前 Web/PPT 参考图片、截图或 PPT/PPTX 的视觉方向，默认采用 `Inspiration` 模式，提取可迁移的色彩角色、排版气质、空间节奏、形状、材质和图形语言；不得复制原文、Logo、品牌资产、专有插画、逐页坐标或一次性构图。Web 自由设计从 `references/_base-scaffold-web.html` 建立洁净结构；PPT 遵循 Generate PPT route 的 16:9 契约。若用户明确要求创建、扩展或注册可复用风格包，不执行本分支，改走 Extend Style Pack。
 3. **智能推荐机制（输出 3～5 款设计风格）**：
    - 当用户提供了长文或排版需求但未锁定风格，或者意图较为宽泛时，分析文本特征并挑选 **最契合的 3～5 套风格**。
    - **对话内嵌视觉预览（强制）**：在同一条推荐回复中，用 Markdown 图片直接展示每个候选风格的 `preview.png`，然后再给出文字说明。用户必须能在对话流中看见实际色彩、构图和组件质感后再选择。
@@ -218,7 +174,7 @@ flowchart LR
 
 ---
 
-## 4. Route-specific execution
+## 3. Route-specific execution
 
 媒介和生命周期的具体执行规则已移到 route authority，避免入口在一次任务中加载无关分支：
 

@@ -115,58 +115,68 @@ def validate_svg_file(filepath):
     return issues
 
 def main():
-    parser = argparse.ArgumentParser(description='Validate all registered Visual HTML preview cards.')
+    parser = argparse.ArgumentParser(description='Validate registered Visual HTML previews or one unregistered style draft.')
     parser.add_argument('--project-root', type=Path, help='repository root; defaults to the script parent')
+    parser.add_argument('--style-dir', type=Path, help='validate one style directory without requiring registry membership')
     args = parser.parse_args()
 
     project_root = (args.project_root or Path(__file__).resolve().parents[2]).resolve()
     styles_root = project_root / 'references' / 'styles'
-    registry_path = styles_root / 'registry.json'
     setup_issues = []
-    entries = []
-    if registry_path.is_file():
-        try:
-            payload = json.loads(registry_path.read_text(encoding='utf-8'))
-            entries = payload.get('styles', [])
-            if not isinstance(entries, list) or not entries:
-                setup_issues.append(f'Invalid or empty style registry: {registry_path}')
-        except Exception as error:
-            setup_issues.append(f'Cannot read style registry {registry_path}: {error}')
-    else:
-        setup_issues.append(f'Missing style registry: {registry_path}')
+    preview_files = []
 
-    svg_files = []
-    png_files = []
-    if entries:
-        for entry in entries:
-            style_id = entry.get('id') if isinstance(entry, dict) else None
-            style_dir = entry.get('dir') if isinstance(entry, dict) else None
-            if not style_id or not style_dir:
-                setup_issues.append(f'Invalid registry entry: {entry!r}')
-                continue
-            svg_path = styles_root / style_dir / 'preview.svg'
-            png_path = styles_root / style_dir / 'preview.png'
-            svg_files.append((style_id, svg_path))
-            png_files.append((style_id, png_path))
-            if not svg_path.is_file():
-                setup_issues.append(f'{style_id}: missing {svg_path}')
-            if not png_path.is_file():
-                setup_issues.append(f'{style_id}: missing {png_path}')
+    if args.style_dir:
+        style_path = args.style_dir.resolve()
+        style_id = style_path.name
+        svg_path = style_path / 'preview.svg'
+        png_path = style_path / 'preview.png'
+        preview_files.append((style_id, svg_path, png_path))
+        if not style_path.is_dir():
+            setup_issues.append(f'{style_id}: missing style directory {style_path}')
+        if not svg_path.is_file():
+            setup_issues.append(f'{style_id}: missing {svg_path}')
+        if not png_path.is_file():
+            setup_issues.append(f'{style_id}: missing {png_path}')
     else:
-        setup_issues.append('No preview files selected; refusing to treat an empty set as success.')
+        registry_path = styles_root / 'registry.json'
+        entries = []
+        if registry_path.is_file():
+            try:
+                payload = json.loads(registry_path.read_text(encoding='utf-8'))
+                entries = payload.get('styles', [])
+                if not isinstance(entries, list) or not entries:
+                    setup_issues.append(f'Invalid or empty style registry: {registry_path}')
+            except Exception as error:
+                setup_issues.append(f'Cannot read style registry {registry_path}: {error}')
+        else:
+            setup_issues.append(f'Missing style registry: {registry_path}')
 
-    print(f"=== Validating {len(svg_files)} Style Preview Cards ===")
+        if entries:
+            for entry in entries:
+                style_id = entry.get('id') if isinstance(entry, dict) else None
+                style_dir = entry.get('dir') if isinstance(entry, dict) else None
+                if not style_id or not style_dir:
+                    setup_issues.append(f'Invalid registry entry: {entry!r}')
+                    continue
+                svg_path = styles_root / style_dir / 'preview.svg'
+                png_path = styles_root / style_dir / 'preview.png'
+                preview_files.append((style_id, svg_path, png_path))
+                if not svg_path.is_file():
+                    setup_issues.append(f'{style_id}: missing {svg_path}')
+                if not png_path.is_file():
+                    setup_issues.append(f'{style_id}: missing {png_path}')
+        else:
+            setup_issues.append('No preview files selected; refusing to treat an empty set as success.')
+
+    print(f"=== Validating {len(preview_files)} Style Preview Cards ===")
     failed = len(setup_issues)
     for issue in setup_issues:
         print(f"❌ [SETUP] {issue}")
 
-    for style_id, svg in svg_files:
+    for style_id, svg, png in preview_files:
         if not svg.is_file():
             continue
         issues = validate_svg_file(svg)
-        png = project_root / 'references' / 'styles' / next(
-            entry['dir'] for entry in entries if entry.get('id') == style_id
-        ) / 'preview.png'
         try:
             width, height = png_size(png)
             if (width, height) != (800, 480):
@@ -181,11 +191,11 @@ def main():
         else:
             print(f"✅ [PASS] {svg}")
 
-    if not svg_files:
+    if not preview_files:
         print("\n⚠️ No preview cards were found; validation failed.")
         sys.exit(1)
     if failed == 0:
-        print(f"\n🎉 All {len(svg_files)} preview cards passed 4-tier grid validation!")
+        print(f"\n🎉 All {len(preview_files)} preview cards passed 4-tier grid validation!")
         sys.exit(0)
     else:
         print(f"\n⚠️ {failed} files failed validation.")

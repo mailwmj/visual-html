@@ -6,16 +6,17 @@
 
 - 已有长文本或可转换为长文结构的用户内容。
 - 输出媒介已确定为 Web；若同时要求 Web 和 PPT，先询问一个媒介区分问题。
-- 风格已明确时锁定一个 `style_id`；风格未明确时，先运行现有风格选择 stage，再读取目标风格文件。用户也可以明确选择自由设计或参考图逆向。
+- 风格已明确时锁定一个 `style_id`；风格未明确时，先运行现有风格选择 stage，再读取目标风格文件。用户也可以明确选择自由设计或参考材料启发的单次生成；若用户要求创建或注册可复用风格包，应返回路由层进入 Extend Style Pack。
 
 ## 加载集合
 
-1. 读取目标风格的 `design.md`。
-2. 读取目标风格的 `scaffold-web.html`。
-3. 需要共享 DOM 语义时读取 [`shared-components.md`](../shared-components.md)。
-4. 只有在离线交付或 Mermaid fallback 被触发时，读取并运行 [`scripts/bundle_offline.py`](../scripts/bundle_offline.py)。
+根据已确定的 style profile 选择**恰好一个**加载分支：
 
-不要读取目标 PPT 脚手架或其他风格的设计规范。
+- **已注册风格**：读取目标 `style_id` 的 `design.md` 和 `scaffold-web.html`；不要读取目标 PPT 脚手架或其他风格规范。
+- **参考材料单次生成**：读取 [`_base-scaffold-web.html`](../_base-scaffold-web.html) 建立洁净结构，不读取任何已注册风格 scaffold；根据 `SKILL.md` 的 Inspiration 边界只转译可迁移视觉规律。
+- **自由设计**：读取 [`_base-scaffold-web.html`](../_base-scaffold-web.html)，按原文语义和本 route 约束建立新视觉系统，不读取无关风格包。
+
+需要共享 DOM 语义时读取 [`shared-components.md`](../shared-components.md)。只有离线交付或 Mermaid fallback 被触发时，读取并运行 [`scripts/bundle_offline.py`](../scripts/bundle_offline.py)。
 
 ## 生成契约
 

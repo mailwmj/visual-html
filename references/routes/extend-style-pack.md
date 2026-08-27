@@ -1,4 +1,130 @@
-# Visual HTML — 模板扩展与设计规范指南 (Template Extension Guide)
+# Extend Style Pack Route
+
+本文件是创建、修改、扩展和注册 Visual HTML 风格包的运行时 authority。它同时定义生命周期与最终风格包契约；参考材料的详细提炼方法按条件加载 [`../style-reference-extraction.md`](../style-reference-extraction.md)。
+
+## 0. 路由边界与加载集合
+
+- 用户要求的最终结果是可复用风格包时进入本 route。图片、截图或 PPT/PPTX 是输入材料，不决定输出媒介。
+- 用户只要求当前 Web/PPT 参考某种视觉方向时，不进入本 route，使用对应 Generate route 的单次参考 profile。
+- 创建新风格时读取本文件；只有存在参考材料时再读取 `style-reference-extraction.md`。
+- Style Brief 获得确认或用户明确授权跳过确认后，读取 [`../shared-components.md`](../shared-components.md)、[`../_base-scaffold-web.html`](../_base-scaffold-web.html) 和共享 [`../ppt-output-contract.md`](../ppt-output-contract.md)。不得为了实现双媒介 scaffold 而加载另一个顶层 route authority。
+- 修改已有风格时，确认 `style_id` 后只额外读取该风格的 `design.md`、目标 scaffold 和直接相关资源，不读取其他风格实现来拼贴样式。
+
+默认参考模式是 `Inspiration`：目标是创造与参考材料属于同一视觉家族的独立设计系统，而非逐像素、逐页或逐构图复刻。只有用户明确要求高保真适配时才提高参考强度。
+
+## 1. 生命周期与状态门
+
+| Stage | 核心产物 | 允许进入下一阶段的条件 |
+|---|---|---|
+| 1. Intake | 请求类型、参考输入、范围和拟议元数据 | 已确定创建/修改/注册意图与参考模式 |
+| 2. Reference Extraction | Style Brief 草案 | 观察、推演、未知和排除项可区分 |
+| 3. Brief Confirmation | 已确认 Style Brief | 用户确认或明确授权跳过此确认门 |
+| 4. Style Architecture | Core Visual DNA 与双媒介转译规则 | 风格规则可脱离参考内容独立成立 |
+| 5. Representative Proofs | Web 代表区块与 PPT 代表页 | 小样覆盖主要视觉基因和常见内容类型 |
+| 6. Visual Confirmation | 已确认视觉方向 | 用户确认或明确授权跳过此确认门 |
+| 7. Full Package | 完整风格目录 | 五类必需文件和双媒介契约齐备 |
+| 8. Quality Gate | 结构、运行、视觉和泛化证据 | 所有适用检查通过，无未声明重大风险 |
+| 9. Registration | Registry 与人类可读目录更新 | 仅在 Stage 8 通过后执行 |
+
+状态必须单向推进：`brief-draft → brief-approved → proof-approved → package-built → validated → registered`。不得先写入 `registry.json` 再补设计文件、确认或视觉验收。
+
+## 2. 分阶段执行契约
+
+### Stage 1 — Intake
+
+1. 判断是新建、修改已有风格，还是仅补齐未注册目录。
+2. 记录参考输入：文字方向、图片/截图、PPT/PPTX，或它们的组合。
+3. 默认采用 `Inspiration`；用户已经说“仅供参考”“不必一致”时，不重复询问相似度。
+4. 收集用户明确要求保留或排除的视觉元素。Logo、真实文案、人物、照片、专有插画、专有字体和一次性构图默认不进入风格包。
+5. 名称、`style_id` 和类别缺失时可以提出合理候选；在展示 Brief 前只读取 `registry.json` 的 ID/元数据，确认 `style_id` 使用小写连字符且未重复。此时不读取现有 scaffold，避免风格提炼被既有实现锚定。
+6. 保持现有双媒介契约：注册风格包默认同时包含 Web 与 PPT scaffold。用户明确要求改变该能力边界时，先说明这会改变当前 registry 契约。
+
+### Stage 2 — Reference Extraction
+
+存在参考材料时完整读取并执行 [`../style-reference-extraction.md`](../style-reference-extraction.md)。
+
+- 单图只能证明当前画面的可见规律；响应式、动效、复杂组件和其他页面类型必须标记为 `Inferred` 或 `Unknown`。
+- PPT/PPTX 必须检查整套页面、主题、母版和重复版式。优先使用环境中的演示文稿读取/渲染能力生成全页联系表，并区分跨页规律与单页特例；不得只看封面或第一页。
+- 多个参考相互冲突时，分别记录证据和冲突，不自行混成一个无依据的折中风格。
+- 此阶段只产出 Style Brief，不创建正式风格目录、完整 scaffold、preview 或 registry 记录。
+
+没有视觉附件时，根据用户的文字方向生成同结构的 Style Brief，并将无法从材料观察的结论标记为 `Inferred`。
+
+### Stage 3 — Style Brief Confirmation
+
+向用户展示精简确认摘要：
+
+- 一句 Style Essence。
+- 3–6 个 Core Visual DNA。
+- `Preserve / Adapt / Exclude / Unknown`。
+- 关键推演与置信度。
+- 拟议名称、`style_id` 和类别。
+
+用户确认后才进入完整实现。若用户在请求中明确授权自主完成或跳过中间确认，可以继续，但仍必须保留 Style Brief 和参考边界，不能把“无需确认”解释为“允许复刻”。
+
+### Stage 4 — Style Architecture
+
+将已确认 Style Brief 转换为媒介无关的设计系统：
+
+1. `Core Visual DNA`：Web/PPT 共享的颜色角色、字体气质、形状、材质、密度与标志性图形语法。
+2. `Web Adaptation`：长文流、响应式网格、环境层、承托层、交互和移动端降级。
+3. `PPT Adaptation`：16:9 安全区、封面/章节/正文/数据/对比等页型、投影可读性、翻页、全屏和打印。
+4. `Reference Boundary`：原始内容和资产不进入模板；推演出的规则必须可以解释且可被新内容复用。
+
+完成洁净提炼后才与 `registry.json` 中的现有风格摘要比较。若新方向与现有风格高度重合，说明差异并判断应修改已有风格还是建立新 `style_id`；不得先读某个既有 scaffold 再反向套到参考材料上。
+
+### Stage 5 — Representative Proofs
+
+在扩展完整组件前制作低成本方向小样：
+
+- Web：至少包含 Hero、长正文和一个数据/比较类组件的代表区块，并展示桌面与移动端行为。
+- PPT：至少包含封面页、正文页和数据页，固定为 16:9。
+- 使用与参考材料主题无关的示例内容，验证风格可以泛化，而不是只适配原图或原 PPT。
+- 小样只验证方向，不要求此时完成 18 个语义组件，也不得提前注册。
+
+### Stage 6 — Visual Confirmation
+
+确认以下四点后再扩展完整风格包：
+
+1. 小样与参考材料属于同一视觉家族，但没有逐页或逐构图复刻。
+2. Web 与 PPT 共享 Core Visual DNA，同时各自符合媒介规律。
+3. 字体气质、色彩比例、密度、材质和装饰强度符合预期。
+4. 替换为无关内容后，视觉语言仍稳定且可读。
+
+用户明确授权跳过此确认门时可以继续，但 Stage 8 仍必须执行视觉 QA，不得以自动化脚本代替视觉判断。
+
+### Stage 7 — Full Package Generation
+
+按本文第 4 节实现完整 `design.md`、Web/PPT scaffold 和 preview。Web scaffold 用 18 项语义组件验证覆盖能力；实际生成页面仍按原文结构按需选用。不得从参考材料或其他风格包复制整页 DOM/CSS 后换色冒充新风格。
+
+### Stage 8 — Quality Gate
+
+质量门包含四层，任何一层都不能由另一个层次替代：
+
+1. **结构检查**：必需文件、`design.md` 模块、Web 18 组件、PPT 页型和拟议 registry 元数据完整。
+2. **运行检查**：Web 响应式与离线资源可用；PPT 满足 16:9、键盘翻页、全屏、打印和安全边距。
+3. **视觉检查**：渲染桌面/移动 Web 与 PPT 代表页，检查文字溢出、遮挡、对比度、资源缺失和视觉层级。
+4. **泛化与参考边界**：使用无关内容验证可复用性，并检查未带入原文、Logo、品牌资产、专有插画或一次性构图。
+
+注册前使用 `python3 references/scripts/validate_previews.py --style-dir references/styles/<style_id>` 验证草稿 preview。`validate_registry.py` 是注册后的全局一致性检查，不能在未注册目录上提前运行。所有机械脚本都不验证 scaffold 行为、跨媒介一致性或视觉质量，因此不能单独作为完成证据。
+
+### Stage 9 — Registration
+
+只有 Stage 8 全部通过后才执行注册集成：写入 `registry.json`，同步更新 `SKILL.md` 风格概览和 `shared-components.md` Mermaid 主题表。画廊从注册表自动生成卡片，不手工向 `style-gallery.html` 添加单个风格。随后运行全局 `validate_registry.py` 与 `validate_previews.py`；任何失败都表示注册未完成，必须修正后再交付。
+
+## 3. 常见失败模式
+
+| 错误 | 正确处理 |
+|---|---|
+| 因输入是 PPT 就进入 Generate PPT | 根据最终产物路由；创建风格包始终进入 Extend |
+| 把“参考”理解为复刻 | 默认 Inspiration，提炼可迁移规则并明确 Exclude |
+| 只看单图或 PPT 首页就定义完整系统 | 标记未知；PPT 检查跨页重复规律和母版/主题 |
+| 先生成 18 组件再让用户看方向 | 先确认 Style Brief 和代表性小样 |
+| Web CSS 直接缩放成 PPT | 共享 Core DNA，分别定义 Web/PPT Adaptation |
+| 在注册前运行只支持全局 registry 的校验 | Stage 8 用单目录 preview 与本地检查；Stage 9 集成后跑全局校验 |
+| 两个 validator 通过就宣布完成 | 机械校验之外还要完成运行、视觉和泛化检查 |
+
+## 4. 风格包实现规范
 
 > **核心哲学：双轨制设计架构（Dual-Track Design Architecture）**
 > 1. **统一的是信息语义能力（Shared Semantic DNA）**：所有风格共享一套 18 个语义组件（Hero, Stats, Admonition, Flowchart, Timeline, FAQ 等）。创建新风格时，脚手架必须按标准 5 阶段顺序完整展示这些组件，以验证风格覆盖能力；实际页面生成则保留原文结构，按内容语义选用组件，不要求固定阶段、顺序或组件组合。Quick Nav/Progress 是可选增强。
@@ -6,7 +132,7 @@
 
 ---
 
-## 1. 风格空间纵深架构与四大形态原型 (Architectural Archetypes)
+### 4.1 风格空间纵深架构与四大形态原型 (Architectural Archetypes)
 
 “三层画布架构”是**空间关系与职责解耦的认知模型**，而非千篇一律的固定模具。它赋予新风格 100% 的创意自由，新风格可以根据美学诉求自由选择以下 4 大空间形态之一：
 
@@ -38,19 +164,19 @@
 
 ---
 
-## 2. 模板目录标准结构
+### 4.2 模板目录标准结构
 
 在 `references/styles/` 下创建以风格命名的子目录（小写中划线，如 `references/styles/cyber-bento/`）。该目录下必须包含：
 
-1. **`design.md`**：该风格的完整设计语言规范，必须严格遵循本文第 4 节的标准架构，包含不可剥离的 **“风格自有布局契约（Style-Owned Layout Contract）”**。
+1. **`design.md`**：该风格的完整设计语言规范，必须严格遵循本文第 4.4 节的标准架构，包含不可剥离的 **“风格自有布局契约（Style-Owned Layout Contract）”**。
 2. **`scaffold-web.html`**：该风格的 Web 单文件全组件脚手架，必须按标准 5 阶段顺序完整展示空间架构与 18 个语义组件，以验证风格覆盖能力；实际交付按原文语义选用，不要求全量出现。
-3. **`scaffold-ppt.html`**：该风格的 16:9 演示文稿脚手架。
+3. **`scaffold-ppt.html`**：该风格的 16:9 演示文稿脚手架，必须满足共享 [`../ppt-output-contract.md`](../ppt-output-contract.md) 的舞台、翻页、全屏和打印契约。
 4. **`preview.svg`**：该风格专属的 `400×240` 严格 4 层隔离坐标系矢量源文件。
 5. **`preview.png`**：由 `preview.svg` 导出的 `800×480` 高清位图，用于对话卡片内嵌预览与画廊展示。
 
 ---
 
-## 3. 脚手架构建与防退化法则 (Anti-Degradation Rules)
+### 4.3 脚手架构建与防退化法则 (Anti-Degradation Rules)
 
 创建新风格脚手架时，必须遵循以下铁律：
 
@@ -64,13 +190,14 @@
 
 ---
 
-## 4. 制定核心 Design 规范 (design.md 必须包含的标准模块)
+### 4.4 制定核心 Design 规范 (design.md 必须包含的标准模块)
 
 编写新风格的 `design.md` 时，必须严格遵循以下结构，绝不允许敷衍简写或缺失关键具象代码：
 
 ### 1. `## 1. Visual Theme & Atmosphere` (视觉哲学与空间维度)
 - 核心设计哲学、空间隐喻、情绪基调。
 - 详细说明所选取的空间形态原型（浮动展台 / 直铺沉浸 / 分栏便当 / 瑞士杂志）。
+- 记录经确认的 3–6 个 Core Visual DNA，以及参考驱动风格的 `Preserve / Adapt / Exclude` 边界；规范不得依赖原始文案或资产才能成立。
 
 ### 2. `## 2. Color Palette & Tokens` (色彩体系与专属色谱)
 - 核心界面色表（Canvas, Surface, Text, Border）。
@@ -80,7 +207,7 @@
 ### 3. `## 3. Style-Owned Layout Contract` (风格自有布局契约)
 - **必须提供可直接执行的顶层结构说明与 HTML/SVG/CSS 示例**，或明确声明采用 `Direct Flow` / 无环境层等无额外容器结构。
 - 若风格使用 Layer 0 环境层或 Layer 1 顶层容器，给出完整代码；若不使用，也必须明确声明，避免生成时被通用模板补入画板或背景。
-- 明确标注：任何基于此风格生成的网页应遵循该风格声明的结构；只有该风格明确要求时才内嵌特定骨架。
+- 分别声明 `Web Adaptation` 与 `PPT Adaptation`：二者共享 Core Visual DNA，但空间结构、密度、响应式和固定 16:9 页型按媒介实现，不做机械缩放。
 
 ### 4. `## 4. Typography Scale & Rules` (排版规范与全字阶量化表)
 - 字体栈规范（Display / Serif / Sans / Mono）。
@@ -90,6 +217,7 @@
 ### 5. `## 5. Signature Component Patterns` (核心特征组件规范与具象 DOM)
 - 给出 3~5 个最具风格辨识度的真实组件 HTML/CSS 代码片段（如带渐变单位的数据卡片、带顶部悬浮彩条的数字卡片、扇形微倾便签、专属时间轴胶囊、特色提示框等）。
 - **必须包含具象的内联/类名样式**，避免 AI 在生成时发生“抽象塌陷”。
+- 组件必须重新构图并可承载无关内容，不得复用参考材料的原始文案、Logo、插画或单页几何。
 
 ### 6. `## 6. Do's and Don'ts` (7 项金律与 7 项严禁红线)
 - **7 项核心金律 (Do's)**：必须做到的标志性手法（如必须保留专属空间骨架、必须使用专属动效、必须保持高清晰度正文等）。
@@ -97,7 +225,7 @@
 
 ---
 
-## 5. 绘制专属微缩视觉名片 (preview.svg + preview.png)
+### 4.5 绘制专属微缩视觉名片 (preview.svg + preview.png)
 
 为确保用户在对话流中直观感知风格的真实质感，必须严格遵循 **4 层隔离坐标系（400 × 240）**：
 
@@ -134,7 +262,7 @@
 ```bash
 python3 references/scripts/validate_previews.py
 ```
-验证脚本已内置 AST 结构检查、坐标范围校验、标题与卡片安全间距检查、PNG 尺寸检查以及“圆角卡片未裁切顶条”反模式检测；注册前还必须运行 `python3 references/scripts/validate_registry.py`，只有两项都通过时才允许并网。
+验证脚本已内置 AST 结构检查、坐标范围校验、标题与卡片安全间距检查、PNG 尺寸检查以及“圆角卡片未裁切顶条”反模式检测。注册前使用 `python3 references/scripts/validate_previews.py --style-dir references/styles/<style_id>` 检查草稿；完成注册集成后再运行全局 `validate_registry.py` 与 `validate_previews.py`。机械脚本不能替代浏览器渲染、PPT 行为、视觉一致性和泛化检查。
 
 ### 离线资源契约
 
@@ -145,7 +273,9 @@ python3 references/scripts/validate_previews.py
 
 ---
 
-## 6. 最终并网注册 (Final Registration)
+## 5. 最终并网注册 (Final Registration)
 
-1. **注册表登记**：在 `references/styles/registry.json` 中添加新风格的 `id`、名称、目录和分类。画廊会在运行时从该注册表自动生成卡片、预览链接和“使用此风格”的复制内容；不得手工修改 `references/style-gallery.html` 添加风格。
-2. **人类可读目录**：如需更新 `SKILL.md` 的风格概览表，可单独维护说明文字；该表不是画廊运行时注册来源。
+1. **注册前提**：Style Brief 与代表性小样已确认（或用户明确授权跳过确认），完整风格包已经通过 Stage 8 的四层质量门和单目录 preview 校验。
+2. **注册集成**：在 `references/styles/registry.json` 中添加新风格的 `id`、名称、目录和分类，并同步更新 `SKILL.md` 风格概览与 `shared-components.md` Mermaid 主题表；当前全局 validator 要求三者 ID 集合一致。
+3. **画廊来源**：画廊从注册表自动生成卡片、预览链接和“使用此风格”的复制内容；不得手工修改 `references/style-gallery.html` 添加单个风格。
+4. **全局复验**：运行 `validate_registry.py` 与不带 `--style-dir` 的 `validate_previews.py`。只有两项通过且 Stage 8 的视觉证据仍成立时，注册才完成。

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pixel Crystal 便签与流程图 (Admonitions & Flowchart) 专项重构比稿</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  /* 油画布基座与承托画板 */
+  --bg: #FDF8F7;
+  --bg-plate: rgba(255, 253, 252, 0.75);
+  --bg-card: rgba(255, 255, 255, 0.75);
+
+  /* 高级熟褐艺术墨色 */
+  --text-primary: #3C2836;    /* 熟褐暗茜草色 */
+  --text-secondary: #6B4F60;  /* 烟粉紫灰 */
+  --text-muted: #9C7C8E;      /* 灰粉紫等宽 */
+
+  /* 莫奈油画复调多停点渐变 */
+  --grad-oil-crystal: linear-gradient(135deg, #F2A7B8 0%, #E8B4D9 22%, #C5B9E8 45%, #B8E2DC 70%, #E4E8B0 88%, #F7D6B8 100%);
+  --grad-peach-sunset: linear-gradient(135deg, #E65C84 0%, #C24368 45%, #8C2244 100%);
+
+  --oil-peach: #F2A7B8;
+  --oil-wisteria: #C5B9E8;
+  --oil-pistachio: #D4E8B8;
+  --oil-sky: #B8E2DC;
+
+  --border: rgba(230, 195, 205, 0.55);
+  --shadow-sheet: 0 24px 64px rgba(194, 89, 117, 0.08), 0 4px 20px rgba(142, 74, 92, 0.04);
+  --shadow-card: inset 0 1.5px 0 rgba(255, 255, 255, 0.95), 0 10px 28px rgba(194, 89, 117, 0.06);
+
+  --font-display: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", Consolas, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background-color: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  padding: 48px 20px 140px;
+  line-height: 1.6;
+}
+
+/* Layer 0 背景与细密油画布纹 */
+.ambient-stars-bg {
+  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  pointer-events: none; z-index: 0; overflow: hidden;
+}
+.ambient-stars-bg svg { width: 100%; height: 100%; }
+
+.container {
+  position: relative; z-index: 1; max-width: 1160px; margin: 0 auto;
+  background: var(--bg-plate); backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
+  border: 1.5px solid rgba(255, 255, 255, 0.92); box-shadow: var(--shadow-sheet);
+  border-radius: 36px; padding: 48px 40px;
+}
+
+.header { text-align: center; margin-bottom: 48px; }
+.tag-badge {
+  display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 11px;
+  font-weight: 800; color: #C25975; background: rgba(242, 167, 184, 0.22); border: 1px solid var(--border);
+  padding: 4px 14px; border-radius: 999px; margin-bottom: 12px; letter-spacing: 0.1em;
+}
+.header h1 { font-size: 32px; font-weight: 900; color: var(--text-primary); margin-bottom: 12px; }
+.header p { font-size: 15px; color: var(--text-secondary); max-width: 820px; margin: 0 auto; }
+
+.section-box {
+  background: rgba(255, 255, 255, 0.60); border: 1.5px solid var(--border);
+  border-radius: 28px; padding: 32px; margin-bottom: 48px;
+  box-shadow: 0 6px 20px rgba(194, 89, 117, 0.05);
+}
+.section-box.featured {
+  border-color: rgba(216, 140, 168, 0.85);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(254, 246, 249, 0.68) 100%);
+  box-shadow: 0 16px 42px rgba(194, 89, 117, 0.10);
+}
+
+.sec-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px dashed var(--border); }
+.sec-title { font-size: 20px; font-weight: 900; color: var(--text-primary); display: flex; align-items: center; gap: 10px; }
+.bold-tag { background: #C25975; color: #fff; font-size: 11px; font-weight: 800; padding: 3px 12px; border-radius: 999px; font-family: var(--font-mono); }
+.sec-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 24px; }
+
+
+/* ============================================================
+   组件 1：Admonition 便签优化
+   ============================================================ */
+
+/* 现状：药丸大标签 + 单调浅色块（违和） */
+.adm-old {
+  border-radius: 18px; padding: 18px 22px; margin-bottom: 16px;
+  border: 1.5px solid;
+}
+.adm-old.info { background: rgba(254, 243, 246, 0.85); border-color: rgba(242, 167, 184, 0.55); }
+.adm-old.warn { background: rgba(254, 249, 235, 0.85); border-color: rgba(228, 200, 140, 0.65); }
+.adm-old-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.adm-old-badge {
+  font-family: var(--font-mono); font-size: 10px; font-weight: 800; padding: 3px 10px; border-radius: 999px;
+  background: rgba(242, 167, 184, 0.28); color: #B84A68; border: 1px solid rgba(242, 167, 184, 0.45);
+}
+.adm-old-title { font-size: 14.5px; font-weight: 800; color: var(--text-primary); }
+.adm-old p { font-size: 13.5px; color: var(--text-secondary); margin: 0; }
+
+
+/* 方案 1-A（推荐）：【莫奈点彩艺术便笺 (Illuminated Manuscript Note)】
+   - 去掉死板的药丸大标签！
+   - 左上角为一枚小巧玲珑的 3D 琉璃点彩水钻印戳（✦ Stardust Seal）；
+   - 卡片采用珍珠母贝微透底板 + 左侧极淡莫奈复调水光微染（Peach & Wisteria Glaze Spill）；
+   - 标题优雅高贵，正文舒适通透，完美融入油画环境！
+*/
+.adm-new-a {
+  position: relative; overflow: hidden;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(254, 246, 248, 0.72) 100%);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1.5px solid rgba(242, 167, 184, 0.50);
+  border-radius: 22px; padding: 22px 26px; margin-bottom: 18px;
+  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.98), 0 8px 24px rgba(194, 89, 117, 0.05);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.adm-new-a:hover {
+  transform: translateY(-2px);
+  box-shadow: inset 0 1.5px 0 #fff, 0 14px 32px rgba(194, 89, 117, 0.10);
+}
+/* 左侧莫奈复调柔光晕染 */
+.adm-new-a.info { border-color: rgba(242, 167, 184, 0.6); }
+.adm-new-a.warn { border-color: rgba(228, 195, 140, 0.7); }
+.adm-new-a.pass { border-color: rgba(184, 222, 175, 0.7); }
+
+.adm-new-a.info::before {
+  content: ""; position: absolute; left: -20px; top: -20px; width: 120px; height: 120px;
+  background: radial-gradient(circle, rgba(242, 167, 184, 0.35) 0%, transparent 70%);
+  pointer-events: none;
+}
+.adm-new-a.warn::before {
+  content: ""; position: absolute; left: -20px; top: -20px; width: 120px; height: 120px;
+  background: radial-gradient(circle, rgba(245, 218, 140, 0.35) 0%, transparent 70%);
+  pointer-events: none;
+}
+.adm-new-a.pass::before {
+  content: ""; position: absolute; left: -20px; top: -20px; width: 120px; height: 120px;
+  background: radial-gradient(circle, rgba(184, 222, 175, 0.35) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.adm-a-head {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 8px; position: relative; z-index: 1;
+}
+.adm-a-seal {
+  width: 24px; height: 24px; border-radius: 8px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 900; color: #fff;
+  box-shadow: 0 2px 8px rgba(194, 89, 117, 0.3); flex-shrink: 0;
+}
+.adm-new-a.info .adm-a-seal {
+  background: radial-gradient(circle at 35% 30%, #FFFFFF 0%, #F2A7B8 50%, #C25975 100%);
+  color: #3C2836;
+}
+.adm-new-a.warn .adm-a-seal {
+  background: radial-gradient(circle at 35% 30%, #FFFFFF 0%, #FAD98A 50%, #B88528 100%);
+  color: #4A3308;
+}
+.adm-new-a.pass .adm-a-seal {
+  background: radial-gradient(circle at 35% 30%, #FFFFFF 0%, #D4E8B8 50%, #528A40 100%);
+  color: #1A3810;
+}
+.adm-a-tag {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 800;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.adm-new-a.info .adm-a-tag { color: #C25975; }
+.adm-new-a.warn .adm-a-tag { color: #9A7228; }
+.adm-new-a.pass .adm-a-tag { color: #4A8042; }
+
+.adm-a-title { font-size: 15px; font-weight: 800; color: var(--text-primary); }
+.adm-new-a p { font-size: 13.5px; color: var(--text-secondary); line-height: 1.65; margin: 0; position: relative; z-index: 1; }
+
+
+/* ============================================================
+   组件 2：Mermaid / 系统架构流程图 专项重构
+   ============================================================ */
+
+/* 现状：生硬原生紫色细线 + 空白大方盒（违和） */
+.mermaid-old-box {
+  background: #fff; border: 1px solid var(--border); border-radius: 16px;
+  padding: 24px; text-align: center; margin-bottom: 24px;
+}
+
+/* 方案 2-A（推荐）：【莫奈点彩艺术画框 + 琉璃晶片架构流 (Monet Prismatic Pipeline)】
+   - 容器：26px 珍珠母贝磨砂艺术展台，背景带微细布纹与浅粉冷紫藤双色星光光晕；
+   - 节点：圆角 16px 珍珠磨砂微透白盒（带 1.5px 莫奈复调渐变描边 + 悬浮阴影）；
+   - 决策菱形：3D 晶透多棱水钻折射节点；
+   - 连线：莫奈流光能量线（#D88CA8）+ 晶透微标注释。
+*/
+.mermaid-art-stage {
+  position: relative; overflow: hidden;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.94) 0%, rgba(253, 245, 248, 0.80) 100%);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  border: 1.5px solid rgba(242, 167, 184, 0.6);
+  border-radius: 28px; padding: 32px 28px;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.98), 0 16px 40px rgba(194, 89, 117, 0.08);
+}
+.mermaid-top-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px dashed rgba(230, 195, 205, 0.6);
+}
+.mermaid-title {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 800; color: #8C2244;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.mermaid-dots { display: flex; gap: 6px; }
+.m-dot { width: 8px; height: 8px; border-radius: 50%; }
+.m-dot.d1 { background: #F2A7B8; }
+.m-dot.d2 { background: #C5B9E8; }
+.m-dot.d3 { background: #B8E2DC; }
+
+/* 纯 SVG 高保真莫奈晶体流程图（彻底替换干瘪的 Mermaid 默认渲染） */
+.prismatic-flow-svg { width: 100%; height: auto; max-width: 880px; margin: 0 auto; display: block; }
+
+</style>
+</head>
+
+<body>
+
+<!-- Layer 0 背景与细密油画布纹 -->
+<div class="ambient-stars-bg" aria-hidden="true">
+  <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="pc-linen" width="20" height="20" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <rect x="0" y="0" width="20" height="20" fill="none" stroke="rgba(216, 140, 168, 0.06)" stroke-width="0.8"/>
+        <line x1="0" y1="10" x2="20" y2="10" stroke="rgba(216, 140, 168, 0.04)" stroke-width="0.5"/>
+        <line x1="10" y1="0" x2="10" y2="20" stroke="rgba(216, 140, 168, 0.04)" stroke-width="0.5"/>
+      </pattern>
+      <radialGradient id="pc-glow-1" cx="18%" cy="18%" r="48%">
+        <stop offset="0%" stop-color="#FCE7EE" stop-opacity="0.75"/>
+        <stop offset="100%" stop-color="#FDF8F7" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="pc-glow-2" cx="82%" cy="28%" r="52%">
+        <stop offset="0%" stop-color="#EBE4F7" stop-opacity="0.65"/>
+        <stop offset="100%" stop-color="#FDF8F7" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect width="100%" height="100%" fill="#FDF8F7"/>
+    <rect width="100%" height="100%" fill="url(#pc-glow-1)"/>
+    <rect width="100%" height="100%" fill="url(#pc-glow-2)"/>
+    <rect width="100%" height="100%" fill="url(#pc-linen)"/>
+  </svg>
+</div>
+
+<div class="container">
+  <div class="header">
+    <div class="tag-badge">✦ VISUAL REFINEMENT // ADMONITIONS & FLOWCHART</div>
+    <h1>便签与架构流程图专属重构比稿</h1>
+    <p>彻底解决“便签太像通用后台报错条、流程图生硬干瘪与油画风格脱节”的违和感，注入莫奈点彩与珍珠母贝琉璃质感。</p>
+  </div>
+
+  <!-- ============================================================
+       模块 1：Admonition 便签重构
+       ============================================================ -->
+  <div class="section-box featured">
+    <div class="sec-head">
+      <div class="sec-title">🌟 模块 1：Admonition 莫奈点彩手记便笺重构</div>
+      <span class="bold-tag">极力推荐 / 告别药丸后台感</span>
+    </div>
+    <div class="sec-desc">
+      <strong>重构亮点：</strong><br>
+      1. <strong>去除了生硬臃肿的药丸大标签</strong>，升级为<strong>小巧玲珑的 3D 琉璃点彩水钻印戳（✦ Stardust Seal）</strong>；<br>
+      2. <strong>去除了廉价单调的浅色纯底</strong>，升级为<strong>珍珠母贝微透底板 + 左侧莫奈晨曦柔光微染（Glaze Spill）</strong>；<br>
+      3. 标题与正文采用高雅熟褐暗茜草墨色（`#3C2836`），层级分明且舒适护眼。
+    </div>
+
+    <!-- 优化后（推荐） -->
+    <div class="adm-new-a info">
+      <div class="adm-a-head">
+        <span class="adm-a-seal">✦</span>
+        <span class="adm-a-tag">INFO // 核心结论</span>
+        <span class="adm-a-title">Clean Room 设计规范</span>
+      </div>
+      <p>在基于多模态参考图逆向生成或开发全新风格时，严禁直接继承旧模板中的硬编码样式。必须基于标准纯 HTML 基座独立声明 Design Tokens 与 CSS 规则，从物理上杜绝跨风格样式污染与视觉退化。</p>
+    </div>
+
+    <div class="adm-new-a warn">
+      <div class="adm-a-head">
+        <span class="adm-a-seal">✦</span>
+        <span class="adm-a-tag">WARN // 正文对比度保障</span>
+        <span class="adm-a-title">暗茜草墨色规范</span>
+      </div>
+      <p>在浅色油画背景下排版时，严禁使用低对比度浅粉色正文，必须采用沉稳的熟褐暗茜草色以确保阅读舒适度与可访问性。</p>
+    </div>
+
+    <div class="adm-new-a pass">
+      <div class="adm-a-head">
+        <span class="adm-a-seal">✦</span>
+        <span class="adm-a-tag">PASS // 全组件保真验收</span>
+        <span class="adm-a-title">WCAG AAA 高清标准</span>
+      </div>
+      <p>所有语义组件均通过 WCAG AAA 高对比度测试，在保证艺术美感的同时实现 100% 内容保真。</p>
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       模块 2：Mermaid / 系统架构流程图 重构
+       ============================================================ -->
+  <div class="section-box featured">
+    <div class="sec-head">
+      <div class="sec-title">🌟 模块 2：系统架构流程图 (Prismatic Pipeline) 专属重构</div>
+      <span class="bold-tag">告别单薄细线 / 注入晶透雕塑感</span>
+    </div>
+    <div class="sec-desc">
+      <strong>重构亮点：</strong><br>
+      1. <strong>告别原生 Mermaid 干瘪的单薄紫色细线与生硬方框</strong>；<br>
+      2. <strong>升级为莫奈点彩艺术画框</strong>：顶部带有等宽仪器微标与点彩圆点，背景融入油画布纹；<br>
+      3. <strong>节点全部升级为 16px 圆角珍珠母贝磨砂晶片</strong>，决策节点升级为 <strong>3D 晶透多棱水钻切面</strong>，连线升级为莫奈复调发光流线，艺术张力十足。
+    </div>
+
+    <div class="mermaid-art-stage">
+      <div class="mermaid-top-bar">
+        <div class="mermaid-title">
+          <span>✦ SYSTEM ARCHITECTURE & TOPOLOGY // 架构拓扑推演</span>
+        </div>
+        <div class="mermaid-dots">
+          <span class="m-dot d1"></span>
+          <span class="m-dot d2"></span>
+          <span class="m-dot d3"></span>
+        </div>
+      </div>
+
+      <!-- 专属莫奈晶体拓扑矢量图 -->
+      <svg class="prismatic-flow-svg" viewBox="0 0 880 180" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="p-card-shadow" x="-10%" y="-10%" width="120%" height="130%">
+            <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#C25975" flood-opacity="0.08"/>
+          </filter>
+          <linearGradient id="p-line-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#F2A7B8"/>
+            <stop offset="50%" stop-color="#C5B9E8"/>
+            <stop offset="100%" stop-color="#B8E2DC"/>
+          </linearGradient>
+        </defs>
+
+        <!-- 节点 1: Input -->
+        <g transform="translate(10, 50)">
+          <rect width="180" height="80" rx="18" fill="#FFFFFF" stroke="rgba(242, 167, 184, 0.7)" stroke-width="1.5" filter="url(#p-card-shadow)"/>
+          <text x="90" y="36" font-family="'Plus Jakarta Sans', sans-serif" font-size="13.5" font-weight="800" fill="#3C2836" text-anchor="middle">长文本 / 设计参考图</text>
+          <text x="90" y="58" font-family="'IBM Plex Mono', monospace" font-size="10.5" font-weight="700" fill="#8C2244" text-anchor="middle">01 / INPUT INGESTION</text>
+        </g>
+
+        <!-- 连线 1 -->
+        <path d="M 190 90 L 230 90" stroke="#D88CA8" stroke-width="2.5" stroke-dasharray="5 4"/>
+        <polygon points="230,86 238,90 230,94" fill="#D88CA8"/>
+
+        <!-- 节点 2: Extract -->
+        <g transform="translate(240, 50)">
+          <rect width="180" height="80" rx="18" fill="#FFFFFF" stroke="rgba(197, 185, 232, 0.7)" stroke-width="1.5" filter="url(#p-card-shadow)"/>
+          <text x="90" y="36" font-family="'Plus Jakarta Sans', sans-serif" font-size="13.5" font-weight="800" fill="#3C2836" text-anchor="middle">多模态语义解构</text>
+          <text x="90" y="58" font-family="'IBM Plex Mono', monospace" font-size="10.5" font-weight="700" fill="#684F9E" text-anchor="middle">02 / DECONSTRUCTION</text>
+        </g>
+
+        <!-- 连线 2 -->
+        <path d="M 420 90 L 460 90" stroke="#C5B9E8" stroke-width="2.5" stroke-dasharray="5 4"/>
+        <polygon points="460,86 468,90 460,94" fill="#C5B9E8"/>
+
+        <!-- 节点 3: 菱形决策水晶宝石 (Diamond Gem) -->
+        <g transform="translate(470, 30)">
+          <polygon points="60,0 120,60 60,120 0,60" fill="linear-gradient(135deg, #FFF 0%, #FAF2F4 100%)" stroke="rgba(242, 167, 184, 0.85)" stroke-width="2" filter="url(#p-card-shadow)"/>
+          <text x="60" y="54" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="900" fill="#3C2836" text-anchor="middle">图表决策</text>
+          <text x="60" y="72" font-family="'IBM Plex Mono', monospace" font-size="9.5" font-weight="800" fill="#C24368" text-anchor="middle">NATIVE / MERMAID</text>
+        </g>
+
+        <!-- 连线 3 上分支 -->
+        <path d="M 590 60 Q 640 40 680 40" fill="none" stroke="#B8E2DC" stroke-width="2"/>
+        <polygon points="680,36 688,40 680,44" fill="#B8E2DC"/>
+        <text x="635" y="32" font-family="'IBM Plex Mono', monospace" font-size="9.5" font-weight="800" fill="#356E2D">简单 3-5 步</text>
+
+        <!-- 节点 4A: 纯矢量 SVG -->
+        <g transform="translate(690, 10)">
+          <rect width="180" height="60" rx="14" fill="#FFFFFF" stroke="rgba(184, 222, 175, 0.75)" stroke-width="1.5" filter="url(#p-card-shadow)"/>
+          <text x="90" y="28" font-family="'Plus Jakarta Sans', sans-serif" font-size="12.5" font-weight="800" fill="#3C2836" text-anchor="middle">纯矢量 SVG 零依赖秒开</text>
+          <text x="90" y="46" font-family="'IBM Plex Mono', monospace" font-size="9.5" font-weight="700" fill="#356E2D" text-anchor="middle">FAST STANDALONE</text>
+        </g>
+
+        <!-- 连线 3 下分支 -->
+        <path d="M 590 120 Q 640 140 680 140" fill="none" stroke="#C5B9E8" stroke-width="2"/>
+        <polygon points="680,136 688,140 680,144" fill="#C5B9E8"/>
+        <text x="635" y="156" font-family="'IBM Plex Mono', monospace" font-size="9.5" font-weight="800" fill="#684F9E">复杂时序/拓扑</text>
+
+        <!-- 节点 4B: Mermaid 引擎 -->
+        <g transform="translate(690, 110)">
+          <rect width="180" height="60" rx="14" fill="#FFFFFF" stroke="rgba(197, 185, 232, 0.75)" stroke-width="1.5" filter="url(#p-card-shadow)"/>
+          <text x="90" y="28" font-family="'Plus Jakarta Sans', sans-serif" font-size="12.5" font-weight="800" fill="#3C2836" text-anchor="middle">Mermaid 动态变量注入</text>
+          <text x="90" y="46" font-family="'IBM Plex Mono', monospace" font-size="9.5" font-weight="700" fill="#684F9E" text-anchor="middle">DYNAMIC RUNTIME</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

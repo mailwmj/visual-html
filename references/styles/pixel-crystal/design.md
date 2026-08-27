@@ -14,7 +14,7 @@ Pixel Crystal（油画粉彩晶光风 / Monet Crystal & Iridescent DNA）从根�
 3. **Layer 1: 珍珠母贝琉璃承托画板（`<main class="main-sheet">`）**：
    - 采用温润半透的珍珠母贝琉璃材质（`rgba(255, 253, 252, 0.94)`，搭配 `backdrop-filter: blur(24px)`），边缘带有 1px 细微粉金油画微光，与背景自然融合，拒绝生硬死白大方块。
 4. **Layer 2: 琉璃粉彩磨砂具象组件（Frosted Iridescent Glass Components）**：
-   - **指标看板（`.stat-card`）**：水滴微透磨砂玻璃底板 + 顶部 3px 莫奈复调流光渐变线 + 熟桃粉霞大号数字。
+   - **指标看板（`.stat-card`）**：莫奈点彩星斑水晶棱柱台（24px 珍珠母贝磨砂底板 + 双端羽化极细流光丝 + 熟褐暗茜草大号雕刻字 + 晶透水钻微标与呼吸圆点）。
    - **特性卡片（`.num-card`）**：**晶透果球序号徽章 (3D Crystal Orb Badge)** 替代生硬方形色块，卡片自带顶层油彩高光内阴影（`inset 0 1.5px 0 rgba(255,255,255,0.95)`）与弹簧轻跃动效。
    - **提示告警（`.admonition`）**：**彩绘玻璃粉彩便签 (Stained Glass Notes)**，柔润半透色彩覆层搭配点彩角标。
    - **规格矩阵（`.spec-row`）**：晶石工艺标尺，配备点彩珠分隔符与温润熟褐等宽排版。
@@ -207,11 +207,14 @@ Pixel Crystal（油画粉彩晶光风 / Monet Crystal & Iridescent DNA）从根�
 </div>
 ```
 
-### 2. 彩绘玻璃粉彩提示框 (Stained Glass Admonition)
+### 2. 彩绘玻璃粉彩提示框 (Stained Glass Admonition with Pill Badge)
 ```html
 <div class="admonition info">
-  <div class="admonition-title">核心结论 (INFO)</div>
-  <p>这是 AI 提取的关键结论高亮框，用于引起读者对核心发现或前置约束的重点关注。</p>
+  <div class="admonition-header">
+    <span class="admonition-badge">✦ INFO / 核心结论</span>
+    <div class="admonition-title">Clean Room 设计规范</div>
+  </div>
+  <p>这是从长文中提取的关键结论高亮框，采用彩绘玻璃粉彩覆层与柔润半透光晕。</p>
 </div>
 ```
 
@@ -235,6 +238,14 @@ Pixel Crystal（油画粉彩晶光风 / Monet Crystal & Iridescent DNA）从根�
 </div>
 ```
 
+### 4. 莫奈点彩星斑水晶棱柱台 (Prismatic Crystal Pillar Stats Card)
+```html
+<div class="stat-card">
+  <div class="stat-val">300<span class="unit">%</span></div>
+  <div class="stat-label"><span class="dot"></span><span>ANNUAL GROWTH / 年度复合增长</span></div>
+</div>
+```
+
 ---
 
 ## 6. Do's and Don'ts (7 项金律与 7 项严禁红线)
@@ -243,15 +254,15 @@ Pixel Crystal（油画粉彩晶光风 / Monet Crystal & Iridescent DNA）从根�
 1. **Hero 必须配备晶透苹果主视觉展台**：Hero 首屏必须有机融合苹果光影展台，作为灵魂视觉锚点。
 2. **卡片必须使用琉璃粉彩磨砂材质**：必须配置 `backdrop-filter: blur` 与 `inset 0 1.5px 0 rgba(255,255,255,0.95)` 油彩高光内阴影。
 3. **正文严格使用熟褐暗茜草墨色**：严格使用 `--text-primary` (`#3C2836`) 与 `--text-secondary` (`#6B4F60`)。
-4. **数字卡片必须使用 3D 晶透果球序号徽章**：杜绝生硬平淡的直角单色小方块。
-5. **提示框采用彩绘玻璃半透便签质感**：带有柔和双色渐变与点彩标头。
-6. **规格矩阵使用点彩晶石标尺**：提炼等宽英文与参数单位，点缀点彩分隔符。
+4. **数字卡片与时间轴必须使用 3D 晶透果球序号徽章**：杜绝生硬平淡的直角单色小方块与单调细线。
+5. **提示框采用彩绘玻璃半透便签质感**：配备彩绘玻璃 Pill 胶囊 Badge 与柔润半透光晕内衬。
+6. **引用块（Blockquote）采用 20px 珍珠母贝大圆角与双引号晶光**：杜绝传统生硬的左侧单边粗实线与直角。
 7. **全交互配备轻盈弹簧回弹动效**：遵循 `cubic-bezier(0.34, 1.56, 0.64, 1)`。
 
 ### 7 项严禁红线 (Don'ts)
 1. **严禁使用死白生硬卡片（#FFFFFF 纯方盒）**：严禁退化为千篇一律的白卡片。
 2. **严禁使用单色生硬直角方块作为序号**：必须使用晶透果球序号徽章。
-3. **严禁破坏 Hero 晶球图文交融布局**：不可私自删除 Hero 展台。
+3. **严禁在提示框或引用块上使用传统生硬的左粗边框（`border-left`）或 0px 直角**。
 4. **严禁使用刺眼高饱和纯红纯蓝霓虹色**：严格遵守莫奈复调油画色盘。
 5. **严禁使用低对比度浅粉色文字作为正文**：正文必须保证 WCAG AAA 对比度。
 6. **严禁堆砌无意义的 emoji 装饰**：用精细的点彩 SVG 与 Mono 编号构建秩序。
