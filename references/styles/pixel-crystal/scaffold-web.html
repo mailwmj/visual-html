@@ -425,36 +425,59 @@ section {
 }
 
 /* ============================================================
-   PHASE 2: ADMONITIONS, RICH TEXT & CODE BLOCK (彩绘玻璃便签)
+   PHASE 2: ADMONITIONS, RICH TEXT & CODE BLOCK (莫奈点彩手记便笺)
    ============================================================ */
 .admonition {
-  border-radius: var(--radius-md);
-  padding: 18px 22px;
-  margin-bottom: 24px;
-  border: 1.5px solid;
   position: relative;
   overflow: hidden;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.95), 0 8px 24px rgba(194, 89, 117, 0.06);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.94) 0%, rgba(254, 246, 248, 0.76) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1.5px solid rgba(242, 167, 184, 0.50);
+  border-radius: var(--radius-md);
+  padding: 22px 26px;
+  margin-bottom: 24px;
+  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.98), 0 8px 24px rgba(194, 89, 117, 0.05);
   transition: transform 0.25s var(--ease-spring), box-shadow 0.25s ease;
 }
 .admonition:hover {
   transform: translateY(-2px);
-  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 1), 0 14px 32px rgba(194, 89, 117, 0.12);
+  box-shadow: inset 0 1.5px 0 #FFFFFF, 0 14px 32px rgba(194, 89, 117, 0.10);
 }
 
-.admonition.info {
-  background: linear-gradient(135deg, rgba(254, 243, 246, 0.85) 0%, rgba(250, 235, 242, 0.65) 100%);
-  border-color: rgba(242, 167, 184, 0.55);
+.admonition.info { border-color: rgba(242, 167, 184, 0.6); }
+.admonition.warning { border-color: rgba(228, 195, 140, 0.7); }
+.admonition.success, .admonition.tip { border-color: rgba(184, 222, 175, 0.7); }
+
+.admonition.info::before {
+  content: "";
+  position: absolute;
+  left: -20px;
+  top: -20px;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(242, 167, 184, 0.35) 0%, transparent 70%);
+  pointer-events: none;
 }
-.admonition.warning {
-  background: linear-gradient(135deg, rgba(254, 249, 235, 0.85) 0%, rgba(252, 243, 218, 0.65) 100%);
-  border-color: rgba(228, 200, 140, 0.65);
+.admonition.warning::before {
+  content: "";
+  position: absolute;
+  left: -20px;
+  top: -20px;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(245, 218, 140, 0.35) 0%, transparent 70%);
+  pointer-events: none;
 }
-.admonition.success, .admonition.tip {
-  background: linear-gradient(135deg, rgba(243, 250, 240, 0.85) 0%, rgba(232, 247, 238, 0.65) 100%);
-  border-color: rgba(184, 222, 175, 0.65);
+.admonition.success::before, .admonition.tip::before {
+  content: "";
+  position: absolute;
+  left: -20px;
+  top: -20px;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(184, 222, 175, 0.35) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .admonition-header {
@@ -462,60 +485,61 @@ section {
   align-items: center;
   gap: 10px;
   margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
 }
-.admonition-badge {
+
+.admonition-seal {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 900;
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(194, 89, 117, 0.3);
+  flex-shrink: 0;
+}
+.admonition.info .admonition-seal {
+  background: radial-gradient(circle at 35% 30%, #FFFFFF 0%, #F2A7B8 50%, #C25975 100%);
+  color: #3C2836;
+}
+.admonition.warning .admonition-seal {
+  background: radial-gradient(circle at 35% 30%, #FFFFFF 0%, #FAD98A 50%, #B88528 100%);
+  color: #4A3308;
+}
+.admonition.success .admonition-seal, .admonition.tip .admonition-seal {
+  background: radial-gradient(circle at 35% 30%, #FFFFFF 0%, #D4E8B8 50%, #528A40 100%);
+  color: #1A3810;
+}
+
+.admonition-tag {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
-  padding: 3px 10px;
-  border-radius: var(--radius-pill);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
-.admonition.info .admonition-badge {
-  background: rgba(242, 167, 184, 0.28);
-  color: #B84A68;
-  border: 1px solid rgba(242, 167, 184, 0.45);
-}
-.admonition.success .admonition-badge, .admonition.tip .admonition-badge {
-  background: rgba(184, 222, 175, 0.35);
-  color: #356E2D;
-  border: 1px solid rgba(184, 222, 175, 0.55);
-}
-.admonition.warning .admonition-badge {
-  background: rgba(228, 200, 140, 0.35);
-  color: #855E18;
-  border: 1px solid rgba(228, 200, 140, 0.55);
-}
+.admonition.info .admonition-tag { color: #C25975; }
+.admonition.warning .admonition-tag { color: #9A7228; }
+.admonition.success .admonition-tag, .admonition.tip .admonition-tag { color: #4A8042; }
 
 .admonition-title {
   font-weight: 800;
-  font-size: 14.5px;
+  font-size: 15px;
   color: var(--text-primary);
   margin-bottom: 0;
 }
-.admonition > .admonition-title {
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.admonition > .admonition-title::before {
-  content: "✦";
-  font-size: 11px;
-}
-.admonition.info > .admonition-title { color: #C25975; }
-.admonition.warning > .admonition-title { color: #9A7228; }
-.admonition.success > .admonition-title, .admonition.tip > .admonition-title { color: #4A8042; }
 
 .admonition p {
   color: var(--text-secondary);
   font-size: 13.5px;
-  line-height: 1.62;
+  line-height: 1.65;
   margin: 0;
+  position: relative;
+  z-index: 1;
 }
 
 .rich-text {
@@ -1372,7 +1396,8 @@ section {
       <!-- 05 / ADMONITIONS -->
       <div class="admonition info">
         <div class="admonition-header">
-          <span class="admonition-badge">✦ INFO / 核心结论</span>
+          <span class="admonition-seal">✦</span>
+          <span class="admonition-tag">INFO // 核心结论</span>
           <div class="admonition-title">Clean Room 设计规范</div>
         </div>
         <p>在基于多模态参考图逆向生成或开发全新风格时，严禁直接继承旧模板中的硬编码样式。必须基于标准纯 HTML 基座独立声明 Design Tokens 与 CSS 规则，从物理上杜绝跨风格样式污染与视觉退化。</p>
@@ -1380,16 +1405,18 @@ section {
 
       <div class="admonition warning">
         <div class="admonition-header">
-          <span class="admonition-badge">✦ WARN / 重要警示</span>
-          <div class="admonition-title">正文对比度保障</div>
+          <span class="admonition-seal">✦</span>
+          <span class="admonition-tag">WARN // 正文对比度保障</span>
+          <div class="admonition-title">暗茜草墨色规范</div>
         </div>
         <p>在浅色油画背景下排版时，严禁使用低对比度浅粉色正文，必须采用沉稳的熟褐暗茜草色以确保阅读舒适度与可访问性。</p>
       </div>
 
       <div class="admonition success">
         <div class="admonition-header">
-          <span class="admonition-badge">✦ PASS / 验证通过</span>
-          <div class="admonition-title">全组件保真验收</div>
+          <span class="admonition-seal">✦</span>
+          <span class="admonition-tag">PASS // 全组件保真验收</span>
+          <div class="admonition-title">WCAG AAA 高清标准</div>
         </div>
         <p>所有语义组件均通过 WCAG AAA 高对比度测试，在保证艺术美感的同时实现 100% 内容保真。</p>
       </div>
@@ -1487,47 +1514,88 @@ section {
         </div>
       </div>
 
-      <!-- 10 / SYSTEM ARCHITECTURE FLOWCHART -->
+      <!-- 10 / SYSTEM ARCHITECTURE FLOWCHART (PRISMATIC PIPELINE) -->
       <div class="flowchart-container">
-        <svg class="flowchart-svg" viewBox="0 0 800 160" xmlns="http://www.w3.org/2000/svg">
-          <g transform="translate(20, 40)">
-            <rect width="180" height="80" rx="16" fill="#FFFFFF" stroke="#F2A7B8" stroke-width="1.5"/>
-            <text x="90" y="38" font-family="'Plus Jakarta Sans', sans-serif" font-size="13" font-weight="800" fill="#3C2836" text-anchor="middle">多模态数据输入</text>
-            <text x="90" y="58" font-family="'IBM Plex Mono', monospace" font-size="10" font-weight="700" fill="#9C7C8E" text-anchor="middle">Phase 1: Ingestion</text>
+        <div class="mermaid-top-bar" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px dashed var(--border);">
+          <div class="mermaid-title" style="display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 11.5px; font-weight: 800; color: #8C2244; letter-spacing: 0.08em; text-transform: uppercase;">
+            <span>✦ SYSTEM TOPOLOGY // 架构拓扑与图表决策流</span>
+          </div>
+          <div class="mermaid-dots" style="display: flex; gap: 6px;">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: #F2A7B8;"></span>
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: #C5B9E8;"></span>
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: #B8E2DC;"></span>
+          </div>
+        </div>
+
+        <svg class="flowchart-svg" viewBox="0 0 880 180" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto; display: block;">
+          <defs>
+            <filter id="pc-flow-shadow" x="-10%" y="-10%" width="120%" height="130%">
+              <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#C25975" flood-opacity="0.08"/>
+            </filter>
+            <radialGradient id="pc-diamond-pearl-main" cx="35%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#FFFFFF"/>
+              <stop offset="60%" stop-color="#FAF1F4"/>
+              <stop offset="100%" stop-color="#F5E3EB"/>
+            </radialGradient>
+            <linearGradient id="pc-node-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FFFFFF"/>
+              <stop offset="100%" stop-color="#FCF6F8"/>
+            </linearGradient>
+          </defs>
+
+          <!-- 节点 1: Input -->
+          <g transform="translate(10, 50)">
+            <rect width="180" height="80" rx="18" fill="url(#pc-node-bg)" stroke="rgba(242, 167, 184, 0.75)" stroke-width="1.5" filter="url(#pc-flow-shadow)"/>
+            <text x="90" y="36" font-family="'Plus Jakarta Sans', sans-serif" font-size="13.5" font-weight="800" fill="#3C2836" text-anchor="middle">长文本 / 设计参考图</text>
+            <text x="90" y="58" font-family="'IBM Plex Mono', monospace" font-size="10.5" font-weight="700" fill="#C24368" text-anchor="middle">01 / INPUT INGESTION</text>
           </g>
 
-          <path d="M 200 80 L 250 80" stroke="#D88CA8" stroke-width="2" stroke-dasharray="4 4" />
-          <polygon points="250,76 258,80 250,84" fill="#D88CA8"/>
+          <!-- 连线 1 -->
+          <path d="M 190 90 L 230 90" stroke="#D88CA8" stroke-width="2.5" stroke-dasharray="5 4"/>
+          <polygon points="230,86 238,90 230,94" fill="#D88CA8"/>
 
-          <g transform="translate(260, 40)">
-            <rect width="200" height="80" rx="16" fill="#FAF2F4" stroke="#C5B9E8" stroke-width="1.5"/>
-            <text x="100" y="38" font-family="'Plus Jakarta Sans', sans-serif" font-size="13" font-weight="800" fill="#3C2836" text-anchor="middle">油画语义图谱引擎</text>
-            <text x="100" y="58" font-family="'IBM Plex Mono', monospace" font-size="10" font-weight="700" fill="#9C7C8E" text-anchor="middle">Phase 2: Processing</text>
+          <!-- 节点 2: Extract -->
+          <g transform="translate(240, 50)">
+            <rect width="180" height="80" rx="18" fill="url(#pc-node-bg)" stroke="rgba(197, 185, 232, 0.85)" stroke-width="1.5" filter="url(#pc-flow-shadow)"/>
+            <text x="90" y="36" font-family="'Plus Jakarta Sans', sans-serif" font-size="13.5" font-weight="800" fill="#3C2836" text-anchor="middle">多模态语义解构</text>
+            <text x="90" y="58" font-family="'IBM Plex Mono', monospace" font-size="10.5" font-weight="700" fill="#684F9E" text-anchor="middle">02 / DECONSTRUCTION</text>
           </g>
 
-          <path d="M 460 80 L 510 80" stroke="#C5B9E8" stroke-width="2" stroke-dasharray="4 4" />
-          <polygon points="510,76 518,80 510,84" fill="#C5B9E8"/>
+          <!-- 连线 2 -->
+          <path d="M 420 90 L 460 90" stroke="#C5B9E8" stroke-width="2.5" stroke-dasharray="5 4"/>
+          <polygon points="460,86 468,90 460,94" fill="#C5B9E8"/>
 
-          <g transform="translate(520, 40)">
-            <rect width="200" height="80" rx="16" fill="#FFFFFF" stroke="#B8E2DC" stroke-width="1.5"/>
-            <text x="100" y="38" font-family="'Plus Jakarta Sans', sans-serif" font-size="13" font-weight="800" fill="#3C2836" text-anchor="middle">高结构化白皮书交付</text>
-            <text x="100" y="58" font-family="'IBM Plex Mono', monospace" font-size="10" font-weight="700" fill="#9C7C8E" text-anchor="middle">Phase 3: Generation</text>
+          <!-- 节点 3: 菱形决策水晶宝石 -->
+          <g transform="translate(470, 30)">
+            <polygon points="60,0 120,60 60,120 0,60" fill="url(#pc-diamond-pearl-main)" stroke="rgba(216, 140, 168, 0.9)" stroke-width="1.8" filter="url(#pc-flow-shadow)"/>
+            <text x="60" y="54" font-family="'Plus Jakarta Sans', sans-serif" font-size="13" font-weight="900" fill="#3C2836" text-anchor="middle">图表决策</text>
+            <text x="60" y="72" font-family="'IBM Plex Mono', monospace" font-size="9.5" font-weight="800" fill="#C24368" text-anchor="middle">NATIVE / MERMAID</text>
+          </g>
+
+          <!-- 连线 3 上分支 -->
+          <path d="M 590 60 Q 640 40 680 40" fill="none" stroke="#B8E2DC" stroke-width="2"/>
+          <polygon points="680,36 688,40 680,44" fill="#B8E2DC"/>
+          <text x="635" y="32" font-family="'IBM Plex Mono', monospace" font-size="9.5" font-weight="800" fill="#356E2D">简单 3-5 步</text>
+
+          <!-- 节点 4A: 纯矢量 SVG -->
+          <g transform="translate(690, 10)">
+            <rect width="180" height="60" rx="14" fill="url(#pc-node-bg)" stroke="rgba(184, 222, 175, 0.85)" stroke-width="1.5" filter="url(#pc-flow-shadow)"/>
+            <text x="90" y="28" font-family="'Plus Jakarta Sans', sans-serif" font-size="12.5" font-weight="800" fill="#3C2836" text-anchor="middle">纯矢量 SVG 零依赖秒开</text>
+            <text x="90" y="46" font-family="'IBM Plex Mono', monospace" font-size="9.5" font-weight="700" fill="#356E2D" text-anchor="middle">FAST STANDALONE</text>
+          </g>
+
+          <!-- 连线 3 下分支 -->
+          <path d="M 590 120 Q 640 140 680 140" fill="none" stroke="#C5B9E8" stroke-width="2"/>
+          <polygon points="680,136 688,140 680,144" fill="#C5B9E8"/>
+          <text x="635" y="156" font-family="'IBM Plex Mono', monospace" font-size="9.5" font-weight="800" fill="#684F9E">复杂时序/拓扑</text>
+
+          <!-- 节点 4B: 动态扩展 -->
+          <g transform="translate(690, 110)">
+            <rect width="180" height="60" rx="14" fill="url(#pc-node-bg)" stroke="rgba(197, 185, 232, 0.85)" stroke-width="1.5" filter="url(#pc-flow-shadow)"/>
+            <text x="90" y="28" font-family="'Plus Jakarta Sans', sans-serif" font-size="12.5" font-weight="800" fill="#3C2836" text-anchor="middle">系统级动态扩展引擎</text>
+            <text x="90" y="46" font-family="'IBM Plex Mono', monospace" font-size="9.5" font-weight="700" fill="#684F9E" text-anchor="middle">DYNAMIC RUNTIME</text>
           </g>
         </svg>
-      </div>
-
-
-      <!-- 10B / MERMAID DYNAMIC ENGINE -->
-      <div class="flowchart-container mermaid-wrapper">
-        <pre class="mermaid">
-flowchart LR
-    A[01 / INPUT<br><b>长文本 / 设计参考图</b>] --> B[02 / EXTRACT<br><b>多模态语义解构</b>]
-    B --> C{图表决策<br><b>Native SVG 或 Mermaid?</b>}
-    C -->|简单 3-5 步| D[纯矢量 SVG<br><b>零依赖秒开</b>]
-    C -->|复杂拓扑/时序| E[Mermaid 引擎<br><b>晶体主题变量注入</b>]
-    D --> F[04 / OUTPUT<br><b>单文件 HTML 交付</b>]
-    E --> F
-        </pre>
       </div>
 
       <!-- 11 / MULTI-STEP PROCESS -->
@@ -1721,32 +1789,37 @@ flowchart LR
 </main>
 
 
-<!-- Mermaid.js 动态图表运行时 -->
+<!-- Mermaid.js 动态图表运行时 (按需显式渲染，支持零网络依赖与强健性) -->
 <script type="module">
-  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
   const mermaidElements = document.querySelectorAll('.mermaid');
   if (mermaidElements.length > 0) {
-    mermaidElements.forEach(el => {
-      el.textContent = el.textContent
-        .replace(/^\s*\/\/\s*MERMAID/i, '')
-        .replace(/^\s*\/\*[\s\S]*?\*\//, '')
-        .trim();
-    });
-    mermaid.initialize({
-      startOnLoad: true,
-      theme: 'base',
-      themeVariables: {
-        darkMode: false,
-        background: '#FDF8F7',
-        primaryColor: '#FFFFFF',
-        primaryTextColor: '#3C2836',
-        primaryBorderColor: '#9B72CF',
-        lineColor: '#9B72CF',
-        secondaryColor: '#F6ECF5',
-        tertiaryColor: '#FFFFFF',
-        fontFamily: '"Cinzel", "Noto Serif SC", serif'
-      }
-    });
+    try {
+      const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs');
+      mermaidElements.forEach(el => {
+        el.textContent = el.textContent
+          .replace(/^\s*\/\/\s*MERMAID/i, '')
+          .replace(/^\s*\/\*[\s\S]*?\*\//, '')
+          .trim();
+      });
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'base',
+        themeVariables: {
+          darkMode: false,
+          background: '#FDF8F7',
+          primaryColor: '#FFFFFF',
+          primaryTextColor: '#3C2836',
+          primaryBorderColor: '#D88CA8',
+          lineColor: '#C5B9E8',
+          secondaryColor: '#FAF2F4',
+          tertiaryColor: '#FFFFFF',
+          fontFamily: '"Plus Jakarta Sans", sans-serif'
+        }
+      });
+      await mermaid.run({ nodes: mermaidElements });
+    } catch (e) {
+      console.warn('[Visual-HTML] Mermaid runtime failed or offline fallback used.', e);
+    }
   }
 </script>
 

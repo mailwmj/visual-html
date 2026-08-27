@@ -15,13 +15,22 @@ metadata:
 
 ## 0. 执行路由（必读）
 
-本入口负责共享约束和路由启动，不直接承担所有媒介的完整执行步骤。触发 Skill 后，先读取 [`references/routing.md`](references/routing.md)，根据请求形状选择**恰好一个顶层 route**，再读取该 route 的 authority 和明确触发的支持文档：
+本入口负责共享约束和路由选择；各媒介的完整执行步骤由对应 route authority 定义。对需要生成或扩展的请求，先按用户要求的**最终产物**选择**恰好一个顶层 route**：
 
-- **Generate Web**：读取 [`references/routes/generate-web.md`](references/routes/generate-web.md)。
-- **Generate PPT**：读取 [`references/routes/generate-ppt.md`](references/routes/generate-ppt.md)。
-- **Extend Style Pack**：读取 [`references/routes/extend-style-pack.md`](references/routes/extend-style-pack.md)。
+| 最终产物 | 顶层 route authority |
+|---|---|
+| 单文件 Web 页面 | [`references/routes/generate-web.md`](references/routes/generate-web.md) |
+| 16:9 PPT / 演示文稿 | [`references/routes/generate-ppt.md`](references/routes/generate-ppt.md) |
+| 可复用视觉风格包 | [`references/routes/extend-style-pack.md`](references/routes/extend-style-pack.md) |
 
-风格是生成 route 内的 profile，不是新的顶层 route；画廊、离线打包和质量检查是按条件触发的 stage。顶层 route 由用户要求的**输出生命周期**决定，图片或 PPT/PPTX 作为参考输入时不决定 route：明确要求创建、扩展或注册风格包时始终进入 Extend Style Pack。路由确定后，不读取另一个媒介或生命周期的 authority。
+路由纪律：
+
+1. **按输出路由，不按附件路由**：图片、截图或 PPT/PPTX 作为参考输入时不决定 route。
+2. **扩展意图优先**：只要用户明确要求创建、修改、扩展或注册视觉风格包，始终进入 Extend Style Pack；参考材料只是该 route 的输入。
+3. **一次只加载一个 authority**：路由确定后，读取对应 authority 及其中明确触发的支持文档，不读取另一个媒介或生命周期的 authority。
+4. **风格不是顶层 route**：已注册风格、参考材料和自由设计是 Generate Web / Generate PPT 内的 style profile；锁定 `style_id` 后只读取目标风格规范和对应媒介脚手架。
+5. **辅助流程不是顶层 route**：画廊、参考提炼、离线打包和质量检查只在当前 route 的条件满足时触发。
+6. **仅浏览或选择风格**：停留在下文的风格选择 stage，不生成产物；媒介或扩展意图明确后再进入对应 route。
 
 所有 Skill 路径均相对于包含本文件的目录解析。执行命令前将该目录解析为绝对路径，不以当前工作目录作为 Skill 根目录。
 

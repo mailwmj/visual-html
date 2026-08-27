@@ -6,8 +6,7 @@
 
 ## 必读入口与路由
 
-- 先读 [`SKILL.md`](SKILL.md)，了解共享约束和总质量清单。
-- 再读 [`references/routing.md`](references/routing.md)，为每个请求选择且只选择一个顶层路由：
+- 先读 [`SKILL.md`](SKILL.md)，按其中的路由表为生成或扩展请求选择且只选择一个顶层路由，并了解共享约束和总质量清单：
   - Web 产物：[`references/routes/generate-web.md`](references/routes/generate-web.md)
   - PPT 产物：[`references/routes/generate-ppt.md`](references/routes/generate-ppt.md)
   - 新增或修改风格包：[`references/routes/extend-style-pack.md`](references/routes/extend-style-pack.md)
@@ -16,7 +15,6 @@
 ## 仓库结构与真相源
 
 - `SKILL.md`：Skill 入口、共享执行流程、内容保真和通用验收规则。
-- `references/routing.md`：路由边界、加载边界和条件 stage。
 - `references/styles/registry.json`：风格发现的唯一机器真相源。
 - `references/styles/<style-id>/`：一个风格包，包含 `design.md`、`scaffold-web.html`、`scaffold-ppt.html`、`preview.svg`、`preview.png`，可按需包含 `assets/` 或示例目录。
 - `references/shared-components.md`：18 个共享语义组件的内容契约和参考 DOM。

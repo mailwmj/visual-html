@@ -16,7 +16,7 @@ Pixel Crystal（油画粉彩晶光风 / Monet Crystal & Iridescent DNA）从根�
 4. **Layer 2: 琉璃粉彩磨砂具象组件（Frosted Iridescent Glass Components）**：
    - **指标看板（`.stat-card`）**：莫奈点彩星斑水晶棱柱台（24px 珍珠母贝磨砂底板 + 双端羽化极细流光丝 + 熟褐暗茜草大号雕刻字 + 晶透水钻微标与呼吸圆点）。
    - **特性卡片（`.num-card`）**：**晶透果球序号徽章 (3D Crystal Orb Badge)** 替代生硬方形色块，卡片自带顶层油彩高光内阴影（`inset 0 1.5px 0 rgba(255,255,255,0.95)`）与弹簧轻跃动效。
-   - **提示告警（`.admonition`）**：**彩绘玻璃粉彩便签 (Stained Glass Notes)**，柔润半透色彩覆层搭配点彩角标。
+   - **提示告警（`.admonition`）**：**莫奈点彩手记便笺 (Illuminated Manuscript Notes)**，珍珠母贝微透底板搭配 3D 点彩水钻印戳与晨曦柔光浸润。
    - **规格矩阵（`.spec-row`）**：晶石工艺标尺，配备点彩珠分隔符与温润熟褐等宽排版。
 
 ---
@@ -207,14 +207,15 @@ Pixel Crystal（油画粉彩晶光风 / Monet Crystal & Iridescent DNA）从根�
 </div>
 ```
 
-### 2. 彩绘玻璃粉彩提示框 (Stained Glass Admonition with Pill Badge)
+### 2. 莫奈点彩手记便笺 (Illuminated Manuscript Admonition with Stardust Seal)
 ```html
 <div class="admonition info">
   <div class="admonition-header">
-    <span class="admonition-badge">✦ INFO / 核心结论</span>
+    <span class="admonition-seal">✦</span>
+    <span class="admonition-tag">INFO // 核心结论</span>
     <div class="admonition-title">Clean Room 设计规范</div>
   </div>
-  <p>这是从长文中提取的关键结论高亮框，采用彩绘玻璃粉彩覆层与柔润半透光晕。</p>
+  <p>这是从长文中提取的关键结论高亮框，采用珍珠母贝微透底板与莫奈晨曦柔光微染。</p>
 </div>
 ```
 
