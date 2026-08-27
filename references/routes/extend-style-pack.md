@@ -95,7 +95,11 @@
 
 ### Stage 7 — Full Package Generation
 
-按本文第 4 节实现完整 `design.md`、Web/PPT scaffold 和 preview。Web scaffold 用 18 项语义组件验证覆盖能力；实际生成页面仍按原文结构按需选用。不得从参考材料或其他风格包复制整页 DOM/CSS 后换色冒充新风格。
+按本文第 4 节实现完整 `design.md`、Web/PPT scaffold 和 preview。推荐使用脚手架初始化 CLI 快速生成标准骨架：
+```bash
+python3 references/scripts/create_style.py <style-id> --name "风格中文名" [--english-name "..."] [--categories tech]
+```
+生成后，在骨架基础上深入定制专属 CSS 材质、色盘、排版与微缩名片。Web scaffold 用 18 项语义组件验证覆盖能力；实际生成页面仍按原文结构按需选用。不得从参考材料或其他风格包复制整页 DOM/CSS 后换色冒充新风格。
 
 ### Stage 8 — Quality Gate
 
@@ -166,7 +170,7 @@
 
 ### 4.2 模板目录标准结构
 
-在 `references/styles/` 下创建以风格命名的子目录（小写中划线，如 `references/styles/cyber-bento/`）。该目录下必须包含：
+在 `references/styles/` 下创建以风格命名的子目录（小写中划线，如 `references/styles/cyber-bento/`）。可通过 `python3 references/scripts/create_style.py <style-id> --name "风格名"` 一键生成该标准目录骨架。该目录下必须包含：
 
 1. **`design.md`**：该风格的完整设计语言规范，必须严格遵循本文第 4.4 节的标准架构，包含不可剥离的 **“风格自有布局契约（Style-Owned Layout Contract）”**。
 2. **`scaffold-web.html`**：该风格的 Web 单文件全组件脚手架，必须按标准 5 阶段顺序完整展示空间架构与 18 个语义组件，以验证风格覆盖能力；实际交付按原文语义选用，不要求全量出现。

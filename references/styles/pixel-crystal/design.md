@@ -139,16 +139,16 @@ Pixel Crystal（油画粉彩晶光风 / Monet Crystal & Iridescent DNA）从根�
 
 <!-- 4 节点景深悬浮晶透苹果图腾 (4-Point Apple Constellation) -->
 <div class="ambient-decor-apple pos-top-right" aria-hidden="true">
-  <img src="apple.png" alt="" />
+  <img src="assets/apple.png" alt="" />
 </div>
 <div class="ambient-decor-apple pos-mid-left" aria-hidden="true">
-  <img src="apple.png" alt="" />
+  <img src="assets/apple.png" alt="" />
 </div>
 <div class="ambient-decor-apple pos-mid-right" aria-hidden="true">
-  <img src="apple.png" alt="" />
+  <img src="assets/apple.png" alt="" />
 </div>
 <div class="ambient-decor-apple pos-bottom-left" aria-hidden="true">
-  <img src="apple.png" alt="" />
+  <img src="assets/apple.png" alt="" />
 </div>
 
 <!-- 2. 珍珠母贝微透琉璃画板 (Layer 1 Carrier Sheet) -->

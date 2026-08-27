@@ -9,7 +9,7 @@ import re
 import sys
 from pathlib import Path
 
-from sync_registry import generate_skill_table, sync_skill_file
+from sync_registry import generate_skill_table, sync_gallery_file, sync_skill_file
 
 
 def main() -> int:
@@ -91,7 +91,7 @@ def main() -> int:
         if orphaned:
             errors.append("registry entries without directories: " + ", ".join(orphaned))
 
-    # Verify SKILL.md sync
+    # Verify SKILL.md and style-gallery.html sync
     try:
         table_content = generate_skill_table(entries)
         synced, msg = sync_skill_file(skill_path, table_content, check_only=True)
@@ -99,6 +99,14 @@ def main() -> int:
             errors.append(f"SKILL.md style table out of sync: {msg}")
     except Exception as exc:
         errors.append(f"Failed to verify SKILL.md table synchronization: {exc}")
+
+    gallery_path = references / "style-gallery.html"
+    try:
+        synced, msg = sync_gallery_file(gallery_path, payload, check_only=True)
+        if not synced:
+            errors.append(f"style-gallery.html embedded registry out of sync: {msg}")
+    except Exception as exc:
+        errors.append(f"Failed to verify style-gallery.html synchronization: {exc}")
 
     if errors:
         print("❌ Registry validation failed")

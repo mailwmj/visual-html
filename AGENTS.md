@@ -27,7 +27,7 @@
 2. 保持源文保真：除非用户明确要求摘要，保留原文标题树、论据、参数、代码、引用和限定条件；无法映射为高级组件的内容放入 `.rich-text`，不要用“更多内容”占位。
 3. 风格隔离：锁定 `style_id` 后只读取该风格的 `design.md` 和目标媒介脚手架；不要把风格改造成通用白卡片或混入其他风格的视觉语言。
 4. 参考图设计使用 [`references/_base-scaffold-web.html`](references/_base-scaffold-web.html) 重新组织，不把参考图当作未经声明的模板来源。
-5. 新增/扩展风格时，按 [`references/routes/extend-style-pack.md`](references/routes/extend-style-pack.md) 完整补齐文件、预览和注册表；`style_id` 使用小写连字符格式，更新 `registry.json` 后运行 `python3 references/scripts/sync_registry.py` 同步 `SKILL.md`。
+5. 新增/扩展风格时，按 [`references/routes/extend-style-pack.md`](references/routes/extend-style-pack.md) 完整补齐文件、预览和注册表；可使用 `python3 references/scripts/create_style.py <style-id> --name "风格名"` 初始化标准骨架；`style_id` 使用小写连字符格式，更新 `registry.json` 后运行 `python3 references/scripts/sync_registry.py` 同步 `SKILL.md` 和 `style-gallery.html`。
 6. 修改某个风格包的模板或视觉实现时，将风格包作为整体同步维护：凡涉及设计语言、布局或组件契约的改动，都要同步更新该风格的 `design.md`、`preview.svg`，并从最新 SVG 重新导出 `preview.png`；不要只改其中一个文件。完成后运行注册表和预览校验脚本。
 7. 开发期间临时制作的视觉方案、页面原型或比稿统一放在 Skill 根目录的 `test/` 文件夹内；正式风格包、注册表和交付资源不放入该目录。
 8. 默认使用 ASCII 和仓库现有写法；手工编辑使用补丁方式，避免无关重排或生成物噪声。
